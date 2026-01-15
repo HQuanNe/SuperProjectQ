@@ -77,10 +77,6 @@
             this.lblInfo = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvMenuFood = new System.Windows.Forms.DataGridView();
-            this.MaSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TenSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DonViTinh = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DonGia = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvOrdered = new System.Windows.Forms.DataGridView();
             this.label3 = new System.Windows.Forms.Label();
             this.plMenu = new System.Windows.Forms.Panel();
@@ -102,6 +98,11 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnHuyDatTruoc = new System.Windows.Forms.Button();
             this.btnDatTruoc = new System.Windows.Forms.Button();
+            this.MaSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TenSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DinhLuong = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DVTDinhLuong = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GiaBan = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.flowLayoutPanel1.SuspendLayout();
             this.plMP001.SuspendLayout();
             this.plMP002.SuspendLayout();
@@ -686,13 +687,13 @@
             this.dgvMenuFood.AllowUserToResizeColumns = false;
             this.dgvMenuFood.AllowUserToResizeRows = false;
             this.dgvMenuFood.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.dgvMenuFood.ColumnHeadersHeight = 29;
-            this.dgvMenuFood.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvMenuFood.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMenuFood.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.MaSP,
             this.TenSP,
-            this.DonViTinh,
-            this.DonGia});
+            this.DinhLuong,
+            this.DVTDinhLuong,
+            this.GiaBan});
             this.dgvMenuFood.Location = new System.Drawing.Point(3, 68);
             this.dgvMenuFood.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvMenuFood.Name = "dgvMenuFood";
@@ -702,38 +703,6 @@
             this.dgvMenuFood.Size = new System.Drawing.Size(667, 357);
             this.dgvMenuFood.TabIndex = 14;
             this.dgvMenuFood.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMenuFood_CellDoubleClick);
-            // 
-            // MaSP
-            // 
-            this.MaSP.DataPropertyName = "MaSP";
-            this.MaSP.HeaderText = "Mã";
-            this.MaSP.MinimumWidth = 6;
-            this.MaSP.Name = "MaSP";
-            this.MaSP.Width = 60;
-            // 
-            // TenSP
-            // 
-            this.TenSP.DataPropertyName = "TenSP";
-            this.TenSP.HeaderText = "Tên sản phẩm";
-            this.TenSP.MinimumWidth = 6;
-            this.TenSP.Name = "TenSP";
-            this.TenSP.Width = 180;
-            // 
-            // DonViTinh
-            // 
-            this.DonViTinh.DataPropertyName = "DonViTinh";
-            this.DonViTinh.HeaderText = "Đơn vị";
-            this.DonViTinh.MinimumWidth = 6;
-            this.DonViTinh.Name = "DonViTinh";
-            this.DonViTinh.Width = 80;
-            // 
-            // DonGia
-            // 
-            this.DonGia.DataPropertyName = "DonGia";
-            this.DonGia.HeaderText = "Đơn giá";
-            this.DonGia.MinimumWidth = 6;
-            this.DonGia.Name = "DonGia";
-            this.DonGia.Width = 80;
             // 
             // dgvOrdered
             // 
@@ -990,6 +959,46 @@
             this.btnDatTruoc.UseVisualStyleBackColor = false;
             this.btnDatTruoc.Click += new System.EventHandler(this.btnDatTruoc_Click);
             // 
+            // MaSP
+            // 
+            this.MaSP.DataPropertyName = "MaSP";
+            this.MaSP.HeaderText = "Mã";
+            this.MaSP.MinimumWidth = 6;
+            this.MaSP.Name = "MaSP";
+            this.MaSP.Width = 55;
+            // 
+            // TenSP
+            // 
+            this.TenSP.DataPropertyName = "TenSP";
+            this.TenSP.HeaderText = "Tên sản phẩm";
+            this.TenSP.MinimumWidth = 6;
+            this.TenSP.Name = "TenSP";
+            this.TenSP.Width = 220;
+            // 
+            // DinhLuong
+            // 
+            this.DinhLuong.DataPropertyName = "DinhLuong";
+            this.DinhLuong.HeaderText = "Định lượng";
+            this.DinhLuong.MinimumWidth = 6;
+            this.DinhLuong.Name = "DinhLuong";
+            this.DinhLuong.Width = 55;
+            // 
+            // DVTDinhLuong
+            // 
+            this.DVTDinhLuong.DataPropertyName = "DVTDinhLuong";
+            this.DVTDinhLuong.HeaderText = "DVT Định lượng";
+            this.DVTDinhLuong.MinimumWidth = 6;
+            this.DVTDinhLuong.Name = "DVTDinhLuong";
+            this.DVTDinhLuong.Width = 80;
+            // 
+            // GiaBan
+            // 
+            this.GiaBan.DataPropertyName = "GiaBan";
+            this.GiaBan.HeaderText = "Đơn giá";
+            this.GiaBan.MinimumWidth = 6;
+            this.GiaBan.Name = "GiaBan";
+            this.GiaBan.Width = 75;
+            // 
             // frmPhong
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1112,11 +1121,12 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnConfirm;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MaSP;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TenSP;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DonViTinh;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DonGia;
         private System.Windows.Forms.Button btnDatTruoc;
         private System.Windows.Forms.Button btnHuyDatTruoc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MaSP;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TenSP;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DinhLuong;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DVTDinhLuong;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GiaBan;
     }
 }

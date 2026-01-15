@@ -144,14 +144,14 @@
             // MNQuanLy_Phong
             // 
             this.MNQuanLy_Phong.Name = "MNQuanLy_Phong";
-            this.MNQuanLy_Phong.Size = new System.Drawing.Size(224, 30);
+            this.MNQuanLy_Phong.Size = new System.Drawing.Size(158, 30);
             this.MNQuanLy_Phong.Text = "Phòng";
             this.MNQuanLy_Phong.Click += new System.EventHandler(this.MNQuanLy_Phong_Click);
             // 
             // orderToolStripMenuItem
             // 
             this.orderToolStripMenuItem.Name = "orderToolStripMenuItem";
-            this.orderToolStripMenuItem.Size = new System.Drawing.Size(224, 30);
+            this.orderToolStripMenuItem.Size = new System.Drawing.Size(158, 30);
             this.orderToolStripMenuItem.Text = "Order";
             // 
             // MNKhachHang
@@ -257,7 +257,7 @@
             this.ckcDarkMode.AutoSize = true;
             this.ckcDarkMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.ckcDarkMode.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckcDarkMode.Location = new System.Drawing.Point(780, 34);
+            this.ckcDarkMode.Location = new System.Drawing.Point(765, 34);
             this.ckcDarkMode.Name = "ckcDarkMode";
             this.ckcDarkMode.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.ckcDarkMode.Size = new System.Drawing.Size(149, 30);

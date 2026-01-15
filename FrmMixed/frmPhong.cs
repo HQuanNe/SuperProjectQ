@@ -44,8 +44,9 @@ namespace SuperProjectQ.FrmMixed
         private void DoCoSan(int maHD)
         {
             int soLuong = 3;
-            string sqlSP = "SELECT MaSP, TenSP, DonViTinh, DonGia FROM SanPham " +
-                "WHERE MaSP = 'SP001' OR MaSP = 'SP002' OR MaSP = 'SP011' OR MaSP = 'SP013' OR MaSP = 'SP015'";
+            string sqlSP = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.GiaBan FROM SanPham \n" +
+                "INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP " +
+                "WHERE KhoHang.MaSP = 'SP001' OR KhoHang.MaSP = 'SP002' OR KhoHang.MaSP = 'SP011' OR KhoHang.MaSP = 'SP013' OR KhoHang.MaSP = 'SP015'";
             dt = new DataTable();
             dt = kn.CreateTable(sqlSP);
             foreach (DataRow dr in dt.Rows)
@@ -53,7 +54,7 @@ namespace SuperProjectQ.FrmMixed
                 string maSP = dr["MaSP"].ToString();
                 string tenSP = dr["TenSP"].ToString();
                 string donViTinh = dr["DonViTinh"].ToString();
-                decimal donGia = Convert.ToDecimal(dr["DonGia"]);
+                decimal donGia = Convert.ToDecimal(dr["GiaBan"]);
                 string sqlThemDo = $"INSERT INTO ChiTietHD  (MaCTHD, MaHD, MaSP, SoLuong, DonVi, DonGia, ThanhTien)" +
                     $"VALUES ({AutoCreateID("MaCTHD", "ChiTietHD")}, '{maHD}', '{maSP}', {soLuong}, '{donViTinh}', {donGia}, {soLuong*donGia})";
                 cmd = new SqlCommand(sqlThemDo, kn.conn);
@@ -240,6 +241,44 @@ namespace SuperProjectQ.FrmMixed
                 cmd.ExecuteNonQuery();
             }
         } //Cập nhật bill khi đã TT xong
+        private void UpdateTonKho(int billID)
+        {
+            int soLuong = 0;
+            string maSP = null, sqlUpdateTonKho = null ;
+            double tonKho = 0;
+            //Lấy mã sp ở CTHD, số lượng
+            string sqlGetCTHD = $"SELECT MaSP, SoLuong FROM ChiTietHD WHERE MaHD = '{billID}'";
+            dt = new DataTable();
+            dt = kn.CreateTable(sqlGetCTHD);
+            foreach (DataRow dr in dt.Rows)
+            {
+                soLuong = Convert.ToInt32(dr["SoLuong"]);
+                maSP = dr["MaSP"].ToString();
+
+                //từ mã sp trên lấy ra đơn vị tính, 
+                string sqlDVT = $"SELECT SanPham.MaSP, SanPham.DinhLuong, KhoHang.DonViTinh, KhoHang.TonKho FROM SanPham INNER JOIN KhoHang ON KhoHang.MaSP = SanPham.MaSP WHERE SanPham.MaSP = '{maSP}'";
+                dt = new DataTable();
+                dt = kn.CreateTable(sqlDVT);
+                //lấy tồn kho
+                tonKho = Convert.ToDouble(dt.Rows[0]["TonKho"]);
+                //nếu đơn vị là kg sẽ tính định lượng sang kg và trừ
+                if (dt.Rows[0]["DonViTinh"].ToString() == "Kg")
+                {
+                    tonKho -= Convert.ToDouble(dt.Rows[0]["DinhLuong"]) * soLuong / 1000;
+                    
+                }
+                //Còn lại chỉ trừ số lượng
+                else
+                {
+                    tonKho -= Convert.ToDouble(soLuong);
+                }
+                sqlUpdateTonKho = $"UPDATE KhoHang SET TonKho = @TK WHERE MaSP = '{maSP}'";
+                cmd = new SqlCommand(sqlUpdateTonKho, kn.conn);
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@TK", tonKho);
+                cmd.ExecuteNonQuery();
+            }
+        }//Cập nhật tồn kho
         private decimal TongTienDV(int MaHD)
         {
             //Tính tổng tiền
@@ -257,9 +296,9 @@ namespace SuperProjectQ.FrmMixed
         } //Tính tiền DV
         private void GetData_From_CTHD(int maHD) //Load lại dữ liệu đã order khi mở lại chương trình
         {
-            string sqlCTHD = $"SELECT ChiTietHD.MaSP, SanPham.TenSP, ChiTietHD.SoLuong, ChiTietHD.DonVi, ChiTietHD.DonGia, ChiTietHD.ThanhTien " +
-            $"FROM ChiTietHD     " +
-            $"INNER JOIN SanPham ON ChiTietHD.MaSP = SanPham.MaSP WHERE MaHD = {maHD}";
+            string sqlCTHD = $"SELECT ChiTietHD.MaSP, KhoHang.TenSP, ChiTietHD.SoLuong, ChiTietHD.DonVi, ChiTietHD.DonGia, ChiTietHD.ThanhTien " +
+            $"FROM ChiTietHD \n" +
+            $"INNER JOIN KhoHang ON ChiTietHD.MaSP = KhoHang.MaSP WHERE MaHD = {maHD}";
             dgvOrdered.DataSource = kn.CreateTable(sqlCTHD);
         }
         private void LoadDataCTHD_ByTarget(string maPhong, int panelTag) 
@@ -664,7 +703,8 @@ namespace SuperProjectQ.FrmMixed
                     dgvMenuFood.SelectionMode = DataGridViewSelectionMode.FullRowSelect;//Chọn tất cả dữ liệu ở dòng
                     dgvMenuFood.AutoGenerateColumns = false;
                     //Load menu đồ ăn
-                    string sqlAllProd = "SELECT MaSP, TenSP, DonViTinh, DonGia\r\nFROM SanPham ORDER BY TenSP ASC";
+                    string sqlAllProd = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.DinhLuong, SanPham.DVTDinhLuong, SanPham.GiaBan FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP " +
+                                        "ORDER BY TenSP ASC";
                     dgvMenuFood.DataSource = kn.CreateTable(sqlAllProd);
 
                     //Load đồ đã order
@@ -1013,7 +1053,7 @@ namespace SuperProjectQ.FrmMixed
                     StatusCheck(maPhong);
                     Update_Status_Room(1, maPhong);
                     Add_Bill(billID, maPhong);
-                    DoCoSan(billID);
+                    //DoCoSan(billID);
                     GetData_From_CTHD(billID);
                     TongTienDV(billID);
                 }
@@ -1226,6 +1266,7 @@ namespace SuperProjectQ.FrmMixed
                         //Them bill
                         Update_Bill(billID, maPhong);
                         Update_Status_Room(0, maPhong);
+                        UpdateTonKho(billID);
                     }
                 }
                 else if (TakeNamePanel == "plMP002")
@@ -1251,6 +1292,7 @@ namespace SuperProjectQ.FrmMixed
                         //Thêm bill
                         Update_Bill(billID, maPhong);
                         Update_Status_Room(0, maPhong);
+                        UpdateTonKho(billID);
                     }
 
                 }
@@ -1276,6 +1318,7 @@ namespace SuperProjectQ.FrmMixed
                         //Thêm bill
                         Update_Bill(billID, maPhong);
                         Update_Status_Room(0, maPhong);
+                        UpdateTonKho(billID);
                     }
                 }
                 else if (TakeNamePanel == "plMP004")
@@ -1300,6 +1343,7 @@ namespace SuperProjectQ.FrmMixed
                         //Thêm bill
                         Update_Bill(billID, maPhong);
                         Update_Status_Room(0, maPhong);
+                        UpdateTonKho(billID);
                     }
                 }
                 else if (TakeNamePanel == "plMP005")
@@ -1324,6 +1368,7 @@ namespace SuperProjectQ.FrmMixed
                         //Thêm bill
                         Update_Bill(billID, maPhong);
                         Update_Status_Room(0, maPhong);
+                        UpdateTonKho(billID);
                     }
                 }
                 else if (TakeNamePanel == "plMP006")
@@ -1348,6 +1393,7 @@ namespace SuperProjectQ.FrmMixed
                         //Thêm bill
                         Update_Bill(billID, maPhong);
                         Update_Status_Room(0, maPhong);
+                        UpdateTonKho(billID);
                     }
                 }
                 else if (TakeNamePanel == "plMP007")
@@ -1372,6 +1418,7 @@ namespace SuperProjectQ.FrmMixed
                         //Thêm bill
                         Update_Bill(billID, maPhong);
                         Update_Status_Room(0, maPhong);
+                        UpdateTonKho(billID);
                     }
                 }
                 else if (TakeNamePanel == "plMP008")
@@ -1395,6 +1442,7 @@ namespace SuperProjectQ.FrmMixed
                         //Thêm bill
                         Update_Bill(billID, maPhong);
                         Update_Status_Room(0, maPhong);
+                        UpdateTonKho(billID);
                     }
                 }
                 lblTongTien.Text = "--";
@@ -1429,7 +1477,7 @@ namespace SuperProjectQ.FrmMixed
                     string maSP = dgvMenuFood.Rows[r].Cells[0].Value?.ToString();
                     string tenSP = dgvMenuFood.Rows[r].Cells[1].Value?.ToString();
                     string donVi = dgvMenuFood.Rows[r].Cells[2].Value?.ToString();
-                    int donGia = Convert.ToInt32(dgvMenuFood.Rows[r].Cells[3].Value?.ToString());
+                    int donGia = Convert.ToInt32(dgvMenuFood.Rows[r].Cells[4].Value?.ToString());
                     decimal thanhTien = 0;
                     int soLuong = 1;
                     bool flag = true;
@@ -1527,27 +1575,31 @@ namespace SuperProjectQ.FrmMixed
             if (btn.Name == "btnAll")
             {
                 dgvMenuFood.DataSource = null;
-                string sqlAllProd = "SELECT MaSP, TenSP, DonViTinh, DonGia\r\nFROM SanPham ORDER BY TenSP ASC";
+                string sqlAllProd = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.DinhLuong, SanPham.DVTDinhLuong, SanPham.GiaBan FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP " +
+                                    "ORDER BY TenSP ASC";
                 dgvMenuFood.DataSource = kn.CreateTable(sqlAllProd);
             }
             else if(btn.Name == "btnFood")
             {
                 dgvMenuFood.DataSource = null;
-                string sqlFood = "SELECT MaSP, TenSP, DonViTinh, DonGia\r\nFROM SanPham WHERE MaDM = 'ML001' OR MaDM = 'ML003' ORDER BY TenSP ASC";
+                string sqlFood = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.DinhLuong, SanPham.DVTDinhLuong, SanPham.GiaBan \n" +
+                                 "FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP WHERE KhoHang.MaDM = 'MDM01' OR KhoHang.MaDM = 'MDM03' ORDER BY TenSP ASC";
                 dgvMenuFood.DataSource = kn.CreateTable(sqlFood);
             }
             else if (btn.Name == "btnBeverage")
             {
                 //Load đồ uống
                 dgvMenuFood.DataSource = null;
-                string sqlBeverage = "SELECT MaSP, TenSP, DonViTinh, DonGia\r\nFROM SanPham WHERE MaDM = 'ML002' ORDER BY TenSP ASC";
+                string sqlBeverage = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.DinhLuong, SanPham.DVTDinhLuong, SanPham.GiaBan \n" +
+                                    "FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP WHERE KhoHang.MaDM = 'MDM02' ORDER BY TenSP ASC";
                 dgvMenuFood.DataSource = kn.CreateTable(sqlBeverage);
             }
             else if (btn.Name == "btnOther")
             {
                 //Load khác
                 dgvMenuFood.DataSource = null;
-                string sqlOther = "SELECT MaSP, TenSP, DonViTinh, DonGia\r\nFROM SanPham WHERE MaDM = 'ML004' ORDER BY TenSP ASC";
+                string sqlOther = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.DinhLuong, SanPham.DVTDinhLuong, SanPham.GiaBan \n" +
+                                  "FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP WHERE KhoHang.MaDM = 'MDM04' ORDER BY TenSP ASC";
                 dgvMenuFood.DataSource = kn.CreateTable(sqlOther);
             }
         }
