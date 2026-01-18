@@ -69,33 +69,36 @@ namespace SuperProjectQ.FrmMixed
             diemTichLuy += Convert.ToInt32(Math.Round(Session.TongTien / ti_le_quy_doi));
 
             int flag = 0; //Cờ hiệu nếu if trên không thoả mãn 1 trong 5 phần tử của dict thì chạy cái if == 5
-            foreach (string key in dsVIP.Keys)
+            if(Session.MaKH != "KH000")
             {
-                //nếu vượt mức sẽ lên VIP tương ứng
-                if (diemTichLuy >= dsVIP[key])
+                foreach (string key in dsVIP.Keys)
                 {
-                    VIP = key;
-                    discount = dsDiscount[key];
-                    sqlUpdateDiem = $"UPDATE KhachHang SET VIP = '{VIP}', DiemTichLuy = {diemTichLuy}, Discount = @DC WHERE MaKH = @MKH";
-                    cmd = new SqlCommand(sqlUpdateDiem, kn.conn);
-                    cmd.Parameters.Clear();
-                    cmd.Parameters.AddWithValue("@DC", discount);
-                    continue;
+                    //nếu vượt mức sẽ lên VIP tương ứng
+                    if (diemTichLuy >= dsVIP[key])
+                    {
+                        VIP = key;
+                        discount = dsDiscount[key];
+                        sqlUpdateDiem = $"UPDATE KhachHang SET VIP = '{VIP}', DiemTichLuy = {diemTichLuy}, Discount = @DC WHERE MaKH = @MKH";
+                        cmd = new SqlCommand(sqlUpdateDiem, kn.conn);
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.AddWithValue("@DC", discount);
+                        continue;
+                    }
+                    //không thì chỉ cập nhật điểm
+                    else
+                    {
+                        flag++;
+                    }
+                    if (flag == 5)
+                    {
+                        sqlUpdateDiem = $"UPDATE KhachHang SET DiemTichLuy = {diemTichLuy} WHERE MaKH = @MKH";
+                        cmd = new SqlCommand(sqlUpdateDiem, kn.conn);
+                        cmd.Parameters.Clear();
+                    }
                 }
-                //không thì chỉ cập nhật điểm
-                else
-                {
-                    flag++;
-                }
-                if (flag == 5)
-                {
-                    sqlUpdateDiem = $"UPDATE KhachHang SET DiemTichLuy = {diemTichLuy} WHERE MaKH = @MKH";
-                    cmd = new SqlCommand(sqlUpdateDiem, kn.conn);
-                    cmd.Parameters.Clear();
-                }
+                cmd.Parameters.AddWithValue("@MKH", Session.MaKH);
+                cmd.ExecuteNonQuery();
             }
-            cmd.Parameters.AddWithValue("@MKH", Session.MaKH);
-            cmd.ExecuteNonQuery();
         }
         private void LoadQRCode()
         {

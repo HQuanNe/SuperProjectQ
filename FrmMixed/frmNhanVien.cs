@@ -112,9 +112,15 @@ namespace SuperProjectQ.FrmMixed
             }
             string target = "NV";
             id = id.Replace(target, "");
-            MessageBox.Show(id);
             int tangMa = Convert.ToInt16(id) + 1;
-            string newID = target+ Convert.ToString("00"+tangMa);
+            string newID = null;
+            //Định dạng lại mã nếu <10 thì thêm 2 số 0, <100 thì thêm 1 số 0
+            if (tangMa < 10)
+                newID = target + "00" + tangMa.ToString();
+            else if (tangMa < 100)
+                newID = target + "0" + tangMa.ToString();
+            else
+                newID = target + tangMa.ToString();
             return newID;
         }
         private void Load_DB()
@@ -249,6 +255,7 @@ namespace SuperProjectQ.FrmMixed
         {
             UnLock_Control();
             ReadOnly_Off();
+            txtMaNV.Text = AutoCreateID();
             flag = true;
         }
 

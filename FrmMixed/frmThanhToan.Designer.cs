@@ -83,6 +83,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.plQRCode = new System.Windows.Forms.Panel();
             this.picQRCode = new System.Windows.Forms.PictureBox();
+            this.btnKhachHang = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxCard)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxQRCode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxCash)).BeginInit();
@@ -693,11 +694,22 @@
             this.picQRCode.TabIndex = 0;
             this.picQRCode.TabStop = false;
             // 
+            // btnKhachHang
+            // 
+            this.btnKhachHang.Font = new System.Drawing.Font("Times New Roman", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnKhachHang.Location = new System.Drawing.Point(1004, 12);
+            this.btnKhachHang.Name = "btnKhachHang";
+            this.btnKhachHang.Size = new System.Drawing.Size(164, 59);
+            this.btnKhachHang.TabIndex = 9;
+            this.btnKhachHang.Text = "Khách hàng";
+            this.btnKhachHang.UseVisualStyleBackColor = true;
+            // 
             // frmThanhToan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1177, 853);
+            this.Controls.Add(this.btnKhachHang);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
@@ -780,5 +792,6 @@
         private System.Windows.Forms.Label lblTienGiamGia;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label lblTienDV;
+        private System.Windows.Forms.Button btnKhachHang;
     }
 }

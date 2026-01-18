@@ -733,7 +733,7 @@ namespace SuperProjectQ.FrmMixed
                 MessageBox.Show("Lỗi CSDL \nLỗi: " + ex.Message);
             }
         } //Load dữ liệu 
-        #region Nút mở, đóng, đặt trước
+        #region Nút mở, đóng, đặt trướcc
         private void btnDatTruoc_Click(object sender, EventArgs e)
         {
             try
@@ -1053,7 +1053,7 @@ namespace SuperProjectQ.FrmMixed
                     StatusCheck(maPhong);
                     Update_Status_Room(1, maPhong);
                     Add_Bill(billID, maPhong);
-                    //DoCoSan(billID);
+                    DoCoSan(billID);
                     GetData_From_CTHD(billID);
                     TongTienDV(billID);
                 }

@@ -73,6 +73,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConnectData.cs" />
+    <Compile Include="FrmMixed\frmKhachHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMixed\frmKhachHang.Designer.cs">
+      <DependentUpon>frmKhachHang.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmMixed\InHoaDon\DataSetInHoaDon.cs">
       <DependentUpon>DataSetInHoaDon.xsd</DependentUpon>
     </Compile>
@@ -81,16 +87,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSetInHoaDon.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Frm-Main-Login-Register\frmLogin.cs">
+    <Compile Include="FrmMixed\Main-Login-Register\frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Frm-Main-Login-Register\frmLogin.Designer.cs">
+    <Compile Include="FrmMixed\Main-Login-Register\frmLogin.Designer.cs">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="Frm-Main-Login-Register\frmMainUI.cs">
+    <Compile Include="FrmMixed\Main-Login-Register\frmMainUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Frm-Main-Login-Register\frmMainUI.Designer.cs">
+    <Compile Include="FrmMixed\Main-Login-Register\frmMainUI.Designer.cs">
       <DependentUpon>frmMainUI.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmMixed\frmHoaDon.cs">
@@ -136,14 +142,17 @@
       <DependentUpon>QLKaraokDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="TransData.cs" />
-    <EmbeddedResource Include="Frm-Main-Login-Register\frmLogin.resx">
+    <EmbeddedResource Include="FrmMixed\Main-Login-Register\frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Frm-Main-Login-Register\frmMainUI.resx">
+    <EmbeddedResource Include="FrmMixed\Main-Login-Register\frmMainUI.resx">
       <DependentUpon>frmMainUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMixed\frmHoaDon.resx">
       <DependentUpon>frmHoaDon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMixed\frmKhachHang.resx">
+      <DependentUpon>frmKhachHang.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMixed\frmNhanVien.resx">
       <DependentUpon>frmNhanVien.cs</DependentUpon>
