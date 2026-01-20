@@ -27,6 +27,7 @@ namespace SuperProjectQ.FrmMixed
         string PTTT = ""; //Phương thức TT
         bool isCustomer = false; //Kiểm tra xem phải khách hàng quen ko
         decimal tienGiamGia = 0; // Tiền đc giảm
+        bool isGhiNo = false;
 
         decimal VAT = 0.05m; //Mức thuế
         private int TienNhan()
@@ -37,7 +38,7 @@ namespace SuperProjectQ.FrmMixed
                 takeNum = Convert.ToInt32(txtTienNhan.Text.Replace(".", ""));
             }
             return takeNum;
-        }
+        }//Tiền nhận khi tttm (bỏ dấu chấm để tính toán)
         private void TichDiemKH()
         {
             TongThanhToan();
@@ -99,7 +100,7 @@ namespace SuperProjectQ.FrmMixed
                 cmd.Parameters.AddWithValue("@MKH", Session.MaKH);
                 cmd.ExecuteNonQuery();
             }
-        }
+        }//Tích điểm cho khách
         private void LoadQRCode()
         {
             TongThanhToan();
@@ -116,14 +117,14 @@ namespace SuperProjectQ.FrmMixed
             // Hiển thị lên PictureBox
             picQRCode.SizeMode = PictureBoxSizeMode.StretchImage;
             picQRCode.Load(url);
-        }
-        private void LoadLabel()
+        }//Load mã QR
+        private void LoadLabel()//Hiển thị lên giao diện
         {
             lblTienPhong.Text = Session.TongTienPhong.ToString("#,##0 VND");
             lblTienDV.Text = Session.TongTienDV.ToString("#,##0");
 
-            if (isCustomer) lblTienGiamGia.Text = Session.Discount.ToString("#,##0");
-            else lblTienGiamGia.Text = "";
+            if (isCustomer) lblTrietKhau.Text = Session.Discount.ToString("#,##0");
+            else lblTrietKhau.Text = "";
 
             lblTienThue.Text = Session.TienVAT.ToString("#,##0");
             lblTienThanhToan.Text = Session.TongThanhToan.ToString("#,##0");
@@ -165,73 +166,146 @@ namespace SuperProjectQ.FrmMixed
             {
                 MessageBox.Show("Lỗi: " + ex.Message);
             }
-        }
-        private void txtSDT_TextChanged(object sender, EventArgs e)
+        }//Tính tổng số tiền thanh toán
+        private void LoadVoucher() 
         {
-            if (txtSDT.Text.Length > 10)
-            {
-                MessageBox.Show("Số điện thoại <= 10");
-                string newTxtSDT = txtSDT.Text.Remove(txtSDT.Text.Length - 1, 1);
-                txtSDT.Text = newTxtSDT;
-                return;
-            }
-            string noData = "--";
-
-            string sqlKH = $"SELECT * FROM KhachHang WHERE SoDienThoai = '{txtSDT.Text}'";
-            da = new SqlDataAdapter(sqlKH, kn.conn);
-            dt = new DataTable();
-            da.Fill(dt);
-            if (dt.Rows.Count > 0 && txtSDT.Text.Length == 10)
+            cmbVoucher.Items.Clear();
+            string sqlVoucher = $"SELECT * FROM Voucher WHERE MaKH = '{Session.MaKH}'";
+            dt = kn.CreateTable(sqlVoucher);
+            if (dt.Rows.Count > 0)
             {
                 foreach (DataRow dr in dt.Rows)
                 {
-                    isCustomer = true;
-                    //Gán dữ liệu
-                    Session.MaKH = dr["MaKH"].ToString();
-                    lblTenKH.Text = dr["TenKH"].ToString();
-                    lblDiaChi.Text = dr["DiaChi"].ToString();
-                    lblVIP.Text = dr["VIP"].ToString();
-                    lblDiemTichLuy.Text = dr["DiemTichLuy"].ToString();
-                    lblDiscount.Text = (Convert.ToDouble(dr["Discount"]) * 100).ToString() + "%";
-
-                    //Xử lý giảm giá
-                    tienGiamGia = Session.TongTien * Convert.ToDecimal(dr["Discount"]);
-                    break;
+                    cmbVoucher.Items.Add(dr["MaVoucher"].ToString());
                 }
-                TongThanhToan();
-                LoadLabel();
-                LoadQRCode();
             }
-            else
+        }//Load voucher nếu có
+        private bool UpdateGhiNo()
+        {
+            if (isGhiNo)
             {
-                isCustomer = false;
+                string number = "0123456789";
 
-                lblTenKH.Text = noData;
-                lblDiaChi.Text = noData;
-                lblVIP.Text = noData;
-                lblDiemTichLuy.Text = noData;
-                lblDiscount.Text = noData;
-                lblTienGiamGia.Text = noData;
+                if (txtCCCD.Text.Trim() == "" || txtCCCD.Text.Trim().Length != 12 || txtCCCD.Text.Any(c => !number.Contains(c)) || txtTSTC.Text.Trim() == "")
+                {
+                    MessageBox.Show("Vui lòng nhập số CCCD và tài sản thế chấp hợp lệ!!!");
+                    return false;
+                }
+                DateTime ngayGhiNo = DateTime.Now;
+                DateTime hanThanhToan = ngayGhiNo.AddDays(10); //Ngày thanh toán nợ là 10 ngày kể từ ngày ghi nợ
+                bool trangThai = true; 
+                int soNgayQuaHan = 0;
+                double phanTramLaiSuat = 0; //Mặc định lãi suất 0%
+
+                try
+                {
+                    //Thêm vào danh sách ghi nợ
+                    string sqlUpdateGhiNo = $"INSERT INTO GhiNo(CCCD, MAHD, TaiSanTheChap, NgayGhiNo, HanThanhToan, SoNgayQuaHan, [TienQuaHan(2%/HD)], TrangThai) VALUES (@CCCD, @MHD, @TSTC, @NGN, @HTT, @SNQH, @LS, @TT)";
+                    cmd = new SqlCommand(sqlUpdateGhiNo, kn.conn);
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@CCCD", txtCCCD.Text.Trim());
+                    cmd.Parameters.AddWithValue("@MHD", Session.maHD);
+                    cmd.Parameters.AddWithValue("@TSTC", txtTSTC.Text.Trim());
+                    cmd.Parameters.AddWithValue("@NGN", ngayGhiNo);
+                    cmd.Parameters.AddWithValue("@HTT", hanThanhToan);
+                    cmd.Parameters.AddWithValue("@SNQH", soNgayQuaHan);
+                    cmd.Parameters.AddWithValue("@LS", phanTramLaiSuat);
+                    cmd.Parameters.AddWithValue("@TT", trangThai);
+                    cmd.ExecuteNonQuery();
+
+                    //Cập nhật trạng thái hoá đơn
+                    Session.TrangThaiHD = false;
+                }
+                catch (SqlException ex)
+                {
+                    switch (ex.Number)
+                    {
+                        case 2627: // Vi phạm khoá chính
+                            MessageBox.Show("Đối tượng này đang ghi nợ chưa trả!!!");
+                            return false;
+                        default:
+                            MessageBox.Show("Lỗi: " + ex.Message);
+                            return false;
+                    }
+                }
             }
-            if(txtSDT.Text.Length == 10 || txtSDT.Text.Length == 9  && !isCustomer)
+            return true;
+        }
+        private void txtSDT_TextChanged(object sender, EventArgs e)
+        {
+            try
             {
-                TongThanhToan();
-                LoadLabel();
-                LoadQRCode();
+                if (txtSDT.Text.Length > 10)
+                {
+                    MessageBox.Show("Số điện thoại <= 10");
+                    string newTxtSDT = txtSDT.Text.Remove(txtSDT.Text.Length - 1, 1);
+                    txtSDT.Text = newTxtSDT;
+                    return;
+                }
+                string noData = "--";
+
+                string sqlKH = $"SELECT * FROM KhachHang WHERE SoDienThoai = '{txtSDT.Text}'";
+                da = new SqlDataAdapter(sqlKH, kn.conn);
+                dt = new DataTable();
+                da.Fill(dt);
+                if (dt.Rows.Count > 0 && txtSDT.Text.Length == 10)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        isCustomer = true;
+                        //Gán dữ liệu
+                        Session.MaKH = dr["MaKH"].ToString();
+                        lblTenKH.Text = dr["TenKH"].ToString();
+                        lblDiaChi.Text = dr["DiaChi"].ToString();
+                        lblVIP.Text = dr["VIP"].ToString();
+                        lblDiemTichLuy.Text = dr["DiemTichLuy"].ToString();
+                        lblDiscount.Text = (Convert.ToDouble(dr["Discount"]) * 100).ToString() + "%";
+
+                        //Xử lý giảm giá
+                        tienGiamGia = Session.TongTien * Convert.ToDecimal(dr["Discount"]);
+                        break;
+                    }
+                    TongThanhToan();
+                    LoadLabel();
+                    LoadQRCode();
+                }
+                else
+                {
+                    isCustomer = false;
+
+                    lblTenKH.Text = noData;
+                    lblDiaChi.Text = noData;
+                    lblVIP.Text = noData;
+                    lblDiemTichLuy.Text = noData;
+                    lblDiscount.Text = noData;
+                    lblTrietKhau.Text = noData;
+                }
+                if (txtSDT.Text.Length == 10 || txtSDT.Text.Length == 9 && !isCustomer)
+                {
+                    TongThanhToan();
+                    LoadLabel();
+                    LoadQRCode();
+                }
+
+                if (isCustomer) lblTienThanhToan.Text = Session.TongThanhToan.ToString("#,##0 VND");
+                else lblTienThanhToan.Text = Session.TongThanhToan.ToString("#,##0 VND");
+
+                if (PTTT == "Tiền mặt")
+                {
+                    int tienNhan = Convert.ToInt32(txtTienNhan.Text.Replace(".", ""));
+                    txtTraLai.Text = (tienNhan - Session.TongThanhToan).ToString("#,##0");
+                }
             }
-
-            if (isCustomer) lblTienThanhToan.Text = Session.TongThanhToan.ToString("#,##0 VND");
-            else lblTienThanhToan.Text = Session.TongThanhToan.ToString("#,##0 VND");
-
-            if (PTTT == "Tiền mặt")
+            catch (Exception ex)
             {
-                int tienNhan = Convert.ToInt32(txtTienNhan.Text.Replace(".", ""));
-                txtTraLai.Text = (tienNhan - Session.TongThanhToan).ToString("#,##0");
+                MessageBox.Show(ex.Message);
+                return;
             }
         }
         private void btnQRCode_Click(object sender, EventArgs e)
         {
             plQRCode.Show();
+            plGhiNo.Hide();
             plCash.Hide();
             plTTKH.Visible = true;
             //Đặt tên theo PTTT
@@ -249,8 +323,14 @@ namespace SuperProjectQ.FrmMixed
                 Session.isPay = true;
                 Session.PTTT = PTTT;
                 Session.TrangThaiHD = true;
+
                 TichDiemKH();
+                //cập nhật ghi nợ nếu có
+                if (!UpdateGhiNo()) return;
+
+                //Ghi log vào file
                 Session.Datalog("payment.txt", $"Mã NV: {Session.MaNV} Đã thực hiện thanh toán hoá đơn >> {Session.maHD} <<");
+
                 this.Close();
                 await Task.Delay(100);
                 frmPrintBill printBill = new frmPrintBill();
@@ -269,7 +349,9 @@ namespace SuperProjectQ.FrmMixed
 
                 plQRCode.Hide();
                 plCash.Hide();
+                plGhiNo.Hide();
                 plTTKH.Visible = false;
+
 
                 if (isCustomer) lblTienThanhToan.Text = Session.TongThanhToan.ToString("#,##0 VND");
                 else lblTienThanhToan.Text = Session.TongTien.ToString("#,##0 VND");
@@ -280,15 +362,13 @@ namespace SuperProjectQ.FrmMixed
             }
         }
 
-
-        #region TT tiền mặt
-
         private void btnCash_Click(object sender, EventArgs e)
         {
             TongThanhToan();
             LoadLabel();
 
             plQRCode.Hide();
+            plGhiNo.Hide();
             plCash.Show();
             plTTKH.Visible = true;
             txtTienNhan.Text = "0";
@@ -297,6 +377,7 @@ namespace SuperProjectQ.FrmMixed
             PTTT = "Tiền mặt";
             lblPTTT.Text = "PTTT: " + PTTT;
         }
+        #region Nút ấn tiền mặt
         private void btnClear_Click(object sender, EventArgs e)
         {
             txtTienNhan.Text = "0";
@@ -378,6 +459,25 @@ namespace SuperProjectQ.FrmMixed
             {
                 txtTraLai.Text = "0";
             }
+        }
+
+        private void btnKhachHang_Click(object sender, EventArgs e)
+        {
+            frmKhachHang kh = new frmKhachHang();
+            kh.ShowDialog();
+        }
+
+        private void btnGhiNo_Click(object sender, EventArgs e)
+        {
+            plGhiNo.Show();
+            plQRCode.Hide();
+            plCash.Hide();
+            plTTKH.Visible = true;
+
+            //Đặt tên theo PTTT
+            PTTT = "Ghi nợ";
+            lblPTTT.Text = "PTTT: " + PTTT;
+            isGhiNo = true;
         }
     }
 }

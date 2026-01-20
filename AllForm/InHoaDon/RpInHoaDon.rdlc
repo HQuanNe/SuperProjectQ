@@ -562,7 +562,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>TongTien</rd:DefaultName>
-        <Top>8.24672cm</Top>
+        <Top>9.83422cm</Top>
         <Left>3.78838cm</Left>
         <Height>0.6cm</Height>
         <Width>3.71467cm</Width>
@@ -595,7 +595,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox30</rd:DefaultName>
-        <Top>8.24672cm</Top>
+        <Top>9.83422cm</Top>
         <Left>0.15595cm</Left>
         <Height>0.6cm</Height>
         <Width>3.04759cm</Width>
@@ -987,7 +987,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox4</rd:DefaultName>
-        <Top>9.4005cm</Top>
+        <Top>11.3055cm</Top>
         <Left>0.42573cm</Left>
         <Height>0.64233cm</Height>
         <Width>6.95045cm</Width>
@@ -1168,7 +1168,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox30</rd:DefaultName>
-        <Top>7.19924cm</Top>
+        <Top>8.15174cm</Top>
         <Left>0.15595cm</Left>
         <Height>0.6cm</Height>
         <Width>1.93517cm</Width>
@@ -1200,7 +1200,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>VAT</rd:DefaultName>
-        <Top>7.19924cm</Top>
+        <Top>8.15174cm</Top>
         <Left>3.78838cm</Left>
         <Height>0.6cm</Height>
         <Width>3.71468cm</Width>
@@ -1281,7 +1281,7 @@ Format(Sum(Fields!Discount.Value, "DataSetKH") * 100, "0.##") &amp; "%):"</Value
         </Style>
       </Textbox>
       <Line Name="Line1">
-        <Top>9.05485cm</Top>
+        <Top>10.64235cm</Top>
         <Height>0cm</Height>
         <Width>7.68823cm</Width>
         <ZIndex>26</ZIndex>
@@ -1292,7 +1292,7 @@ Format(Sum(Fields!Discount.Value, "DataSetKH") * 100, "0.##") &amp; "%):"</Value
         </Style>
       </Line>
     </ReportItems>
-    <Height>3.95387in</Height>
+    <Height>4.70387in</Height>
     <Style />
   </Body>
   <Width>3.02686in</Width>

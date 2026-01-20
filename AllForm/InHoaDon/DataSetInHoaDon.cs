@@ -10,7 +10,7 @@ namespace SuperProjectQ
 {
 }
 
-namespace SuperProjectQ.FrmMixed.InHoaDon
+namespace SuperProjectQ.AllForm.InHoaDon
 {
 
 

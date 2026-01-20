@@ -97,6 +97,8 @@ namespace SuperProjectQ.Frm_Main_Login_Register
             lblTenNV.Text = mainTenNV;
             lblChucVu.Text = mainChucVu;
             lblQuyenHan.Text = TenQH();
+
+            Session.KiemTraGhiNo(); // Kiểm tra ghi nợ khi mở form Main
         }
     }
 }

@@ -41,8 +41,12 @@
             this.TienPhong = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TienDichVu = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TongTien = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GiamGia = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VAT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TongThanhToan = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PTTT = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TrangThai = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GhiChu = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHoaDon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,10 +64,15 @@
             this.TienPhong,
             this.TienDichVu,
             this.TongTien,
+            this.GiamGia,
+            this.VAT,
+            this.TongThanhToan,
             this.PTTT,
-            this.TrangThai});
+            this.TrangThai,
+            this.GhiChu});
             this.dgvHoaDon.Location = new System.Drawing.Point(12, 89);
             this.dgvHoaDon.Name = "dgvHoaDon";
+            this.dgvHoaDon.RowHeadersVisible = false;
             this.dgvHoaDon.RowHeadersWidth = 51;
             this.dgvHoaDon.RowTemplate.Height = 24;
             this.dgvHoaDon.Size = new System.Drawing.Size(758, 352);
@@ -96,7 +105,7 @@
             this.MaHD.HeaderText = "Mã hoá đơn";
             this.MaHD.MinimumWidth = 6;
             this.MaHD.Name = "MaHD";
-            this.MaHD.Width = 80;
+            this.MaHD.Width = 40;
             // 
             // MaPhong
             // 
@@ -104,7 +113,7 @@
             this.MaPhong.HeaderText = "Mã phòng";
             this.MaPhong.MinimumWidth = 6;
             this.MaPhong.Name = "MaPhong";
-            this.MaPhong.Width = 80;
+            this.MaPhong.Width = 60;
             // 
             // MaKH
             // 
@@ -112,7 +121,7 @@
             this.MaKH.HeaderText = "Mã khách hàng";
             this.MaKH.MinimumWidth = 6;
             this.MaKH.Name = "MaKH";
-            this.MaKH.Width = 80;
+            this.MaKH.Width = 60;
             // 
             // MaNV
             // 
@@ -120,7 +129,7 @@
             this.MaNV.HeaderText = "Mã nhân viên";
             this.MaNV.MinimumWidth = 6;
             this.MaNV.Name = "MaNV";
-            this.MaNV.Width = 80;
+            this.MaNV.Width = 60;
             // 
             // GioVao
             // 
@@ -128,7 +137,6 @@
             this.GioVao.HeaderText = "Giờ vào";
             this.GioVao.MinimumWidth = 6;
             this.GioVao.Name = "GioVao";
-            this.GioVao.Width = 125;
             // 
             // GioRa
             // 
@@ -136,7 +144,6 @@
             this.GioRa.HeaderText = "Giờ ra";
             this.GioRa.MinimumWidth = 6;
             this.GioRa.Name = "GioRa";
-            this.GioRa.Width = 125;
             // 
             // TongSoPhut
             // 
@@ -144,7 +151,7 @@
             this.TongSoPhut.HeaderText = "Tổng số phút";
             this.TongSoPhut.MinimumWidth = 6;
             this.TongSoPhut.Name = "TongSoPhut";
-            this.TongSoPhut.Width = 125;
+            this.TongSoPhut.Width = 60;
             // 
             // TienPhong
             // 
@@ -152,7 +159,7 @@
             this.TienPhong.HeaderText = "Tiền phòng";
             this.TienPhong.MinimumWidth = 6;
             this.TienPhong.Name = "TienPhong";
-            this.TienPhong.Width = 125;
+            this.TienPhong.Width = 90;
             // 
             // TienDichVu
             // 
@@ -160,7 +167,7 @@
             this.TienDichVu.HeaderText = "Tiền dịch vụ";
             this.TienDichVu.MinimumWidth = 6;
             this.TienDichVu.Name = "TienDichVu";
-            this.TienDichVu.Width = 125;
+            this.TienDichVu.Width = 90;
             // 
             // TongTien
             // 
@@ -168,7 +175,31 @@
             this.TongTien.HeaderText = "Tổng tiền";
             this.TongTien.MinimumWidth = 6;
             this.TongTien.Name = "TongTien";
-            this.TongTien.Width = 110;
+            this.TongTien.Width = 90;
+            // 
+            // GiamGia
+            // 
+            this.GiamGia.DataPropertyName = "GiamGia";
+            this.GiamGia.HeaderText = "Triết khấu";
+            this.GiamGia.MinimumWidth = 6;
+            this.GiamGia.Name = "GiamGia";
+            this.GiamGia.Width = 90;
+            // 
+            // VAT
+            // 
+            this.VAT.DataPropertyName = "VAT";
+            this.VAT.HeaderText = "VAT";
+            this.VAT.MinimumWidth = 6;
+            this.VAT.Name = "VAT";
+            this.VAT.Width = 90;
+            // 
+            // TongThanhToan
+            // 
+            this.TongThanhToan.DataPropertyName = "TongThanhToan";
+            this.TongThanhToan.HeaderText = "Tổng thanh toán";
+            this.TongThanhToan.MinimumWidth = 6;
+            this.TongThanhToan.Name = "TongThanhToan";
+            this.TongThanhToan.Width = 90;
             // 
             // PTTT
             // 
@@ -176,7 +207,7 @@
             this.PTTT.HeaderText = "PTTT";
             this.PTTT.MinimumWidth = 6;
             this.PTTT.Name = "PTTT";
-            this.PTTT.Width = 125;
+            this.PTTT.Width = 80;
             // 
             // TrangThai
             // 
@@ -184,7 +215,16 @@
             this.TrangThai.HeaderText = "Trạng thái";
             this.TrangThai.MinimumWidth = 6;
             this.TrangThai.Name = "TrangThai";
-            this.TrangThai.Width = 125;
+            this.TrangThai.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.TrangThai.Width = 90;
+            // 
+            // GhiChu
+            // 
+            this.GhiChu.DataPropertyName = "GhiChu";
+            this.GhiChu.HeaderText = "Ghi Chú";
+            this.GhiChu.MinimumWidth = 6;
+            this.GhiChu.Name = "GhiChu";
+            this.GhiChu.Width = 125;
             // 
             // frmHoaDon
             // 
@@ -220,7 +260,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TienPhong;
         private System.Windows.Forms.DataGridViewTextBoxColumn TienDichVu;
         private System.Windows.Forms.DataGridViewTextBoxColumn TongTien;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GiamGia;
+        private System.Windows.Forms.DataGridViewTextBoxColumn VAT;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TongThanhToan;
         private System.Windows.Forms.DataGridViewTextBoxColumn PTTT;
         private System.Windows.Forms.DataGridViewTextBoxColumn TrangThai;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GhiChu;
     }
 }

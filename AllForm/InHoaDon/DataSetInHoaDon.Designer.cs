@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace SuperProjectQ.FrmMixed.InHoaDon {
+namespace SuperProjectQ.AllForm.InHoaDon {
     
     
     /// <summary>

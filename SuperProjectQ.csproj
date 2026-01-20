@@ -73,60 +73,60 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConnectData.cs" />
-    <Compile Include="FrmMixed\frmKhachHang.cs">
+    <Compile Include="AllForm\frmKhachHang.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmMixed\frmKhachHang.Designer.cs">
+    <Compile Include="AllForm\frmKhachHang.Designer.cs">
       <DependentUpon>frmKhachHang.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmMixed\InHoaDon\DataSetInHoaDon.cs">
+    <Compile Include="AllForm\InHoaDon\DataSetInHoaDon.cs">
       <DependentUpon>DataSetInHoaDon.xsd</DependentUpon>
     </Compile>
-    <Compile Include="FrmMixed\InHoaDon\DataSetInHoaDon.Designer.cs">
+    <Compile Include="AllForm\InHoaDon\DataSetInHoaDon.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSetInHoaDon.xsd</DependentUpon>
     </Compile>
-    <Compile Include="FrmMixed\Main-Login-Register\frmLogin.cs">
+    <Compile Include="AllForm\Main-Login-Register\frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmMixed\Main-Login-Register\frmLogin.Designer.cs">
+    <Compile Include="AllForm\Main-Login-Register\frmLogin.Designer.cs">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmMixed\Main-Login-Register\frmMainUI.cs">
+    <Compile Include="AllForm\Main-Login-Register\frmMainUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmMixed\Main-Login-Register\frmMainUI.Designer.cs">
+    <Compile Include="AllForm\Main-Login-Register\frmMainUI.Designer.cs">
       <DependentUpon>frmMainUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmMixed\frmHoaDon.cs">
+    <Compile Include="AllForm\frmHoaDon.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmMixed\frmHoaDon.Designer.cs">
+    <Compile Include="AllForm\frmHoaDon.Designer.cs">
       <DependentUpon>frmHoaDon.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmMixed\frmNhanVien.cs">
+    <Compile Include="AllForm\frmNhanVien.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmMixed\frmNhanVien.Designer.cs">
+    <Compile Include="AllForm\frmNhanVien.Designer.cs">
       <DependentUpon>frmNhanVien.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmMixed\frmPhong.cs">
+    <Compile Include="AllForm\frmPhong.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmMixed\frmPhong.Designer.cs">
+    <Compile Include="AllForm\frmPhong.Designer.cs">
       <DependentUpon>frmPhong.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmMixed\frmThanhToan.cs">
+    <Compile Include="AllForm\frmThanhToan.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmMixed\frmThanhToan.Designer.cs">
+    <Compile Include="AllForm\frmThanhToan.Designer.cs">
       <DependentUpon>frmThanhToan.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmMixed\InHoaDon\frmPrintBill.cs">
+    <Compile Include="AllForm\InHoaDon\frmPrintBill.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmMixed\InHoaDon\frmPrintBill.Designer.cs">
+    <Compile Include="AllForm\InHoaDon\frmPrintBill.Designer.cs">
       <DependentUpon>frmPrintBill.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -142,28 +142,28 @@
       <DependentUpon>QLKaraokDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="TransData.cs" />
-    <EmbeddedResource Include="FrmMixed\Main-Login-Register\frmLogin.resx">
+    <EmbeddedResource Include="AllForm\Main-Login-Register\frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmMixed\Main-Login-Register\frmMainUI.resx">
+    <EmbeddedResource Include="AllForm\Main-Login-Register\frmMainUI.resx">
       <DependentUpon>frmMainUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmMixed\frmHoaDon.resx">
+    <EmbeddedResource Include="AllForm\frmHoaDon.resx">
       <DependentUpon>frmHoaDon.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmMixed\frmKhachHang.resx">
+    <EmbeddedResource Include="AllForm\frmKhachHang.resx">
       <DependentUpon>frmKhachHang.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmMixed\frmNhanVien.resx">
+    <EmbeddedResource Include="AllForm\frmNhanVien.resx">
       <DependentUpon>frmNhanVien.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmMixed\frmPhong.resx">
+    <EmbeddedResource Include="AllForm\frmPhong.resx">
       <DependentUpon>frmPhong.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmMixed\frmThanhToan.resx">
+    <EmbeddedResource Include="AllForm\frmThanhToan.resx">
       <DependentUpon>frmThanhToan.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmMixed\InHoaDon\frmPrintBill.resx">
+    <EmbeddedResource Include="AllForm\InHoaDon\frmPrintBill.resx">
       <DependentUpon>frmPrintBill.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -171,18 +171,18 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmMixed\InHoaDon\RpInHoaDon.rdlc">
+    <EmbeddedResource Include="AllForm\InHoaDon\RpInHoaDon.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <None Include="FrmMixed\InHoaDon\DataSetInHoaDon.xsc">
+    <None Include="AllForm\InHoaDon\DataSetInHoaDon.xsc">
       <DependentUpon>DataSetInHoaDon.xsd</DependentUpon>
     </None>
-    <None Include="FrmMixed\InHoaDon\DataSetInHoaDon.xsd">
+    <None Include="AllForm\InHoaDon\DataSetInHoaDon.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSetInHoaDon.Designer.cs</LastGenOutput>
     </None>
-    <None Include="FrmMixed\InHoaDon\DataSetInHoaDon.xss">
+    <None Include="AllForm\InHoaDon\DataSetInHoaDon.xss">
       <DependentUpon>DataSetInHoaDon.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />

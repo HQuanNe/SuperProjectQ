@@ -39,14 +39,14 @@ namespace SuperProjectQ.FrmMixed
 
         decimal gloDonGia = 0; //Đơn giá khi click chọn sản phẩm trong bảng đã order
         string gloMaSP = null;
-        decimal gloTienPhong = 0;
+        double dinhMucKho = 0; //Định mức tồn kho
 
         private void DoCoSan(int maHD)
         {
             int soLuong = 3;
             string sqlSP = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.GiaBan FROM SanPham \n" +
                 "INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP " +
-                "WHERE KhoHang.MaSP = 'SP001' OR KhoHang.MaSP = 'SP002' OR KhoHang.MaSP = 'SP011' OR KhoHang.MaSP = 'SP013' OR KhoHang.MaSP = 'SP015'";
+                $"WHERE KhoHang.TonKho >= {dinhMucKho} AND KhoHang.MaSP = 'SP001' OR KhoHang.MaSP = 'SP002' OR KhoHang.MaSP = 'SP011' OR KhoHang.MaSP = 'SP013' OR KhoHang.MaSP = 'SP015'";
             dt = new DataTable();
             dt = kn.CreateTable(sqlSP);
             foreach (DataRow dr in dt.Rows)
@@ -112,7 +112,8 @@ namespace SuperProjectQ.FrmMixed
                 { "02/09", "Quốc khánh" },
                 { "20/10", "Phụ nữ VN" },
                 { "20/11", "Nhà Giáo VN" },
-                { "25/12", "Giáng sinh" }
+                { "25/12", "Giáng sinh" },
+                {"20/01", "Ngày thử nghiệm" }
             };
             List<string> arrRegular = new List<string>();
             List<string> arrVIP = new List<string>();
@@ -155,7 +156,7 @@ namespace SuperProjectQ.FrmMixed
                     sqlUpdatePrice = $"UPDATE Phong SET MaLoaiPhong = '{phongVIP}' WHERE  MaPhong = 'MP004' OR MaPhong = 'MP008' AND MaPhong = '{RoomID}'";
                 }
             }
-            //Điều kiện giá ngày thường
+            //Điều kiện giá không đặt trước
             else
             {
                 if (danhSachNgayLe.ContainsKey(ngayLe))
@@ -704,6 +705,7 @@ namespace SuperProjectQ.FrmMixed
                     dgvMenuFood.AutoGenerateColumns = false;
                     //Load menu đồ ăn
                     string sqlAllProd = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.DinhLuong, SanPham.DVTDinhLuong, SanPham.GiaBan FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP " +
+                                       $"WHERE KhoHang.TonKho >= {dinhMucKho} \n" +
                                         "ORDER BY TenSP ASC";
                     dgvMenuFood.DataSource = kn.CreateTable(sqlAllProd);
 
@@ -1478,11 +1480,10 @@ namespace SuperProjectQ.FrmMixed
                     string tenSP = dgvMenuFood.Rows[r].Cells[1].Value?.ToString();
                     string donVi = dgvMenuFood.Rows[r].Cells[2].Value?.ToString();
                     int donGia = Convert.ToInt32(dgvMenuFood.Rows[r].Cells[4].Value?.ToString());
-                    decimal thanhTien = 0;
                     int soLuong = 1;
                     bool flag = true;
                     int index = 1;
-                    //kiểm tra xem có trong bảng HD tạm chưa
+                    //kiểm tra xem sản phẩm có trong bảng đã order chưa
                     for (int i = 0; i <= dgvOrdered.Rows.Count - 1; i++)
                     {
                         if (dgvOrdered.Rows[i].Cells[0].Value != null && dgvOrdered.Rows[i].Cells[0].Value?.ToString() == maSP)
@@ -1494,6 +1495,7 @@ namespace SuperProjectQ.FrmMixed
                     }
                     string maPhong = TakeNamePanel.Replace("pl", "");
                     string sqlCTHDTam = $"SELECT MaPhong FROM ChiTietHD WHERE MaSP = '{maSP}'";
+                    //Nếu chaưa có thì thêm mới
                     if (flag) 
                     {
                         string strPanelTag = null;
@@ -1520,41 +1522,48 @@ namespace SuperProjectQ.FrmMixed
                         cmd.ExecuteNonQuery();
                         GetData_From_CTHD(intPanelTag);
                         TongTienDV(intPanelTag);
-                    } 
-                    //int SumAdded = 1 + Convert.ToInt16(dgvOrdered.Rows[index].Cells[2].Value);
-                    //if (SumAdded > tonKho)
-                    //{
-                    //    MessageBox.Show("hết");
-                    //    return;
-                    //}
-                    //else
-                    //{
-                    if (!flag)
+                    }
+                    //Kiểm tra số lượng thêm vào có vượt tồn kho không
+                    int SumAdded = 1 + Convert.ToInt16(dgvOrdered.Rows[index].Cells[2].Value);
+                    //Lấy tồn kho
+                    string sqlTonKho = $"SELECT TonKho FROM KhoHang WHERE MaSP = '{maSP}'";
+                    cmd = new SqlCommand(sqlTonKho, kn.conn);
+                    double tonKho = Convert.ToDouble(cmd.ExecuteScalar());
+                    if (SumAdded > tonKho)
                     {
-                        soLuong = Convert.ToInt16(dgvOrdered.Rows[index].Cells[2].Value);
-                        soLuong++;
+                        MessageBox.Show("hết hàng rùi !!!");
+                        return;
+                    }
+                    else
+                    {
+                        //Nếu có rồi thì cập nhật số lượng lên 1
+                        if (!flag)
+                        {
+                            soLuong = Convert.ToInt16(dgvOrdered.Rows[index].Cells[2].Value);
+                            soLuong++;
 
-                        string strPanelTag = null;
-                        if (maPhong == "MP001") strPanelTag = plMP001.Tag.ToString();
-                        else if (maPhong == "MP002") strPanelTag = plMP002.Tag.ToString();
-                        else if (maPhong == "MP003") strPanelTag = plMP003.Tag.ToString();
-                        else if (maPhong == "MP004") strPanelTag = plMP004.Tag.ToString();
-                        else if (maPhong == "MP005") strPanelTag = plMP005.Tag.ToString();
-                        else if (maPhong == "MP006") strPanelTag = plMP006.Tag.ToString();
-                        else if (maPhong == "MP007") strPanelTag = plMP007.Tag.ToString();
-                        else if (maPhong == "MP008") strPanelTag = plMP008.Tag.ToString();
+                            string strPanelTag = null;
+                            if (maPhong == "MP001") strPanelTag = plMP001.Tag.ToString();
+                            else if (maPhong == "MP002") strPanelTag = plMP002.Tag.ToString();
+                            else if (maPhong == "MP003") strPanelTag = plMP003.Tag.ToString();
+                            else if (maPhong == "MP004") strPanelTag = plMP004.Tag.ToString();
+                            else if (maPhong == "MP005") strPanelTag = plMP005.Tag.ToString();
+                            else if (maPhong == "MP006") strPanelTag = plMP006.Tag.ToString();
+                            else if (maPhong == "MP007") strPanelTag = plMP007.Tag.ToString();
+                            else if (maPhong == "MP008") strPanelTag = plMP008.Tag.ToString();
 
-                        int intPanelTag = Convert.ToInt16(strPanelTag);
-                        string sqlUpdate = "UPDATE ChiTietHD SET SoLuong = @SL, ThanhTien = @TT WHERE MaHD = @MHD AND MaSP = @MSP";
-                        cmd = new SqlCommand(sqlUpdate, kn.conn);
-                        cmd.Parameters.Clear();
-                        cmd.Parameters.AddWithValue("@MHD", intPanelTag);
-                        cmd.Parameters.AddWithValue("@MSP", maSP);
-                        cmd.Parameters.AddWithValue("@SL", soLuong);
-                        cmd.Parameters.AddWithValue("@TT", soLuong * donGia);
-                        cmd.ExecuteNonQuery();
-                        GetData_From_CTHD(intPanelTag);
-                        TongTienDV(intPanelTag);
+                            int intPanelTag = Convert.ToInt16(strPanelTag);
+                            string sqlUpdate = "UPDATE ChiTietHD SET SoLuong = @SL, ThanhTien = @TT WHERE MaHD = @MHD AND MaSP = @MSP";
+                            cmd = new SqlCommand(sqlUpdate, kn.conn);
+                            cmd.Parameters.Clear();
+                            cmd.Parameters.AddWithValue("@MHD", intPanelTag);
+                            cmd.Parameters.AddWithValue("@MSP", maSP);
+                            cmd.Parameters.AddWithValue("@SL", soLuong);
+                            cmd.Parameters.AddWithValue("@TT", soLuong * donGia);
+                            cmd.ExecuteNonQuery();
+                            GetData_From_CTHD(intPanelTag);
+                            TongTienDV(intPanelTag);
+                        }
                     }
 
                 }
@@ -1576,14 +1585,14 @@ namespace SuperProjectQ.FrmMixed
             {
                 dgvMenuFood.DataSource = null;
                 string sqlAllProd = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.DinhLuong, SanPham.DVTDinhLuong, SanPham.GiaBan FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP " +
-                                    "ORDER BY TenSP ASC";
+                                    $"WHERE KhoHang.TonKho >= {dinhMucKho} " + " ORDER BY TenSP ASC";
                 dgvMenuFood.DataSource = kn.CreateTable(sqlAllProd);
             }
             else if(btn.Name == "btnFood")
             {
                 dgvMenuFood.DataSource = null;
                 string sqlFood = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.DinhLuong, SanPham.DVTDinhLuong, SanPham.GiaBan \n" +
-                                 "FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP WHERE KhoHang.MaDM = 'MDM01' OR KhoHang.MaDM = 'MDM03' ORDER BY TenSP ASC";
+                                 $"FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP WHERE KhoHang.TonKho = {dinhMucKho} AND KhoHang.MaDM = 'MDM01' OR KhoHang.MaDM = 'MDM03' ORDER BY TenSP ASC";
                 dgvMenuFood.DataSource = kn.CreateTable(sqlFood);
             }
             else if (btn.Name == "btnBeverage")
@@ -1591,7 +1600,7 @@ namespace SuperProjectQ.FrmMixed
                 //Load đồ uống
                 dgvMenuFood.DataSource = null;
                 string sqlBeverage = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.DinhLuong, SanPham.DVTDinhLuong, SanPham.GiaBan \n" +
-                                    "FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP WHERE KhoHang.MaDM = 'MDM02' ORDER BY TenSP ASC";
+                                    $"FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP WHERE KhoHang.TonKho = {dinhMucKho} AND KhoHang.MaDM = 'MDM02' ORDER BY TenSP ASC";
                 dgvMenuFood.DataSource = kn.CreateTable(sqlBeverage);
             }
             else if (btn.Name == "btnOther")
@@ -1599,7 +1608,7 @@ namespace SuperProjectQ.FrmMixed
                 //Load khác
                 dgvMenuFood.DataSource = null;
                 string sqlOther = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.DinhLuong, SanPham.DVTDinhLuong, SanPham.GiaBan \n" +
-                                  "FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP WHERE KhoHang.MaDM = 'MDM04' ORDER BY TenSP ASC";
+                                  $"FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP WHERE KhoHang.TonKho = {dinhMucKho} AND KhoHang.MaDM = 'MDM04' ORDER BY TenSP ASC";
                 dgvMenuFood.DataSource = kn.CreateTable(sqlOther);
             }
         }

@@ -54,7 +54,7 @@ namespace SuperProjectQ
             adapter.Fill(ds, "HoaDon");
             adapter2.Fill(ds, "ChitTietHD");
             adapter3.Fill(ds, "KhachHang");
-            rpInHoaDon.LocalReport.ReportEmbeddedResource = "SuperProjectQ.FrmMixed.InHoaDon.RpInHoaDon.rdlc";
+            rpInHoaDon.LocalReport.ReportEmbeddedResource = "SuperProjectQ.AllForm.InHoaDon.RpInHoaDon.rdlc";
             //Đưa DL lên bảng báo cáo
             ReportDataSource rdsCTHD = new ReportDataSource("DataSetCTHD", ds.Tables["ChitTietHD"]);
             ReportDataSource rdsHoaDon = new ReportDataSource("DataSetHD", ds.Tables["HoaDon"]);

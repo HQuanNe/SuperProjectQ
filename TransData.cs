@@ -4,7 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data;
+using System.Data.SqlClient;
 using System.IO;
+using System.Runtime.CompilerServices;
 namespace SuperProjectQ
 {
     internal class TransData
@@ -12,10 +15,42 @@ namespace SuperProjectQ
     }
     public static class Session
     {
+        static ConnectData kn = new ConnectData();
         public static void Datalog(string fileTxtName, string content)
         {
             File.AppendAllText($"D:\\Học_Tập\\Programing_language\\ADO-NET\\DataLog\\{fileTxtName}", $"\n{DateTime.Now.ToString()}: {content}");
         }
+        public static void KiemTraGhiNo()
+        {
+            kn.ConnOpen();
+            DataTable dt = null;
+
+            DateTime homNay = Convert.ToDateTime(DateTime.Now.ToString("dd/MM/yyyy"));
+            int maHD = 0;
+            TimeSpan soNgayQuaHan = TimeSpan.Zero;
+            double laSuat = 0.02; //Lãi suất 2%/ngày
+
+            string sqlGhiNo = "SELECT * FROM GhiNo";
+            dt = kn.CreateTable(sqlGhiNo);
+            foreach (DataRow row in dt.Rows)
+            {
+                DateTime hanThanhToan = Convert.ToDateTime(row["HanThanhToan"].ToString());
+                if (homNay > hanThanhToan)
+                {
+                    maHD = Convert.ToInt32(row["MaHD"].ToString());
+                    soNgayQuaHan = homNay - hanThanhToan;
+                }
+                string sqlUpdateGhiNo = "UPDATE GhiNo SET SoNgayQuaHan = @SNQH, [TienQuaHan(2%/HD)] = @TQH WHERE MaHD = @MaHD";
+                SqlCommand cmd = new SqlCommand(sqlUpdateGhiNo, kn.conn);
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@SNQH", soNgayQuaHan.Days);
+                cmd.Parameters.AddWithValue("@TQH",laSuat * soNgayQuaHan.Days);
+                cmd.Parameters.AddWithValue("@MaHD", maHD);
+                cmd.ExecuteNonQuery();
+            }
+
+
+        }//Hàm kiểm tra ghi nợ quá hạn trả
         public static string IDUser { get; set; }
         public static string MaQH { get; set; }
         public static string MaNV { get; set; }
