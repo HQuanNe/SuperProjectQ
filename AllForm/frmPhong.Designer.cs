@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPhong));
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutRegular = new System.Windows.Forms.FlowLayoutPanel();
             this.plMP001 = new System.Windows.Forms.Panel();
             this.lblStatus_P101 = new System.Windows.Forms.Label();
             this.lblTimeOUT_P101 = new System.Windows.Forms.Label();
@@ -77,14 +77,22 @@
             this.lblInfo = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvMenuFood = new System.Windows.Forms.DataGridView();
+            this.MaSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TenSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DinhLuong = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DVTDinhLuong = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GiaBan = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvOrdered = new System.Windows.Forms.DataGridView();
             this.label3 = new System.Windows.Forms.Label();
             this.plMenu = new System.Windows.Forms.Panel();
+            this.btnCombo = new System.Windows.Forms.Button();
             this.btnOther = new System.Windows.Forms.Button();
             this.btnBeverage = new System.Windows.Forms.Button();
             this.btnFood = new System.Windows.Forms.Button();
             this.btnAll = new System.Windows.Forms.Button();
             this.plOdered = new System.Windows.Forms.Panel();
+            this.txtSDT = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.btnConfirm = new System.Windows.Forms.Button();
             this.lblTenSP = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -98,12 +106,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnHuyDatTruoc = new System.Windows.Forms.Button();
             this.btnDatTruoc = new System.Windows.Forms.Button();
-            this.MaSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TenSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DinhLuong = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DVTDinhLuong = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GiaBan = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.flowLayoutPanel1.SuspendLayout();
+            this.flowLayoutRegular.SuspendLayout();
             this.plMP001.SuspendLayout();
             this.plMP002.SuspendLayout();
             this.plMP003.SuspendLayout();
@@ -124,23 +127,23 @@
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // flowLayoutPanel1
+            // flowLayoutRegular
             // 
-            this.flowLayoutPanel1.AutoScroll = true;
-            this.flowLayoutPanel1.AutoScrollMinSize = new System.Drawing.Size(0, 600);
-            this.flowLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.flowLayoutPanel1.Controls.Add(this.plMP001);
-            this.flowLayoutPanel1.Controls.Add(this.plMP002);
-            this.flowLayoutPanel1.Controls.Add(this.plMP003);
-            this.flowLayoutPanel1.Controls.Add(this.plMP005);
-            this.flowLayoutPanel1.Controls.Add(this.plMP006);
-            this.flowLayoutPanel1.Controls.Add(this.plMP007);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(5, 6);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(736, 424);
-            this.flowLayoutPanel1.TabIndex = 8;
+            this.flowLayoutRegular.AutoScroll = true;
+            this.flowLayoutRegular.AutoScrollMinSize = new System.Drawing.Size(0, 600);
+            this.flowLayoutRegular.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.flowLayoutRegular.Controls.Add(this.plMP001);
+            this.flowLayoutRegular.Controls.Add(this.plMP002);
+            this.flowLayoutRegular.Controls.Add(this.plMP003);
+            this.flowLayoutRegular.Controls.Add(this.plMP005);
+            this.flowLayoutRegular.Controls.Add(this.plMP006);
+            this.flowLayoutRegular.Controls.Add(this.plMP007);
+            this.flowLayoutRegular.Location = new System.Drawing.Point(5, 6);
+            this.flowLayoutRegular.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.flowLayoutRegular.Name = "flowLayoutRegular";
+            this.flowLayoutRegular.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
+            this.flowLayoutRegular.Size = new System.Drawing.Size(736, 424);
+            this.flowLayoutRegular.TabIndex = 8;
             // 
             // plMP001
             // 
@@ -512,7 +515,7 @@
             // tabPageNormal
             // 
             this.tabPageNormal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.tabPageNormal.Controls.Add(this.flowLayoutPanel1);
+            this.tabPageNormal.Controls.Add(this.flowLayoutRegular);
             this.tabPageNormal.Location = new System.Drawing.Point(4, 28);
             this.tabPageNormal.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPageNormal.Name = "tabPageNormal";
@@ -704,6 +707,46 @@
             this.dgvMenuFood.TabIndex = 14;
             this.dgvMenuFood.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMenuFood_CellDoubleClick);
             // 
+            // MaSP
+            // 
+            this.MaSP.DataPropertyName = "MaSP";
+            this.MaSP.HeaderText = "Mã";
+            this.MaSP.MinimumWidth = 6;
+            this.MaSP.Name = "MaSP";
+            this.MaSP.Width = 55;
+            // 
+            // TenSP
+            // 
+            this.TenSP.DataPropertyName = "TenSP";
+            this.TenSP.HeaderText = "Tên sản phẩm";
+            this.TenSP.MinimumWidth = 6;
+            this.TenSP.Name = "TenSP";
+            this.TenSP.Width = 220;
+            // 
+            // DinhLuong
+            // 
+            this.DinhLuong.DataPropertyName = "DinhLuong";
+            this.DinhLuong.HeaderText = "Định lượng";
+            this.DinhLuong.MinimumWidth = 6;
+            this.DinhLuong.Name = "DinhLuong";
+            this.DinhLuong.Width = 55;
+            // 
+            // DVTDinhLuong
+            // 
+            this.DVTDinhLuong.DataPropertyName = "DVTDinhLuong";
+            this.DVTDinhLuong.HeaderText = "DVT Định lượng";
+            this.DVTDinhLuong.MinimumWidth = 6;
+            this.DVTDinhLuong.Name = "DVTDinhLuong";
+            this.DVTDinhLuong.Width = 80;
+            // 
+            // GiaBan
+            // 
+            this.GiaBan.DataPropertyName = "GiaBan";
+            this.GiaBan.HeaderText = "Đơn giá";
+            this.GiaBan.MinimumWidth = 6;
+            this.GiaBan.Name = "GiaBan";
+            this.GiaBan.Width = 75;
+            // 
             // dgvOrdered
             // 
             this.dgvOrdered.AllowUserToAddRows = false;
@@ -735,6 +778,7 @@
             // 
             // plMenu
             // 
+            this.plMenu.Controls.Add(this.btnCombo);
             this.plMenu.Controls.Add(this.btnOther);
             this.plMenu.Controls.Add(this.btnBeverage);
             this.plMenu.Controls.Add(this.btnFood);
@@ -747,6 +791,16 @@
             this.plMenu.Name = "plMenu";
             this.plMenu.Size = new System.Drawing.Size(673, 427);
             this.plMenu.TabIndex = 18;
+            // 
+            // btnCombo
+            // 
+            this.btnCombo.Location = new System.Drawing.Point(393, 34);
+            this.btnCombo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnCombo.Name = "btnCombo";
+            this.btnCombo.Size = new System.Drawing.Size(91, 32);
+            this.btnCombo.TabIndex = 19;
+            this.btnCombo.Text = "Combo";
+            this.btnCombo.UseVisualStyleBackColor = true;
             // 
             // btnOther
             // 
@@ -794,6 +848,8 @@
             // 
             // plOdered
             // 
+            this.plOdered.Controls.Add(this.txtSDT);
+            this.plOdered.Controls.Add(this.label7);
             this.plOdered.Controls.Add(this.btnConfirm);
             this.plOdered.Controls.Add(this.lblTenSP);
             this.plOdered.Controls.Add(this.label6);
@@ -808,6 +864,25 @@
             this.plOdered.Name = "plOdered";
             this.plOdered.Size = new System.Drawing.Size(1440, 270);
             this.plOdered.TabIndex = 19;
+            // 
+            // txtSDT
+            // 
+            this.txtSDT.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSDT.Location = new System.Drawing.Point(1003, 164);
+            this.txtSDT.Multiline = true;
+            this.txtSDT.Name = "txtSDT";
+            this.txtSDT.Size = new System.Drawing.Size(249, 31);
+            this.txtSDT.TabIndex = 32;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Times New Roman", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(763, 164);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(231, 31);
+            this.label7.TabIndex = 22;
+            this.label7.Text = "SĐT Khách hàng: ";
             // 
             // btnConfirm
             // 
@@ -959,46 +1034,6 @@
             this.btnDatTruoc.UseVisualStyleBackColor = false;
             this.btnDatTruoc.Click += new System.EventHandler(this.btnDatTruoc_Click);
             // 
-            // MaSP
-            // 
-            this.MaSP.DataPropertyName = "MaSP";
-            this.MaSP.HeaderText = "Mã";
-            this.MaSP.MinimumWidth = 6;
-            this.MaSP.Name = "MaSP";
-            this.MaSP.Width = 55;
-            // 
-            // TenSP
-            // 
-            this.TenSP.DataPropertyName = "TenSP";
-            this.TenSP.HeaderText = "Tên sản phẩm";
-            this.TenSP.MinimumWidth = 6;
-            this.TenSP.Name = "TenSP";
-            this.TenSP.Width = 220;
-            // 
-            // DinhLuong
-            // 
-            this.DinhLuong.DataPropertyName = "DinhLuong";
-            this.DinhLuong.HeaderText = "Định lượng";
-            this.DinhLuong.MinimumWidth = 6;
-            this.DinhLuong.Name = "DinhLuong";
-            this.DinhLuong.Width = 55;
-            // 
-            // DVTDinhLuong
-            // 
-            this.DVTDinhLuong.DataPropertyName = "DVTDinhLuong";
-            this.DVTDinhLuong.HeaderText = "DVT Định lượng";
-            this.DVTDinhLuong.MinimumWidth = 6;
-            this.DVTDinhLuong.Name = "DVTDinhLuong";
-            this.DVTDinhLuong.Width = 80;
-            // 
-            // GiaBan
-            // 
-            this.GiaBan.DataPropertyName = "GiaBan";
-            this.GiaBan.HeaderText = "Đơn giá";
-            this.GiaBan.MinimumWidth = 6;
-            this.GiaBan.Name = "GiaBan";
-            this.GiaBan.Width = 75;
-            // 
             // frmPhong
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1019,7 +1054,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Phòng";
             this.Load += new System.EventHandler(this.frmPhong_Load);
-            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutRegular.ResumeLayout(false);
             this.plMP001.ResumeLayout(false);
             this.plMP001.PerformLayout();
             this.plMP002.ResumeLayout(false);
@@ -1054,7 +1089,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutRegular;
         private System.Windows.Forms.TabControl tabCtrlRoom;
         private System.Windows.Forms.TabPage tabPageNormal;
         private System.Windows.Forms.TabPage tabPageVIP;
@@ -1128,5 +1163,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DinhLuong;
         private System.Windows.Forms.DataGridViewTextBoxColumn DVTDinhLuong;
         private System.Windows.Forms.DataGridViewTextBoxColumn GiaBan;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtSDT;
+        private System.Windows.Forms.Button btnCombo;
     }
 }

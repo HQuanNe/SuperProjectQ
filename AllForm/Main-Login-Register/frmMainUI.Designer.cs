@@ -146,14 +146,14 @@
             // MNChung_Phong
             // 
             this.MNChung_Phong.Name = "MNChung_Phong";
-            this.MNChung_Phong.Size = new System.Drawing.Size(224, 30);
+            this.MNChung_Phong.Size = new System.Drawing.Size(158, 30);
             this.MNChung_Phong.Text = "Phòng";
             this.MNChung_Phong.Click += new System.EventHandler(this.MNQuanLy_Phong_Click);
             // 
             // orderToolStripMenuItem
             // 
             this.orderToolStripMenuItem.Name = "orderToolStripMenuItem";
-            this.orderToolStripMenuItem.Size = new System.Drawing.Size(224, 30);
+            this.orderToolStripMenuItem.Size = new System.Drawing.Size(158, 30);
             this.orderToolStripMenuItem.Text = "Order";
             // 
             // MNKhachHang
@@ -293,6 +293,7 @@
             this.btnBack.TabIndex = 6;
             this.btnBack.Text = "Trở lại";
             this.btnBack.UseVisualStyleBackColor = false;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // frmMainUI
             // 

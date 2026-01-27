@@ -113,7 +113,7 @@ namespace SuperProjectQ.FrmMixed
                 { "20/10", "Phụ nữ VN" },
                 { "20/11", "Nhà Giáo VN" },
                 { "25/12", "Giáng sinh" },
-                {"20/01", "Ngày thử nghiệm" }
+                {"21/01", "Ngày thử nghiệm" }
             };
             List<string> arrRegular = new List<string>();
             List<string> arrVIP = new List<string>();
@@ -224,7 +224,7 @@ namespace SuperProjectQ.FrmMixed
             {
                 //Update hoá đơn
                 string sqlHD = $"UPDATE HoaDon SET MaKH = @MKH," +
-                    $"GioRa = @GR, TongSoPhut = @TSP, TienPhong = @TP, TienDichVu = @TDV, TongTien = @TT, GiamGia = @GG, VAT = @VAT, TongThanhToan = @TTT, PTTT = @PTTT, TrangThai = @TTHD, GhiChu = @GC WHERE MaHD = {billID}";
+                    $"GioRa = @GR, TongSoPhut = @TSP, TienPhong = @TP, TienDichVu = @TDV, TongTien = @TT, TrietKhauVIP = @TKVIP, TrietKhauVoucher = @TKV, VAT = @VAT, TongThanhToan = @TTT, PTTT = @PTTT, TrangThai = @TTHD, GhiChu = @GC WHERE MaHD = {billID}";
                 cmd = new SqlCommand(sqlHD, kn.conn);
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@MKH", Session.MaKH);
@@ -233,12 +233,13 @@ namespace SuperProjectQ.FrmMixed
                 cmd.Parameters.AddWithValue("@TP", Session.TongTienPhong);
                 cmd.Parameters.AddWithValue("@TDV", Session.TongTienDV);
                 cmd.Parameters.AddWithValue("@TT", Session.TongTien);
-                cmd.Parameters.AddWithValue("@GG", Session.Discount);
+                cmd.Parameters.AddWithValue("@TKVIP", Session.DiscountVIP);
+                cmd.Parameters.AddWithValue("@TKV", Session.DiscountVoucher);
                 cmd.Parameters.AddWithValue("@VAT", Session.TienVAT);
                 cmd.Parameters.AddWithValue("@TTT", Session.TongThanhToan);
                 cmd.Parameters.AddWithValue("@PTTT", Session.PTTT);
                 cmd.Parameters.AddWithValue("@TTHD", Session.TrangThaiHD);
-                cmd.Parameters.AddWithValue("@GC", "hi");
+                cmd.Parameters.AddWithValue("@GC", "test");
                 cmd.ExecuteNonQuery();
             }
         } //Cập nhật bill khi đã TT xong
@@ -351,10 +352,9 @@ namespace SuperProjectQ.FrmMixed
             string sqlPhong = "SELECT * FROM Phong";
             dt = new DataTable();
             dt = kn.CreateTable(sqlPhong);
-            string newSelected = selectedPanel.Name.Replace("pl", "");
             foreach (DataRow dr in dt.Rows)
             {
-                if (newSelected == dr["MaPhong"].ToString())
+                if (selectedPanel.Name == dr["MaPhong"].ToString())
                 {
                     if (dr["TrangThai"].ToString() == "0")
                     {
@@ -424,282 +424,62 @@ namespace SuperProjectQ.FrmMixed
                 dt = new DataTable();
                 dt = kn.CreateTable(sqlPhong);
                 //duyệt tất cả các phòng
-                foreach (DataRow dr in dt.Rows)
+                foreach (DataRow row in dt.Rows)
                 {
-                    if (dr["MaPhong"].ToString() == "MP001")
+                    Panel plPhongTam = new Panel() { Width = 0, Height = 0 }; //Panel tạm để lấy vị trí
+                    Panel plDanhSanhPhong = new Panel()
                     {
-                        if(dr["TrangThai"].ToString() == "2")
-                        {
-                            btnOpen.Visible = true;
-                            btnClose.Visible = false;
-                            btnDatTruoc.Visible = false;
-                            btnHuyDatTruoc.Visible = true;
-                            plMP001.BackColor = clrStatusBooking;
-                            lblStatus_P101.Text = strStatusBooking;
-                        }
-                        else if (dr["TrangThai"].ToString() == "1")
-                        {
-                            DateTime timeIn = Convert.ToDateTime(dr["GioVao"]);
-                            btnOpen.Visible = false;
-                            btnClose.Visible = true;
-                            btnDatTruoc.Visible = false;
-                            btnHuyDatTruoc.Visible = false;
-                            lblTimeIN_P101.Text = $"Giờ vào: {timeIn.ToString("dd/MM/yyyy HH:mm:ss")}";
-                            plMP001.BackColor = clrStatusOpen;
-                            lblStatus_P101.Text = strStatusOpen;
-                        }
-                        else if(dr["TrangThai"].ToString() == "0")
-                        {
-                            btnOpen.Visible = true;
-                            btnClose.Visible = false;
-                            btnDatTruoc.Visible = true;
-                            btnHuyDatTruoc.Visible = false;
-                            lblTimeIN_P101.Text = $"Giờ vào: --";
-                            plMP001.BackColor = clrStatusClose;
-                            lblStatus_P101.Text = strStatusClose;
-                        }
-                    }
-                    else if (dr["MaPhong"].ToString() == "MP002")
-                    {
-                        if (dr["TrangThai"].ToString() == "2")
-                        {
-                            btnOpen.Visible = true;
-                            btnClose.Visible = false;
-                            btnDatTruoc.Visible = false;
-                            btnHuyDatTruoc.Visible = true;
-                            plMP002.BackColor = clrStatusBooking;
-                            lblStatus_P102.Text = strStatusBooking;
-                        }
-                        if (dr["TrangThai"].ToString() == "1")
-                        {
-                            DateTime timeIn = Convert.ToDateTime(dr["GioVao"]);
-                            btnOpen.Visible = false;
-                            btnClose.Visible = true;
-                            btnDatTruoc.Visible = false;
-                            btnHuyDatTruoc.Visible = false;
-                            lblTimeIN_P102.Text = $"Giờ vào: {timeIn.ToString("dd/MM/yyyy HH:mm:ss")}";
-                            plMP002.BackColor = clrStatusOpen;
-                            lblStatus_P102.Text = strStatusOpen;
-                        }
-                        else if (dr["TrangThai"].ToString() == "0")
-                        {
-                            btnOpen.Visible = true;
-                            btnClose.Visible = false;
-                            btnDatTruoc.Visible = true;
-                            btnHuyDatTruoc.Visible = false;
-                            lblTimeIN_P102.Text = $"Giờ vào: --";
-                            plMP002.BackColor = clrStatusClose;
-                            lblStatus_P102.Text = strStatusClose;
-                        }
-                    }
-                    else if (dr["MaPhong"].ToString() == "MP003")
-                    {
-                        if (dr["TrangThai"].ToString() == "2")
-                        {
-                            btnOpen.Visible = true;
-                            btnClose.Visible = false;
-                            btnDatTruoc.Visible = false;
-                            btnHuyDatTruoc.Visible = true;
-                            plMP003.BackColor = clrStatusBooking;
-                            lblStatus_P103.Text = strStatusBooking;
-                        }
-                        if (dr["TrangThai"].ToString() == "1")
-                        {
-                            DateTime timeIn = Convert.ToDateTime(dr["GioVao"]);
-                            btnOpen.Visible = false;
-                            btnClose.Visible = true;
-                            btnDatTruoc.Visible = false;
-                            btnHuyDatTruoc.Visible = false;
-                            lblTimeIN_P103.Text = $"Giờ vào: {timeIn.ToString("dd/MM/yyyy HH:mm:ss")}";
-                            plMP003.BackColor = clrStatusOpen;
-                            lblStatus_P103.Text = strStatusOpen;
-                        }
-                        else if (dr["TrangThai"].ToString() == "0")
-                        {
-                            btnOpen.Visible = true;
-                            btnClose.Visible = false;
-                            btnDatTruoc.Visible = true;
-                            btnHuyDatTruoc.Visible = false;
-                            lblTimeIN_P103.Text = $"Giờ vào: --";
-                            plMP003.BackColor = clrStatusClose;
-                            lblStatus_P103.Text = strStatusClose;
-                        }
-                    }
-                    else if (dr["MaPhong"].ToString() == "MP004")
-                    {
-                        if (dr["TrangThai"].ToString() == "2")
-                        {
-                            btnOpen.Visible = true;
-                            btnClose.Visible = false;
-                            btnDatTruoc.Visible = false;
-                            btnHuyDatTruoc.Visible = true;
-                            plMP004.BackColor = clrStatusBooking;
-                            lblStatus_P104.Text = strStatusBooking;
-                        }
-                        if (dr["TrangThai"].ToString() == "1")
-                        {
-                            DateTime timeIn = Convert.ToDateTime(dr["GioVao"]);
-                            btnOpen.Visible = false;
-                            btnClose.Visible = true;
-                            btnDatTruoc.Visible = false;
-                            btnHuyDatTruoc.Visible = false;
-                            lblTimeIN_P104.Text = $"Giờ vào: {timeIn.ToString("dd/MM/yyyy HH:mm:ss")}";
-                            plMP004.BackColor = clrStatusOpen;
-                            lblStatus_P104.Text = strStatusOpen;
-                        }
-                        else if (dr["TrangThai"].ToString() == "0")
-                        {
-                            btnOpen.Visible = true;
-                            btnClose.Visible = false;
-                            btnDatTruoc.Visible = true;
-                            btnHuyDatTruoc.Visible = false;
-                            lblTimeIN_P104.Text = $"Giờ vào: --";
-                            plMP004.BackColor = clrStatusClose;
-                            lblStatus_P104.Text = strStatusClose;
-                        }
-                    }
-                    else if (dr["MaPhong"].ToString() == "MP005")
-                    {
-                        if (dr["TrangThai"].ToString() == "2")
-                        {
-                            btnOpen.Visible = true;
-                            btnClose.Visible = false;
-                            btnDatTruoc.Visible = false;
-                            btnHuyDatTruoc.Visible = true;
-                            plMP005.BackColor = clrStatusBooking;
-                            lblStatus_P201.Text = strStatusBooking;
-                        }
-                        if (dr["TrangThai"].ToString() == "1")
-                        {
-                            DateTime timeIn = Convert.ToDateTime(dr["GioVao"]);
-                            btnOpen.Visible = false;
-                            btnClose.Visible = true;
-                            btnDatTruoc.Visible = false;
-                            btnHuyDatTruoc.Visible = false;
-                            lblTimeIN_P201.Text = $"Giờ vào: {timeIn.ToString("dd/MM/yyyy HH:mm:ss")}";
-                            plMP005.BackColor = clrStatusOpen;
-                            lblStatus_P201.Text = strStatusOpen;
-                        }
-                        else if (dr["TrangThai"].ToString() == "0")
-                        {
-                            btnOpen.Visible = true;
-                            btnClose.Visible = false;
-                            btnDatTruoc.Visible = true;
-                            btnHuyDatTruoc.Visible = false;
-                            lblTimeIN_P201.Text = $"Giờ vào: --";
-                            plMP005.BackColor = clrStatusClose;
-                            lblStatus_P201.Text = strStatusClose;
-                        }
-                    }
-                    else if (dr["MaPhong"].ToString() == "MP006")
-                    {
-                        if (dr["TrangThai"].ToString() == "2")
-                        {
-                            btnOpen.Visible = true;
-                            btnClose.Visible = false;
-                            btnDatTruoc.Visible = false;
-                            btnHuyDatTruoc.Visible = true;
-                            plMP006.BackColor = clrStatusBooking;
-                            lblStatus_P202.Text = strStatusBooking;
-                        }
-                        if (dr["TrangThai"].ToString() == "1")
-                        {
-                            DateTime timeIn = Convert.ToDateTime(dr["GioVao"]);
-                            btnOpen.Visible = false;
-                            btnClose.Visible = true;
-                            btnDatTruoc.Visible = false;
-                            btnHuyDatTruoc.Visible = false;
-                            lblTimeIN_P202.Text = $"Giờ vào: {timeIn.ToString("dd/MM/yyyy HH:mm:ss")}";
-                            plMP006.BackColor = clrStatusOpen;
-                            lblStatus_P202.Text = strStatusOpen;
-                        }
-                        else if (dr["TrangThai"].ToString() == "0")
-                        {
-                            btnOpen.Visible = true;
-                            btnClose.Visible = false;
-                            btnDatTruoc.Visible = true;
-                            btnHuyDatTruoc.Visible = false;
-                            lblTimeIN_P202.Text = $"Giờ vào: --";
-                            plMP006.BackColor = clrStatusClose;
-                            lblStatus_P202.Text = strStatusClose;
+                        Padding = new Padding(0),
+                        Margin = new Padding(2),
+                        BorderStyle = BorderStyle.FixedSingle,
+                        Width = 173,
+                        Height = 173,
+                        Cursor = Cursors.Hand,
+                        //Lấy vị trí X phòng tạm cộng với chiều rộng phòng tạm để làm vị trí cho phòng tiếp theo
+                        Location = new Point(plPhongTam.Location.X + plPhongTam.Width, plPhongTam.Location.Y), 
+                        AutoSize = false,
+                        AutoSizeMode = AutoSizeMode.GrowOnly,
 
-
-                        }
-                    }
-                    else if (dr["MaPhong"].ToString() == "MP007")
+                        Name = row["MaPhong"].ToString(), //Gán Name theo mã phòng
+                    };
+                    Label tenPhong = new Label()
                     {
-                        if (dr["TrangThai"].ToString() == "2")
-                        {
-                            btnOpen.Visible = true;
-                            btnClose.Visible = false;
-                            btnDatTruoc.Visible = false;
-                            btnHuyDatTruoc.Visible = true;
-                            plMP007.BackColor = clrStatusBooking;
-                            lblStatus_P203.Text = strStatusBooking;
-                        }
-                        if (dr["TrangThai"].ToString() == "1")
-                        {
-                            DateTime timeIn = Convert.ToDateTime(dr["GioVao"]);
-                            btnOpen.Visible = false;
-                            btnClose.Visible = true;
-                            btnDatTruoc.Visible = false;
-                            btnHuyDatTruoc.Visible = false;
-                            lblTimeIN_P203.Text = $"Giờ vào: {timeIn.ToString("dd/MM/yyyy HH:mm:ss")}";
-                            plMP007.BackColor = clrStatusOpen;
-                            lblStatus_P203.Text = strStatusOpen;
-                        }
-                        else if (dr["TrangThai"].ToString() == "0")
-                        {
-                            btnOpen.Visible = true;
-                            btnClose.Visible = false;
-                            btnDatTruoc.Visible = true;
-                            btnHuyDatTruoc.Visible = false;
-                            lblTimeIN_P203.Text = $"Giờ vào: --";
-                            plMP007.BackColor = clrStatusClose;
-                            lblStatus_P203.Text = strStatusClose;
-
-
-                        }
-                    }
-                    else if (dr["MaPhong"].ToString() == "MP008")
+                        Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point),
+                        Text = $"Phòng {row["TenPhong"].ToString()}",
+                        Location = new Point(plDanhSanhPhong.Width / 2 - 50, 4),
+                        ForeColor = Color.Black,
+                        AutoSize = true,
+                    };
+                    Label trangThai = new Label()
                     {
-                        if (dr["TrangThai"].ToString() == "2")
-                        {
-                            btnOpen.Visible = true;
-                            btnClose.Visible = false;
-                            btnDatTruoc.Visible = false;
-                            btnHuyDatTruoc.Visible = true;
-                            plMP008.BackColor = clrStatusBooking;
-                            lblStatus_P204.Text = strStatusBooking;
-                        }
-                        if (dr["TrangThai"].ToString() == "1")
-                        {
-                            DateTime timeIn = Convert.ToDateTime(dr["GioVao"]);
-                            btnOpen.Visible = false;
-                            btnClose.Visible = true;
-                            btnDatTruoc.Visible = false;
-                            btnHuyDatTruoc.Visible = false;
-                            lblTimeIN_P204.Text = $"Giờ vào: {timeIn.ToString("dd/MM/yyyy HH:mm:ss")}";
-                            plMP008.BackColor = clrStatusOpen;
-                            lblStatus_P204.Text = strStatusOpen;
-                        }
-                        else if (dr["TrangThai"].ToString() == "0")
-                        {
-                            btnOpen.Visible = true;
-                            btnClose.Visible = false;
-                            btnDatTruoc.Visible = true;
-                            btnHuyDatTruoc.Visible = false;
-                            lblTimeIN_P204.Text = $"Giờ vào: --";
-                            plMP008.BackColor = clrStatusClose;
-                            lblStatus_P204.Text = strStatusClose;
-
-
-                        }
-                    }
-                    else
+                        Font = new Font("Times New Roman", 10F, FontStyle.Bold, GraphicsUnit.Point),
+                        Location = new Point(0, 135),
+                        ForeColor = Color.Black,
+                        AutoSize = true
+                    };
+                    if (row["TrangThai"].ToString() == "0")
                     {
-                        continue;
+                        plDanhSanhPhong.BackColor = clrStatusClose;
+                        trangThai.Text = "Trạng thái: Trống";
                     }
+                    else if (row["TrangThai"].ToString() == "1")
+                    {
+                        plDanhSanhPhong.BackColor = clrStatusOpen;
+                        trangThai.Text = "Trạng thái: Đang sử dụng";
+                    }
+                    else if (row["TrangThai"].ToString() == "2")
+                    {
+                        plDanhSanhPhong.BackColor = clrStatusBooking;
+                        trangThai.Text = "Trạng thái: Đã đặt";
+
+                    }
+                        
+                        flowLayoutRegular.Controls.Add(plDanhSanhPhong);
+                        plDanhSanhPhong.Controls.Add(tenPhong);
+                        plDanhSanhPhong.Controls.Add(trangThai);
+                        plDanhSanhPhong.Click += AllPanels_Click;
+
+                        plPhongTam = plDanhSanhPhong;//Cập nhật panel tạm bằng panel vừa tạo xong
                     dgvMenuFood.EditMode = DataGridViewEditMode.EditProgrammatically; //Chống xoá dữ liệu
                     dgvMenuFood.SelectionMode = DataGridViewSelectionMode.FullRowSelect;//Chọn tất cả dữ liệu ở dòng
                     dgvMenuFood.AutoGenerateColumns = false;
@@ -717,6 +497,7 @@ namespace SuperProjectQ.FrmMixed
                     dt = kn.CreateTable(sqlCTHD);
                     foreach(DataRow dr2 in dt.Rows)
                     {
+                        plDanhSanhPhong.Tag = Convert.ToInt32(dr2["MaHD"]);
                         if (dr2["MaPhong"].ToString() == "MP001") plMP001.Tag = Convert.ToInt32(dr2["MaHD"]);
                         else if (dr2["MaPhong"].ToString() == "MP002") plMP002.Tag = Convert.ToInt32(dr2["MaHD"].ToString());
                         else if (dr2["MaPhong"].ToString() == "MP003") plMP003.Tag = Convert.ToInt32(dr2["MaHD"].ToString());
@@ -735,6 +516,11 @@ namespace SuperProjectQ.FrmMixed
                 MessageBox.Show("Lỗi CSDL \nLỗi: " + ex.Message);
             }
         } //Load dữ liệu 
+
+        private void TestPL_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
         #region Nút mở, đóng, đặt trướcc
         private void btnDatTruoc_Click(object sender, EventArgs e)
         {
@@ -1020,7 +806,7 @@ namespace SuperProjectQ.FrmMixed
                     UpdatePrice(false, maPhong);
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message);
                 throw;

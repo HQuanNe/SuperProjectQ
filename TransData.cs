@@ -16,15 +16,21 @@ namespace SuperProjectQ
     public static class Session
     {
         static ConnectData kn = new ConnectData();
+        static DataTable dt = null;
+        static SqlCommand cmd = null;
+        public static void ConnectOpen()
+        {
+            kn.ConnOpen();
+        }
         public static void Datalog(string fileTxtName, string content)
         {
             File.AppendAllText($"D:\\Học_Tập\\Programing_language\\ADO-NET\\DataLog\\{fileTxtName}", $"\n{DateTime.Now.ToString()}: {content}");
-        }
+        } //Lưu log 
         public static void KiemTraGhiNo()
         {
-            kn.ConnOpen();
-            DataTable dt = null;
+            ConnectOpen();
 
+            dt = new DataTable();
             DateTime homNay = Convert.ToDateTime(DateTime.Now.ToString("dd/MM/yyyy"));
             int maHD = 0;
             TimeSpan soNgayQuaHan = TimeSpan.Zero;
@@ -41,16 +47,46 @@ namespace SuperProjectQ
                     soNgayQuaHan = homNay - hanThanhToan;
                 }
                 string sqlUpdateGhiNo = "UPDATE GhiNo SET SoNgayQuaHan = @SNQH, [TienQuaHan(2%/HD)] = @TQH WHERE MaHD = @MaHD";
-                SqlCommand cmd = new SqlCommand(sqlUpdateGhiNo, kn.conn);
+                cmd = new SqlCommand(sqlUpdateGhiNo, kn.conn);
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@SNQH", soNgayQuaHan.Days);
-                cmd.Parameters.AddWithValue("@TQH",laSuat * soNgayQuaHan.Days);
+                cmd.Parameters.AddWithValue("@TQH", laSuat * soNgayQuaHan.Days);
                 cmd.Parameters.AddWithValue("@MaHD", maHD);
                 cmd.ExecuteNonQuery();
             }
 
 
         }//Hàm kiểm tra ghi nợ quá hạn trả
+        public static void KiemTraVoucher() 
+        {
+            ConnectOpen();
+
+            DateTime ngayHetHan = Convert.ToDateTime("01/01/2020");
+            DateTime today = DateTime.Today;
+            int trangThai = 2; //Trạng thái hết hạn
+            int STT = 0;
+
+            string sqlVoucherCheck = "SELECT STT, NgayHetHan FROM VoucherKhachHang";
+            dt = new DataTable();
+            dt = kn.CreateTable(sqlVoucherCheck);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                if (row["NgayHetHan"] != null && row["NgayHetHan"] != DBNull.Value)
+                {
+                    ngayHetHan = Convert.ToDateTime(row["NgayHetHan"]);
+                    STT = Convert.ToInt32(row["STT"]);
+                }
+
+                if (DateTime.Now > ngayHetHan)
+
+                {
+                    string updateTrangThai = $"UPDATE VoucherKhachHang SET TrangThai = {trangThai} WHERE STT = {STT}";
+                    cmd = new SqlCommand(updateTrangThai, kn.conn);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        } // Hàm kiểm tra voucher hết hạn
         public static string IDUser { get; set; }
         public static string MaQH { get; set; }
         public static string MaNV { get; set; }
@@ -60,8 +96,8 @@ namespace SuperProjectQ
         public static string MaKH { get; set; }
         public static int diemTichLuy { get; set; }
         //Vận chuyển tiền, nội dung,...  sang thanh toán
-        public static int maHD { get; set; } 
-        public static string maPhong { get; set; }
+        public static int maHD { get; set; }
+        public static string maPhong = "";
         public static DateTime TimeOut { get; set; } // Thời gian đóng phòng
 
         public static double TongSoPhut { get; set; } //Tổng số phút sử dụng phòng
@@ -69,7 +105,8 @@ namespace SuperProjectQ
         public static decimal TongTienDV { get; set; } // tiền dịch vụ
         public static decimal TongTienPhong { get; set; }
         public static decimal TienVAT { get; set; } //thuế GTGT 5%, 0.1 - 10% thuế GTGT
-        public static decimal Discount { get; set; } //Giảm giá theo VIP
+        public static decimal DiscountVIP { get; set; } //Giảm giá theo VIP
+        public static decimal DiscountVoucher { get; set; } //Giảm giá theo VIP
         public static decimal TongThanhToan { get; set; } // Tổng tiền - Ưu đãi + VAT
         public static decimal GhiChu { get; set; } //Ghi chú giảm giá
         public static bool isPay { get; set; } // Nếu true là đã thanh toán và sẽ xuất hoá đơn

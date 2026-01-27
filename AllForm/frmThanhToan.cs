@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Globalization;
+using System.Runtime.Remoting.Contexts;
 
 namespace SuperProjectQ.FrmMixed
 {
@@ -23,13 +24,17 @@ namespace SuperProjectQ.FrmMixed
         DataTable dt = null;
         SqlCommand cmd = null;
 
-        decimal tongTien = Session.TongTien;
         string PTTT = ""; //Phương thức TT
         bool isCustomer = false; //Kiểm tra xem phải khách hàng quen ko
-        decimal tienGiamGia = 0; // Tiền đc giảm
-        bool isGhiNo = false;
+        decimal trietKhauVIP = 0; // Tiền đc giảm theo VIP
+        bool isGhiNo = false; // True nếu ghi nợ
+        decimal giamVoucher = 0; // Tiền giảm voucher
 
-        decimal VAT = 0.05m; //Mức thuế
+        int STTmaVoucher = 0; // STT của Mã voucher đang chọn
+        bool voucherTarget = false; //nếu có voucher được chọn sẽ là True
+        int trangThaiVoucher = 0; //Trạng thái của voucher: 0 - Chưa dùng, 1 - đã dùng, 2 - hết hạn
+
+        const decimal VAT = 0.05m; //Mức thuế
         private int TienNhan()
         {
             int takeNum = 0;
@@ -104,82 +109,167 @@ namespace SuperProjectQ.FrmMixed
         private void LoadQRCode()
         {
             TongThanhToan();
-            LoadLabel();
             //Tạo mã QR
-            string nganHang = "MB";
-            string stk = "0382294559";
-            string tenTK = "NGUYEN DUC HONG QUAN";
-            string noiDung = $"PHONG {Session.maPhong} THANH TOAN";
-            double tienTT = Convert.ToDouble(Session.TongThanhToan);
-            // Tạo đường dẫn API
-            string url = $"https://img.vietqr.io/image/{nganHang}-{stk}-compact2.png?amount={tienTT}&addInfo={noiDung}&accountName={tenTK}";
+            //const string nganHang = "MB";
+            //const string stk = "0382294559";
+            //const string tenTK = "NGUYEN DUC HONG QUAN";
+            //string noiDung = $"PHONG {Session.maPhong} THANH TOAN";
+            //double tienTT = Convert.ToDouble(Session.TongThanhToan);
+            //// Tạo đường dẫn API
+            //try
+            //{
+            //    string url = $"https://img.vietqr.io/image/{nganHang}-{stk}-compact2.png?amount={tienTT}&addInfo={noiDung}&accountName={tenTK}";
 
-            // Hiển thị lên PictureBox
-            picQRCode.SizeMode = PictureBoxSizeMode.StretchImage;
-            picQRCode.Load(url);
+            //    // Hiển thị lên PictureBox
+            //    picQRCode.SizeMode = PictureBoxSizeMode.StretchImage;
+            //    picQRCode.Load(url);
+            //}
+            //catch (Exception)
+            //{
+
+            //    throw;
+            //}
         }//Load mã QR
         private void LoadLabel()//Hiển thị lên giao diện
         {
             lblTienPhong.Text = Session.TongTienPhong.ToString("#,##0 VND");
             lblTienDV.Text = Session.TongTienDV.ToString("#,##0");
 
-            if (isCustomer) lblTrietKhau.Text = Session.Discount.ToString("#,##0");
+            if (isCustomer)
+            {
+                lblTrietKhau.Text = Session.DiscountVIP.ToString("#,##0");
+                lblTKVoucher.Text = giamVoucher.ToString("#,##0");
+            }
             else lblTrietKhau.Text = "";
 
             lblTienThue.Text = Session.TienVAT.ToString("#,##0");
             lblTienThanhToan.Text = Session.TongThanhToan.ToString("#,##0");
         }
+        private decimal TinhTienPhongSau_22h(DateTime timeIn, decimal PricePerHour)
+        {
+            TimeSpan gioVao = timeIn.TimeOfDay;
+            if (gioVao >= new TimeSpan(22, 0, 0) || gioVao <= new TimeSpan(6, 0, 0))
+            {
+                PricePerHour *= 1.2m;
+            }
+            return PricePerHour;
+        }
         private void TongThanhToan()
         {
             try
             {
+                if (isCustomer) TinhTienGiamGia(); //Nếu là khách hàng sẽ kiểm tra voucher
+
                 string sqlPhong = "SELECT Phong.MaPhong, Phong.TenPhong, LoaiPhong.GiaTheoGio, Phong.TrangThai, Phong.GioVao, Phong.MoTa " +
                     "FROM Phong " +
                     $"INNER JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong WHERE MaPhong = '{Session.maPhong}'";
                 dt = new DataTable();
                 dt = kn.CreateTable(sqlPhong);
-                foreach (DataRow dr in dt.Rows)
+                if (dt.Rows.Count > 0)
                 {
-                    DateTime dateTimeIn = Convert.ToDateTime(dr["GioVao"]);
-                    DateTime dateTimeOut = Convert.ToDateTime(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
-                    TimeSpan tongThoiGian = dateTimeOut - dateTimeIn;
-                    double giaMoiPhut = Convert.ToDouble(dr["GiaTheoGio"].ToString()) / 60;
-                    double tongSoPhut = Math.Round(tongThoiGian.TotalMinutes);
-                    decimal tongTienPhong = Convert.ToDecimal(Math.Round(tongSoPhut * giaMoiPhut / 1000) * 1000);
-                    decimal tienDV = Session.TongTienDV;
+                    decimal giaMoiGio = Convert.ToDecimal(dt.Rows[0]["GiaTheoGio"]);
+                    DateTime dateTimeIn = Convert.ToDateTime(dt.Rows[0]["GioVao"]); //Lấy giờ vào
+                    DateTime dateTimeOut = Convert.ToDateTime(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")); // Tính giờ ra
+                    TimeSpan tongThoiGian = dateTimeOut - dateTimeIn; //Tổng thời gian sử dụng
+
+                    double giaMoiPhut =  (double)TinhTienPhongSau_22h(dateTimeIn, giaMoiGio)/ 60; //Tính giá mỗi phút 
+
+                    double tongSoPhut = Math.Round(tongThoiGian.TotalMinutes); //Làm tròn thời gian sử dụng (phút)
+                    decimal tongTienPhong = Convert.ToDecimal(Math.Round(tongSoPhut * giaMoiPhut / 1000) * 1000); //Tính tổng tiền phòng có làm tròn
+                    decimal tienDV = Session.TongTienDV; //Lấy tiền dịch vụ
+
 
                     decimal tongTien = tongTienPhong + tienDV;
-                    decimal tienVAT = (tongTien-tienGiamGia) * VAT;
+                    decimal tienVAT = (tongTien - trietKhauVIP - giamVoucher) * VAT;
                     
                     //Gán biến chung
                     Session.TimeOut = dateTimeOut;
                     Session.TongSoPhut = tongSoPhut;
                     Session.TongTienPhong = tongTienPhong;
                     Session.TongTien = tongTien;
-                    Session.Discount = tienGiamGia;
+                    Session.DiscountVIP = trietKhauVIP;
                     Session.TienVAT = tienVAT;
-                    if(isCustomer) Session.TongThanhToan = tongTien - tienGiamGia + tienVAT;
+
+                    if(isCustomer) Session.TongThanhToan = tongTien - trietKhauVIP - giamVoucher + tienVAT;
                     else Session.TongThanhToan = tongTien + tienVAT;
                 }
+                LoadLabel();
             }
             catch (SqlException ex)
             {
                 MessageBox.Show("Lỗi: " + ex.Message);
             }
         }//Tính tổng số tiền thanh toán
-        private void LoadVoucher() 
+        private void Load_And_Update_Voucher(bool isUsed) 
         {
-            cmbVoucher.Items.Clear();
-            string sqlVoucher = $"SELECT * FROM Voucher WHERE MaKH = '{Session.MaKH}'";
-            dt = kn.CreateTable(sqlVoucher);
-            if (dt.Rows.Count > 0)
+            //nếu đã dùng thì cập TT sử dụng và thời gian SD
+            if (isUsed)
             {
-                foreach (DataRow dr in dt.Rows)
+                string sqlUpdateVoucher = $"UPDATE VoucherKhachHang SET TrangThai = {trangThaiVoucher = 1}, NgaySuDung = GETDATE() WHERE STT = {STTmaVoucher} ";
+                cmd = new SqlCommand(sqlUpdateVoucher, kn.conn);
+                cmd.ExecuteNonQuery();
+            }
+            //Load voucher khi nhập đúng sđt đã tồn tại 
+            else
+            {
+                cmbVoucher.Items.Clear();
+
+                string sqlVoucher = $"SELECT VoucherKhachHang.STT, Voucher.MaVoucher, Voucher.TenVoucher FROM Voucher \n" +
+                    $"INNER JOIN VoucherKhachHang ON VoucherKhachHang.MaVoucher = Voucher.MaVoucher WHERE VoucherKhachHang.TrangThai = {trangThaiVoucher = 0} AND VoucherKhachHang.MaKH = '{Session.MaKH}'";
+                dt = kn.CreateTable(sqlVoucher);
+                if (dt.Rows.Count > 0)
                 {
-                    cmbVoucher.Items.Add(dr["MaVoucher"].ToString());
+                    dt.Rows.Add(-1, "-- Chọn voucher --"); //Thêm hiển thị cho voucher
+                    cmbVoucher.DataSource = dt;
+                    cmbVoucher.SelectedIndex = dt.Rows.Count -1; //Hiển thị mặc định là Chọn voucher
+                    cmbVoucher.DisplayMember = "TenVoucher";
+                    cmbVoucher.ValueMember = "STT";
                 }
             }
         }//Load voucher nếu có
+        private void TinhTienGiamGia()
+        {
+            if (isCustomer)
+            {
+                string sqlLayVoucher = $"SELECT Voucher.GiaTriGiam, Voucher.LoaiGiamGia FROM VoucherKhachHang \n" +
+                    $"INNER JOIN VouCher ON Voucher.MaVoucher = VoucherKhachHang.MaVoucher WHERE VoucherKhachHang.TrangThai = {trangThaiVoucher} AND VoucherKhachHang.MaKH = '{Session.MaKH}' AND VoucherKhachHang.STT = {STTmaVoucher}";
+                dt = kn.CreateTable(sqlLayVoucher);
+
+                if (dt.Rows.Count > 0)
+                {
+                    
+                    decimal giaTriGiam = Convert.ToDecimal(dt.Rows[0]["GiaTriGiam"]);
+
+                    //Nếu là true thì sẽ giảm theo %
+                    if (Convert.ToBoolean(dt.Rows[0]["LoaiGiamGia"])) 
+                    {
+                        giamVoucher = Session.TongTien * giaTriGiam;
+                        Session.DiscountVoucher = giamVoucher;
+                    }
+                    //Giảm theo tiền
+                    else
+                    {
+                        giamVoucher = giaTriGiam;
+                        Session.DiscountVoucher = giamVoucher;
+                    }
+                }
+                else
+                {
+                    giamVoucher = 0;
+                    Session.DiscountVoucher = giamVoucher;
+                }
+            }
+        } //tính tiền giảm giá của voucher
+        private void cmbVoucher_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (isCustomer && (cmbVoucher.SelectedValue is int))
+            {
+                voucherTarget = cmbVoucher.SelectedValue != null && Convert.ToInt32(cmbVoucher.SelectedValue) != -1 ? true : false;
+                STTmaVoucher = Convert.ToInt32(cmbVoucher.SelectedValue);
+                TongThanhToan();
+            }
+            //MessageBox.Show(cmbVoucher.SelectedValue.ToString());
+        }  //Event khi thay đổi lựa chọn voucher
         private bool UpdateGhiNo()
         {
             if (isGhiNo)
@@ -230,48 +320,47 @@ namespace SuperProjectQ.FrmMixed
                 }
             }
             return true;
-        }
+        } //Cập nhật ghi nợ
         private void txtSDT_TextChanged(object sender, EventArgs e)
         {
             try
             {
                 if (txtSDT.Text.Length > 10)
                 {
+                    int sdtTieuChuan = 10;
+                    cmbVoucher.DataSource = null;
                     MessageBox.Show("Số điện thoại <= 10");
-                    string newTxtSDT = txtSDT.Text.Remove(txtSDT.Text.Length - 1, 1);
+                    string newTxtSDT = txtSDT.Text.Remove(sdtTieuChuan, txtSDT.Text.Length - sdtTieuChuan);
                     txtSDT.Text = newTxtSDT;
                     return;
                 }
                 string noData = "--";
 
                 string sqlKH = $"SELECT * FROM KhachHang WHERE SoDienThoai = '{txtSDT.Text}'";
-                da = new SqlDataAdapter(sqlKH, kn.conn);
-                dt = new DataTable();
-                da.Fill(dt);
+                dt = kn.CreateTable(sqlKH);
                 if (dt.Rows.Count > 0 && txtSDT.Text.Length == 10)
                 {
-                    foreach (DataRow dr in dt.Rows)
-                    {
-                        isCustomer = true;
-                        //Gán dữ liệu
-                        Session.MaKH = dr["MaKH"].ToString();
-                        lblTenKH.Text = dr["TenKH"].ToString();
-                        lblDiaChi.Text = dr["DiaChi"].ToString();
-                        lblVIP.Text = dr["VIP"].ToString();
-                        lblDiemTichLuy.Text = dr["DiemTichLuy"].ToString();
-                        lblDiscount.Text = (Convert.ToDouble(dr["Discount"]) * 100).ToString() + "%";
+                    isCustomer = true;
+                    //Gán dữ liệu
+                    Session.MaKH = dt.Rows[0]["MaKH"].ToString();
+                    lblTenKH.Text = dt.Rows[0]["TenKH"].ToString();
+                    lblDiaChi.Text = dt.Rows[0]["DiaChi"].ToString();
+                    lblVIP.Text = dt.Rows[0]["VIP"].ToString();
+                    lblDiemTichLuy.Text = dt.Rows[0]["DiemTichLuy"].ToString();
+                    lblDiscount.Text = $"Triết khấu VIP ({(Convert.ToDouble(dt.Rows[0]["Discount"]) * 100).ToString()}%):";
 
-                        //Xử lý giảm giá
-                        tienGiamGia = Session.TongTien * Convert.ToDecimal(dr["Discount"]);
-                        break;
-                    }
-                    TongThanhToan();
-                    LoadLabel();
-                    LoadQRCode();
+                    //Xử lý giảm giá
+                    trietKhauVIP = Session.TongTien * Convert.ToDecimal(dt.Rows[0]["Discount"]);
+
+                    //Gọi hàm
+                    Load_And_Update_Voucher(false);
+
+                    LoadQRCode(); //Trong hàm này đã load hàm TongThanhToan()
                 }
                 else
                 {
-                    isCustomer = false;
+                    isCustomer = false; //Khách hàng mới
+                    cmbVoucher.DataSource = null; //Xoá dữ liệu voucher
 
                     lblTenKH.Text = noData;
                     lblDiaChi.Text = noData;
@@ -280,20 +369,18 @@ namespace SuperProjectQ.FrmMixed
                     lblDiscount.Text = noData;
                     lblTrietKhau.Text = noData;
                 }
-                if (txtSDT.Text.Length == 10 || txtSDT.Text.Length == 9 && !isCustomer)
-                {
-                    TongThanhToan();
-                    LoadLabel();
-                    LoadQRCode();
-                }
+                if (txtSDT.Text.Length == 9 && !isCustomer) LoadQRCode(); //Load khách hàng chưa tồn tại
 
                 if (isCustomer) lblTienThanhToan.Text = Session.TongThanhToan.ToString("#,##0 VND");
                 else lblTienThanhToan.Text = Session.TongThanhToan.ToString("#,##0 VND");
 
                 if (PTTT == "Tiền mặt")
                 {
-                    int tienNhan = Convert.ToInt32(txtTienNhan.Text.Replace(".", ""));
-                    txtTraLai.Text = (tienNhan - Session.TongThanhToan).ToString("#,##0");
+                    if(txtTienNhan.Text != "")
+                    {
+                        int tienNhan = Convert.ToInt32(txtTienNhan.Text.Replace(".", ""));
+                        txtTraLai.Text = (tienNhan - Session.TongThanhToan).ToString("#,##0");
+                    }
                 }
             }
             catch (Exception ex)
@@ -312,7 +399,7 @@ namespace SuperProjectQ.FrmMixed
             PTTT = "QR Code";
             lblPTTT.Text = "PTTT: " + PTTT;
 
-            LoadQRCode();
+            LoadQRCode(); //Trong hàm này đã load hàm TongThanhToan()
         }
 
         private async void btnConfirm_Click(object sender, EventArgs e)
@@ -325,6 +412,7 @@ namespace SuperProjectQ.FrmMixed
                 Session.TrangThaiHD = true;
 
                 TichDiemKH();
+                Load_And_Update_Voucher(voucherTarget);
                 //cập nhật ghi nợ nếu có
                 if (!UpdateGhiNo()) return;
 
@@ -343,18 +431,13 @@ namespace SuperProjectQ.FrmMixed
             try
             {
                 kn.ConnOpen();
-                TongThanhToan();
-                LoadLabel();
                 Session.MaKH = "KH000";
-
                 plQRCode.Hide();
                 plCash.Hide();
                 plGhiNo.Hide();
                 plTTKH.Visible = false;
 
-
-                if (isCustomer) lblTienThanhToan.Text = Session.TongThanhToan.ToString("#,##0 VND");
-                else lblTienThanhToan.Text = Session.TongTien.ToString("#,##0 VND");
+                lblTienThanhToan.Text = Session.TongThanhToan.ToString("#,##0 VND");
             }
             catch (SqlException ex)
             {
@@ -365,13 +448,11 @@ namespace SuperProjectQ.FrmMixed
         private void btnCash_Click(object sender, EventArgs e)
         {
             TongThanhToan();
-            LoadLabel();
 
             plQRCode.Hide();
             plGhiNo.Hide();
             plCash.Show();
             plTTKH.Visible = true;
-            txtTienNhan.Text = "0";
             txtTraLai.Text = "0";
             //Đặt tên theo PTTT
             PTTT = "Tiền mặt";

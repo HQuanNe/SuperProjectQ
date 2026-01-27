@@ -62,7 +62,6 @@ namespace SuperProjectQ.Frm_Main_Login_Register
                 MNMain.BackColor = Color.WhiteSmoke;
                 MNMain.ForeColor = textColor;
                 btnBack.ForeColor = textColor;
-
             }
         }
         private void MN_NhanVien_DSNV_Click(object sender, EventArgs e)
@@ -77,6 +76,11 @@ namespace SuperProjectQ.Frm_Main_Login_Register
             frmPhong frmPhong = new frmPhong();
             frmPhong.Visible = true;
             this.Visible = false;
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+
         }
 
         private string TenQH()
@@ -99,6 +103,7 @@ namespace SuperProjectQ.Frm_Main_Login_Register
             lblQuyenHan.Text = TenQH();
 
             Session.KiemTraGhiNo(); // Kiểm tra ghi nợ khi mở form Main
+            Session.KiemTraVoucher(); //Kiểm tra voucher khi mở form Main
         }
     }
 }
