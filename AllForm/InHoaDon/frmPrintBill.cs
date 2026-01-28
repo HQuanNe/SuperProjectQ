@@ -42,7 +42,7 @@ namespace SuperProjectQ
             }
             //MessageBox.Show(Session.maHD.ToString());
             this.rpInHoaDon.LocalReport.DataSources.Clear();
-            string sqlHD = $"SELECT  HoaDon.MaHD, Phong.TenPhong, LoaiPhong.TenLoaiPhong, HoaDon.MaKH, HoaDon.MaNV, HoaDon.GioVao, HoaDon.GioRa, HoaDon.TongSoPhut, " +
+            string sqlHD = $"SELECT HoaDon.MaHD, Phong.TenPhong, LoaiPhong.TenLoaiPhong, HoaDon.MaKH, HoaDon.MaNV, HoaDon.GioVao, HoaDon.GioRa, HoaDon.TongSoPhut, " +
                 $"HoaDon.TienPhong, HoaDon.TienDichVu, HoaDon.TongTien, HoaDon.TrietKhauVIP, HoaDon.TrietKhauVoucher, HoaDon.VAT, HoaDon.TongThanhToan, " +
                 $"HoaDon.PTTT, HoaDon.TrangThai FROM HoaDon INNER JOIN Phong ON Phong.MaPhong = HoaDon.MaPhong INNER JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong WHERE MaHD = {maHD}";
             string sqlCTHD = $"SELECT ChiTietHD.MaHD, KhoHang.TenSP, ChiTietHD.SoLuong, ChiTietHD.DonVi, ChiTietHD.DonGia, ChiTietHD.ThanhTien\r\nFROM ChiTietHD\r\nINNER JOIN KhoHang ON KhoHang.MaSP = ChiTietHD.MaSP WHERE MaHD = {maHD}";

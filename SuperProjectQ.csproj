@@ -141,6 +141,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>QLKaraokDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="SetParameters.cs" />
     <Compile Include="TransData.cs" />
     <EmbeddedResource Include="AllForm\Main-Login-Register\frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>

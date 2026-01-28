@@ -32,7 +32,8 @@ namespace SuperProjectQ.FrmMixed
 
         string strStatusOpen = "Trạng thái: Đang chạy";
         string strStatusClose = "Trạng thái: Trống";
-        string strStatusBooking = "Đã đặt trước";
+        string strStatusBooking = "Trạng thái: Đã đặt trước";
+        Color clrText = Color.Black;
         Color clrStatusOpen = Color.FromArgb(255, 192, 192);
         Color clrStatusClose = Color.FromArgb(192, 255, 192);
         Color clrStatusBooking = Color.FromArgb(192, 255, 255);
@@ -205,11 +206,12 @@ namespace SuperProjectQ.FrmMixed
                     DateTime DateTimIn = Convert.ToDateTime(dr["GioVao"].ToString());
 
                     //Thêm hoá đơn
-                    string sqlHD = $"INSERT INTO HoaDon(MaHD, MaPhong, MaNV, GioVao) " +
-                                    $"VALUES ({billID}, '{RoomID}', '{phong_MaNV}', @GV)";
+                    string sqlHD = $"INSERT INTO HoaDon(MaHD, MaPhong, MaNV, GioVao, TrangThai) " +
+                                    $"VALUES ({billID}, '{RoomID}', '{phong_MaNV}', @GV, @TT)";
                     cmd = new SqlCommand(sqlHD, kn.conn);
                     cmd.Parameters.Clear();
                     cmd.Parameters.AddWithValue("@GV", DateTimIn);
+                    cmd.Parameters.AddWithValue("@TT", 0);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -313,14 +315,14 @@ namespace SuperProjectQ.FrmMixed
             if (dt.Rows[0]["TrangThai"].ToString() == "1")
             {
                 plMenu.Enabled = true;
-                plOdered.Enabled = true;
+                plOrdered.Enabled = true;
 
                 GetData_From_CTHD(panelTag);
             }
             else if (dt.Rows[0]["TrangThai"].ToString() == "0")
             {
                 plMenu.Enabled = false;
-                plOdered.Enabled = false;
+                plOrdered.Enabled = false;
             }
         } // Load DV đã dùng khi click vào phòng đang mở
         private void AllPanels_Click(object sender, EventArgs e)
@@ -337,17 +339,8 @@ namespace SuperProjectQ.FrmMixed
                 // Lưu panel đang click để xử lý khi click sang 1 panel khác
                 selectedPanel = clickedPanel;
             }
-            //selectedPanel = (Panel)sender;
-            // Hiển thị  panel này đang chọn
-            if (selectedPanel.Name == "plMP001")      {lblInfo.Text = lblP101.Text;}
-            else if (selectedPanel.Name == "plMP002") {lblInfo.Text = lblP102.Text;}
-            else if (selectedPanel.Name == "plMP003") {lblInfo.Text = lblP103.Text;}
-            else if (selectedPanel.Name == "plMP004") {lblInfo.Text = lblP104.Text;}
-            else if (selectedPanel.Name == "plMP005") {lblInfo.Text = lblP201.Text;}
-            else if (selectedPanel.Name == "plMP006") {lblInfo.Text = lblP202.Text;}
-            else if (selectedPanel.Name == "plMP007") {lblInfo.Text = lblP203.Text;}
-            else if (selectedPanel.Name == "plMP008") {lblInfo.Text = lblP204.Text;}
-            
+            lblInfo.Text = selectedPanel.Controls[0].Text;// Hiển thị panel này đang chọn
+
             //Ản hiện nút theo trạng thái
             string sqlPhong = "SELECT * FROM Phong";
             dt = new DataTable();
@@ -418,7 +411,7 @@ namespace SuperProjectQ.FrmMixed
             {
                 kn.ConnOpen();
                 plMenu.Enabled = false;
-                plOdered.Enabled = false;
+                plOrdered.Enabled = false;
 
                 string sqlPhong = "SELECT * FROM Phong";
                 dt = new DataTable();
@@ -432,8 +425,8 @@ namespace SuperProjectQ.FrmMixed
                         Padding = new Padding(0),
                         Margin = new Padding(2),
                         BorderStyle = BorderStyle.FixedSingle,
-                        Width = 173,
-                        Height = 173,
+                        Width = SetParameters.plDanhSachPhong_WIDTH,
+                        Height = SetParameters.plDanhSachPhong_HEIGHT,
                         Cursor = Cursors.Hand,
                         //Lấy vị trí X phòng tạm cộng với chiều rộng phòng tạm để làm vị trí cho phòng tiếp theo
                         Location = new Point(plPhongTam.Location.X + plPhongTam.Width, plPhongTam.Location.Y), 
@@ -442,47 +435,56 @@ namespace SuperProjectQ.FrmMixed
 
                         Name = row["MaPhong"].ToString(), //Gán Name theo mã phòng
                     };
-                    Label tenPhong = new Label()
+                    Label lblTenPhong = new Label()
                     {
+                        Name = row["MaPhong"].ToString(), //Gán Name theo mã phòng
                         Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point),
                         Text = $"Phòng {row["TenPhong"].ToString()}",
                         Location = new Point(plDanhSanhPhong.Width / 2 - 50, 4),
                         ForeColor = Color.Black,
                         AutoSize = true,
                     };
-                    Label trangThai = new Label()
+                    Label lblTrangThai = new Label()
                     {
+                        Name = row["MaPhong"].ToString(), //Gán Name theo mã phòng
                         Font = new Font("Times New Roman", 10F, FontStyle.Bold, GraphicsUnit.Point),
-                        Location = new Point(0, 135),
-                        ForeColor = Color.Black,
+                        Location = new Point(0, 100),
+                        ForeColor = clrText,
                         AutoSize = true
                     };
                     if (row["TrangThai"].ToString() == "0")
                     {
                         plDanhSanhPhong.BackColor = clrStatusClose;
-                        trangThai.Text = "Trạng thái: Trống";
+                        lblTrangThai.Text = strStatusClose;
                     }
                     else if (row["TrangThai"].ToString() == "1")
                     {
                         plDanhSanhPhong.BackColor = clrStatusOpen;
-                        trangThai.Text = "Trạng thái: Đang sử dụng";
+                        lblTrangThai.Text = strStatusOpen;
                     }
                     else if (row["TrangThai"].ToString() == "2")
                     {
                         plDanhSanhPhong.BackColor = clrStatusBooking;
-                        trangThai.Text = "Trạng thái: Đã đặt";
+                        lblTrangThai.Text = strStatusBooking;
 
                     }
-                        
-                        flowLayoutRegular.Controls.Add(plDanhSanhPhong);
-                        plDanhSanhPhong.Controls.Add(tenPhong);
-                        plDanhSanhPhong.Controls.Add(trangThai);
-                        plDanhSanhPhong.Click += AllPanels_Click;
 
-                        plPhongTam = plDanhSanhPhong;//Cập nhật panel tạm bằng panel vừa tạo xong
+                    if (row["MaLoaiPhong"].ToString().Contains("LPR")) flowLayoutRegular.Controls.Add(plDanhSanhPhong);
+                    else if (row["MaLoaiPhong"].ToString().Contains("LPV")) 
+                    { 
+                        flowLayoutVIP.Controls.Add(plDanhSanhPhong); lblTenPhong.Text += " (VIP)"; 
+                        lblTenPhong.Location = new Point(plDanhSanhPhong.Width / 2 - 80, 4); 
+                    };
+                    plDanhSanhPhong.Controls.Add(lblTenPhong); //Thêm tên phòng vào panel
+                    plDanhSanhPhong.Controls.Add(lblTrangThai);//Thêm trạng thái vào panel
+                    plDanhSanhPhong.Click += AllPanels_Click; //Gán sự kiện click cho panel
+
+                    plPhongTam = plDanhSanhPhong;//Cập nhật panel tạm bằng panel vừa tạo xong
+
+
                     dgvMenuFood.EditMode = DataGridViewEditMode.EditProgrammatically; //Chống xoá dữ liệu
                     dgvMenuFood.SelectionMode = DataGridViewSelectionMode.FullRowSelect;//Chọn tất cả dữ liệu ở dòng
-                    dgvMenuFood.AutoGenerateColumns = false;
+                    dgvMenuFood.AutoGenerateColumns = false; //Không tự động tạo cột
                     //Load menu đồ ăn
                     string sqlAllProd = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.DinhLuong, SanPham.DVTDinhLuong, SanPham.GiaBan FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP " +
                                        $"WHERE KhoHang.TonKho >= {dinhMucKho} \n" +
@@ -492,174 +494,43 @@ namespace SuperProjectQ.FrmMixed
                     //Load đồ đã order
                     string sqlCTHD = "SELECT HoaDon.MaPhong, HoaDon.MaHD " +
                         "FROM HoaDon " +
-                        "INNER JOIN Phong ON HoaDon.MaPhong = Phong.MaPhong WHERE Phong.TrangThai = 1";
+                        "INNER JOIN Phong ON HoaDon.MaPhong = Phong.MaPhong WHERE Phong.TrangThai = 1 AND HoaDon.TrangThai = 0";
                     dt = new DataTable();
                     dt = kn.CreateTable(sqlCTHD);
-                    foreach(DataRow dr2 in dt.Rows)
+                    foreach(DataRow dr in dt.Rows)
                     {
-                        plDanhSanhPhong.Tag = Convert.ToInt32(dr2["MaHD"]);
-                        if (dr2["MaPhong"].ToString() == "MP001") plMP001.Tag = Convert.ToInt32(dr2["MaHD"]);
-                        else if (dr2["MaPhong"].ToString() == "MP002") plMP002.Tag = Convert.ToInt32(dr2["MaHD"].ToString());
-                        else if (dr2["MaPhong"].ToString() == "MP003") plMP003.Tag = Convert.ToInt32(dr2["MaHD"].ToString());
-                        else if (dr2["MaPhong"].ToString() == "MP004") plMP004.Tag = Convert.ToInt32(dr2["MaHD"].ToString());
-                        else if (dr2["MaPhong"].ToString() == "MP005") plMP005.Tag = Convert.ToInt32(dr2["MaHD"].ToString());
-                        else if (dr2["MaPhong"].ToString() == "MP006") plMP006.Tag = Convert.ToInt32(dr2["MaHD"].ToString());
-                        else if (dr2["MaPhong"].ToString() == "MP007") plMP007.Tag = Convert.ToInt32(dr2["MaHD"].ToString());
-                        else if (dr2["MaPhong"].ToString() == "MP008") plMP008.Tag = Convert.ToInt32(dr2["MaHD"].ToString());
+                        if (plDanhSanhPhong.Name == dr["MaPhong"].ToString()) { plDanhSanhPhong.Tag = Convert.ToInt32(dr["MaHD"]); break; }
                     }
-                    //Ẩn nút Order
-                    btnOrder.Visible = false;
                 }
+                //Ẩn nút Order
+                btnOrder.Visible = false;
             }
             catch (SqlException ex)
             {
                 MessageBox.Show("Lỗi CSDL \nLỗi: " + ex.Message);
             }
         } //Load dữ liệu 
-
-        private void TestPL_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
         #region Nút mở, đóng, đặt trướcc
         private void btnDatTruoc_Click(object sender, EventArgs e)
         {
             try
             {
-                if (TakeNamePanel == null)
-                {
-                    MessageBox.Show("Hãy chọn một phòng"); return;
-                }
+                if (TakeNamePanel == null){ MessageBox.Show("Hãy chọn một phòng"); return;}
                 if (MessageBox.Show("Xác nhận đặt trước?", "Thông báo",MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    if (TakeNamePanel == "plMP001")
-                    {
-                        //Đổi màu, thời gian, chữ
-                        string maPhong = TakeNamePanel.Replace("pl", "");
-                        lblTimeIN_P101.Text = $"Giờ vào: --";
-                        btnOpen.Visible = true;
-                        btnClose.Visible = false;
-                        btnDatTruoc.Visible = false;
-                        btnHuyDatTruoc.Visible = true;
-                        lblTimeOUT_P101.Text = "Giờ ra: --";
-                        plMP001.BackColor = clrStatusBooking;
-                        lblStatus_P101.Text = strStatusBooking;
+                    //Đổi màu, thời gian, chữ
+                    string maPhong = TakeNamePanel;
 
-                        Update_Status_Room(2, maPhong);
-                        UpdatePrice(true, maPhong);
-                    }
-                    else if (TakeNamePanel == "plMP002")
-                    {
-                        //Đổi màu, chữ
-                        string maPhong = TakeNamePanel.Replace("pl", "");
-                        btnOpen.Visible = true;
-                        btnClose.Visible = false;
-                        btnDatTruoc.Visible = false;
-                        btnHuyDatTruoc.Visible = true;
-                        lblTimeIN_P102.Text = $"Giờ vào: --";
-                        lblTimeOUT_P102.Text = "Giờ ra: --";
-                        plMP002.BackColor = clrStatusBooking;
-                        lblStatus_P102.Text = strStatusBooking;
+                    btnOpen.Visible = true;
+                    btnClose.Visible = false;
+                    btnDatTruoc.Visible = false;
+                    btnHuyDatTruoc.Visible = true;
 
-                        Update_Status_Room(2, maPhong);
-                        UpdatePrice(true, maPhong);
-                    }
-                    else if (TakeNamePanel == "plMP003")
-                    {
-                        //Đổi màu, thời gian, chữ
-                        string maPhong = TakeNamePanel.Replace("pl", "");
-                        btnOpen.Visible = true;
-                        btnClose.Visible = false;
-                        btnDatTruoc.Visible = false;
-                        btnHuyDatTruoc.Visible = true;
-                        lblTimeIN_P103.Text = $"Giờ vào: --";
-                        lblTimeOUT_P103.Text = "Giờ ra: --";
-                        plMP003.BackColor = clrStatusBooking;
-                        lblStatus_P103.Text = strStatusBooking;
+                    selectedPanel.BackColor = clrStatusBooking;
+                    selectedPanel.Controls[1].Text = strStatusBooking;
 
-                        Update_Status_Room(2, maPhong);
-                        UpdatePrice(true, maPhong);
-                    }
-                    else if (TakeNamePanel == "plMP004")
-                    {
-                        //Đổi màu, thời gian, chữ
-                        string maPhong = TakeNamePanel.Replace("pl", "");
-                        btnOpen.Visible = true;
-                        btnClose.Visible = false;
-                        btnDatTruoc.Visible = false;
-                        btnHuyDatTruoc.Visible = true;
-                        lblTimeIN_P104.Text = $"Giờ vào: --";
-                        lblTimeOUT_P104.Text = "Giờ ra: --";
-                        plMP004.BackColor = clrStatusBooking;
-                        lblStatus_P104.Text = strStatusBooking;
-
-                        Update_Status_Room(2, maPhong);
-                        UpdatePrice(true, maPhong);
-                    }
-                    else if (TakeNamePanel == "plMP005")
-                    {
-                        //Đổi màu, thời gian, chữ
-                        string maPhong = TakeNamePanel.Replace("pl", "");
-                        btnOpen.Visible = true;
-                        btnClose.Visible = false;
-                        btnDatTruoc.Visible = false;
-                        btnHuyDatTruoc.Visible = true;
-                        lblTimeIN_P201.Text = $"Giờ vào: --";
-                        lblTimeOUT_P201.Text = "Giờ ra: --";
-                        plMP005.BackColor = clrStatusBooking;
-                        lblStatus_P201.Text = strStatusBooking;
-
-                        Update_Status_Room(2, maPhong);
-                        UpdatePrice(true, maPhong);
-                    }
-                    else if (TakeNamePanel == "plMP006")
-                    {
-                        //Đổi màu, thời gian, chữ
-                        string maPhong = TakeNamePanel.Replace("pl", "");
-                        btnOpen.Visible = true;
-                        btnClose.Visible = false;
-                        btnDatTruoc.Visible = false;
-                        btnHuyDatTruoc.Visible = true;
-                        lblTimeIN_P202.Text = $"Giờ vào: --";
-                        lblTimeOUT_P202.Text = "Giờ ra: --";
-                        plMP006.BackColor = clrStatusBooking;
-                        lblStatus_P202.Text = strStatusBooking;
-
-                        Update_Status_Room(2, maPhong);
-                        UpdatePrice(true, maPhong);
-                    }
-                    else if (TakeNamePanel == "plMP007")
-                    {
-                        //Đổi màu, thời gian, chữ
-                        string maPhong = TakeNamePanel.Replace("pl", "");
-                        btnOpen.Visible = true;
-                        btnClose.Visible = false;
-                        btnDatTruoc.Visible = false;
-                        btnHuyDatTruoc.Visible = true;
-                        lblTimeIN_P203.Text = $"Giờ vào: --";
-                        lblTimeOUT_P203.Text = "Giờ ra: --";
-                        plMP007.BackColor = clrStatusBooking;
-                        lblStatus_P203.Text = strStatusBooking;
-
-                        Update_Status_Room(2, maPhong);
-                        UpdatePrice(true, maPhong);
-                    }
-                    else if (TakeNamePanel == "plMP008")
-                    {
-                        //Đổi màu, thời gian, chữ
-                        string maPhong = TakeNamePanel.Replace("pl", "");
-                        btnOpen.Visible = true;
-                        btnClose.Visible = false;
-                        btnDatTruoc.Visible = false;
-                        btnHuyDatTruoc.Visible = true;
-                        lblTimeIN_P204.Text = $"Giờ vào: --";
-                        lblTimeOUT_P204.Text = "Giờ ra: --";
-                        plMP008.BackColor = clrStatusBooking;
-                        lblStatus_P204.Text = strStatusBooking;
-
-                        Update_Status_Room(2, maPhong);
-                        UpdatePrice(true, maPhong);
-                    }
+                    Update_Status_Room(2, maPhong);
+                    UpdatePrice(true, maPhong);
                 }
 
             }
@@ -673,138 +544,20 @@ namespace SuperProjectQ.FrmMixed
         {
             try
             {
-                if (TakeNamePanel == null)
-                {
-                    MessageBox.Show("Hãy chọn một phòng"); return;
-                }
-                else if (TakeNamePanel == "plMP001")
-                {
-                    //Đổi màu, thời gian, chữ
-                    string maPhong = TakeNamePanel.Replace("pl", "");
-                    lblTimeIN_P101.Text = $"Giờ vào: --";
-                    btnOpen.Visible = true;
-                    btnClose.Visible = false;
-                    btnDatTruoc.Visible = true;
-                    btnHuyDatTruoc.Visible = false;
-                    lblTimeOUT_P101.Text = "Giờ ra: --";
-                    plMP001.BackColor = clrStatusClose;
-                    lblStatus_P101.Text = strStatusClose;
+                if (TakeNamePanel == null) {MessageBox.Show("Hãy chọn một phòng"); return;}
 
-                    Update_Status_Room(0, maPhong);
-                    UpdatePrice(false, maPhong);
-                }
-                else if (TakeNamePanel == "plMP002")
-                {
-                    //Đổi màu, chữ
-                    string maPhong = TakeNamePanel.Replace("pl", "");
-                    btnOpen.Visible = true;
-                    btnClose.Visible = false;
-                    btnDatTruoc.Visible = true;
-                    btnHuyDatTruoc.Visible = false;
-                    lblTimeIN_P102.Text = $"Giờ vào: --";
-                    lblTimeOUT_P102.Text = "Giờ ra: --";
-                    plMP002.BackColor = clrStatusClose;
-                    lblStatus_P102.Text = strStatusClose;
-
-                    Update_Status_Room(0, maPhong);
-                    UpdatePrice(false, maPhong);
-                }
-                else if (TakeNamePanel == "plMP003")
-                {
                     //Đổi màu, thời gian, chữ
                     string maPhong = TakeNamePanel.Replace("pl", "");
                     btnOpen.Visible = true;
                     btnClose.Visible = false;
                     btnDatTruoc.Visible = true;
                     btnHuyDatTruoc.Visible = false;
-                    lblTimeIN_P103.Text = $"Giờ vào: --";
-                    lblTimeOUT_P103.Text = "Giờ ra: --";
-                    plMP003.BackColor = clrStatusClose;
-                    lblStatus_P103.Text = strStatusClose;
+
+                    selectedPanel.BackColor = clrStatusClose;
+                    selectedPanel.Controls[1].Text = strStatusClose;
 
                     Update_Status_Room(0, maPhong);
                     UpdatePrice(false, maPhong);
-                }
-                else if (TakeNamePanel == "plMP004")
-                {
-                    //Đổi màu, thời gian, chữ
-                    string maPhong = TakeNamePanel.Replace("pl", "");
-                    btnOpen.Visible = true;
-                    btnClose.Visible = false;
-                    btnDatTruoc.Visible = true;
-                    btnHuyDatTruoc.Visible = false;
-                    lblTimeIN_P104.Text = $"Giờ vào: --";
-                    lblTimeOUT_P104.Text = "Giờ ra: --";
-                    plMP004.BackColor = clrStatusClose;
-                    lblStatus_P104.Text = strStatusClose;
-
-                    Update_Status_Room(0, maPhong);
-                    UpdatePrice(false, maPhong);
-                }
-                else if (TakeNamePanel == "plMP005")
-                {
-                    //Đổi màu, thời gian, chữ
-                    string maPhong = TakeNamePanel.Replace("pl", "");
-                    btnOpen.Visible = true;
-                    btnClose.Visible = false;
-                    btnDatTruoc.Visible = true;
-                    btnHuyDatTruoc.Visible = false;
-                    lblTimeIN_P201.Text = $"Giờ vào: --";
-                    lblTimeOUT_P201.Text = "Giờ ra: --";
-                    plMP005.BackColor = clrStatusClose;
-                    lblStatus_P201.Text = strStatusClose;
-
-                    Update_Status_Room(0, maPhong);
-                    UpdatePrice(false, maPhong);
-                }
-                else if (TakeNamePanel == "plMP006")
-                {
-                    //Đổi màu, thời gian, chữ
-                    string maPhong = TakeNamePanel.Replace("pl", "");
-                    btnOpen.Visible = true;
-                    btnClose.Visible = false;
-                    btnDatTruoc.Visible = true;
-                    btnHuyDatTruoc.Visible = false;
-                    lblTimeIN_P202.Text = $"Giờ vào: --";
-                    lblTimeOUT_P202.Text = "Giờ ra: --";
-                    plMP006.BackColor = clrStatusClose;
-                    lblStatus_P202.Text = strStatusClose;
-
-                    Update_Status_Room(0, maPhong);
-                    UpdatePrice(false, maPhong);
-                }
-                else if (TakeNamePanel == "plMP007")
-                {
-                    //Đổi màu, thời gian, chữ
-                    string maPhong = TakeNamePanel.Replace("pl", "");
-                    btnOpen.Visible = true;
-                    btnClose.Visible = false;
-                    btnDatTruoc.Visible = true;
-                    btnHuyDatTruoc.Visible = false;
-                    lblTimeIN_P203.Text = $"Giờ vào: --";
-                    lblTimeOUT_P203.Text = "Giờ ra: --";
-                    plMP007.BackColor = clrStatusClose;
-                    lblStatus_P203.Text = strStatusClose;
-
-                    Update_Status_Room(0, maPhong);
-                    UpdatePrice(false, maPhong);
-                }
-                else if (TakeNamePanel == "plMP008")
-                {
-                    //Đổi màu, thời gian, chữ
-                    string maPhong = TakeNamePanel.Replace("pl", "");
-                    btnOpen.Visible = true;
-                    btnClose.Visible = false;
-                    btnDatTruoc.Visible = true;
-                    btnHuyDatTruoc.Visible = false;
-                    lblTimeIN_P204.Text = $"Giờ vào: --";
-                    lblTimeOUT_P204.Text = "Giờ ra: --";
-                    plMP008.BackColor = clrStatusClose;
-                    lblStatus_P204.Text = strStatusBooking;
-
-                    Update_Status_Room(0, maPhong);
-                    UpdatePrice(false, maPhong);
-                }
             }
             catch (SqlException ex)
             {
@@ -820,206 +573,28 @@ namespace SuperProjectQ.FrmMixed
                 {
                     MessageBox.Show("Hãy chọn một phòng"); return;
                 }
-                else if (TakeNamePanel == "plMP001")
-                {
-                    //Đổi màu, thời gian, chữ
-                    string maPhong = TakeNamePanel.Replace("pl", "");
-                    string timeIn = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                    lblTimeIN_P101.Text = $"Giờ vào: {timeIn}";
-                    btnOpen.Visible = false;
-                    btnClose.Visible = true;
-                    btnDatTruoc.Visible = false;
-                    btnHuyDatTruoc.Visible = false;
-                    lblTimeOUT_P101.Text = "Giờ ra: --";
-                    plMP001.BackColor = clrStatusOpen;
-                    lblStatus_P101.Text = strStatusOpen;
-                    plMenu.Enabled = true;
-                    plOdered.Enabled = true;
+                //Đổi màu, thời gian, chữ
+                string maPhong = TakeNamePanel.Replace("pl", "");
+                btnOpen.Visible = false;
+                btnClose.Visible = true;
+                btnDatTruoc.Visible = false;
+                btnHuyDatTruoc.Visible = false;
+                plMenu.Enabled = true;
+                plOrdered.Enabled = true;
 
-                    int billID = AutoCreateID("MaHD", "HoaDon");
-                    plMP001.Tag = billID;
-                    StatusCheck(maPhong);
-                    Update_Status_Room(1, maPhong);
-                    Add_Bill(billID, maPhong);
-                    DoCoSan(billID);
-                    GetData_From_CTHD(billID);
-                    TongTienDV(billID);
-                }
-                else if (TakeNamePanel == "plMP002")
-                {
-                    //Đổi màu, thời gian, chữ
-                    string maPhong = TakeNamePanel.Replace("pl", "");
-                    string timeIn = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                    btnOpen.Visible = false;
-                    btnClose.Visible = true;
-                    btnDatTruoc.Visible = false;
-                    btnHuyDatTruoc.Visible = false;
-                    lblTimeIN_P102.Text = $"Giờ vào: {timeIn}";
-                    lblTimeOUT_P102.Text = "Giờ ra: --";
-                    plMP002.BackColor = clrStatusOpen;
-                    lblStatus_P102.Text = strStatusOpen;
-                    plMenu.Enabled = true;
-                    plOdered.Enabled = true;
+                selectedPanel.BackColor = clrStatusOpen;
+                selectedPanel.Controls[1].Text = strStatusOpen;
 
-                    int billID = AutoCreateID("MaHD", "HoaDon");
-                    plMP002.Tag = billID;
-                    StatusCheck(maPhong);
-                    Update_Status_Room(1, maPhong);
-                    Add_Bill(billID, maPhong);
-                    DoCoSan(billID);
-                    GetData_From_CTHD(billID);
-                    TongTienDV(billID);
-                }
-                else if (TakeNamePanel == "plMP003")
-                {
-                    //Đổi màu, thời gian, chữ
-                    string maPhong = TakeNamePanel.Replace("pl", "");
-                    string timeIn = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                    btnOpen.Visible = false;
-                    btnClose.Visible = true;
-                    btnDatTruoc.Visible = false;
-                    btnHuyDatTruoc.Visible = false;
-                    lblTimeIN_P103.Text = $"Giờ vào: {timeIn}";
-                    lblTimeOUT_P103.Text = "Giờ ra: --";
-                    plMP003.BackColor = clrStatusOpen;
-                    lblStatus_P103.Text = strStatusOpen;
-                    plMenu.Enabled = true;
-                    plOdered.Enabled = true;
+                int billID = AutoCreateID("MaHD", "HoaDon");
 
-                    int billID = AutoCreateID("MaHD", "HoaDon");
-                    plMP003.Tag = billID;
-                    StatusCheck(maPhong);
-                    Update_Status_Room(1, maPhong);
-                    Add_Bill(billID, maPhong);
-                    DoCoSan(billID);
-                    GetData_From_CTHD(billID);
-                    TongTienDV(billID);
-                }
-                else if (TakeNamePanel == "plMP004")
-                {
-                    //Đổi màu, thời gian, chữ
-                    string maPhong = TakeNamePanel.Replace("pl", "");
-                    string timeIn = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                    btnOpen.Visible = false;
-                    btnClose.Visible = true;
-                    btnDatTruoc.Visible = false;
-                    btnHuyDatTruoc.Visible = false;
-                    lblTimeIN_P104.Text = $"Giờ vào: {timeIn}";
-                    lblTimeOUT_P104.Text = "Giờ ra: --";
-                    plMP004.BackColor = clrStatusOpen;
-                    lblStatus_P104.Text = strStatusOpen;
-                    plMenu.Enabled = true;
-                    plOdered.Enabled = true;
+                selectedPanel.Tag = billID;
 
-                    int billID = AutoCreateID("MaHD", "HoaDon");
-                    plMP004.Tag = billID;
-                    StatusCheck(maPhong);
-                    Update_Status_Room(1, maPhong);
-                    Add_Bill(billID, maPhong);
-                    DoCoSan(billID);
-                    GetData_From_CTHD(billID);
-                    TongTienDV(billID);
-                }
-                else if (TakeNamePanel == "plMP005")
-                {
-                    //Đổi màu, thời gian, chữ
-                    string maPhong = TakeNamePanel.Replace("pl", "");
-                    string timeIn = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                    btnOpen.Visible = false;
-                    btnClose.Visible = true;
-                    btnDatTruoc.Visible = false;
-                    btnHuyDatTruoc.Visible = false;
-                    lblTimeIN_P201.Text = $"Giờ vào: {timeIn}";
-                    lblTimeOUT_P201.Text = "Giờ ra: --";
-                    plMP005.BackColor = clrStatusOpen;
-                    lblStatus_P201.Text = strStatusOpen;
-                    plMenu.Enabled = true;
-                    plOdered.Enabled = true;
-
-                    int billID = AutoCreateID("MaHD", "HoaDon");
-                    plMP005.Tag = billID;
-                    StatusCheck(maPhong);
-                    Update_Status_Room(1, maPhong);
-                    Add_Bill(billID, maPhong);
-                    DoCoSan(billID);
-                    GetData_From_CTHD(billID);
-                    TongTienDV(billID);
-                }
-                else if (TakeNamePanel == "plMP006")
-                {
-                    //Đổi màu, thời gian, chữ
-                    string maPhong = TakeNamePanel.Replace("pl", "");
-                    string timeIn = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                    btnOpen.Visible = false;
-                    btnClose.Visible = true;
-                    btnDatTruoc.Visible = false;
-                    btnHuyDatTruoc.Visible = false;
-                    lblTimeIN_P202.Text = $"Giờ vào: {timeIn}";
-                    lblTimeOUT_P202.Text = "Giờ ra: --";
-                    plMP006.BackColor = clrStatusOpen;
-                    lblStatus_P202.Text = strStatusOpen;
-                    plMenu.Enabled = true;
-                    plOdered.Enabled = true;
-
-                    int billID = AutoCreateID("MaHD", "HoaDon");
-                    plMP006.Tag = billID;
-                    StatusCheck(maPhong);
-                    Update_Status_Room(1, maPhong);
-                    Add_Bill(billID, maPhong);
-                    DoCoSan(billID);
-                    GetData_From_CTHD(billID);
-                    TongTienDV(billID);
-                }
-                else if (TakeNamePanel == "plMP007")
-                {
-                    //Đổi màu, thời gian, chữ
-                    string maPhong = TakeNamePanel.Replace("pl", "");
-                    string timeIn = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                    btnOpen.Visible = false;
-                    btnClose.Visible = true;
-                    btnDatTruoc.Visible = false;
-                    btnHuyDatTruoc.Visible = false;
-                    lblTimeIN_P203.Text = $"Giờ vào: {timeIn}";
-                    lblTimeOUT_P203.Text = "Giờ ra: --";
-                    plMP007.BackColor = clrStatusOpen;
-                    lblStatus_P203.Text = strStatusOpen;
-                    plMenu.Enabled = true;
-                    plOdered.Enabled = true;
-
-                    int billID = AutoCreateID("MaHD", "HoaDon");
-                    plMP007.Tag = billID;
-                    StatusCheck(maPhong);
-                    Update_Status_Room(1, maPhong);
-                    Add_Bill(billID, maPhong);
-                    DoCoSan(billID);
-                    GetData_From_CTHD(billID);
-                    TongTienDV(billID);
-                }
-                else if (TakeNamePanel == "plMP008")
-                {
-                    //Đổi màu, thời gian, chữ
-                    string maPhong = TakeNamePanel.Replace("pl", "");
-                    string timeIn = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                    btnOpen.Visible = false;
-                    btnClose.Visible = true;
-                    btnDatTruoc.Visible = false;
-                    btnHuyDatTruoc.Visible = false;
-                    lblTimeIN_P204.Text = $"Giờ vào: {timeIn}";
-                    lblTimeOUT_P204.Text = "Giờ ra: --";
-                    plMP008.BackColor = clrStatusOpen;
-                    lblStatus_P204.Text = strStatusOpen;
-                    plMenu.Enabled = true;
-                    plOdered.Enabled = true;
-
-                    int billID = AutoCreateID("MaHD", "HoaDon");
-                    plMP008.Tag = billID;
-                    StatusCheck(maPhong);
-                    Update_Status_Room(1, maPhong);
-                    Add_Bill(billID, maPhong);
-                    DoCoSan(billID);
-                    GetData_From_CTHD(billID);
-                    TongTienDV(billID);
-                }
+                StatusCheck(maPhong);
+                Update_Status_Room(1, maPhong);
+                Add_Bill(billID, maPhong);
+                DoCoSan(billID);
+                GetData_From_CTHD(billID);
+                TongTienDV(billID);
             }
             catch (SqlException ex)
             {
@@ -1032,210 +607,29 @@ namespace SuperProjectQ.FrmMixed
             try
             {
                 dgvOrdered.DataSource = null;
-                if (TakeNamePanel == "plMP001")
+                int billID = Convert.ToInt32(selectedPanel.Tag.ToString());
+                string maPhong = TakeNamePanel;
+                Session.maHD = billID;
+                if (XacNhanTT(billID, maPhong))
                 {
-                    int billID = Convert.ToInt32(selectedPanel.Tag.ToString());
-                    string maPhong = TakeNamePanel.Replace("pl", "");
-                    Session.maHD = billID;
-                    if (XacNhanTT(billID, maPhong))
-                    {
-                        //Đổi màu, thời gian, chữ
-                        string timeOut = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                        lblTimeOUT_P101.Text = $"Giờ ra: {timeOut}";
-                        btnOpen.Visible = true;
-                        btnClose.Visible = false;
-                        btnDatTruoc.Visible = true;
-                        btnHuyDatTruoc.Visible = false;
-                        plMP001.BackColor = clrStatusClose;
-                        lblStatus_P101.Text = strStatusClose;
-                        plMenu.Enabled = false;
-                        plOdered.Enabled = false;
+                    //Đổi màu, thời gian, chữ
+                    btnOpen.Visible = true;
+                    btnClose.Visible = false;
+                    btnDatTruoc.Visible = true;
+                    btnHuyDatTruoc.Visible = false;
+                    plMenu.Enabled = false;
+                    plOrdered.Enabled = false;
 
-                        //Them bill
-                        Update_Bill(billID, maPhong);
-                        Update_Status_Room(0, maPhong);
-                        UpdateTonKho(billID);
-                    }
-                }
-                else if (TakeNamePanel == "plMP002")
-                {
-                    int billID = Convert.ToInt32(plMP002.Tag.ToString());
-                    string maPhong = TakeNamePanel.Replace("pl", "");
-                    Session.maHD = billID;
+                    selectedPanel.BackColor = clrStatusClose;
+                    selectedPanel.Controls[1].Text = strStatusClose;
 
-                    if (XacNhanTT(billID, maPhong))
-                    {
-                        //Đổi màu, thời gian, chữ
-                        string timeOut = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                        btnOpen.Visible = true;
-                        btnClose.Visible = false;
-                        btnDatTruoc.Visible = true;
-                        btnHuyDatTruoc.Visible = false;
-                        lblTimeOUT_P102.Text = $"Giờ ra: {timeOut}";
-                        plMP002.BackColor = clrStatusClose;
-                        lblStatus_P102.Text = strStatusClose;
-                        plMenu.Enabled = false;
-                        plOdered.Enabled = false;
-
-                        //Thêm bill
-                        Update_Bill(billID, maPhong);
-                        Update_Status_Room(0, maPhong);
-                        UpdateTonKho(billID);
-                    }
-
-                }
-                else if (TakeNamePanel == "plMP003")
-                {
-                    string maPhong = TakeNamePanel.Replace("pl", "");
-                    int billID = Convert.ToInt32(plMP003.Tag.ToString());
-                    Session.maHD = billID;
-                    if (XacNhanTT(billID, maPhong))
-                    {
-                        //Đổi màu, thời gian, chữ
-                        string timeOut = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                        btnOpen.Visible = true;
-                        btnClose.Visible = false;
-                        btnDatTruoc.Visible = true;
-                        btnHuyDatTruoc.Visible = false;
-                        lblTimeOUT_P103.Text = $"Giờ ra: {timeOut}";
-                        plMP003.BackColor = clrStatusClose;
-                        lblStatus_P103.Text = strStatusClose;
-                        plMenu.Enabled = false;
-                        plOdered.Enabled = false;
-
-                        //Thêm bill
-                        Update_Bill(billID, maPhong);
-                        Update_Status_Room(0, maPhong);
-                        UpdateTonKho(billID);
-                    }
-                }
-                else if (TakeNamePanel == "plMP004")
-                {
-                    int billID = Convert.ToInt32(plMP004.Tag.ToString());
-                    string maPhong = TakeNamePanel.Replace("pl", "");
-                    Session.maHD = billID;
-                    if (XacNhanTT(billID, maPhong))
-                    {
-                        //Đổi màu, thời gian, chữ
-                        string timeOut = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                        btnOpen.Visible = true;
-                        btnClose.Visible = false;
-                        btnDatTruoc.Visible = true;
-                        btnHuyDatTruoc.Visible = false;
-                        lblTimeOUT_P104.Text = $"Giờ ra: {timeOut}";
-                        plMP004.BackColor = clrStatusClose;
-                        lblStatus_P104.Text = strStatusClose;
-                        plMenu.Enabled = false;
-                        plOdered.Enabled = false;
-
-                        //Thêm bill
-                        Update_Bill(billID, maPhong);
-                        Update_Status_Room(0, maPhong);
-                        UpdateTonKho(billID);
-                    }
-                }
-                else if (TakeNamePanel == "plMP005")
-                {
-                    string maPhong = TakeNamePanel.Replace("pl", "");
-                    int billID = Convert.ToInt32(plMP005.Tag.ToString());
-                    Session.maHD = billID;
-                    if (XacNhanTT(billID, maPhong))
-                    {
-                        //Đổi màu, thời gian, chữ
-                        string timeOut = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                        btnOpen.Visible = true;
-                        btnClose.Visible = false;
-                        btnDatTruoc.Visible = true;
-                        btnHuyDatTruoc.Visible = false;
-                        lblTimeOUT_P201.Text = $"Giờ ra: {timeOut}";
-                        plMP005.BackColor = clrStatusClose;
-                        lblStatus_P201.Text = strStatusClose;
-                        plMenu.Enabled = false;
-                        plOdered.Enabled = false;
-
-                        //Thêm bill
-                        Update_Bill(billID, maPhong);
-                        Update_Status_Room(0, maPhong);
-                        UpdateTonKho(billID);
-                    }
-                }
-                else if (TakeNamePanel == "plMP006")
-                {
-                    int billID = Convert.ToInt32(plMP006.Tag.ToString());
-                    string maPhong = TakeNamePanel.Replace("pl", "");
-                    Session.maHD = billID;
-                    if (XacNhanTT(billID, maPhong))
-                    {
-                        //Đổi màu, thời gian, chữ
-                        string timeOut = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                        btnOpen.Visible = true;
-                        btnClose.Visible = false;
-                        btnDatTruoc.Visible = true;
-                        btnHuyDatTruoc.Visible = false;
-                        lblTimeOUT_P202.Text = $"Giờ ra: {timeOut}";
-                        plMP006.BackColor = clrStatusClose;
-                        lblStatus_P202.Text = strStatusClose;
-                        plMenu.Enabled = false;
-                        plOdered.Enabled = false;
-
-                        //Thêm bill
-                        Update_Bill(billID, maPhong);
-                        Update_Status_Room(0, maPhong);
-                        UpdateTonKho(billID);
-                    }
-                }
-                else if (TakeNamePanel == "plMP007")
-                {
-                    int billID = Convert.ToInt32(plMP007.Tag.ToString());
-                    string maPhong = TakeNamePanel.Replace("pl", "");
-                    Session.maHD = billID;
-                    if (XacNhanTT(billID, maPhong))
-                    {
-                        //Đổi màu, thời gian, chữ
-                        string timeOut = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                        btnOpen.Visible = true;
-                        btnClose.Visible = false;
-                        btnDatTruoc.Visible = true;
-                        btnHuyDatTruoc.Visible = false;
-                        lblTimeOUT_P203.Text = $"Giờ ra: {timeOut}";
-                        plMP007.BackColor = clrStatusClose;
-                        lblStatus_P203.Text = strStatusClose;
-                        plMenu.Enabled = false;
-                        plOdered.Enabled = false;
-
-                        //Thêm bill
-                        Update_Bill(billID, maPhong);
-                        Update_Status_Room(0, maPhong);
-                        UpdateTonKho(billID);
-                    }
-                }
-                else if (TakeNamePanel == "plMP008")
-                {
-                    int billID = Convert.ToInt32(plMP008.Tag.ToString());
-                    string maPhong = TakeNamePanel.Replace("pl", "");
-                    Session.maHD = billID;
-                    if (XacNhanTT(billID, maPhong))
-                    {
-                        //Đổi màu, thời gian, chữ
-                        string timeOut = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                        btnOpen.Visible = true;
-                        btnClose.Visible = false;
-                        btnDatTruoc.Visible = true;
-                        btnHuyDatTruoc.Visible = false;
-                        lblTimeOUT_P204.Text = $"Giờ ra: {timeOut}";
-                        plMP008.BackColor = clrStatusClose;
-                        lblStatus_P204.Text = strStatusClose;
-                        plMenu.Enabled = false;
-                        plOdered.Enabled = false;
-                        //Thêm bill
-                        Update_Bill(billID, maPhong);
-                        Update_Status_Room(0, maPhong);
-                        UpdateTonKho(billID);
-                    }
+                    //Them bill
+                    Update_Bill(billID, maPhong);
+                    Update_Status_Room(0, maPhong);
+                    UpdateTonKho(billID);
                 }
                 lblTongTien.Text = "--";
             }
-
             catch (SqlException ex)
             {
                 MessageBox.Show("Lỗi: " + ex.Message);
@@ -1264,8 +658,8 @@ namespace SuperProjectQ.FrmMixed
                     int r = e.RowIndex;
                     string maSP = dgvMenuFood.Rows[r].Cells[0].Value?.ToString();
                     string tenSP = dgvMenuFood.Rows[r].Cells[1].Value?.ToString();
-                    string donVi = dgvMenuFood.Rows[r].Cells[2].Value?.ToString();
-                    int donGia = Convert.ToInt32(dgvMenuFood.Rows[r].Cells[4].Value?.ToString());
+                    string donVi = dgvMenuFood.Rows[r].Cells[4].Value?.ToString();
+                    int donGia = Convert.ToInt32(dgvMenuFood.Rows[r].Cells[5].Value?.ToString());
                     int soLuong = 1;
                     bool flag = true;
                     int index = 1;
@@ -1285,14 +679,7 @@ namespace SuperProjectQ.FrmMixed
                     if (flag) 
                     {
                         string strPanelTag = null;
-                        if (maPhong == "MP001") strPanelTag = plMP001.Tag.ToString();
-                        else if (maPhong == "MP002") strPanelTag = plMP002.Tag.ToString();
-                        else if (maPhong == "MP003") strPanelTag = plMP003.Tag.ToString();
-                        else if (maPhong == "MP004") strPanelTag = plMP004.Tag.ToString();
-                        else if (maPhong == "MP005") strPanelTag = plMP005.Tag.ToString();
-                        else if (maPhong == "MP006") strPanelTag = plMP006.Tag.ToString();
-                        else if (maPhong == "MP007") strPanelTag = plMP007.Tag.ToString();
-                        else if (maPhong == "MP008") strPanelTag = plMP008.Tag.ToString();
+                        strPanelTag = selectedPanel.Tag.ToString();
 
                         int intPanelTag = Convert.ToInt16(strPanelTag);
                         string sqlAdd = "INSERT INTO ChiTietHD (MaCTHD, MaHD, MaSP, SoLuong, DonVi, DonGia, ThanhTien) VALUES (@MCTHD, @MHD, @MSP, @SL, @DV, @DG, @TT)";
@@ -1328,17 +715,7 @@ namespace SuperProjectQ.FrmMixed
                             soLuong = Convert.ToInt16(dgvOrdered.Rows[index].Cells[2].Value);
                             soLuong++;
 
-                            string strPanelTag = null;
-                            if (maPhong == "MP001") strPanelTag = plMP001.Tag.ToString();
-                            else if (maPhong == "MP002") strPanelTag = plMP002.Tag.ToString();
-                            else if (maPhong == "MP003") strPanelTag = plMP003.Tag.ToString();
-                            else if (maPhong == "MP004") strPanelTag = plMP004.Tag.ToString();
-                            else if (maPhong == "MP005") strPanelTag = plMP005.Tag.ToString();
-                            else if (maPhong == "MP006") strPanelTag = plMP006.Tag.ToString();
-                            else if (maPhong == "MP007") strPanelTag = plMP007.Tag.ToString();
-                            else if (maPhong == "MP008") strPanelTag = plMP008.Tag.ToString();
-
-                            int intPanelTag = Convert.ToInt16(strPanelTag);
+                            int intPanelTag = (int)selectedPanel.Tag;
                             string sqlUpdate = "UPDATE ChiTietHD SET SoLuong = @SL, ThanhTien = @TT WHERE MaHD = @MHD AND MaSP = @MSP";
                             cmd = new SqlCommand(sqlUpdate, kn.conn);
                             cmd.Parameters.Clear();
@@ -1378,7 +755,7 @@ namespace SuperProjectQ.FrmMixed
             {
                 dgvMenuFood.DataSource = null;
                 string sqlFood = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.DinhLuong, SanPham.DVTDinhLuong, SanPham.GiaBan \n" +
-                                 $"FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP WHERE KhoHang.TonKho = {dinhMucKho} AND KhoHang.MaDM = 'MDM01' OR KhoHang.MaDM = 'MDM03' ORDER BY TenSP ASC";
+                                 $"FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP WHERE KhoHang.TonKho >= {dinhMucKho} AND KhoHang.MaDM = 'MDM01' OR KhoHang.MaDM = 'MDM03' ORDER BY TenSP ASC";
                 dgvMenuFood.DataSource = kn.CreateTable(sqlFood);
             }
             else if (btn.Name == "btnBeverage")
@@ -1386,7 +763,7 @@ namespace SuperProjectQ.FrmMixed
                 //Load đồ uống
                 dgvMenuFood.DataSource = null;
                 string sqlBeverage = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.DinhLuong, SanPham.DVTDinhLuong, SanPham.GiaBan \n" +
-                                    $"FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP WHERE KhoHang.TonKho = {dinhMucKho} AND KhoHang.MaDM = 'MDM02' ORDER BY TenSP ASC";
+                                    $"FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP WHERE KhoHang.TonKho >= {dinhMucKho} AND KhoHang.MaDM = 'MDM02' ORDER BY TenSP ASC";
                 dgvMenuFood.DataSource = kn.CreateTable(sqlBeverage);
             }
             else if (btn.Name == "btnOther")
@@ -1394,7 +771,7 @@ namespace SuperProjectQ.FrmMixed
                 //Load khác
                 dgvMenuFood.DataSource = null;
                 string sqlOther = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.DinhLuong, SanPham.DVTDinhLuong, SanPham.GiaBan \n" +
-                                  $"FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP WHERE KhoHang.TonKho = {dinhMucKho} AND KhoHang.MaDM = 'MDM04' ORDER BY TenSP ASC";
+                                  $"FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP WHERE KhoHang.TonKho >= {dinhMucKho} AND KhoHang.MaDM = 'MDM04' ORDER BY TenSP ASC";
                 dgvMenuFood.DataSource = kn.CreateTable(sqlOther);
             }
         }
@@ -1419,17 +796,8 @@ namespace SuperProjectQ.FrmMixed
                 {
                     decimal soLuong = numSoLuong.Value;
                     string maPhong = TakeNamePanel.Replace("pl", "");
-                    string strPanelTag = null;
-                    if (maPhong == "MP001") strPanelTag = plMP001.Tag.ToString();
-                    else if (maPhong == "MP002") strPanelTag = plMP002.Tag.ToString();
-                    else if (maPhong == "MP003") strPanelTag = plMP003.Tag.ToString();
-                    else if (maPhong == "MP004") strPanelTag = plMP004.Tag.ToString();
-                    else if (maPhong == "MP005") strPanelTag = plMP005.Tag.ToString();
-                    else if (maPhong == "MP006") strPanelTag = plMP006.Tag.ToString();
-                    else if (maPhong == "MP007") strPanelTag = plMP007.Tag.ToString();
-                    else if (maPhong == "MP008") strPanelTag = plMP008.Tag.ToString();
 
-                    int intPanelTag = Convert.ToInt16(strPanelTag);
+                    int intPanelTag = (int)selectedPanel.Tag;
                     if (soLuong == 0)
                     {
                         string sqlUpdate = "DELETE ChiTietHD WHERE MaHD = @MHD AND MaSP = @MSP";

@@ -30,58 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPhong));
             this.flowLayoutRegular = new System.Windows.Forms.FlowLayoutPanel();
-            this.plMP001 = new System.Windows.Forms.Panel();
-            this.lblStatus_P101 = new System.Windows.Forms.Label();
-            this.lblTimeOUT_P101 = new System.Windows.Forms.Label();
-            this.lblTimeIN_P101 = new System.Windows.Forms.Label();
-            this.lblP101 = new System.Windows.Forms.Label();
-            this.plMP002 = new System.Windows.Forms.Panel();
-            this.lblStatus_P102 = new System.Windows.Forms.Label();
-            this.lblTimeOUT_P102 = new System.Windows.Forms.Label();
-            this.lblTimeIN_P102 = new System.Windows.Forms.Label();
-            this.lblP102 = new System.Windows.Forms.Label();
-            this.plMP003 = new System.Windows.Forms.Panel();
-            this.lblStatus_P103 = new System.Windows.Forms.Label();
-            this.lblTimeOUT_P103 = new System.Windows.Forms.Label();
-            this.lblTimeIN_P103 = new System.Windows.Forms.Label();
-            this.lblP103 = new System.Windows.Forms.Label();
-            this.plMP005 = new System.Windows.Forms.Panel();
-            this.lblStatus_P201 = new System.Windows.Forms.Label();
-            this.lblTimeOUT_P201 = new System.Windows.Forms.Label();
-            this.lblTimeIN_P201 = new System.Windows.Forms.Label();
-            this.lblP201 = new System.Windows.Forms.Label();
-            this.plMP006 = new System.Windows.Forms.Panel();
-            this.lblStatus_P202 = new System.Windows.Forms.Label();
-            this.lblTimeOUT_P202 = new System.Windows.Forms.Label();
-            this.lblTimeIN_P202 = new System.Windows.Forms.Label();
-            this.lblP202 = new System.Windows.Forms.Label();
-            this.plMP007 = new System.Windows.Forms.Panel();
-            this.lblStatus_P203 = new System.Windows.Forms.Label();
-            this.lblTimeOUT_P203 = new System.Windows.Forms.Label();
-            this.lblTimeIN_P203 = new System.Windows.Forms.Label();
-            this.lblP203 = new System.Windows.Forms.Label();
             this.tabCtrlRoom = new System.Windows.Forms.TabControl();
             this.tabPageNormal = new System.Windows.Forms.TabPage();
             this.tabPageVIP = new System.Windows.Forms.TabPage();
-            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.plMP004 = new System.Windows.Forms.Panel();
-            this.lblStatus_P104 = new System.Windows.Forms.Label();
-            this.lblTimeOUT_P104 = new System.Windows.Forms.Label();
-            this.lblTimeIN_P104 = new System.Windows.Forms.Label();
-            this.lblP104 = new System.Windows.Forms.Label();
-            this.plMP008 = new System.Windows.Forms.Panel();
-            this.lblStatus_P204 = new System.Windows.Forms.Label();
-            this.lblTimeOUT_P204 = new System.Windows.Forms.Label();
-            this.lblTimeIN_P204 = new System.Windows.Forms.Label();
-            this.lblP204 = new System.Windows.Forms.Label();
+            this.flowLayoutVIP = new System.Windows.Forms.FlowLayoutPanel();
             this.lblInfo = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvMenuFood = new System.Windows.Forms.DataGridView();
-            this.MaSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TenSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DinhLuong = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DVTDinhLuong = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GiaBan = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvOrdered = new System.Windows.Forms.DataGridView();
             this.label3 = new System.Windows.Forms.Label();
             this.plMenu = new System.Windows.Forms.Panel();
@@ -90,7 +45,7 @@
             this.btnBeverage = new System.Windows.Forms.Button();
             this.btnFood = new System.Windows.Forms.Button();
             this.btnAll = new System.Windows.Forms.Button();
-            this.plOdered = new System.Windows.Forms.Panel();
+            this.plOrdered = new System.Windows.Forms.Panel();
             this.txtSDT = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.btnConfirm = new System.Windows.Forms.Button();
@@ -106,23 +61,19 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnHuyDatTruoc = new System.Windows.Forms.Button();
             this.btnDatTruoc = new System.Windows.Forms.Button();
-            this.flowLayoutRegular.SuspendLayout();
-            this.plMP001.SuspendLayout();
-            this.plMP002.SuspendLayout();
-            this.plMP003.SuspendLayout();
-            this.plMP005.SuspendLayout();
-            this.plMP006.SuspendLayout();
-            this.plMP007.SuspendLayout();
+            this.MaSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TenSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DinhLuong = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DVTDinhLuong = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DonViTinh = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GiaBan = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabCtrlRoom.SuspendLayout();
             this.tabPageNormal.SuspendLayout();
             this.tabPageVIP.SuspendLayout();
-            this.flowLayoutPanel2.SuspendLayout();
-            this.plMP004.SuspendLayout();
-            this.plMP008.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMenuFood)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrdered)).BeginInit();
             this.plMenu.SuspendLayout();
-            this.plOdered.SuspendLayout();
+            this.plOrdered.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numSoLuong)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -132,372 +83,12 @@
             this.flowLayoutRegular.AutoScroll = true;
             this.flowLayoutRegular.AutoScrollMinSize = new System.Drawing.Size(0, 600);
             this.flowLayoutRegular.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.flowLayoutRegular.Controls.Add(this.plMP001);
-            this.flowLayoutRegular.Controls.Add(this.plMP002);
-            this.flowLayoutRegular.Controls.Add(this.plMP003);
-            this.flowLayoutRegular.Controls.Add(this.plMP005);
-            this.flowLayoutRegular.Controls.Add(this.plMP006);
-            this.flowLayoutRegular.Controls.Add(this.plMP007);
             this.flowLayoutRegular.Location = new System.Drawing.Point(5, 6);
             this.flowLayoutRegular.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.flowLayoutRegular.Name = "flowLayoutRegular";
             this.flowLayoutRegular.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
             this.flowLayoutRegular.Size = new System.Drawing.Size(736, 424);
             this.flowLayoutRegular.TabIndex = 8;
-            // 
-            // plMP001
-            // 
-            this.plMP001.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.plMP001.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.plMP001.Controls.Add(this.lblStatus_P101);
-            this.plMP001.Controls.Add(this.lblTimeOUT_P101);
-            this.plMP001.Controls.Add(this.lblTimeIN_P101);
-            this.plMP001.Controls.Add(this.lblP101);
-            this.plMP001.Location = new System.Drawing.Point(3, 12);
-            this.plMP001.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.plMP001.Name = "plMP001";
-            this.plMP001.Padding = new System.Windows.Forms.Padding(5);
-            this.plMP001.Size = new System.Drawing.Size(230, 200);
-            this.plMP001.TabIndex = 0;
-            this.plMP001.Click += new System.EventHandler(this.AllPanels_Click);
-            // 
-            // lblStatus_P101
-            // 
-            this.lblStatus_P101.AutoSize = true;
-            this.lblStatus_P101.Enabled = false;
-            this.lblStatus_P101.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatus_P101.Location = new System.Drawing.Point(16, 135);
-            this.lblStatus_P101.Name = "lblStatus_P101";
-            this.lblStatus_P101.Size = new System.Drawing.Size(139, 19);
-            this.lblStatus_P101.TabIndex = 6;
-            this.lblStatus_P101.Text = "Trạng thái: Trống";
-            // 
-            // lblTimeOUT_P101
-            // 
-            this.lblTimeOUT_P101.AutoSize = true;
-            this.lblTimeOUT_P101.Enabled = false;
-            this.lblTimeOUT_P101.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimeOUT_P101.Location = new System.Drawing.Point(9, 87);
-            this.lblTimeOUT_P101.Name = "lblTimeOUT_P101";
-            this.lblTimeOUT_P101.Size = new System.Drawing.Size(62, 17);
-            this.lblTimeOUT_P101.TabIndex = 4;
-            this.lblTimeOUT_P101.Text = "Giờ ra: --";
-            // 
-            // lblTimeIN_P101
-            // 
-            this.lblTimeIN_P101.AutoSize = true;
-            this.lblTimeIN_P101.Enabled = false;
-            this.lblTimeIN_P101.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimeIN_P101.Location = new System.Drawing.Point(9, 42);
-            this.lblTimeIN_P101.Name = "lblTimeIN_P101";
-            this.lblTimeIN_P101.Size = new System.Drawing.Size(71, 17);
-            this.lblTimeIN_P101.TabIndex = 3;
-            this.lblTimeIN_P101.Text = "Giờ vào: --";
-            // 
-            // lblP101
-            // 
-            this.lblP101.AutoSize = true;
-            this.lblP101.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblP101.Location = new System.Drawing.Point(55, 4);
-            this.lblP101.Name = "lblP101";
-            this.lblP101.Size = new System.Drawing.Size(119, 25);
-            this.lblP101.TabIndex = 1;
-            this.lblP101.Text = "Phòng 101";
-            // 
-            // plMP002
-            // 
-            this.plMP002.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.plMP002.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.plMP002.Controls.Add(this.lblStatus_P102);
-            this.plMP002.Controls.Add(this.lblTimeOUT_P102);
-            this.plMP002.Controls.Add(this.lblTimeIN_P102);
-            this.plMP002.Controls.Add(this.lblP102);
-            this.plMP002.Location = new System.Drawing.Point(239, 12);
-            this.plMP002.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.plMP002.Name = "plMP002";
-            this.plMP002.Padding = new System.Windows.Forms.Padding(5);
-            this.plMP002.Size = new System.Drawing.Size(230, 200);
-            this.plMP002.TabIndex = 7;
-            this.plMP002.Click += new System.EventHandler(this.AllPanels_Click);
-            // 
-            // lblStatus_P102
-            // 
-            this.lblStatus_P102.AutoSize = true;
-            this.lblStatus_P102.Enabled = false;
-            this.lblStatus_P102.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatus_P102.Location = new System.Drawing.Point(16, 135);
-            this.lblStatus_P102.Name = "lblStatus_P102";
-            this.lblStatus_P102.Size = new System.Drawing.Size(139, 19);
-            this.lblStatus_P102.TabIndex = 6;
-            this.lblStatus_P102.Text = "Trạng thái: Trống";
-            // 
-            // lblTimeOUT_P102
-            // 
-            this.lblTimeOUT_P102.AutoSize = true;
-            this.lblTimeOUT_P102.Enabled = false;
-            this.lblTimeOUT_P102.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimeOUT_P102.Location = new System.Drawing.Point(9, 87);
-            this.lblTimeOUT_P102.Name = "lblTimeOUT_P102";
-            this.lblTimeOUT_P102.Size = new System.Drawing.Size(62, 17);
-            this.lblTimeOUT_P102.TabIndex = 4;
-            this.lblTimeOUT_P102.Text = "Giờ ra: --";
-            // 
-            // lblTimeIN_P102
-            // 
-            this.lblTimeIN_P102.AutoSize = true;
-            this.lblTimeIN_P102.Enabled = false;
-            this.lblTimeIN_P102.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimeIN_P102.Location = new System.Drawing.Point(9, 42);
-            this.lblTimeIN_P102.Name = "lblTimeIN_P102";
-            this.lblTimeIN_P102.Size = new System.Drawing.Size(71, 17);
-            this.lblTimeIN_P102.TabIndex = 3;
-            this.lblTimeIN_P102.Text = "Giờ vào: --";
-            // 
-            // lblP102
-            // 
-            this.lblP102.AutoSize = true;
-            this.lblP102.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblP102.Location = new System.Drawing.Point(55, 4);
-            this.lblP102.Name = "lblP102";
-            this.lblP102.Size = new System.Drawing.Size(119, 25);
-            this.lblP102.TabIndex = 1;
-            this.lblP102.Text = "Phòng 102";
-            // 
-            // plMP003
-            // 
-            this.plMP003.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.plMP003.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.plMP003.Controls.Add(this.lblStatus_P103);
-            this.plMP003.Controls.Add(this.lblTimeOUT_P103);
-            this.plMP003.Controls.Add(this.lblTimeIN_P103);
-            this.plMP003.Controls.Add(this.lblP103);
-            this.plMP003.Location = new System.Drawing.Point(475, 12);
-            this.plMP003.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.plMP003.Name = "plMP003";
-            this.plMP003.Padding = new System.Windows.Forms.Padding(5);
-            this.plMP003.Size = new System.Drawing.Size(230, 200);
-            this.plMP003.TabIndex = 8;
-            this.plMP003.Click += new System.EventHandler(this.AllPanels_Click);
-            // 
-            // lblStatus_P103
-            // 
-            this.lblStatus_P103.AutoSize = true;
-            this.lblStatus_P103.Enabled = false;
-            this.lblStatus_P103.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatus_P103.Location = new System.Drawing.Point(16, 135);
-            this.lblStatus_P103.Name = "lblStatus_P103";
-            this.lblStatus_P103.Size = new System.Drawing.Size(139, 19);
-            this.lblStatus_P103.TabIndex = 6;
-            this.lblStatus_P103.Text = "Trạng thái: Trống";
-            // 
-            // lblTimeOUT_P103
-            // 
-            this.lblTimeOUT_P103.AutoSize = true;
-            this.lblTimeOUT_P103.Enabled = false;
-            this.lblTimeOUT_P103.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimeOUT_P103.Location = new System.Drawing.Point(9, 87);
-            this.lblTimeOUT_P103.Name = "lblTimeOUT_P103";
-            this.lblTimeOUT_P103.Size = new System.Drawing.Size(62, 17);
-            this.lblTimeOUT_P103.TabIndex = 4;
-            this.lblTimeOUT_P103.Text = "Giờ ra: --";
-            // 
-            // lblTimeIN_P103
-            // 
-            this.lblTimeIN_P103.AutoSize = true;
-            this.lblTimeIN_P103.Enabled = false;
-            this.lblTimeIN_P103.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimeIN_P103.Location = new System.Drawing.Point(9, 42);
-            this.lblTimeIN_P103.Name = "lblTimeIN_P103";
-            this.lblTimeIN_P103.Size = new System.Drawing.Size(71, 17);
-            this.lblTimeIN_P103.TabIndex = 3;
-            this.lblTimeIN_P103.Text = "Giờ vào: --";
-            // 
-            // lblP103
-            // 
-            this.lblP103.AutoSize = true;
-            this.lblP103.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblP103.Location = new System.Drawing.Point(55, 4);
-            this.lblP103.Name = "lblP103";
-            this.lblP103.Size = new System.Drawing.Size(119, 25);
-            this.lblP103.TabIndex = 1;
-            this.lblP103.Text = "Phòng 103";
-            // 
-            // plMP005
-            // 
-            this.plMP005.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.plMP005.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.plMP005.Controls.Add(this.lblStatus_P201);
-            this.plMP005.Controls.Add(this.lblTimeOUT_P201);
-            this.plMP005.Controls.Add(this.lblTimeIN_P201);
-            this.plMP005.Controls.Add(this.lblP201);
-            this.plMP005.Location = new System.Drawing.Point(3, 216);
-            this.plMP005.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.plMP005.Name = "plMP005";
-            this.plMP005.Padding = new System.Windows.Forms.Padding(5);
-            this.plMP005.Size = new System.Drawing.Size(230, 200);
-            this.plMP005.TabIndex = 9;
-            this.plMP005.Click += new System.EventHandler(this.AllPanels_Click);
-            // 
-            // lblStatus_P201
-            // 
-            this.lblStatus_P201.AutoSize = true;
-            this.lblStatus_P201.Enabled = false;
-            this.lblStatus_P201.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatus_P201.Location = new System.Drawing.Point(16, 135);
-            this.lblStatus_P201.Name = "lblStatus_P201";
-            this.lblStatus_P201.Size = new System.Drawing.Size(139, 19);
-            this.lblStatus_P201.TabIndex = 6;
-            this.lblStatus_P201.Text = "Trạng thái: Trống";
-            // 
-            // lblTimeOUT_P201
-            // 
-            this.lblTimeOUT_P201.AutoSize = true;
-            this.lblTimeOUT_P201.Enabled = false;
-            this.lblTimeOUT_P201.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimeOUT_P201.Location = new System.Drawing.Point(9, 87);
-            this.lblTimeOUT_P201.Name = "lblTimeOUT_P201";
-            this.lblTimeOUT_P201.Size = new System.Drawing.Size(62, 17);
-            this.lblTimeOUT_P201.TabIndex = 4;
-            this.lblTimeOUT_P201.Text = "Giờ ra: --";
-            // 
-            // lblTimeIN_P201
-            // 
-            this.lblTimeIN_P201.AutoSize = true;
-            this.lblTimeIN_P201.Enabled = false;
-            this.lblTimeIN_P201.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimeIN_P201.Location = new System.Drawing.Point(9, 42);
-            this.lblTimeIN_P201.Name = "lblTimeIN_P201";
-            this.lblTimeIN_P201.Size = new System.Drawing.Size(71, 17);
-            this.lblTimeIN_P201.TabIndex = 3;
-            this.lblTimeIN_P201.Text = "Giờ vào: --";
-            // 
-            // lblP201
-            // 
-            this.lblP201.AutoSize = true;
-            this.lblP201.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblP201.Location = new System.Drawing.Point(55, 4);
-            this.lblP201.Name = "lblP201";
-            this.lblP201.Size = new System.Drawing.Size(119, 25);
-            this.lblP201.TabIndex = 1;
-            this.lblP201.Text = "Phòng 201";
-            // 
-            // plMP006
-            // 
-            this.plMP006.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.plMP006.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.plMP006.Controls.Add(this.lblStatus_P202);
-            this.plMP006.Controls.Add(this.lblTimeOUT_P202);
-            this.plMP006.Controls.Add(this.lblTimeIN_P202);
-            this.plMP006.Controls.Add(this.lblP202);
-            this.plMP006.Location = new System.Drawing.Point(239, 216);
-            this.plMP006.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.plMP006.Name = "plMP006";
-            this.plMP006.Padding = new System.Windows.Forms.Padding(5);
-            this.plMP006.Size = new System.Drawing.Size(230, 200);
-            this.plMP006.TabIndex = 10;
-            this.plMP006.Click += new System.EventHandler(this.AllPanels_Click);
-            // 
-            // lblStatus_P202
-            // 
-            this.lblStatus_P202.AutoSize = true;
-            this.lblStatus_P202.Enabled = false;
-            this.lblStatus_P202.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatus_P202.Location = new System.Drawing.Point(16, 135);
-            this.lblStatus_P202.Name = "lblStatus_P202";
-            this.lblStatus_P202.Size = new System.Drawing.Size(139, 19);
-            this.lblStatus_P202.TabIndex = 6;
-            this.lblStatus_P202.Text = "Trạng thái: Trống";
-            // 
-            // lblTimeOUT_P202
-            // 
-            this.lblTimeOUT_P202.AutoSize = true;
-            this.lblTimeOUT_P202.Enabled = false;
-            this.lblTimeOUT_P202.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimeOUT_P202.Location = new System.Drawing.Point(9, 87);
-            this.lblTimeOUT_P202.Name = "lblTimeOUT_P202";
-            this.lblTimeOUT_P202.Size = new System.Drawing.Size(62, 17);
-            this.lblTimeOUT_P202.TabIndex = 4;
-            this.lblTimeOUT_P202.Text = "Giờ ra: --";
-            // 
-            // lblTimeIN_P202
-            // 
-            this.lblTimeIN_P202.AutoSize = true;
-            this.lblTimeIN_P202.Enabled = false;
-            this.lblTimeIN_P202.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimeIN_P202.Location = new System.Drawing.Point(9, 42);
-            this.lblTimeIN_P202.Name = "lblTimeIN_P202";
-            this.lblTimeIN_P202.Size = new System.Drawing.Size(71, 17);
-            this.lblTimeIN_P202.TabIndex = 3;
-            this.lblTimeIN_P202.Text = "Giờ vào: --";
-            // 
-            // lblP202
-            // 
-            this.lblP202.AutoSize = true;
-            this.lblP202.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblP202.Location = new System.Drawing.Point(55, 4);
-            this.lblP202.Name = "lblP202";
-            this.lblP202.Size = new System.Drawing.Size(119, 25);
-            this.lblP202.TabIndex = 1;
-            this.lblP202.Text = "Phòng 202";
-            // 
-            // plMP007
-            // 
-            this.plMP007.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.plMP007.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.plMP007.Controls.Add(this.lblStatus_P203);
-            this.plMP007.Controls.Add(this.lblTimeOUT_P203);
-            this.plMP007.Controls.Add(this.lblTimeIN_P203);
-            this.plMP007.Controls.Add(this.lblP203);
-            this.plMP007.Location = new System.Drawing.Point(475, 216);
-            this.plMP007.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.plMP007.Name = "plMP007";
-            this.plMP007.Padding = new System.Windows.Forms.Padding(5);
-            this.plMP007.Size = new System.Drawing.Size(230, 200);
-            this.plMP007.TabIndex = 9;
-            this.plMP007.Click += new System.EventHandler(this.AllPanels_Click);
-            // 
-            // lblStatus_P203
-            // 
-            this.lblStatus_P203.AutoSize = true;
-            this.lblStatus_P203.Enabled = false;
-            this.lblStatus_P203.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatus_P203.Location = new System.Drawing.Point(16, 135);
-            this.lblStatus_P203.Name = "lblStatus_P203";
-            this.lblStatus_P203.Size = new System.Drawing.Size(139, 19);
-            this.lblStatus_P203.TabIndex = 6;
-            this.lblStatus_P203.Text = "Trạng thái: Trống";
-            // 
-            // lblTimeOUT_P203
-            // 
-            this.lblTimeOUT_P203.AutoSize = true;
-            this.lblTimeOUT_P203.Enabled = false;
-            this.lblTimeOUT_P203.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimeOUT_P203.Location = new System.Drawing.Point(9, 87);
-            this.lblTimeOUT_P203.Name = "lblTimeOUT_P203";
-            this.lblTimeOUT_P203.Size = new System.Drawing.Size(62, 17);
-            this.lblTimeOUT_P203.TabIndex = 4;
-            this.lblTimeOUT_P203.Text = "Giờ ra: --";
-            // 
-            // lblTimeIN_P203
-            // 
-            this.lblTimeIN_P203.AutoSize = true;
-            this.lblTimeIN_P203.Enabled = false;
-            this.lblTimeIN_P203.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimeIN_P203.Location = new System.Drawing.Point(9, 42);
-            this.lblTimeIN_P203.Name = "lblTimeIN_P203";
-            this.lblTimeIN_P203.Size = new System.Drawing.Size(71, 17);
-            this.lblTimeIN_P203.TabIndex = 3;
-            this.lblTimeIN_P203.Text = "Giờ vào: --";
-            // 
-            // lblP203
-            // 
-            this.lblP203.AutoSize = true;
-            this.lblP203.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblP203.Location = new System.Drawing.Point(55, 4);
-            this.lblP203.Name = "lblP203";
-            this.lblP203.Size = new System.Drawing.Size(119, 25);
-            this.lblP203.TabIndex = 1;
-            this.lblP203.Text = "Phòng 203";
             // 
             // tabCtrlRoom
             // 
@@ -527,7 +118,7 @@
             // tabPageVIP
             // 
             this.tabPageVIP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.tabPageVIP.Controls.Add(this.flowLayoutPanel2);
+            this.tabPageVIP.Controls.Add(this.flowLayoutVIP);
             this.tabPageVIP.Location = new System.Drawing.Point(4, 28);
             this.tabPageVIP.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPageVIP.Name = "tabPageVIP";
@@ -536,132 +127,14 @@
             this.tabPageVIP.TabIndex = 1;
             this.tabPageVIP.Text = "Phòng VIP";
             // 
-            // flowLayoutPanel2
+            // flowLayoutVIP
             // 
-            this.flowLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.flowLayoutPanel2.Controls.Add(this.plMP004);
-            this.flowLayoutPanel2.Controls.Add(this.plMP008);
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(5, 6);
-            this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(731, 476);
-            this.flowLayoutPanel2.TabIndex = 0;
-            // 
-            // plMP004
-            // 
-            this.plMP004.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.plMP004.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.plMP004.Controls.Add(this.lblStatus_P104);
-            this.plMP004.Controls.Add(this.lblTimeOUT_P104);
-            this.plMP004.Controls.Add(this.lblTimeIN_P104);
-            this.plMP004.Controls.Add(this.lblP104);
-            this.plMP004.Location = new System.Drawing.Point(3, 2);
-            this.plMP004.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.plMP004.Name = "plMP004";
-            this.plMP004.Size = new System.Drawing.Size(230, 200);
-            this.plMP004.TabIndex = 8;
-            this.plMP004.Click += new System.EventHandler(this.AllPanels_Click);
-            // 
-            // lblStatus_P104
-            // 
-            this.lblStatus_P104.AutoSize = true;
-            this.lblStatus_P104.Enabled = false;
-            this.lblStatus_P104.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatus_P104.Location = new System.Drawing.Point(11, 130);
-            this.lblStatus_P104.Name = "lblStatus_P104";
-            this.lblStatus_P104.Size = new System.Drawing.Size(139, 19);
-            this.lblStatus_P104.TabIndex = 6;
-            this.lblStatus_P104.Text = "Trạng thái: Trống";
-            // 
-            // lblTimeOUT_P104
-            // 
-            this.lblTimeOUT_P104.AutoSize = true;
-            this.lblTimeOUT_P104.Enabled = false;
-            this.lblTimeOUT_P104.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimeOUT_P104.Location = new System.Drawing.Point(4, 82);
-            this.lblTimeOUT_P104.Name = "lblTimeOUT_P104";
-            this.lblTimeOUT_P104.Size = new System.Drawing.Size(62, 17);
-            this.lblTimeOUT_P104.TabIndex = 4;
-            this.lblTimeOUT_P104.Text = "Giờ ra: --";
-            // 
-            // lblTimeIN_P104
-            // 
-            this.lblTimeIN_P104.AutoSize = true;
-            this.lblTimeIN_P104.Enabled = false;
-            this.lblTimeIN_P104.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimeIN_P104.Location = new System.Drawing.Point(4, 37);
-            this.lblTimeIN_P104.Name = "lblTimeIN_P104";
-            this.lblTimeIN_P104.Size = new System.Drawing.Size(71, 17);
-            this.lblTimeIN_P104.TabIndex = 3;
-            this.lblTimeIN_P104.Text = "Giờ vào: --";
-            // 
-            // lblP104
-            // 
-            this.lblP104.AutoSize = true;
-            this.lblP104.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblP104.Location = new System.Drawing.Point(21, 4);
-            this.lblP104.Name = "lblP104";
-            this.lblP104.Size = new System.Drawing.Size(181, 25);
-            this.lblP104.TabIndex = 1;
-            this.lblP104.Text = "Phòng 104 (VIP)";
-            // 
-            // plMP008
-            // 
-            this.plMP008.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.plMP008.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.plMP008.Controls.Add(this.lblStatus_P204);
-            this.plMP008.Controls.Add(this.lblTimeOUT_P204);
-            this.plMP008.Controls.Add(this.lblTimeIN_P204);
-            this.plMP008.Controls.Add(this.lblP204);
-            this.plMP008.Location = new System.Drawing.Point(239, 2);
-            this.plMP008.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.plMP008.Name = "plMP008";
-            this.plMP008.Size = new System.Drawing.Size(230, 200);
-            this.plMP008.TabIndex = 9;
-            this.plMP008.Click += new System.EventHandler(this.AllPanels_Click);
-            // 
-            // lblStatus_P204
-            // 
-            this.lblStatus_P204.AutoSize = true;
-            this.lblStatus_P204.Enabled = false;
-            this.lblStatus_P204.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatus_P204.Location = new System.Drawing.Point(11, 130);
-            this.lblStatus_P204.Name = "lblStatus_P204";
-            this.lblStatus_P204.Size = new System.Drawing.Size(139, 19);
-            this.lblStatus_P204.TabIndex = 6;
-            this.lblStatus_P204.Text = "Trạng thái: Trống";
-            // 
-            // lblTimeOUT_P204
-            // 
-            this.lblTimeOUT_P204.AutoSize = true;
-            this.lblTimeOUT_P204.Enabled = false;
-            this.lblTimeOUT_P204.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimeOUT_P204.Location = new System.Drawing.Point(4, 82);
-            this.lblTimeOUT_P204.Name = "lblTimeOUT_P204";
-            this.lblTimeOUT_P204.Size = new System.Drawing.Size(62, 17);
-            this.lblTimeOUT_P204.TabIndex = 4;
-            this.lblTimeOUT_P204.Text = "Giờ ra: --";
-            // 
-            // lblTimeIN_P204
-            // 
-            this.lblTimeIN_P204.AutoSize = true;
-            this.lblTimeIN_P204.Enabled = false;
-            this.lblTimeIN_P204.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimeIN_P204.Location = new System.Drawing.Point(4, 37);
-            this.lblTimeIN_P204.Name = "lblTimeIN_P204";
-            this.lblTimeIN_P204.Size = new System.Drawing.Size(71, 17);
-            this.lblTimeIN_P204.TabIndex = 3;
-            this.lblTimeIN_P204.Text = "Giờ vào: --";
-            // 
-            // lblP204
-            // 
-            this.lblP204.AutoSize = true;
-            this.lblP204.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblP204.Location = new System.Drawing.Point(25, 4);
-            this.lblP204.Name = "lblP204";
-            this.lblP204.Size = new System.Drawing.Size(181, 25);
-            this.lblP204.TabIndex = 1;
-            this.lblP204.Text = "Phòng 204 (VIP)";
+            this.flowLayoutVIP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.flowLayoutVIP.Location = new System.Drawing.Point(5, 6);
+            this.flowLayoutVIP.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.flowLayoutVIP.Name = "flowLayoutVIP";
+            this.flowLayoutVIP.Size = new System.Drawing.Size(731, 476);
+            this.flowLayoutVIP.TabIndex = 0;
             // 
             // lblInfo
             // 
@@ -696,6 +169,7 @@
             this.TenSP,
             this.DinhLuong,
             this.DVTDinhLuong,
+            this.DonViTinh,
             this.GiaBan});
             this.dgvMenuFood.Location = new System.Drawing.Point(3, 68);
             this.dgvMenuFood.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -706,46 +180,6 @@
             this.dgvMenuFood.Size = new System.Drawing.Size(667, 357);
             this.dgvMenuFood.TabIndex = 14;
             this.dgvMenuFood.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMenuFood_CellDoubleClick);
-            // 
-            // MaSP
-            // 
-            this.MaSP.DataPropertyName = "MaSP";
-            this.MaSP.HeaderText = "Mã";
-            this.MaSP.MinimumWidth = 6;
-            this.MaSP.Name = "MaSP";
-            this.MaSP.Width = 55;
-            // 
-            // TenSP
-            // 
-            this.TenSP.DataPropertyName = "TenSP";
-            this.TenSP.HeaderText = "Tên sản phẩm";
-            this.TenSP.MinimumWidth = 6;
-            this.TenSP.Name = "TenSP";
-            this.TenSP.Width = 220;
-            // 
-            // DinhLuong
-            // 
-            this.DinhLuong.DataPropertyName = "DinhLuong";
-            this.DinhLuong.HeaderText = "Định lượng";
-            this.DinhLuong.MinimumWidth = 6;
-            this.DinhLuong.Name = "DinhLuong";
-            this.DinhLuong.Width = 55;
-            // 
-            // DVTDinhLuong
-            // 
-            this.DVTDinhLuong.DataPropertyName = "DVTDinhLuong";
-            this.DVTDinhLuong.HeaderText = "DVT Định lượng";
-            this.DVTDinhLuong.MinimumWidth = 6;
-            this.DVTDinhLuong.Name = "DVTDinhLuong";
-            this.DVTDinhLuong.Width = 80;
-            // 
-            // GiaBan
-            // 
-            this.GiaBan.DataPropertyName = "GiaBan";
-            this.GiaBan.HeaderText = "Đơn giá";
-            this.GiaBan.MinimumWidth = 6;
-            this.GiaBan.Name = "GiaBan";
-            this.GiaBan.Width = 75;
             // 
             // dgvOrdered
             // 
@@ -846,24 +280,24 @@
             this.btnAll.UseVisualStyleBackColor = true;
             this.btnAll.Click += new System.EventHandler(this.AllButtons_Click);
             // 
-            // plOdered
+            // plOrdered
             // 
-            this.plOdered.Controls.Add(this.txtSDT);
-            this.plOdered.Controls.Add(this.label7);
-            this.plOdered.Controls.Add(this.btnConfirm);
-            this.plOdered.Controls.Add(this.lblTenSP);
-            this.plOdered.Controls.Add(this.label6);
-            this.plOdered.Controls.Add(this.lblTongTien);
-            this.plOdered.Controls.Add(this.label4);
-            this.plOdered.Controls.Add(this.numSoLuong);
-            this.plOdered.Controls.Add(this.label2);
-            this.plOdered.Controls.Add(this.dgvOrdered);
-            this.plOdered.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.plOdered.Location = new System.Drawing.Point(21, 527);
-            this.plOdered.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.plOdered.Name = "plOdered";
-            this.plOdered.Size = new System.Drawing.Size(1440, 270);
-            this.plOdered.TabIndex = 19;
+            this.plOrdered.Controls.Add(this.txtSDT);
+            this.plOrdered.Controls.Add(this.label7);
+            this.plOrdered.Controls.Add(this.btnConfirm);
+            this.plOrdered.Controls.Add(this.lblTenSP);
+            this.plOrdered.Controls.Add(this.label6);
+            this.plOrdered.Controls.Add(this.lblTongTien);
+            this.plOrdered.Controls.Add(this.label4);
+            this.plOrdered.Controls.Add(this.numSoLuong);
+            this.plOrdered.Controls.Add(this.label2);
+            this.plOrdered.Controls.Add(this.dgvOrdered);
+            this.plOrdered.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.plOrdered.Location = new System.Drawing.Point(21, 527);
+            this.plOrdered.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.plOrdered.Name = "plOrdered";
+            this.plOrdered.Size = new System.Drawing.Size(1440, 270);
+            this.plOrdered.TabIndex = 19;
             // 
             // txtSDT
             // 
@@ -1034,6 +468,54 @@
             this.btnDatTruoc.UseVisualStyleBackColor = false;
             this.btnDatTruoc.Click += new System.EventHandler(this.btnDatTruoc_Click);
             // 
+            // MaSP
+            // 
+            this.MaSP.DataPropertyName = "MaSP";
+            this.MaSP.HeaderText = "Mã";
+            this.MaSP.MinimumWidth = 6;
+            this.MaSP.Name = "MaSP";
+            this.MaSP.Width = 55;
+            // 
+            // TenSP
+            // 
+            this.TenSP.DataPropertyName = "TenSP";
+            this.TenSP.HeaderText = "Tên sản phẩm";
+            this.TenSP.MinimumWidth = 6;
+            this.TenSP.Name = "TenSP";
+            this.TenSP.Width = 220;
+            // 
+            // DinhLuong
+            // 
+            this.DinhLuong.DataPropertyName = "DinhLuong";
+            this.DinhLuong.HeaderText = "Định lượng";
+            this.DinhLuong.MinimumWidth = 6;
+            this.DinhLuong.Name = "DinhLuong";
+            this.DinhLuong.Width = 55;
+            // 
+            // DVTDinhLuong
+            // 
+            this.DVTDinhLuong.DataPropertyName = "DVTDinhLuong";
+            this.DVTDinhLuong.HeaderText = "ĐVT Định lượng";
+            this.DVTDinhLuong.MinimumWidth = 6;
+            this.DVTDinhLuong.Name = "DVTDinhLuong";
+            this.DVTDinhLuong.Width = 80;
+            // 
+            // DonViTinh
+            // 
+            this.DonViTinh.DataPropertyName = "DonViTinh";
+            this.DonViTinh.HeaderText = "Đơn vị tính";
+            this.DonViTinh.MinimumWidth = 6;
+            this.DonViTinh.Name = "DonViTinh";
+            this.DonViTinh.Width = 80;
+            // 
+            // GiaBan
+            // 
+            this.GiaBan.DataPropertyName = "GiaBan";
+            this.GiaBan.HeaderText = "Đơn giá";
+            this.GiaBan.MinimumWidth = 6;
+            this.GiaBan.Name = "GiaBan";
+            this.GiaBan.Width = 75;
+            // 
             // frmPhong
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1042,7 +524,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1484, 803);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.plOdered);
+            this.Controls.Add(this.plOrdered);
             this.Controls.Add(this.plMenu);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblInfo);
@@ -1054,33 +536,15 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Phòng";
             this.Load += new System.EventHandler(this.frmPhong_Load);
-            this.flowLayoutRegular.ResumeLayout(false);
-            this.plMP001.ResumeLayout(false);
-            this.plMP001.PerformLayout();
-            this.plMP002.ResumeLayout(false);
-            this.plMP002.PerformLayout();
-            this.plMP003.ResumeLayout(false);
-            this.plMP003.PerformLayout();
-            this.plMP005.ResumeLayout(false);
-            this.plMP005.PerformLayout();
-            this.plMP006.ResumeLayout(false);
-            this.plMP006.PerformLayout();
-            this.plMP007.ResumeLayout(false);
-            this.plMP007.PerformLayout();
             this.tabCtrlRoom.ResumeLayout(false);
             this.tabPageNormal.ResumeLayout(false);
             this.tabPageVIP.ResumeLayout(false);
-            this.flowLayoutPanel2.ResumeLayout(false);
-            this.plMP004.ResumeLayout(false);
-            this.plMP004.PerformLayout();
-            this.plMP008.ResumeLayout(false);
-            this.plMP008.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMenuFood)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrdered)).EndInit();
             this.plMenu.ResumeLayout(false);
             this.plMenu.PerformLayout();
-            this.plOdered.ResumeLayout(false);
-            this.plOdered.PerformLayout();
+            this.plOrdered.ResumeLayout(false);
+            this.plOrdered.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numSoLuong)).EndInit();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -1093,54 +557,14 @@
         private System.Windows.Forms.TabControl tabCtrlRoom;
         private System.Windows.Forms.TabPage tabPageNormal;
         private System.Windows.Forms.TabPage tabPageVIP;
-        private System.Windows.Forms.Panel plMP001;
-        private System.Windows.Forms.Label lblStatus_P101;
-        private System.Windows.Forms.Label lblTimeOUT_P101;
-        private System.Windows.Forms.Label lblTimeIN_P101;
-        private System.Windows.Forms.Label lblP101;
         private System.Windows.Forms.Label lblInfo;
-        private System.Windows.Forms.Panel plMP002;
-        private System.Windows.Forms.Label lblStatus_P102;
-        private System.Windows.Forms.Label lblTimeOUT_P102;
-        private System.Windows.Forms.Label lblTimeIN_P102;
-        private System.Windows.Forms.Label lblP102;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Panel plMP003;
-        private System.Windows.Forms.Label lblStatus_P103;
-        private System.Windows.Forms.Label lblTimeOUT_P103;
-        private System.Windows.Forms.Label lblTimeIN_P103;
-        private System.Windows.Forms.Label lblP103;
-        private System.Windows.Forms.Panel plMP005;
-        private System.Windows.Forms.Label lblStatus_P201;
-        private System.Windows.Forms.Label lblTimeOUT_P201;
-        private System.Windows.Forms.Label lblTimeIN_P201;
-        private System.Windows.Forms.Label lblP201;
-        private System.Windows.Forms.Panel plMP006;
-        private System.Windows.Forms.Label lblStatus_P202;
-        private System.Windows.Forms.Label lblTimeOUT_P202;
-        private System.Windows.Forms.Label lblTimeIN_P202;
-        private System.Windows.Forms.Label lblP202;
-        private System.Windows.Forms.Panel plMP007;
-        private System.Windows.Forms.Label lblStatus_P203;
-        private System.Windows.Forms.Label lblTimeOUT_P203;
-        private System.Windows.Forms.Label lblTimeIN_P203;
-        private System.Windows.Forms.Label lblP203;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
-        private System.Windows.Forms.Panel plMP004;
-        private System.Windows.Forms.Label lblStatus_P104;
-        private System.Windows.Forms.Label lblTimeOUT_P104;
-        private System.Windows.Forms.Label lblTimeIN_P104;
-        private System.Windows.Forms.Label lblP104;
-        private System.Windows.Forms.Panel plMP008;
-        private System.Windows.Forms.Label lblStatus_P204;
-        private System.Windows.Forms.Label lblTimeOUT_P204;
-        private System.Windows.Forms.Label lblTimeIN_P204;
-        private System.Windows.Forms.Label lblP204;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutVIP;
         private System.Windows.Forms.DataGridView dgvMenuFood;
         private System.Windows.Forms.DataGridView dgvOrdered;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel plMenu;
-        private System.Windows.Forms.Panel plOdered;
+        private System.Windows.Forms.Panel plOrdered;
         private System.Windows.Forms.Button btnBeverage;
         private System.Windows.Forms.Button btnFood;
         private System.Windows.Forms.Button btnAll;
@@ -1158,13 +582,14 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnDatTruoc;
         private System.Windows.Forms.Button btnHuyDatTruoc;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtSDT;
+        private System.Windows.Forms.Button btnCombo;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaSP;
         private System.Windows.Forms.DataGridViewTextBoxColumn TenSP;
         private System.Windows.Forms.DataGridViewTextBoxColumn DinhLuong;
         private System.Windows.Forms.DataGridViewTextBoxColumn DVTDinhLuong;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DonViTinh;
         private System.Windows.Forms.DataGridViewTextBoxColumn GiaBan;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtSDT;
-        private System.Windows.Forms.Button btnCombo;
     }
 }
