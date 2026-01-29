@@ -63,59 +63,9 @@ namespace SuperProjectQ.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap bgLogin {
+        internal static System.Drawing.Bitmap Login {
             get {
-                object obj = ResourceManager.GetObject("bgLogin", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap bgMainUI {
-            get {
-                object obj = ResourceManager.GetObject("bgMainUI", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap card_swipe_icon {
-            get {
-                object obj = ResourceManager.GetObject("card_swipe_icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Cash {
-            get {
-                object obj = ResourceManager.GetObject("Cash", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap DarkModebgMainUI {
-            get {
-                object obj = ResourceManager.GetObject("DarkModebgMainUI", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ScanQRCode {
-            get {
-                object obj = ResourceManager.GetObject("ScanQRCode", resourceCulture);
+                object obj = ResourceManager.GetObject("Login", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -34,7 +34,7 @@ namespace SuperProjectQ
             DateTime homNay = Convert.ToDateTime(DateTime.Now.ToString("dd/MM/yyyy"));
             int maHD = 0;
             TimeSpan soNgayQuaHan = TimeSpan.Zero;
-            double laSuat = 0.02; //Lãi suất 2%/ngày
+            double laiSuat = SetParameters.laiSuat; //Lãi suất 2%/ngày
 
             string sqlGhiNo = "SELECT * FROM GhiNo";
             dt = kn.CreateTable(sqlGhiNo);
@@ -50,7 +50,7 @@ namespace SuperProjectQ
                 cmd = new SqlCommand(sqlUpdateGhiNo, kn.conn);
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@SNQH", soNgayQuaHan.Days);
-                cmd.Parameters.AddWithValue("@TQH", laSuat * soNgayQuaHan.Days);
+                cmd.Parameters.AddWithValue("@TQH", laiSuat * soNgayQuaHan.Days);
                 cmd.Parameters.AddWithValue("@MaHD", maHD);
                 cmd.ExecuteNonQuery();
             }

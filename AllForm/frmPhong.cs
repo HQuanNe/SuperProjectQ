@@ -34,7 +34,7 @@ namespace SuperProjectQ.FrmMixed
         string strStatusClose = "Trạng thái: Trống";
         string strStatusBooking = "Trạng thái: Đã đặt trước";
         Color clrText = Color.Black;
-        Color clrStatusOpen = Color.FromArgb(255, 192, 192);
+        Color clrStatusOpen = Color.FromArgb(255, 128, 128);
         Color clrStatusClose = Color.FromArgb(192, 255, 192);
         Color clrStatusBooking = Color.FromArgb(192, 255, 255);
 
@@ -410,8 +410,6 @@ namespace SuperProjectQ.FrmMixed
             try
             {
                 kn.ConnOpen();
-                plMenu.Enabled = false;
-                plOrdered.Enabled = false;
 
                 string sqlPhong = "SELECT * FROM Phong";
                 dt = new DataTable();
@@ -475,7 +473,7 @@ namespace SuperProjectQ.FrmMixed
                         flowLayoutVIP.Controls.Add(plDanhSanhPhong); lblTenPhong.Text += " (VIP)"; 
                         lblTenPhong.Location = new Point(plDanhSanhPhong.Width / 2 - 80, 4); 
                     };
-                    plDanhSanhPhong.Controls.Add(lblTenPhong); //Thêm tên phòng vào panel
+                    plDanhSanhPhong.Controls.Add(lblTenPhong); //Thêm tên phòng vào flow panel
                     plDanhSanhPhong.Controls.Add(lblTrangThai);//Thêm trạng thái vào panel
                     plDanhSanhPhong.Click += AllPanels_Click; //Gán sự kiện click cho panel
 

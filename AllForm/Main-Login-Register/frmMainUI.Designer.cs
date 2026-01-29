@@ -38,7 +38,6 @@
             this.lblTitleChucVu = new System.Windows.Forms.Label();
             this.MNQuanLy = new System.Windows.Forms.ToolStripMenuItem();
             this.MNChung_Phong = new System.Windows.Forms.ToolStripMenuItem();
-            this.orderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MNKhachHang = new System.Windows.Forms.ToolStripMenuItem();
             this.MNKH_DSKhachHang = new System.Windows.Forms.ToolStripMenuItem();
             this.MNNhanVien = new System.Windows.Forms.ToolStripMenuItem();
@@ -136,8 +135,7 @@
             // MNQuanLy
             // 
             this.MNQuanLy.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MNChung_Phong,
-            this.orderToolStripMenuItem});
+            this.MNChung_Phong});
             this.MNQuanLy.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MNQuanLy.Name = "MNQuanLy";
             this.MNQuanLy.Size = new System.Drawing.Size(88, 30);
@@ -146,15 +144,9 @@
             // MNChung_Phong
             // 
             this.MNChung_Phong.Name = "MNChung_Phong";
-            this.MNChung_Phong.Size = new System.Drawing.Size(158, 30);
+            this.MNChung_Phong.Size = new System.Drawing.Size(224, 30);
             this.MNChung_Phong.Text = "Phòng";
             this.MNChung_Phong.Click += new System.EventHandler(this.MNQuanLy_Phong_Click);
-            // 
-            // orderToolStripMenuItem
-            // 
-            this.orderToolStripMenuItem.Name = "orderToolStripMenuItem";
-            this.orderToolStripMenuItem.Size = new System.Drawing.Size(158, 30);
-            this.orderToolStripMenuItem.Text = "Order";
             // 
             // MNKhachHang
             // 
@@ -222,13 +214,13 @@
             // quảnLýKhoToolStripMenuItem
             // 
             this.quảnLýKhoToolStripMenuItem.Name = "quảnLýKhoToolStripMenuItem";
-            this.quảnLýKhoToolStripMenuItem.Size = new System.Drawing.Size(219, 30);
+            this.quảnLýKhoToolStripMenuItem.Size = new System.Drawing.Size(224, 30);
             this.quảnLýKhoToolStripMenuItem.Text = "Quản lý Kho";
             // 
             // nhậpKhoToolStripMenuItem
             // 
             this.nhậpKhoToolStripMenuItem.Name = "nhậpKhoToolStripMenuItem";
-            this.nhậpKhoToolStripMenuItem.Size = new System.Drawing.Size(219, 30);
+            this.nhậpKhoToolStripMenuItem.Size = new System.Drawing.Size(224, 30);
             this.nhậpKhoToolStripMenuItem.Text = "Nhập Kho";
             // 
             // MNMore
@@ -299,7 +291,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::SuperProjectQ.Properties.Resources.bgMainUI;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(932, 539);
             this.Controls.Add(this.btnBack);
@@ -345,7 +336,6 @@
         private System.Windows.Forms.ToolStripMenuItem đăngKýToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem đổiMậtKhẩuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem MNChung_Phong;
-        private System.Windows.Forms.ToolStripMenuItem orderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem MN_NhanVien_BangLuong;
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.ToolStripMenuItem quảnLýKhoToolStripMenuItem;

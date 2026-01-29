@@ -34,7 +34,7 @@ namespace SuperProjectQ.FrmMixed
         bool voucherTarget = false; //nếu có voucher được chọn sẽ là True
         int trangThaiVoucher = 0; //Trạng thái của voucher: 0 - Chưa dùng, 1 - đã dùng, 2 - hết hạn
 
-        const decimal VAT = 0.05m; //Mức thuế
+        const decimal VAT = SetParameters.VAT; //Mức thuế
         private int TienNhan()
         {
             int takeNum = 0;
@@ -150,7 +150,7 @@ namespace SuperProjectQ.FrmMixed
             TimeSpan gioVao = timeIn.TimeOfDay;
             if (gioVao >= new TimeSpan(22, 0, 0) || gioVao <= new TimeSpan(6, 0, 0))
             {
-                PricePerHour *= 1.2m;
+                PricePerHour *= SetParameters.PriceAfter_22H;
             }
             return PricePerHour;
         }

@@ -37,6 +37,12 @@
             this.lblInfo = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvMenuFood = new System.Windows.Forms.DataGridView();
+            this.MaSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TenSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DinhLuong = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DVTDinhLuong = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DonViTinh = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GiaBan = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvOrdered = new System.Windows.Forms.DataGridView();
             this.label3 = new System.Windows.Forms.Label();
             this.plMenu = new System.Windows.Forms.Panel();
@@ -61,12 +67,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnHuyDatTruoc = new System.Windows.Forms.Button();
             this.btnDatTruoc = new System.Windows.Forms.Button();
-            this.MaSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TenSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DinhLuong = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DVTDinhLuong = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DonViTinh = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GiaBan = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabCtrlRoom.SuspendLayout();
             this.tabPageNormal.SuspendLayout();
             this.tabPageVIP.SuspendLayout();
@@ -138,6 +138,7 @@
             // 
             // lblInfo
             // 
+            this.lblInfo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblInfo.AutoSize = true;
             this.lblInfo.Font = new System.Drawing.Font("Times New Roman", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblInfo.Location = new System.Drawing.Point(457, 4);
@@ -148,6 +149,7 @@
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(253, 4);
@@ -181,6 +183,54 @@
             this.dgvMenuFood.TabIndex = 14;
             this.dgvMenuFood.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMenuFood_CellDoubleClick);
             // 
+            // MaSP
+            // 
+            this.MaSP.DataPropertyName = "MaSP";
+            this.MaSP.HeaderText = "Mã";
+            this.MaSP.MinimumWidth = 6;
+            this.MaSP.Name = "MaSP";
+            this.MaSP.Width = 55;
+            // 
+            // TenSP
+            // 
+            this.TenSP.DataPropertyName = "TenSP";
+            this.TenSP.HeaderText = "Tên sản phẩm";
+            this.TenSP.MinimumWidth = 6;
+            this.TenSP.Name = "TenSP";
+            this.TenSP.Width = 220;
+            // 
+            // DinhLuong
+            // 
+            this.DinhLuong.DataPropertyName = "DinhLuong";
+            this.DinhLuong.HeaderText = "Định lượng";
+            this.DinhLuong.MinimumWidth = 6;
+            this.DinhLuong.Name = "DinhLuong";
+            this.DinhLuong.Width = 55;
+            // 
+            // DVTDinhLuong
+            // 
+            this.DVTDinhLuong.DataPropertyName = "DVTDinhLuong";
+            this.DVTDinhLuong.HeaderText = "ĐVT Định lượng";
+            this.DVTDinhLuong.MinimumWidth = 6;
+            this.DVTDinhLuong.Name = "DVTDinhLuong";
+            this.DVTDinhLuong.Width = 80;
+            // 
+            // DonViTinh
+            // 
+            this.DonViTinh.DataPropertyName = "DonViTinh";
+            this.DonViTinh.HeaderText = "Đơn vị tính";
+            this.DonViTinh.MinimumWidth = 6;
+            this.DonViTinh.Name = "DonViTinh";
+            this.DonViTinh.Width = 80;
+            // 
+            // GiaBan
+            // 
+            this.GiaBan.DataPropertyName = "GiaBan";
+            this.GiaBan.HeaderText = "Đơn giá";
+            this.GiaBan.MinimumWidth = 6;
+            this.GiaBan.Name = "GiaBan";
+            this.GiaBan.Width = 75;
+            // 
             // dgvOrdered
             // 
             this.dgvOrdered.AllowUserToAddRows = false;
@@ -212,6 +262,7 @@
             // 
             // plMenu
             // 
+            this.plMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.plMenu.Controls.Add(this.btnCombo);
             this.plMenu.Controls.Add(this.btnOther);
             this.plMenu.Controls.Add(this.btnBeverage);
@@ -228,7 +279,7 @@
             // 
             // btnCombo
             // 
-            this.btnCombo.Location = new System.Drawing.Point(393, 34);
+            this.btnCombo.Location = new System.Drawing.Point(393, 2);
             this.btnCombo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnCombo.Name = "btnCombo";
             this.btnCombo.Size = new System.Drawing.Size(91, 32);
@@ -238,7 +289,7 @@
             // 
             // btnOther
             // 
-            this.btnOther.Location = new System.Drawing.Point(272, 34);
+            this.btnOther.Location = new System.Drawing.Point(272, 2);
             this.btnOther.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnOther.Name = "btnOther";
             this.btnOther.Size = new System.Drawing.Size(91, 32);
@@ -249,7 +300,7 @@
             // 
             // btnBeverage
             // 
-            this.btnBeverage.Location = new System.Drawing.Point(183, 34);
+            this.btnBeverage.Location = new System.Drawing.Point(183, 2);
             this.btnBeverage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnBeverage.Name = "btnBeverage";
             this.btnBeverage.Size = new System.Drawing.Size(91, 32);
@@ -260,7 +311,7 @@
             // 
             // btnFood
             // 
-            this.btnFood.Location = new System.Drawing.Point(94, 34);
+            this.btnFood.Location = new System.Drawing.Point(94, 2);
             this.btnFood.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnFood.Name = "btnFood";
             this.btnFood.Size = new System.Drawing.Size(91, 32);
@@ -271,7 +322,7 @@
             // 
             // btnAll
             // 
-            this.btnAll.Location = new System.Drawing.Point(4, 34);
+            this.btnAll.Location = new System.Drawing.Point(4, 2);
             this.btnAll.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnAll.Name = "btnAll";
             this.btnAll.Size = new System.Drawing.Size(91, 32);
@@ -282,6 +333,7 @@
             // 
             // plOrdered
             // 
+            this.plOrdered.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.plOrdered.Controls.Add(this.txtSDT);
             this.plOrdered.Controls.Add(this.label7);
             this.plOrdered.Controls.Add(this.btnConfirm);
@@ -296,7 +348,7 @@
             this.plOrdered.Location = new System.Drawing.Point(21, 527);
             this.plOrdered.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.plOrdered.Name = "plOrdered";
-            this.plOrdered.Size = new System.Drawing.Size(1440, 270);
+            this.plOrdered.Size = new System.Drawing.Size(1440, 265);
             this.plOrdered.TabIndex = 19;
             // 
             // txtSDT
@@ -399,7 +451,7 @@
             this.btnClose.Location = new System.Drawing.Point(4, 2);
             this.btnClose.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(135, 71);
+            this.btnClose.Size = new System.Drawing.Size(178, 71);
             this.btnClose.TabIndex = 2;
             this.btnClose.Text = "Đóng phòng";
             this.btnClose.UseVisualStyleBackColor = false;
@@ -424,7 +476,7 @@
             this.btnOpen.Location = new System.Drawing.Point(3, 2);
             this.btnOpen.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(135, 71);
+            this.btnOpen.Size = new System.Drawing.Size(178, 71);
             this.btnOpen.TabIndex = 0;
             this.btnOpen.Text = "Mở phòng";
             this.btnOpen.UseVisualStyleBackColor = false;
@@ -432,6 +484,7 @@
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.btnHuyDatTruoc);
             this.panel1.Controls.Add(this.btnDatTruoc);
             this.panel1.Controls.Add(this.btnOpen);
@@ -446,10 +499,10 @@
             // 
             this.btnHuyDatTruoc.BackColor = System.Drawing.Color.Teal;
             this.btnHuyDatTruoc.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHuyDatTruoc.Location = new System.Drawing.Point(144, 2);
+            this.btnHuyDatTruoc.Location = new System.Drawing.Point(183, 2);
             this.btnHuyDatTruoc.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnHuyDatTruoc.Name = "btnHuyDatTruoc";
-            this.btnHuyDatTruoc.Size = new System.Drawing.Size(135, 71);
+            this.btnHuyDatTruoc.Size = new System.Drawing.Size(178, 71);
             this.btnHuyDatTruoc.TabIndex = 7;
             this.btnHuyDatTruoc.Text = "Huỷ đặt trước";
             this.btnHuyDatTruoc.UseVisualStyleBackColor = false;
@@ -459,62 +512,14 @@
             // 
             this.btnDatTruoc.BackColor = System.Drawing.Color.Aqua;
             this.btnDatTruoc.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDatTruoc.Location = new System.Drawing.Point(144, 2);
+            this.btnDatTruoc.Location = new System.Drawing.Point(183, 2);
             this.btnDatTruoc.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnDatTruoc.Name = "btnDatTruoc";
-            this.btnDatTruoc.Size = new System.Drawing.Size(135, 71);
+            this.btnDatTruoc.Size = new System.Drawing.Size(178, 71);
             this.btnDatTruoc.TabIndex = 6;
             this.btnDatTruoc.Text = "Đặt trước";
             this.btnDatTruoc.UseVisualStyleBackColor = false;
             this.btnDatTruoc.Click += new System.EventHandler(this.btnDatTruoc_Click);
-            // 
-            // MaSP
-            // 
-            this.MaSP.DataPropertyName = "MaSP";
-            this.MaSP.HeaderText = "Mã";
-            this.MaSP.MinimumWidth = 6;
-            this.MaSP.Name = "MaSP";
-            this.MaSP.Width = 55;
-            // 
-            // TenSP
-            // 
-            this.TenSP.DataPropertyName = "TenSP";
-            this.TenSP.HeaderText = "Tên sản phẩm";
-            this.TenSP.MinimumWidth = 6;
-            this.TenSP.Name = "TenSP";
-            this.TenSP.Width = 220;
-            // 
-            // DinhLuong
-            // 
-            this.DinhLuong.DataPropertyName = "DinhLuong";
-            this.DinhLuong.HeaderText = "Định lượng";
-            this.DinhLuong.MinimumWidth = 6;
-            this.DinhLuong.Name = "DinhLuong";
-            this.DinhLuong.Width = 55;
-            // 
-            // DVTDinhLuong
-            // 
-            this.DVTDinhLuong.DataPropertyName = "DVTDinhLuong";
-            this.DVTDinhLuong.HeaderText = "ĐVT Định lượng";
-            this.DVTDinhLuong.MinimumWidth = 6;
-            this.DVTDinhLuong.Name = "DVTDinhLuong";
-            this.DVTDinhLuong.Width = 80;
-            // 
-            // DonViTinh
-            // 
-            this.DonViTinh.DataPropertyName = "DonViTinh";
-            this.DonViTinh.HeaderText = "Đơn vị tính";
-            this.DonViTinh.MinimumWidth = 6;
-            this.DonViTinh.Name = "DonViTinh";
-            this.DonViTinh.Width = 80;
-            // 
-            // GiaBan
-            // 
-            this.GiaBan.DataPropertyName = "GiaBan";
-            this.GiaBan.HeaderText = "Đơn giá";
-            this.GiaBan.MinimumWidth = 6;
-            this.GiaBan.Name = "GiaBan";
-            this.GiaBan.Width = 75;
             // 
             // frmPhong
             // 
@@ -522,7 +527,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1484, 803);
+            this.ClientSize = new System.Drawing.Size(1473, 803);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.plOrdered);
             this.Controls.Add(this.plMenu);

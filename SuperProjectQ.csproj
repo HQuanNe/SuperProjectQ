@@ -212,31 +212,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\bgLogin1.jpg" />
+    <Folder Include="Resources\icon\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\bgMainUI.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\DarkModebgMainUI.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Cash.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ScanQRCode.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Cash1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ScanQRCode1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ScanQRCode2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\card_swipe_icon.png" />
+    <None Include="Resources\background\Login1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

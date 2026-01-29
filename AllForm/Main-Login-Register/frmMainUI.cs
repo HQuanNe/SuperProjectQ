@@ -20,8 +20,8 @@ namespace SuperProjectQ.Frm_Main_Login_Register
         }
         ConnectData kn = new ConnectData();
         string mainIDUser = Session.IDUser, mainTenNV = Session.TenNV, mainChucVu = Session.ChucVu;
-        Image lightImg = Properties.Resources.bgMainUI;
-        Image darkImg = Properties.Resources.DarkModebgMainUI;
+        Image lightImg = null; //Properties.Resources.bgMainUI;
+        Image darkImg = null; //Properties.Resources.DarkModebgMainUI;
         private void ckcDarkMode_CheckedChanged(object sender, EventArgs e)
         {
             if (ckcDarkMode.Checked)
@@ -77,7 +77,6 @@ namespace SuperProjectQ.Frm_Main_Login_Register
             frmPhong.Visible = true;
             this.Visible = false;
         }
-
         private void btnBack_Click(object sender, EventArgs e)
         {
 

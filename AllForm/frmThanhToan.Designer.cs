@@ -142,7 +142,6 @@
             // 
             // picBoxCard
             // 
-            this.picBoxCard.Image = global::SuperProjectQ.Properties.Resources.card_swipe_icon;
             this.picBoxCard.Location = new System.Drawing.Point(853, 12);
             this.picBoxCard.Name = "picBoxCard";
             this.picBoxCard.Size = new System.Drawing.Size(90, 90);
@@ -151,7 +150,6 @@
             // 
             // picBoxQRCode
             // 
-            this.picBoxQRCode.Image = ((System.Drawing.Image)(resources.GetObject("picBoxQRCode.Image")));
             this.picBoxQRCode.Location = new System.Drawing.Point(431, 12);
             this.picBoxQRCode.Name = "picBoxQRCode";
             this.picBoxQRCode.Size = new System.Drawing.Size(90, 70);
@@ -160,7 +158,6 @@
             // 
             // picBoxCash
             // 
-            this.picBoxCash.Image = ((System.Drawing.Image)(resources.GetObject("picBoxCash.Image")));
             this.picBoxCash.Location = new System.Drawing.Point(7, 12);
             this.picBoxCash.Name = "picBoxCash";
             this.picBoxCash.Size = new System.Drawing.Size(90, 70);
@@ -193,7 +190,7 @@
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.panel2.Controls.Add(this.plGhiNo);
             this.panel2.Controls.Add(this.plTTKH);
             this.panel2.Controls.Add(this.plCash);

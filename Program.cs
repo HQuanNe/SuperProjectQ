@@ -18,7 +18,7 @@ namespace SuperProjectQ
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmPhong());
+            Application.Run(new frmThanhToan());
         }
     }
 }
