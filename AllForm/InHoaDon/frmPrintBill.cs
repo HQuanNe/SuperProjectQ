@@ -45,8 +45,12 @@ namespace SuperProjectQ
             string sqlHD = $"SELECT HoaDon.MaHD, Phong.TenPhong, LoaiPhong.TenLoaiPhong, HoaDon.MaKH, HoaDon.MaNV, HoaDon.GioVao, HoaDon.GioRa, HoaDon.TongSoPhut, " +
                 $"HoaDon.TienPhong, HoaDon.TienDichVu, HoaDon.TongTien, HoaDon.TrietKhauVIP, HoaDon.TrietKhauVoucher, HoaDon.VAT, HoaDon.TongThanhToan, " +
                 $"HoaDon.PTTT, HoaDon.TrangThai FROM HoaDon INNER JOIN Phong ON Phong.MaPhong = HoaDon.MaPhong INNER JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong WHERE MaHD = {maHD}";
-            string sqlCTHD = $"SELECT ChiTietHD.MaHD, KhoHang.TenSP, ChiTietHD.SoLuong, ChiTietHD.DonVi, ChiTietHD.DonGia, ChiTietHD.ThanhTien\r\nFROM ChiTietHD\r\nINNER JOIN KhoHang ON KhoHang.MaSP = ChiTietHD.MaSP WHERE MaHD = {maHD}";
+            
+            string sqlCTHD = $"SELECT ChiTietHD.MaHD, SanPham.TenHienThi, ChiTietHD.SoLuong, ChiTietHD.DonViTinh, ChiTietHD.DonGia, ChiTietHD.ThanhTien FROM ChiTietHD " +
+                             $"INNER JOIN SanPham ON SanPham.MaSP = ChiTietHD.MaSP WHERE MaHD = {maHD}";
+            
             string sqlKH = $"SELECT Discount FROM KhachHang WHERE MaKH = '{Session.MaKH}'";
+
             adapter = new SqlDataAdapter(sqlHD, kn.conn);
             adapter2 = new SqlDataAdapter(sqlCTHD, kn.conn);
             adapter3 = new SqlDataAdapter(sqlKH, kn.conn);

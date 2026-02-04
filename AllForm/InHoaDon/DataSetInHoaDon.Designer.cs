@@ -839,11 +839,11 @@ namespace SuperProjectQ.AllForm.InHoaDon {
             
             private global::System.Data.DataColumn columnMaHD;
             
-            private global::System.Data.DataColumn columnTenSP;
+            private global::System.Data.DataColumn columnTenHienThi;
             
             private global::System.Data.DataColumn columnSoLuong;
             
-            private global::System.Data.DataColumn columnDonVi;
+            private global::System.Data.DataColumn columnDonViTinh;
             
             private global::System.Data.DataColumn columnDonGia;
             
@@ -892,9 +892,9 @@ namespace SuperProjectQ.AllForm.InHoaDon {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn TenSPColumn {
+            public global::System.Data.DataColumn TenHienThiColumn {
                 get {
-                    return this.columnTenSP;
+                    return this.columnTenHienThi;
                 }
             }
             
@@ -908,9 +908,9 @@ namespace SuperProjectQ.AllForm.InHoaDon {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn DonViColumn {
+            public global::System.Data.DataColumn DonViTinhColumn {
                 get {
-                    return this.columnDonVi;
+                    return this.columnDonViTinh;
                 }
             }
             
@@ -967,13 +967,13 @@ namespace SuperProjectQ.AllForm.InHoaDon {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public ChiTietHDRow AddChiTietHDRow(string MaHD, string TenSP, short SoLuong, string DonVi, decimal DonGia, decimal ThanhTien) {
+            public ChiTietHDRow AddChiTietHDRow(string MaHD, string TenHienThi, short SoLuong, string DonViTinh, decimal DonGia, decimal ThanhTien) {
                 ChiTietHDRow rowChiTietHDRow = ((ChiTietHDRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         MaHD,
-                        TenSP,
+                        TenHienThi,
                         SoLuong,
-                        DonVi,
+                        DonViTinh,
                         DonGia,
                         ThanhTien};
                 rowChiTietHDRow.ItemArray = columnValuesArray;
@@ -999,9 +999,9 @@ namespace SuperProjectQ.AllForm.InHoaDon {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             internal void InitVars() {
                 this.columnMaHD = base.Columns["MaHD"];
-                this.columnTenSP = base.Columns["TenSP"];
+                this.columnTenHienThi = base.Columns["TenHienThi"];
                 this.columnSoLuong = base.Columns["SoLuong"];
-                this.columnDonVi = base.Columns["DonVi"];
+                this.columnDonViTinh = base.Columns["DonViTinh"];
                 this.columnDonGia = base.Columns["DonGia"];
                 this.columnThanhTien = base.Columns["ThanhTien"];
             }
@@ -1011,12 +1011,12 @@ namespace SuperProjectQ.AllForm.InHoaDon {
             private void InitClass() {
                 this.columnMaHD = new global::System.Data.DataColumn("MaHD", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnMaHD);
-                this.columnTenSP = new global::System.Data.DataColumn("TenSP", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTenSP);
+                this.columnTenHienThi = new global::System.Data.DataColumn("TenHienThi", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTenHienThi);
                 this.columnSoLuong = new global::System.Data.DataColumn("SoLuong", typeof(short), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSoLuong);
-                this.columnDonVi = new global::System.Data.DataColumn("DonVi", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDonVi);
+                this.columnDonViTinh = new global::System.Data.DataColumn("DonViTinh", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDonViTinh);
                 this.columnDonGia = new global::System.Data.DataColumn("DonGia", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDonGia);
                 this.columnThanhTien = new global::System.Data.DataColumn("ThanhTien", typeof(decimal), null, global::System.Data.MappingType.Element);
@@ -1917,17 +1917,17 @@ namespace SuperProjectQ.AllForm.InHoaDon {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string TenSP {
+            public string TenHienThi {
                 get {
                     try {
-                        return ((string)(this[this.tableChiTietHD.TenSPColumn]));
+                        return ((string)(this[this.tableChiTietHD.TenHienThiColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'TenSP\' in table \'ChiTietHD\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'TenHienThi\' in table \'ChiTietHD\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableChiTietHD.TenSPColumn] = value;
+                    this[this.tableChiTietHD.TenHienThiColumn] = value;
                 }
             }
             
@@ -1949,17 +1949,17 @@ namespace SuperProjectQ.AllForm.InHoaDon {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string DonVi {
+            public string DonViTinh {
                 get {
                     try {
-                        return ((string)(this[this.tableChiTietHD.DonViColumn]));
+                        return ((string)(this[this.tableChiTietHD.DonViTinhColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'DonVi\' in table \'ChiTietHD\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'DonViTinh\' in table \'ChiTietHD\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableChiTietHD.DonViColumn] = value;
+                    this[this.tableChiTietHD.DonViTinhColumn] = value;
                 }
             }
             
@@ -2009,14 +2009,14 @@ namespace SuperProjectQ.AllForm.InHoaDon {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsTenSPNull() {
-                return this.IsNull(this.tableChiTietHD.TenSPColumn);
+            public bool IsTenHienThiNull() {
+                return this.IsNull(this.tableChiTietHD.TenHienThiColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetTenSPNull() {
-                this[this.tableChiTietHD.TenSPColumn] = global::System.Convert.DBNull;
+            public void SetTenHienThiNull() {
+                this[this.tableChiTietHD.TenHienThiColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2033,14 +2033,14 @@ namespace SuperProjectQ.AllForm.InHoaDon {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsDonViNull() {
-                return this.IsNull(this.tableChiTietHD.DonViColumn);
+            public bool IsDonViTinhNull() {
+                return this.IsNull(this.tableChiTietHD.DonViTinhColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetDonViNull() {
-                this[this.tableChiTietHD.DonViColumn] = global::System.Convert.DBNull;
+            public void SetDonViTinhNull() {
+                this[this.tableChiTietHD.DonViTinhColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

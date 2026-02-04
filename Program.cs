@@ -1,4 +1,5 @@
-﻿using SuperProjectQ.Frm_Main_Login_Register;
+﻿using SuperProjectQ.AllForm;
+using SuperProjectQ.Frm_Main_Login_Register;
 using SuperProjectQ.FrmMixed;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace SuperProjectQ
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmThanhToan());
+            Application.Run(new frmPhong());
         }
     }
 }

@@ -116,7 +116,7 @@ namespace SuperProjectQ
 
         private void btnExit_MouseLeave(object sender, EventArgs e)
         {
-            btnExit.BackColor = Color.White;
+            btnExit.BackColor = Color.FromName("Transparent");
             btnExit.ForeColor = Color.Black;
         }
     }

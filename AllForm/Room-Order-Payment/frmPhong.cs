@@ -1,4 +1,5 @@
-﻿using SuperProjectQ.Frm_Main_Login_Register;
+﻿using SuperProjectQ.AllForm;
+using SuperProjectQ.Frm_Main_Login_Register;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -42,6 +43,141 @@ namespace SuperProjectQ.FrmMixed
         string gloMaSP = null;
         double dinhMucKho = 0; //Định mức tồn kho
 
+        private void LoadPhong()
+        {
+            string sqlPhong = "SELECT * FROM Phong";
+            dt = new DataTable();
+            dt = kn.CreateTable(sqlPhong);
+            //duyệt tất cả các phòng
+            foreach (DataRow row in dt.Rows)
+            {
+                Panel plPhongTam = new Panel() { Width = 0, Height = 0 }; //Panel tạm để lấy vị trí
+                Panel plDanhSanhPhong = new Panel()
+                {
+                    Padding = new Padding(0),
+                    Margin = new Padding(2),
+                    BorderStyle = BorderStyle.FixedSingle,
+                    Width = SetParameters.plDanhSachPhong_WIDTH,
+                    Height = SetParameters.plDanhSachPhong_HEIGHT,
+                    Cursor = Cursors.Hand,
+                    //Lấy vị trí X phòng tạm cộng với chiều rộng phòng tạm để làm vị trí cho phòng tiếp theo
+                    Location = new Point(plPhongTam.Location.X + plPhongTam.Width, plPhongTam.Location.Y),
+                    AutoSize = false,
+                    AutoSizeMode = AutoSizeMode.GrowOnly,
+
+                    Name = row["MaPhong"].ToString(), //Gán Name theo mã phòng
+                };
+                Label lblTenPhong = new Label()
+                {
+                    Enabled = false,
+
+                    Name = row["MaPhong"].ToString(), //Gán Name theo mã phòng
+                    Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point),
+                    Text = $"Phòng {row["TenPhong"].ToString()}",
+                    Location = new Point(plDanhSanhPhong.Width / 2 - 50, 4),
+                    ForeColor = Color.Black,
+                    AutoSize = true,
+                };
+                Label lblTrangThai = new Label()
+                {
+                    Enabled = false,
+
+                    Name = row["MaPhong"].ToString(), //Gán Name theo mã phòng
+                    Font = new Font("Times New Roman", 10F, FontStyle.Bold, GraphicsUnit.Point),
+                    Location = new Point(0, 100),
+                    ForeColor = clrText,
+                    AutoSize = true
+                };
+                if (row["TrangThai"].ToString() == "0")
+                {
+                    plDanhSanhPhong.BackColor = clrStatusClose;
+                    lblTrangThai.Text = strStatusClose;
+                }
+                else if (row["TrangThai"].ToString() == "1")
+                {
+                    plDanhSanhPhong.BackColor = clrStatusOpen;
+                    lblTrangThai.Text = strStatusOpen;
+                }
+                else if (row["TrangThai"].ToString() == "2")
+                {
+                    plDanhSanhPhong.BackColor = clrStatusBooking;
+                    lblTrangThai.Text = strStatusBooking;
+
+                }
+
+                if (row["MaLoaiPhong"].ToString().Contains("LPR")) flowLayoutRegular.Controls.Add(plDanhSanhPhong);
+                else if (row["MaLoaiPhong"].ToString().Contains("LPV"))
+                {
+                    flowLayoutVIP.Controls.Add(plDanhSanhPhong); lblTenPhong.Text += " (VIP)";
+                    lblTenPhong.Location = new Point(plDanhSanhPhong.Width / 2 - 80, 4);
+                }
+                ;
+                plDanhSanhPhong.Controls.Add(lblTenPhong); //Thêm tên phòng vào flow panel
+                plDanhSanhPhong.Controls.Add(lblTrangThai);//Thêm trạng thái vào panel
+                plDanhSanhPhong.Click += AllPanels_Click; //Gán sự kiện click cho panel
+
+                plPhongTam = plDanhSanhPhong;//Cập nhật panel tạm bằng panel vừa tạo xong
+
+                //Gán hoá dơn cho phòng tương ứng
+                string sqlCTHD = "SELECT HoaDon.MaPhong, HoaDon.MaHD " +
+                    "FROM HoaDon " +
+                    "INNER JOIN Phong ON HoaDon.MaPhong = Phong.MaPhong WHERE Phong.TrangThai = 1 AND HoaDon.TrangThai = 0";
+                dt = new DataTable();
+                dt = kn.CreateTable(sqlCTHD);
+                foreach (DataRow dr in dt.Rows) 
+                {
+                    if (plDanhSanhPhong.Name == dr["MaPhong"].ToString()) { plDanhSanhPhong.Tag = Convert.ToInt32(dr["MaHD"]); break; }
+                }
+            }
+        } //Hiển thị phòng
+        private void Load_Ordered(int MaHD)
+        {
+            flowLayoutOrdered.Controls.Clear();
+
+            DataTable dt = new DataTable();
+            dt = kn.CreateTable($"SELECT ChiTietHD.MaCTHD, ChiTietHD.MaHD, ChiTietHD.MaSP, SanPham.TenHienThi, ChiTietHD.SoLuong, ChiTietHD.DonViTinh " +
+                $"FROM ChiTietHD INNER JOIN SanPham ON ChiTietHD.MaSP = SanPham.MaSP " +
+                $"WHERE ChiTietHD.MaHD = {MaHD} ");
+
+            if(dt.Rows.Count > 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    Panel plItem = new Panel()
+                    {
+                        Width = 290,
+                        Height = 40,
+
+                        BackColor = Color.FromName("PaleGreen"),
+
+                        Font = new Font("Times New Roman", 10F, FontStyle.Regular, GraphicsUnit.Point),
+                        Margin = new Padding(2),
+                    };
+                    Label lblTenSP = new Label()
+                    {
+                        Text = row["TenHienThi"].ToString(),
+
+                        MaximumSize = new Size(150, 50),
+
+                        Location = new Point(5, plItem.Height / 2 - 12),
+                        AutoSize = true,
+                    };
+                    TextBox txtSoLuong = new TextBox()
+                    {
+                        Text = row["SoLuong"].ToString(),
+                        TextAlign = HorizontalAlignment.Center,
+                        Size = new Size(25, 24),
+                        ReadOnly = true,
+
+                        Location = new Point(lblTenSP.Width + lblTenSP.Location.X + 80, plItem.Height / 2 - 12),
+                        BorderStyle = BorderStyle.FixedSingle
+                    };
+                    flowLayoutOrdered.Controls.Add(plItem);
+                    plItem.Controls.Add(lblTenSP);
+                    plItem.Controls.Add(txtSoLuong);
+                }
+            }
+        }
         private void DoCoSan(int maHD)
         {
             int soLuong = 3;
@@ -57,24 +193,12 @@ namespace SuperProjectQ.FrmMixed
                 string donViTinh = dr["DonViTinh"].ToString();
                 decimal donGia = Convert.ToDecimal(dr["GiaBan"]);
                 string sqlThemDo = $"INSERT INTO ChiTietHD  (MaCTHD, MaHD, MaSP, SoLuong, DonVi, DonGia, ThanhTien)" +
-                    $"VALUES ({AutoCreateID("MaCTHD", "ChiTietHD")}, '{maHD}', '{maSP}', {soLuong}, '{donViTinh}', {donGia}, {soLuong*donGia})";
+                    $"VALUES ({Session.AutoCreateID("MaCTHD", "ChiTietHD")}, '{maHD}', '{maSP}', {soLuong}, '{donViTinh}', {donGia}, {soLuong*donGia})";
                 cmd = new SqlCommand(sqlThemDo, kn.conn);
                 cmd.ExecuteNonQuery();
                 TongTienDV(maHD);
             }
         } //Thêm đồ đã setup khi mở phòng
-        private int AutoCreateID(string colName, string tableName) //tạo mã tự động
-        {
-                string sqlGetMaxID = $"SELECT TOP 1 {colName} FROM {tableName} ORDER BY {colName} DESC";
-                dt = new DataTable();
-                dt = kn.CreateTable(sqlGetMaxID);
-                int MaHD = 0;
-                foreach (DataRow dr in dt.Rows)
-                {
-                    MaHD = Convert.ToInt16(dr[colName]);
-                }
-                return MaHD += 1;
-        }
         private void Update_Status_Room(int statusInt, string RoomID)
         {
             string sqlUpdateStatus = null, timeIn = null, timeBooking = null;
@@ -207,9 +331,12 @@ namespace SuperProjectQ.FrmMixed
 
                     //Thêm hoá đơn
                     string sqlHD = $"INSERT INTO HoaDon(MaHD, MaPhong, MaNV, GioVao, TrangThai) " +
-                                    $"VALUES ({billID}, '{RoomID}', '{phong_MaNV}', @GV, @TT)";
+                                    $"VALUES (@MHD, @MP, @MNV, @GV, @TT)";
                     cmd = new SqlCommand(sqlHD, kn.conn);
                     cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@MHD", billID);
+                    cmd.Parameters.AddWithValue("@MP", RoomID);
+                    cmd.Parameters.AddWithValue("@MNV", phong_MaNV);
                     cmd.Parameters.AddWithValue("@GV", DateTimIn);
                     cmd.Parameters.AddWithValue("@TT", 0);
                     cmd.ExecuteNonQuery();
@@ -247,7 +374,7 @@ namespace SuperProjectQ.FrmMixed
         } //Cập nhật bill khi đã TT xong
         private void UpdateTonKho(int billID)
         {
-            int soLuong = 0;
+            double soLuong = 0;
             string maSP = null, sqlUpdateTonKho = null ;
             double tonKho = 0;
             //Lấy mã sp ở CTHD, số lượng
@@ -256,7 +383,7 @@ namespace SuperProjectQ.FrmMixed
             dt = kn.CreateTable(sqlGetCTHD);
             foreach (DataRow dr in dt.Rows)
             {
-                soLuong = Convert.ToInt32(dr["SoLuong"]);
+                soLuong = Convert.ToDouble(dr["SoLuong"]);
                 maSP = dr["MaSP"].ToString();
 
                 //từ mã sp trên lấy ra đơn vị tính, 
@@ -264,18 +391,8 @@ namespace SuperProjectQ.FrmMixed
                 dt = new DataTable();
                 dt = kn.CreateTable(sqlDVT);
                 //lấy tồn kho
-                tonKho = Convert.ToDouble(dt.Rows[0]["TonKho"]);
+                tonKho = Convert.ToDouble(dt.Rows[0]["TonKho"]) - soLuong;
                 //nếu đơn vị là kg sẽ tính định lượng sang kg và trừ
-                if (dt.Rows[0]["DonViTinh"].ToString() == "Kg")
-                {
-                    tonKho -= Convert.ToDouble(dt.Rows[0]["DinhLuong"]) * soLuong / 1000;
-                    
-                }
-                //Còn lại chỉ trừ số lượng
-                else
-                {
-                    tonKho -= Convert.ToDouble(soLuong);
-                }
                 sqlUpdateTonKho = $"UPDATE KhoHang SET TonKho = @TK WHERE MaSP = '{maSP}'";
                 cmd = new SqlCommand(sqlUpdateTonKho, kn.conn);
                 cmd.Parameters.Clear();
@@ -286,45 +403,24 @@ namespace SuperProjectQ.FrmMixed
         private decimal TongTienDV(int MaHD)
         {
             //Tính tổng tiền
-            int tongTienDV = 0;
+            decimal tongTienDV = 0;
             string sqlCTHDTam = $"SELECT ThanhTien FROM ChiTietHD WHERE MaHD = {MaHD}";
             dt = new DataTable();
             dt = kn.CreateTable(sqlCTHDTam);
             foreach (DataRow dr in dt.Rows)
             {
-                tongTienDV += Convert.ToInt32(dr["ThanhTien"]);
+                tongTienDV += Convert.ToDecimal(dr["ThanhTien"]);
             }
-            lblTongTien.Text = tongTienDV.ToString("#,##0 VND");
+            //lblTongTien.Text = tongTienDV.ToString("#,##0 VND");
             Session.TongTienDV = tongTienDV; // Gán biết dùng chung
             return tongTienDV;
         } //Tính tiền DV
         private void GetData_From_CTHD(int maHD) //Load lại dữ liệu đã order khi mở lại chương trình
         {
-            string sqlCTHD = $"SELECT ChiTietHD.MaSP, KhoHang.TenSP, ChiTietHD.SoLuong, ChiTietHD.DonVi, ChiTietHD.DonGia, ChiTietHD.ThanhTien " +
+            string sqlCTHD = $"SELECT ChiTietHD.MaSP, SanPham.TenHienThi, ChiTietHD.SoLuong, ChiTietHD.DonViTinh, ChiTietHD.DonGia, ChiTietHD.ThanhTien " +
             $"FROM ChiTietHD \n" +
-            $"INNER JOIN KhoHang ON ChiTietHD.MaSP = KhoHang.MaSP WHERE MaHD = {maHD}";
-            dgvOrdered.DataSource = kn.CreateTable(sqlCTHD);
+            $"INNER JOIN SanPham ON ChiTietHD.MaSP = SanPham.MaSP WHERE MaHD = {maHD}";
         }
-        private void LoadDataCTHD_ByTarget(string maPhong, int panelTag) 
-        {
-            //Load lại dữ liệu đã order khi mở lại chương trình cụ thể theo phòng
-            string sqlRoomStatus = $"SELECT TrangThai FROM Phong WHERE MaPhong = '{maPhong}'";
-            dt = new DataTable();
-            dt = kn.CreateTable(sqlRoomStatus);
-
-            if (dt.Rows[0]["TrangThai"].ToString() == "1")
-            {
-                plMenu.Enabled = true;
-                plOrdered.Enabled = true;
-
-                GetData_From_CTHD(panelTag);
-            }
-            else if (dt.Rows[0]["TrangThai"].ToString() == "0")
-            {
-                plMenu.Enabled = false;
-                plOrdered.Enabled = false;
-            }
-        } // Load DV đã dùng khi click vào phòng đang mở
         private void AllPanels_Click(object sender, EventArgs e)
         {
             //Xử lý panel đã click trong quá khứ
@@ -380,13 +476,11 @@ namespace SuperProjectQ.FrmMixed
                 }
             }
             TakeNamePanel = selectedPanel.Name;
-            dgvOrdered.DataSource = null;
-            lblTenSP.Text = "--";
-            numSoLuong.Value = 0;
-            int plTag = Convert.ToInt32(selectedPanel.Tag);
-            string maPhong = selectedPanel.Name.Replace("pl", "");
-            LoadDataCTHD_ByTarget(maPhong, plTag);
-            TongTienDV(plTag);
+            int maHD = Convert.ToInt32(selectedPanel.Tag);
+            string maPhong = selectedPanel.Name;
+
+            Load_Ordered(maHD);
+            TongTienDV(maHD);
         }
         private bool XacNhanTT(int billID, string RoomID) //Xác nhận qua bước tt
         {
@@ -407,99 +501,12 @@ namespace SuperProjectQ.FrmMixed
         }
         private void frmPhong_Load(object sender, EventArgs e)
         {
+            plOrdered.Visible = false;
             try
             {
                 kn.ConnOpen();
+                LoadPhong();
 
-                string sqlPhong = "SELECT * FROM Phong";
-                dt = new DataTable();
-                dt = kn.CreateTable(sqlPhong);
-                //duyệt tất cả các phòng
-                foreach (DataRow row in dt.Rows)
-                {
-                    Panel plPhongTam = new Panel() { Width = 0, Height = 0 }; //Panel tạm để lấy vị trí
-                    Panel plDanhSanhPhong = new Panel()
-                    {
-                        Padding = new Padding(0),
-                        Margin = new Padding(2),
-                        BorderStyle = BorderStyle.FixedSingle,
-                        Width = SetParameters.plDanhSachPhong_WIDTH,
-                        Height = SetParameters.plDanhSachPhong_HEIGHT,
-                        Cursor = Cursors.Hand,
-                        //Lấy vị trí X phòng tạm cộng với chiều rộng phòng tạm để làm vị trí cho phòng tiếp theo
-                        Location = new Point(plPhongTam.Location.X + plPhongTam.Width, plPhongTam.Location.Y), 
-                        AutoSize = false,
-                        AutoSizeMode = AutoSizeMode.GrowOnly,
-
-                        Name = row["MaPhong"].ToString(), //Gán Name theo mã phòng
-                    };
-                    Label lblTenPhong = new Label()
-                    {
-                        Name = row["MaPhong"].ToString(), //Gán Name theo mã phòng
-                        Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point),
-                        Text = $"Phòng {row["TenPhong"].ToString()}",
-                        Location = new Point(plDanhSanhPhong.Width / 2 - 50, 4),
-                        ForeColor = Color.Black,
-                        AutoSize = true,
-                    };
-                    Label lblTrangThai = new Label()
-                    {
-                        Name = row["MaPhong"].ToString(), //Gán Name theo mã phòng
-                        Font = new Font("Times New Roman", 10F, FontStyle.Bold, GraphicsUnit.Point),
-                        Location = new Point(0, 100),
-                        ForeColor = clrText,
-                        AutoSize = true
-                    };
-                    if (row["TrangThai"].ToString() == "0")
-                    {
-                        plDanhSanhPhong.BackColor = clrStatusClose;
-                        lblTrangThai.Text = strStatusClose;
-                    }
-                    else if (row["TrangThai"].ToString() == "1")
-                    {
-                        plDanhSanhPhong.BackColor = clrStatusOpen;
-                        lblTrangThai.Text = strStatusOpen;
-                    }
-                    else if (row["TrangThai"].ToString() == "2")
-                    {
-                        plDanhSanhPhong.BackColor = clrStatusBooking;
-                        lblTrangThai.Text = strStatusBooking;
-
-                    }
-
-                    if (row["MaLoaiPhong"].ToString().Contains("LPR")) flowLayoutRegular.Controls.Add(plDanhSanhPhong);
-                    else if (row["MaLoaiPhong"].ToString().Contains("LPV")) 
-                    { 
-                        flowLayoutVIP.Controls.Add(plDanhSanhPhong); lblTenPhong.Text += " (VIP)"; 
-                        lblTenPhong.Location = new Point(plDanhSanhPhong.Width / 2 - 80, 4); 
-                    };
-                    plDanhSanhPhong.Controls.Add(lblTenPhong); //Thêm tên phòng vào flow panel
-                    plDanhSanhPhong.Controls.Add(lblTrangThai);//Thêm trạng thái vào panel
-                    plDanhSanhPhong.Click += AllPanels_Click; //Gán sự kiện click cho panel
-
-                    plPhongTam = plDanhSanhPhong;//Cập nhật panel tạm bằng panel vừa tạo xong
-
-
-                    dgvMenuFood.EditMode = DataGridViewEditMode.EditProgrammatically; //Chống xoá dữ liệu
-                    dgvMenuFood.SelectionMode = DataGridViewSelectionMode.FullRowSelect;//Chọn tất cả dữ liệu ở dòng
-                    dgvMenuFood.AutoGenerateColumns = false; //Không tự động tạo cột
-                    //Load menu đồ ăn
-                    string sqlAllProd = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.DinhLuong, SanPham.DVTDinhLuong, SanPham.GiaBan FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP " +
-                                       $"WHERE KhoHang.TonKho >= {dinhMucKho} \n" +
-                                        "ORDER BY TenSP ASC";
-                    dgvMenuFood.DataSource = kn.CreateTable(sqlAllProd);
-
-                    //Load đồ đã order
-                    string sqlCTHD = "SELECT HoaDon.MaPhong, HoaDon.MaHD " +
-                        "FROM HoaDon " +
-                        "INNER JOIN Phong ON HoaDon.MaPhong = Phong.MaPhong WHERE Phong.TrangThai = 1 AND HoaDon.TrangThai = 0";
-                    dt = new DataTable();
-                    dt = kn.CreateTable(sqlCTHD);
-                    foreach(DataRow dr in dt.Rows)
-                    {
-                        if (plDanhSanhPhong.Name == dr["MaPhong"].ToString()) { plDanhSanhPhong.Tag = Convert.ToInt32(dr["MaHD"]); break; }
-                    }
-                }
                 //Ẩn nút Order
                 btnOrder.Visible = false;
             }
@@ -545,7 +552,7 @@ namespace SuperProjectQ.FrmMixed
                 if (TakeNamePanel == null) {MessageBox.Show("Hãy chọn một phòng"); return;}
 
                     //Đổi màu, thời gian, chữ
-                    string maPhong = TakeNamePanel.Replace("pl", "");
+                    string maPhong = TakeNamePanel;
                     btnOpen.Visible = true;
                     btnClose.Visible = false;
                     btnDatTruoc.Visible = true;
@@ -572,25 +579,24 @@ namespace SuperProjectQ.FrmMixed
                     MessageBox.Show("Hãy chọn một phòng"); return;
                 }
                 //Đổi màu, thời gian, chữ
-                string maPhong = TakeNamePanel.Replace("pl", "");
+                string maPhong = TakeNamePanel;
                 btnOpen.Visible = false;
                 btnClose.Visible = true;
                 btnDatTruoc.Visible = false;
                 btnHuyDatTruoc.Visible = false;
-                plMenu.Enabled = true;
-                plOrdered.Enabled = true;
+                flowLayoutOrdered.Enabled = true;
 
                 selectedPanel.BackColor = clrStatusOpen;
                 selectedPanel.Controls[1].Text = strStatusOpen;
 
-                int billID = AutoCreateID("MaHD", "HoaDon");
+                int billID = Session.AutoCreateID("MaHD", "HoaDon");
 
                 selectedPanel.Tag = billID;
 
                 StatusCheck(maPhong);
                 Update_Status_Room(1, maPhong);
                 Add_Bill(billID, maPhong);
-                DoCoSan(billID);
+                //DoCoSan(billID);
                 GetData_From_CTHD(billID);
                 TongTienDV(billID);
             }
@@ -604,10 +610,12 @@ namespace SuperProjectQ.FrmMixed
         {
             try
             {
-                dgvOrdered.DataSource = null;
                 int billID = Convert.ToInt32(selectedPanel.Tag.ToString());
                 string maPhong = TakeNamePanel;
                 Session.maHD = billID;
+
+                TongTienDV(billID);
+
                 if (XacNhanTT(billID, maPhong))
                 {
                     //Đổi màu, thời gian, chữ
@@ -615,8 +623,7 @@ namespace SuperProjectQ.FrmMixed
                     btnClose.Visible = false;
                     btnDatTruoc.Visible = true;
                     btnHuyDatTruoc.Visible = false;
-                    plMenu.Enabled = false;
-                    plOrdered.Enabled = false;
+                    flowLayoutOrdered.Enabled = false;
 
                     selectedPanel.BackColor = clrStatusClose;
                     selectedPanel.Controls[1].Text = strStatusClose;
@@ -626,7 +633,6 @@ namespace SuperProjectQ.FrmMixed
                     Update_Status_Room(0, maPhong);
                     UpdateTonKho(billID);
                 }
-                lblTongTien.Text = "--";
             }
             catch (SqlException ex)
             {
@@ -647,194 +653,206 @@ namespace SuperProjectQ.FrmMixed
             }
         } //Thay đổi tab phòng thường và VIP
 
-        private void dgvMenuFood_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        //private void dgvMenuFood_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (TakeNamePanel !=null)
+        //        {
+        //            int r = e.RowIndex;
+        //            string maSP = dgvMenuFood.Rows[r].Cells[0].Value?.ToString();
+        //            string tenSP = dgvMenuFood.Rows[r].Cells[1].Value?.ToString();
+        //            string donVi = dgvMenuFood.Rows[r].Cells[4].Value?.ToString();
+        //            int donGia = Convert.ToInt32(dgvMenuFood.Rows[r].Cells[5].Value?.ToString());
+        //            int soLuong = 1;
+        //            bool flag = true;
+        //            int index = 1;
+        //            //kiểm tra xem sản phẩm có trong bảng đã order chưa
+        //            for (int i = 0; i < dgvOrdered.Rows.Count; i++)
+        //            {
+        //                if (dgvOrdered.Rows[i].Cells[0].Value != null && dgvOrdered.Rows[i].Cells[0].Value?.ToString() == maSP)
+        //                {
+        //                    flag = false;
+        //                    index = i;
+        //                    break;
+        //                }
+        //            }
+        //            string maPhong = TakeNamePanel.Replace("pl", "");
+        //            string sqlCTHDTam = $"SELECT MaPhong FROM ChiTietHD WHERE MaSP = '{maSP}'";
+        //            //Nếu chaưa có thì thêm mới
+        //            if (flag) 
+        //            {
+        //                string strPanelTag = null;
+        //                strPanelTag = selectedPanel.Tag.ToString();
+
+        //                int intPanelTag = Convert.ToInt16(strPanelTag);
+        //                string sqlAdd = "INSERT INTO ChiTietHD (MaCTHD, MaHD, MaSP, SoLuong, DonVi, DonGia, ThanhTien) VALUES (@MCTHD, @MHD, @MSP, @SL, @DV, @DG, @TT)";
+        //                cmd = new SqlCommand(sqlAdd, kn.conn);
+        //                cmd.Parameters.Clear();
+        //                cmd.Parameters.AddWithValue("@MCTHD", Session.AutoCreateID("MaCTHD", "ChiTietHD"));
+        //                cmd.Parameters.AddWithValue("@MHD", intPanelTag);
+        //                cmd.Parameters.AddWithValue("@MSP", maSP);
+        //                cmd.Parameters.AddWithValue("@SL", 1);
+        //                cmd.Parameters.AddWithValue("@DV", donVi);
+        //                cmd.Parameters.AddWithValue("@DG", donGia);
+        //                cmd.Parameters.AddWithValue("@TT", donGia);
+        //                cmd.ExecuteNonQuery();
+        //                GetData_From_CTHD(intPanelTag);
+        //                TongTienDV(intPanelTag);
+        //            }
+        //            //Kiểm tra số lượng thêm vào có vượt tồn kho không
+        //            int SumAdded = 1 + Convert.ToInt16(dgvOrdered.Rows[index].Cells[2].Value);
+        //            //Lấy tồn kho
+        //            string sqlTonKho = $"SELECT TonKho FROM KhoHang WHERE MaSP = '{maSP}'";
+        //            cmd = new SqlCommand(sqlTonKho, kn.conn);
+        //            double tonKho = Convert.ToDouble(cmd.ExecuteScalar());
+        //            if (SumAdded > tonKho)
+        //            {
+        //                MessageBox.Show("hết hàng rùi !!!");
+        //                return;
+        //            }
+        //            else
+        //            {
+        //                //Nếu có rồi thì cập nhật số lượng lên 1
+        //                if (!flag)
+        //                {
+        //                    soLuong = Convert.ToInt16(dgvOrdered.Rows[index].Cells[2].Value);
+        //                    soLuong++;
+
+        //                    int intPanelTag = (int)selectedPanel.Tag;
+        //                    string sqlUpdate = "UPDATE ChiTietHD SET SoLuong = @SL, ThanhTien = @TT WHERE MaHD = @MHD AND MaSP = @MSP";
+        //                    cmd = new SqlCommand(sqlUpdate, kn.conn);
+        //                    cmd.Parameters.Clear();
+        //                    cmd.Parameters.AddWithValue("@MHD", intPanelTag);
+        //                    cmd.Parameters.AddWithValue("@MSP", maSP);
+        //                    cmd.Parameters.AddWithValue("@SL", soLuong);
+        //                    cmd.Parameters.AddWithValue("@TT", soLuong * donGia);
+        //                    cmd.ExecuteNonQuery();
+        //                    GetData_From_CTHD(intPanelTag);
+        //                    TongTienDV(intPanelTag);
+        //                }
+        //            }
+
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("Hãy chọn một phòng");
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Lỗi: "+ex.Message);
+        //    }
+        //}
+        //private void AllButtons_Click(object sender, EventArgs e)
+        //{
+        //    Button btn = (Button)sender;
+        //    if (btn == null) return;
+        //    if (btn.Name == "btnAll")
+        //    {
+        //        dgvMenuFood.DataSource = null;
+        //        string sqlAllProd = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.DinhLuong, SanPham.DVTDinhLuong, SanPham.GiaBan FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP " +
+        //                            $"WHERE KhoHang.TonKho >= {dinhMucKho} " + " ORDER BY TenSP ASC";
+        //        dgvMenuFood.DataSource = kn.CreateTable(sqlAllProd);
+        //    }
+        //    else if(btn.Name == "btnFood")
+        //    {
+        //        dgvMenuFood.DataSource = null;
+        //        string sqlFood = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.DinhLuong, SanPham.DVTDinhLuong, SanPham.GiaBan \n" +
+        //                         $"FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP WHERE KhoHang.TonKho >= {dinhMucKho} AND KhoHang.MaDM = 'MDM01' OR KhoHang.MaDM = 'MDM03' ORDER BY TenSP ASC";
+        //        dgvMenuFood.DataSource = kn.CreateTable(sqlFood);
+        //    }
+        //    else if (btn.Name == "btnBeverage")
+        //    {
+        //        //Load đồ uống
+        //        dgvMenuFood.DataSource = null;
+        //        string sqlBeverage = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.DinhLuong, SanPham.DVTDinhLuong, SanPham.GiaBan \n" +
+        //                            $"FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP WHERE KhoHang.TonKho >= {dinhMucKho} AND KhoHang.MaDM = 'MDM02' ORDER BY TenSP ASC";
+        //        dgvMenuFood.DataSource = kn.CreateTable(sqlBeverage);
+        //    }
+        //    else if (btn.Name == "btnOther")
+        //    {
+        //        //Load khác
+        //        dgvMenuFood.DataSource = null;
+        //        string sqlOther = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.DinhLuong, SanPham.DVTDinhLuong, SanPham.GiaBan \n" +
+        //                          $"FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP WHERE KhoHang.TonKho >= {dinhMucKho} AND KhoHang.MaDM = 'MDM04' ORDER BY TenSP ASC";
+        //        dgvMenuFood.DataSource = kn.CreateTable(sqlOther);
+        //    }
+        //}
+
+        //private void btnConfirm_Click(object sender, EventArgs e)
+        //{
+        //    DialogResult reply = MessageBox.Show("Xác nhận thay đổi số lượng?","Thông báo",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+        //    if (reply == DialogResult.Yes)
+        //    {
+        //        try
+        //        {
+        //            decimal soLuong = numSoLuong.Value;
+        //            string maPhong = TakeNamePanel.Replace("pl", "");
+
+        //            int intPanelTag = (int)selectedPanel.Tag;
+        //            if (soLuong == 0)
+        //            {
+        //                string sqlUpdate = "DELETE ChiTietHD WHERE MaHD = @MHD AND MaSP = @MSP";
+        //                cmd = new SqlCommand(sqlUpdate, kn.conn);
+        //                cmd.Parameters.Clear();
+        //                cmd.Parameters.AddWithValue("@MHD", intPanelTag);
+        //                cmd.Parameters.AddWithValue("@MSP", gloMaSP);
+        //                cmd.ExecuteNonQuery();
+        //                GetData_From_CTHD(intPanelTag);
+        //                TongTienDV(intPanelTag);
+        //            }
+        //            else
+        //            {
+        //                string sqlUpdate = "UPDATE ChiTietHD SET SoLuong = @SL, ThanhTien = @TT WHERE MaHD = @MHD AND MaSP = @MSP";
+        //                cmd = new SqlCommand(sqlUpdate, kn.conn);
+        //                cmd.Parameters.Clear();
+        //                cmd.Parameters.AddWithValue("@MHD", intPanelTag);
+        //                cmd.Parameters.AddWithValue("@MSP", gloMaSP);
+        //                cmd.Parameters.AddWithValue("@SL", soLuong);
+        //                cmd.Parameters.AddWithValue("@TT", soLuong * gloDonGia);
+        //                cmd.ExecuteNonQuery();
+        //                GetData_From_CTHD(intPanelTag);
+        //                TongTienDV(intPanelTag);
+        //            }
+        //        }
+        //        catch (SqlException ex)
+        //        {
+        //            switch (ex.Number)
+        //            {
+        //                case 8178:
+        //                    MessageBox.Show("Hãy chọn một sản phẩm");
+        //                    break;
+        //                default:
+        //                    MessageBox.Show(ex.Message + " " + ex.Number);
+        //                    break;
+        //            }
+        //            //MessageBox.Show(ex.Number.ToString());
+        //        }
+        //    }
+        //}
+
+        private void btnOpenMenu_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (TakeNamePanel !=null)
-                {
-                    int r = e.RowIndex;
-                    string maSP = dgvMenuFood.Rows[r].Cells[0].Value?.ToString();
-                    string tenSP = dgvMenuFood.Rows[r].Cells[1].Value?.ToString();
-                    string donVi = dgvMenuFood.Rows[r].Cells[4].Value?.ToString();
-                    int donGia = Convert.ToInt32(dgvMenuFood.Rows[r].Cells[5].Value?.ToString());
-                    int soLuong = 1;
-                    bool flag = true;
-                    int index = 1;
-                    //kiểm tra xem sản phẩm có trong bảng đã order chưa
-                    for (int i = 0; i <= dgvOrdered.Rows.Count - 1; i++)
-                    {
-                        if (dgvOrdered.Rows[i].Cells[0].Value != null && dgvOrdered.Rows[i].Cells[0].Value?.ToString() == maSP)
-                        {
-                            flag = false;
-                            index = i;
-                            break;
-                        }
-                    }
-                    string maPhong = TakeNamePanel.Replace("pl", "");
-                    string sqlCTHDTam = $"SELECT MaPhong FROM ChiTietHD WHERE MaSP = '{maSP}'";
-                    //Nếu chaưa có thì thêm mới
-                    if (flag) 
-                    {
-                        string strPanelTag = null;
-                        strPanelTag = selectedPanel.Tag.ToString();
-
-                        int intPanelTag = Convert.ToInt16(strPanelTag);
-                        string sqlAdd = "INSERT INTO ChiTietHD (MaCTHD, MaHD, MaSP, SoLuong, DonVi, DonGia, ThanhTien) VALUES (@MCTHD, @MHD, @MSP, @SL, @DV, @DG, @TT)";
-                        cmd = new SqlCommand(sqlAdd, kn.conn);
-                        cmd.Parameters.Clear();
-                        cmd.Parameters.AddWithValue("@MCTHD", AutoCreateID("MaCTHD", "ChiTietHD"));
-                        cmd.Parameters.AddWithValue("@MHD", intPanelTag);
-                        cmd.Parameters.AddWithValue("@MSP", maSP);
-                        cmd.Parameters.AddWithValue("@SL", 1);
-                        cmd.Parameters.AddWithValue("@DV", donVi);
-                        cmd.Parameters.AddWithValue("@DG", donGia);
-                        cmd.Parameters.AddWithValue("@TT", donGia);
-                        cmd.ExecuteNonQuery();
-                        GetData_From_CTHD(intPanelTag);
-                        TongTienDV(intPanelTag);
-                    }
-                    //Kiểm tra số lượng thêm vào có vượt tồn kho không
-                    int SumAdded = 1 + Convert.ToInt16(dgvOrdered.Rows[index].Cells[2].Value);
-                    //Lấy tồn kho
-                    string sqlTonKho = $"SELECT TonKho FROM KhoHang WHERE MaSP = '{maSP}'";
-                    cmd = new SqlCommand(sqlTonKho, kn.conn);
-                    double tonKho = Convert.ToDouble(cmd.ExecuteScalar());
-                    if (SumAdded > tonKho)
-                    {
-                        MessageBox.Show("hết hàng rùi !!!");
-                        return;
-                    }
-                    else
-                    {
-                        //Nếu có rồi thì cập nhật số lượng lên 1
-                        if (!flag)
-                        {
-                            soLuong = Convert.ToInt16(dgvOrdered.Rows[index].Cells[2].Value);
-                            soLuong++;
-
-                            int intPanelTag = (int)selectedPanel.Tag;
-                            string sqlUpdate = "UPDATE ChiTietHD SET SoLuong = @SL, ThanhTien = @TT WHERE MaHD = @MHD AND MaSP = @MSP";
-                            cmd = new SqlCommand(sqlUpdate, kn.conn);
-                            cmd.Parameters.Clear();
-                            cmd.Parameters.AddWithValue("@MHD", intPanelTag);
-                            cmd.Parameters.AddWithValue("@MSP", maSP);
-                            cmd.Parameters.AddWithValue("@SL", soLuong);
-                            cmd.Parameters.AddWithValue("@TT", soLuong * donGia);
-                            cmd.ExecuteNonQuery();
-                            GetData_From_CTHD(intPanelTag);
-                            TongTienDV(intPanelTag);
-                        }
-                    }
-
-                }
-                else
-                {
-                    MessageBox.Show("Hãy chọn một phòng");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi: "+ex.Message);
-            }
+            frmOrder order = new frmOrder();
+            order.ShowDialog();
         }
-        private void AllButtons_Click(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            if (btn == null) return;
-            if (btn.Name == "btnAll")
-            {
-                dgvMenuFood.DataSource = null;
-                string sqlAllProd = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.DinhLuong, SanPham.DVTDinhLuong, SanPham.GiaBan FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP " +
-                                    $"WHERE KhoHang.TonKho >= {dinhMucKho} " + " ORDER BY TenSP ASC";
-                dgvMenuFood.DataSource = kn.CreateTable(sqlAllProd);
-            }
-            else if(btn.Name == "btnFood")
-            {
-                dgvMenuFood.DataSource = null;
-                string sqlFood = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.DinhLuong, SanPham.DVTDinhLuong, SanPham.GiaBan \n" +
-                                 $"FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP WHERE KhoHang.TonKho >= {dinhMucKho} AND KhoHang.MaDM = 'MDM01' OR KhoHang.MaDM = 'MDM03' ORDER BY TenSP ASC";
-                dgvMenuFood.DataSource = kn.CreateTable(sqlFood);
-            }
-            else if (btn.Name == "btnBeverage")
-            {
-                //Load đồ uống
-                dgvMenuFood.DataSource = null;
-                string sqlBeverage = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.DinhLuong, SanPham.DVTDinhLuong, SanPham.GiaBan \n" +
-                                    $"FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP WHERE KhoHang.TonKho >= {dinhMucKho} AND KhoHang.MaDM = 'MDM02' ORDER BY TenSP ASC";
-                dgvMenuFood.DataSource = kn.CreateTable(sqlBeverage);
-            }
-            else if (btn.Name == "btnOther")
-            {
-                //Load khác
-                dgvMenuFood.DataSource = null;
-                string sqlOther = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.DinhLuong, SanPham.DVTDinhLuong, SanPham.GiaBan \n" +
-                                  $"FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP WHERE KhoHang.TonKho >= {dinhMucKho} AND KhoHang.MaDM = 'MDM04' ORDER BY TenSP ASC";
-                dgvMenuFood.DataSource = kn.CreateTable(sqlOther);
-            }
-        }
 
-        private void dgvOrdered_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            if(e.RowIndex >= 0)
-            {
-                int r = e.RowIndex;
-                gloMaSP = dgvOrdered.Rows[r].Cells[0].Value?.ToString();
-                lblTenSP.Text = dgvOrdered.Rows[r].Cells[1].Value?.ToString();
-                numSoLuong.Value = Convert.ToDecimal(dgvOrdered.Rows[r].Cells[2].Value);
-                gloDonGia = Convert.ToInt32(dgvOrdered.Rows[r].Cells[4].Value);
-            }
-        }
-        private void btnConfirm_Click(object sender, EventArgs e)
-        {
-            DialogResult reply = MessageBox.Show("Xác nhận thay đổi số lượng?","Thông báo",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
-            if (reply == DialogResult.Yes)
-            {
-                try
-                {
-                    decimal soLuong = numSoLuong.Value;
-                    string maPhong = TakeNamePanel.Replace("pl", "");
+            int baseLocationX = 17;
+            int newLocationY = 4;
 
-                    int intPanelTag = (int)selectedPanel.Tag;
-                    if (soLuong == 0)
-                    {
-                        string sqlUpdate = "DELETE ChiTietHD WHERE MaHD = @MHD AND MaSP = @MSP";
-                        cmd = new SqlCommand(sqlUpdate, kn.conn);
-                        cmd.Parameters.Clear();
-                        cmd.Parameters.AddWithValue("@MHD", intPanelTag);
-                        cmd.Parameters.AddWithValue("@MSP", gloMaSP);
-                        cmd.ExecuteNonQuery();
-                        GetData_From_CTHD(intPanelTag);
-                        TongTienDV(intPanelTag);
-                    }
-                    else
-                    {
-                        string sqlUpdate = "UPDATE ChiTietHD SET SoLuong = @SL, ThanhTien = @TT WHERE MaHD = @MHD AND MaSP = @MSP";
-                        cmd = new SqlCommand(sqlUpdate, kn.conn);
-                        cmd.Parameters.Clear();
-                        cmd.Parameters.AddWithValue("@MHD", intPanelTag);
-                        cmd.Parameters.AddWithValue("@MSP", gloMaSP);
-                        cmd.Parameters.AddWithValue("@SL", soLuong);
-                        cmd.Parameters.AddWithValue("@TT", soLuong * gloDonGia);
-                        cmd.ExecuteNonQuery();
-                        GetData_From_CTHD(intPanelTag);
-                        TongTienDV(intPanelTag);
-                    }
-                }
-                catch (SqlException ex)
-                {
-                    switch (ex.Number)
-                    {
-                        case 8178:
-                            MessageBox.Show("Hãy chọn một sản phẩm");
-                            break;
-                        default:
-                            MessageBox.Show(ex.Message + " " + ex.Number);
-                            break;
-                    }
-                    //MessageBox.Show(ex.Number.ToString());
-                }
+            if (!plOrdered.Visible)
+            {
+                plPhong.Location = new Point(plOrdered.Width + 5, newLocationY);
+
             }
+            else
+            {
+                plPhong.Location = new Point(baseLocationX, newLocationY);
+            }
+            plOrdered.Visible = !plOrdered.Visible;
         }
     }
 }

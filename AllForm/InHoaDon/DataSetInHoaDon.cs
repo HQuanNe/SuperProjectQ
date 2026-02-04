@@ -16,6 +16,10 @@ namespace SuperProjectQ.AllForm.InHoaDon
 
     public partial class DataSetInHoaDon
     {
+        partial class ChiTietHDDataTable
+        {
+        }
+
         partial class HoaDonRealDataTable
         {
         }

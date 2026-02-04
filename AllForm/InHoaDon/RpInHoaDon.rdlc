@@ -69,16 +69,16 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>2.39719cm</Width>
+              <Width>2.4303cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.5904cm</Width>
+              <Width>0.70824cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.91cm</Width>
+              <Width>0.88593cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.67061cm</Width>
+              <Width>1.54373cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1.7789cm</Width>
@@ -158,7 +158,7 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox26">
+                    <Textbox Name="Textbox3">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -177,7 +177,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox26</rd:DefaultName>
+                      <rd:DefaultName>Textbox3</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -268,14 +268,14 @@
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="TenSP">
+                    <Textbox Name="TenHienThi">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!TenSP.Value</Value>
+                              <Value>=Fields!TenHienThi.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -285,7 +285,7 @@
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>TenSP</rd:DefaultName>
+                      <rd:DefaultName>TenHienThi</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -336,14 +336,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="DonVi">
+                    <Textbox Name="DonViTinh">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!DonVi.Value</Value>
+                              <Value>=Fields!DonViTinh.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
@@ -355,7 +355,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>DonVi</rd:DefaultName>
+                      <rd:DefaultName>DonViTinh</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -1324,46 +1324,6 @@ Format(Sum(Fields!Discount.Value, "DataSetKH") * 100, "0.##") &amp; "%):"</Value
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="DataSetCTHD">
-      <Query>
-        <DataSourceName>DataSetInBaoCao</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="MaHD">
-          <DataField>MaHD</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="TenSP">
-          <DataField>TenSP</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="SoLuong">
-          <DataField>SoLuong</DataField>
-          <rd:TypeName>System.Int16</rd:TypeName>
-        </Field>
-        <Field Name="DonVi">
-          <DataField>DonVi</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="DonGia">
-          <DataField>DonGia</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="ThanhTien">
-          <DataField>ThanhTien</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DataSetInBaoCao</rd:DataSetName>
-        <rd:SchemaPath>D:\Học_Tập\ADO-NET\Window-form\SuperProjectQ\FrmMixed\InBaoCao\DataSetInHoaDon.xsd</rd:SchemaPath>
-        <rd:TableName>ChiTietHD</rd:TableName>
-        <rd:TableAdapterFillMethod />
-        <rd:TableAdapterGetDataMethod />
-        <rd:TableAdapterName />
-      </rd:DataSetInfo>
-    </DataSet>
     <DataSet Name="DataSetHD">
       <Query>
         <DataSourceName>DataSetInHoaDon</DataSourceName>
@@ -1463,6 +1423,46 @@ Format(Sum(Fields!Discount.Value, "DataSetKH") * 100, "0.##") &amp; "%):"</Value
         <rd:DataSetName>DataSetInHoaDon</rd:DataSetName>
         <rd:SchemaPath>D:\Học_Tập\ADO-NET\Window-form\SuperProjectQ\FrmMixed\InHoaDon\DataSetInHoaDon.xsd</rd:SchemaPath>
         <rd:TableName>KhachHang</rd:TableName>
+        <rd:TableAdapterFillMethod />
+        <rd:TableAdapterGetDataMethod />
+        <rd:TableAdapterName />
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DataSetCTHD">
+      <Query>
+        <DataSourceName>DataSetInHoaDon</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="MaHD">
+          <DataField>MaHD</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TenHienThi">
+          <DataField>TenHienThi</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SoLuong">
+          <DataField>SoLuong</DataField>
+          <rd:TypeName>System.Int16</rd:TypeName>
+        </Field>
+        <Field Name="DonViTinh">
+          <DataField>DonViTinh</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DonGia">
+          <DataField>DonGia</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="ThanhTien">
+          <DataField>ThanhTien</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DataSetInHoaDon</rd:DataSetName>
+        <rd:SchemaPath>D:\Học_Tập\Programing_language\ADO-NET\Window-form\SuperProjectQ\AllForm\InHoaDon\DataSetInHoaDon.xsd</rd:SchemaPath>
+        <rd:TableName>ChiTietHD</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
         <rd:TableAdapterName />

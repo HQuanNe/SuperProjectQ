@@ -87,6 +87,20 @@ namespace SuperProjectQ
                 }
             }
         } // Hàm kiểm tra voucher hết hạn
+        public static int AutoCreateID(string colName, string tableName) //tạo mã tự động
+        {
+            ConnectOpen();
+
+            string sqlGetMaxID = $"SELECT TOP 1 {colName} FROM {tableName} ORDER BY {colName} DESC";
+            dt = new DataTable();
+            dt = kn.CreateTable(sqlGetMaxID);
+            int MaHD = 0;
+            foreach (DataRow dr in dt.Rows)
+            {
+                MaHD = Convert.ToInt16(dr[colName]);
+            }
+            return MaHD += 1;
+        }
         public static string IDUser { get; set; }
         public static string MaQH { get; set; }
         public static string MaNV { get; set; }

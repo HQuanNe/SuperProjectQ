@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using System.Windows.Forms;
 using System.Data.SqlClient;
 namespace SuperProjectQ
 {
@@ -25,10 +26,19 @@ namespace SuperProjectQ
         }
         public DataTable CreateTable(string sql)
         {
-            adapter = new SqlDataAdapter(sql, conn);
-            dt = new DataTable();
-            adapter.Fill(dt);
-            return dt;
+            try
+            {
+                adapter = new SqlDataAdapter(sql, conn);
+                dt = new DataTable();
+                adapter.Fill(dt);
+                return dt;
+
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Lỗi truy vấn dữ liệu\n Lỗi: " + ex.Message);
+                return null;
+            }
         }
     }
 }
