@@ -166,7 +166,7 @@ namespace SuperProjectQ.FrmMixed
                     {
                         Text = row["SoLuong"].ToString(),
                         TextAlign = HorizontalAlignment.Center,
-                        Size = new Size(25, 24),
+                        Size = new Size(50, 24),
                         ReadOnly = true,
 
                         Location = new Point(lblTenSP.Width + lblTenSP.Location.X + 80, plItem.Height / 2 - 12),
@@ -506,6 +506,8 @@ namespace SuperProjectQ.FrmMixed
             {
                 kn.ConnOpen();
                 LoadPhong();
+                btnDatTruoc.Visible = false;
+                btnHuyDatTruoc.Visible = false;
 
                 //Ẩn nút Order
                 btnOrder.Visible = false;
@@ -515,7 +517,7 @@ namespace SuperProjectQ.FrmMixed
                 MessageBox.Show("Lỗi CSDL \nLỗi: " + ex.Message);
             }
         } //Load dữ liệu 
-        #region Nút mở, đóng, đặt trướcc
+        #region Nút mở, đóng, đặt trước
         private void btnDatTruoc_Click(object sender, EventArgs e)
         {
             try
@@ -840,19 +842,22 @@ namespace SuperProjectQ.FrmMixed
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int baseLocationX = 17;
-            int newLocationY = 4;
-
-            if (!plOrdered.Visible)
+            if(selectedPanel.Tag !=null && selectedPanel.Tag.ToString() != "")
             {
-                plPhong.Location = new Point(plOrdered.Width + 5, newLocationY);
+                int baseLocationX = 17;
+                int newLocationY = 4;
+                Load_Ordered((int)selectedPanel.Tag);
+                if (!plOrdered.Visible)
+                {
+                    plPhong.Location = new Point(plOrdered.Width + 5, newLocationY);
 
+                }
+                else
+                {
+                    plPhong.Location = new Point(baseLocationX, newLocationY);
+                }
+                plOrdered.Visible = !plOrdered.Visible;
             }
-            else
-            {
-                plPhong.Location = new Point(baseLocationX, newLocationY);
-            }
-            plOrdered.Visible = !plOrdered.Visible;
         }
     }
 }

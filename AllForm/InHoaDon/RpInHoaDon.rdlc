@@ -1248,14 +1248,25 @@ Format(Sum(Fields!Discount.Value, "DataSetKH") * 100, "0.##") &amp; "%):"</Value
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
-      <Textbox Name="GiamGia">
+      <Line Name="Line1">
+        <Top>10.64235cm</Top>
+        <Height>0cm</Height>
+        <Width>7.68823cm</Width>
+        <ZIndex>25</ZIndex>
+        <Style>
+          <Border>
+            <Style>Solid</Style>
+          </Border>
+        </Style>
+      </Line>
+      <Textbox Name="TrietKhauVoucher">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
         <Paragraphs>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=Format(Sum(Fields!GiamGia.Value, "DataSetHD"), "#,##0")</Value>
+                <Value>=Format(Sum(Fields!TrietKhauVIP.Value, "DataSetHD"), "#,##0")</Value>
                 <Style />
               </TextRun>
             </TextRuns>
@@ -1264,12 +1275,12 @@ Format(Sum(Fields!Discount.Value, "DataSetKH") * 100, "0.##") &amp; "%):"</Value
             </Style>
           </Paragraph>
         </Paragraphs>
-        <rd:DefaultName>GiamGia</rd:DefaultName>
+        <rd:DefaultName>TrietKhauVoucher</rd:DefaultName>
         <Top>6.75447cm</Top>
         <Left>3.78838cm</Left>
         <Height>0.6cm</Height>
         <Width>3.71468cm</Width>
-        <ZIndex>25</ZIndex>
+        <ZIndex>26</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1280,17 +1291,70 @@ Format(Sum(Fields!Discount.Value, "DataSetKH") * 100, "0.##") &amp; "%):"</Value
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
-      <Line Name="Line1">
-        <Top>10.64235cm</Top>
-        <Height>0cm</Height>
-        <Width>7.68823cm</Width>
-        <ZIndex>26</ZIndex>
+      <Textbox Name="Textbox40">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>="Triết khấu Voucher: "</Value>
+                <Style>
+                  <FontSize>8pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox30</rd:DefaultName>
+        <Top>7.44591cm</Top>
+        <Left>0.15595cm</Left>
+        <Height>0.6cm</Height>
+        <Width>3.45604cm</Width>
+        <ZIndex>27</ZIndex>
         <Style>
           <Border>
-            <Style>Solid</Style>
+            <Style>None</Style>
           </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
         </Style>
-      </Line>
+      </Textbox>
+      <Textbox Name="VAT2">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=Format(Sum(Fields!TrietKhauVoucher.Value, "DataSetHD"), "#,##0")</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>VAT</rd:DefaultName>
+        <Top>7.44591cm</Top>
+        <Left>3.78838cm</Left>
+        <Height>0.6cm</Height>
+        <Width>3.71468cm</Width>
+        <ZIndex>28</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
     </ReportItems>
     <Height>4.70387in</Height>
     <Style />
@@ -1324,90 +1388,6 @@ Format(Sum(Fields!Discount.Value, "DataSetKH") * 100, "0.##") &amp; "%):"</Value
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="DataSetHD">
-      <Query>
-        <DataSourceName>DataSetInHoaDon</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="MaHD">
-          <DataField>MaHD</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="TenPhong">
-          <DataField>TenPhong</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="TenLoaiPhong">
-          <DataField>TenLoaiPhong</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="MaKH">
-          <DataField>MaKH</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="MaNV">
-          <DataField>MaNV</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="GioVao">
-          <DataField>GioVao</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="GioRa">
-          <DataField>GioRa</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="TongSoPhut">
-          <DataField>TongSoPhut</DataField>
-          <rd:TypeName>System.Double</rd:TypeName>
-        </Field>
-        <Field Name="TienPhong">
-          <DataField>TienPhong</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="TienDichVu">
-          <DataField>TienDichVu</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="TongTien">
-          <DataField>TongTien</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="GiamGia">
-          <DataField>GiamGia</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="VAT">
-          <DataField>VAT</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="TongThanhToan">
-          <DataField>TongThanhToan</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="PTTT">
-          <DataField>PTTT</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="TrangThai">
-          <DataField>TrangThai</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
-        </Field>
-        <Field Name="GhiChu">
-          <DataField>GhiChu</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>DataSetInHoaDon</rd:DataSetName>
-        <rd:SchemaPath>D:\Học_Tập\ADO-NET\Window-form\SuperProjectQ\FrmMixed\InHoaDon\DataSetInHoaDon.xsd</rd:SchemaPath>
-        <rd:TableName>HoaDonReal</rd:TableName>
-        <rd:TableAdapterFillMethod />
-        <rd:TableAdapterGetDataMethod />
-        <rd:TableAdapterName />
-      </rd:DataSetInfo>
-    </DataSet>
     <DataSet Name="DataSetKH">
       <Query>
         <DataSourceName>DataSetInHoaDon</DataSourceName>
@@ -1463,6 +1443,94 @@ Format(Sum(Fields!Discount.Value, "DataSetKH") * 100, "0.##") &amp; "%):"</Value
         <rd:DataSetName>DataSetInHoaDon</rd:DataSetName>
         <rd:SchemaPath>D:\Học_Tập\Programing_language\ADO-NET\Window-form\SuperProjectQ\AllForm\InHoaDon\DataSetInHoaDon.xsd</rd:SchemaPath>
         <rd:TableName>ChiTietHD</rd:TableName>
+        <rd:TableAdapterFillMethod />
+        <rd:TableAdapterGetDataMethod />
+        <rd:TableAdapterName />
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DataSetHD">
+      <Query>
+        <DataSourceName>DataSetInHoaDon</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="MaHD">
+          <DataField>MaHD</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="TenPhong">
+          <DataField>TenPhong</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TenLoaiPhong">
+          <DataField>TenLoaiPhong</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="MaKH">
+          <DataField>MaKH</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="MaNV">
+          <DataField>MaNV</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="GioVao">
+          <DataField>GioVao</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="GioRa">
+          <DataField>GioRa</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="TongSoPhut">
+          <DataField>TongSoPhut</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="TienPhong">
+          <DataField>TienPhong</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="TienDichVu">
+          <DataField>TienDichVu</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="TongTien">
+          <DataField>TongTien</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="TrietKhauVIP">
+          <DataField>TrietKhauVIP</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="TrietKhauVoucher">
+          <DataField>TrietKhauVoucher</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="VAT">
+          <DataField>VAT</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="TongThanhToan">
+          <DataField>TongThanhToan</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="PTTT">
+          <DataField>PTTT</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TrangThai">
+          <DataField>TrangThai</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="GhiChu">
+          <DataField>GhiChu</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DataSetInHoaDon</rd:DataSetName>
+        <rd:SchemaPath>D:\Học_Tập\Programing_language\ADO-NET\Window-form\SuperProjectQ\AllForm\InHoaDon\DataSetInHoaDon.xsd</rd:SchemaPath>
+        <rd:TableName>HoaDonReal</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
         <rd:TableAdapterName />

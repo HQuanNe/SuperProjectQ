@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Windows.Forms;
 
 namespace SuperProjectQ.AllForm
@@ -23,12 +24,19 @@ namespace SuperProjectQ.AllForm
 
         Panel plItem = null; // Panel chứa từng sản phẩm
         Button selectedRoomButton = null; // Lưu panel đang được click
+
+        PictureBox pbItem = null; // Khai báo object PictureBox ảnh sản phẩm
+        Label lblTenSanPham = null;  // Khai báo object Label tên sản phẩm
+        Label lblGiaBan = null; // Khai báo object Label giá bán
+
+        TextBox txtSoLuong = null;
+        Button btnPlus = null;
+        Button btnMinus = null;
+        Button btnOrder = null; // Khai báo object Button mua hàng
+
+        int soLuongNhapVao = 1;
         private void ItemPanel_SanPham(string tag_1 = "")
         {
-            PictureBox pbItem = null; // Khai báo object PictureBox ảnh sản phẩm
-            Label lblTenSanPham = null;  // Khai báo object Label tên sản phẩm
-            Label lblGiaBan = null; // Khai báo object Label giá bán
-            Button btnOrder = null; // Khai báo object Button mua hàng
 
             string sqlSP = "SELECT SanPham.MaSP, SanPham.TenHienThi, SanPham.GiaBan, SanPham.HinhAnh, KhoHang.MaDM " +
                            $"FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP  " +
@@ -47,7 +55,7 @@ namespace SuperProjectQ.AllForm
                     BackColor = Color.White,
                     BorderStyle = BorderStyle.FixedSingle,
 
-                    Tag = row["MaDM"].ToString(), // Lưu mã DM vào Tag 
+                    Tag = row["MaDM"].ToString(), // Lưu mã DM vào Tag
 
 
                 };
@@ -99,7 +107,6 @@ namespace SuperProjectQ.AllForm
                         TextAlign = ContentAlignment.MiddleCenter,
                         //BackColor = Color.Red,
                     };
-
                     decimal giaBan = Convert.ToDecimal(row["GiaBan"]); // Lấy giá bán từ cơ sở dữ liệu
                     lblGiaBan = new Label()// Tạo Label cho giá bán
                     {
@@ -115,6 +122,69 @@ namespace SuperProjectQ.AllForm
                         Location = new Point(20, (lblTenSanPham.Location.Y + lblTenSanPham.Height) + 45),
                         //BackColor = Color.Red,
                     };
+
+                    #region Nút tăng, giảm số lượng
+                    txtSoLuong = new TextBox()
+                    {
+                        Width = 80,
+                        Height = 30,
+
+                        Name = row["MaSP"].ToString(),
+
+                        Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point),
+                        Text = $"1",
+                        ForeColor = Color.Black,
+                        TextAlign = HorizontalAlignment.Center,
+
+                        Location = new Point(105, lblGiaBan.Location.Y + lblGiaBan.Height + 30),
+                        AutoSize = true,
+                    };
+                    btnPlus = new Button()
+                    {
+                        Width = 30,
+                        Height = 20,
+
+                        Name = row["MaSP"].ToString(),
+
+                        Font = new Font("Times New Roman", 10F, FontStyle.Bold, GraphicsUnit.Point),
+                        Text = $"+",
+                        ForeColor = Color.Black,
+                        TextAlign = ContentAlignment.MiddleCenter,
+                        FlatStyle = FlatStyle.Flat,
+                        FlatAppearance =
+                        {
+                            MouseOverBackColor = Color.Cyan,
+                            MouseDownBackColor = Color.Blue,
+                            BorderSize = 0,
+                        },
+
+                        Location = new Point(txtSoLuong.Location.X + txtSoLuong.Width, lblGiaBan.Location.Y + lblGiaBan.Height + 30),
+                        AutoSize = true,
+                    };
+                    btnMinus = new Button()
+                    {
+                        Width = 30,
+                        Height = 20,
+
+                        Name = row["MaSP"].ToString(),
+
+                        Font = new Font("Times New Roman", 10F, FontStyle.Bold, GraphicsUnit.Point),
+                        Text = $"-",
+                        ForeColor = Color.Black,
+                        TextAlign = ContentAlignment.MiddleCenter,
+                        FlatStyle = FlatStyle.Flat,
+                        FlatAppearance =
+                        {
+                            MouseOverBackColor = Color.Cyan,
+                            MouseDownBackColor = Color.Blue,
+                            BorderSize = 0,
+                        },
+
+                        Location = new Point(txtSoLuong.Location.X - 30, lblGiaBan.Location.Y + lblGiaBan.Height + 30),
+                        AutoSize = true,
+                    };
+                    #endregion
+
                     btnOrder = new Button()// Tạo Button để gọi món
                     {
                         Width = 200,
@@ -143,6 +213,10 @@ namespace SuperProjectQ.AllForm
 
                 }
                 btnOrder.Click += BtnOrder_Click;
+                btnPlus.Click += BtnPlus_Click;
+                btnMinus.Click += BtnMinus_Click;
+
+                txtSoLuong.TextChanged += txtSoLuong_Textchanged;
 
                 flowLayoutDSSanPham.Controls.Add(plItem);
                 flowLayoutDSPhong.Controls.Add(btnDSPhong);
@@ -150,6 +224,11 @@ namespace SuperProjectQ.AllForm
                 plItem.Controls.Add(pbItem);
                 plItem.Controls.Add(lblTenSanPham);
                 plItem.Controls.Add(lblGiaBan);
+
+                plItem.Controls.Add(txtSoLuong);
+                plItem.Controls.Add(btnPlus);
+                plItem.Controls.Add(btnMinus);
+
                 plItem.Controls.Add(btnOrder);
 
             }
@@ -184,11 +263,11 @@ namespace SuperProjectQ.AllForm
                     int donGia = Convert.ToInt32(dt.Rows[0][3].ToString());
 
                     double dinhLuong = Convert.ToDouble(dt.Rows[0][4].ToString());
-                    if(donViTinh == "Kg") dinhLuong = dinhLuong / 1000;
-                    else dinhLuong = 1;
+
+                    if(donViTinh == "Kg") dinhLuong = dinhLuong / 1000 * soLuongNhapVao;
+                    else dinhLuong = soLuongNhapVao;
 
                     bool flag = true;
-                    int index = 0;
 
                     //Lấy danh sách sản phẩm đã order trong phòng
                     DataTable dt2 = new DataTable();
@@ -215,7 +294,7 @@ namespace SuperProjectQ.AllForm
                         cmd.Parameters.AddWithValue("@SL", dinhLuong);
                         cmd.Parameters.AddWithValue("@DV", donViTinh);
                         cmd.Parameters.AddWithValue("@DG", donGia);
-                        cmd.Parameters.AddWithValue("@TT", donGia);
+                        cmd.Parameters.AddWithValue("@TT", dinhLuong * donGia);
                         cmd.ExecuteNonQuery();
 
                         isAdded = true;
@@ -240,16 +319,17 @@ namespace SuperProjectQ.AllForm
                         {
                             cmd = new SqlCommand($"SELECT SoLuong FROM ChiTietHD WHERE MaSP = '{maSP}' AND MaHD = {intMaHD} ", kn.conn);
 
-                            double soLuong = (double)cmd.ExecuteScalar();
-                            soLuong+=dinhLuong;
-                            decimal thanhTien = Convert.ToDecimal((soLuong * 1000) / (dinhLuong*1000)) * donGia;
+                            double soLuongDaCo = (double)cmd.ExecuteScalar();
+                            soLuongDaCo += dinhLuong;
+                            if (soLuongNhapVao <= 0) { MessageBox.Show("Số lượng < 1"); return; }
+                            decimal thanhTien = Convert.ToDecimal((soLuongDaCo * 1000) / (dinhLuong*1000)) * donGia;
 
                             string sqlUpdate = "UPDATE ChiTietHD SET SoLuong = @SL, ThanhTien = @TT WHERE MaHD = @MHD AND MaSP = @MSP";
                             cmd = new SqlCommand(sqlUpdate, kn.conn);
                             cmd.Parameters.Clear();
                             cmd.Parameters.AddWithValue("@MHD", intMaHD);
                             cmd.Parameters.AddWithValue("@MSP", maSP);
-                            cmd.Parameters.AddWithValue("@SL", soLuong);
+                            cmd.Parameters.AddWithValue("@SL", soLuongDaCo);
                             cmd.Parameters.AddWithValue("@TT", thanhTien);
                             cmd.ExecuteNonQuery();
 
@@ -321,8 +401,44 @@ namespace SuperProjectQ.AllForm
                 selectedRoomButton = clickedButton;
             }
         }
+        private void BtnPlus_Click(object sender, EventArgs e)
+        {
+            var btn = (Button)sender;
+            var parent = btn.Parent; // Panel chứa button và textbox
+            var maSP = parent.Controls[3];
+            int soLuong = 0;
+            if (maSP.Name == btn.Name)
+            {
+                soLuong = Math.Abs(Convert.ToInt32(parent.Controls[3].Text)) + 1;
+                parent.Controls[3].Text = soLuong.ToString();
+            }
+            soLuongNhapVao = soLuong;
+        }
+        private void BtnMinus_Click(object sender, EventArgs e)
+        {
+            var btn = (Button)sender;
+            var parent = btn.Parent; // Panel chứa button và textbox
+            var maSP = parent.Controls[3];
+            int soLuong = 0;
+            if (maSP.Name == btn.Name)
+            {
+                soLuong = Math.Abs(Convert.ToInt32(parent.Controls[3].Text)) - 1;
+                if (soLuongNhapVao <= 0) { MessageBox.Show("Số lượng < 1"); return; }
+                parent.Controls[3].Text = soLuong.ToString();
+            }
+            soLuongNhapVao = soLuong;
+        }
+        private void txtSoLuong_Textchanged(object sender, EventArgs e)
+        {
+            var txt = (TextBox)sender;
+            if (Convert.ToInt32(txtSoLuong.Text) <= 0)
+            {
+                MessageBox.Show("Số lượng phải lớn hơn 1");
+                return;
+            }
+            else soLuongNhapVao = Convert.ToInt32(txt.Text);
 
-
+        }
         //////////////////////////////////////////////////////////////////
         #region Các nút điều hướng
 

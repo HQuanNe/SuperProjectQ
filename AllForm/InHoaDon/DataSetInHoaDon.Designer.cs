@@ -371,7 +371,9 @@ namespace SuperProjectQ.AllForm.InHoaDon {
             
             private global::System.Data.DataColumn columnTongTien;
             
-            private global::System.Data.DataColumn columnGiamGia;
+            private global::System.Data.DataColumn columnTrietKhauVIP;
+            
+            private global::System.Data.DataColumn columnTrietKhauVoucher;
             
             private global::System.Data.DataColumn columnVAT;
             
@@ -506,9 +508,17 @@ namespace SuperProjectQ.AllForm.InHoaDon {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn GiamGiaColumn {
+            public global::System.Data.DataColumn TrietKhauVIPColumn {
                 get {
-                    return this.columnGiamGia;
+                    return this.columnTrietKhauVIP;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn TrietKhauVoucherColumn {
+                get {
+                    return this.columnTrietKhauVoucher;
                 }
             }
             
@@ -601,7 +611,8 @@ namespace SuperProjectQ.AllForm.InHoaDon {
                         decimal TienPhong, 
                         decimal TienDichVu, 
                         decimal TongTien, 
-                        decimal GiamGia, 
+                        decimal TrietKhauVIP, 
+                        decimal TrietKhauVoucher, 
                         decimal VAT, 
                         decimal TongThanhToan, 
                         string PTTT, 
@@ -620,7 +631,8 @@ namespace SuperProjectQ.AllForm.InHoaDon {
                         TienPhong,
                         TienDichVu,
                         TongTien,
-                        GiamGia,
+                        TrietKhauVIP,
+                        TrietKhauVoucher,
                         VAT,
                         TongThanhToan,
                         PTTT,
@@ -659,7 +671,8 @@ namespace SuperProjectQ.AllForm.InHoaDon {
                 this.columnTienPhong = base.Columns["TienPhong"];
                 this.columnTienDichVu = base.Columns["TienDichVu"];
                 this.columnTongTien = base.Columns["TongTien"];
-                this.columnGiamGia = base.Columns["GiamGia"];
+                this.columnTrietKhauVIP = base.Columns["TrietKhauVIP"];
+                this.columnTrietKhauVoucher = base.Columns["TrietKhauVoucher"];
                 this.columnVAT = base.Columns["VAT"];
                 this.columnTongThanhToan = base.Columns["TongThanhToan"];
                 this.columnPTTT = base.Columns["PTTT"];
@@ -692,8 +705,10 @@ namespace SuperProjectQ.AllForm.InHoaDon {
                 base.Columns.Add(this.columnTienDichVu);
                 this.columnTongTien = new global::System.Data.DataColumn("TongTien", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTongTien);
-                this.columnGiamGia = new global::System.Data.DataColumn("GiamGia", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnGiamGia);
+                this.columnTrietKhauVIP = new global::System.Data.DataColumn("TrietKhauVIP", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTrietKhauVIP);
+                this.columnTrietKhauVoucher = new global::System.Data.DataColumn("TrietKhauVoucher", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTrietKhauVoucher);
                 this.columnVAT = new global::System.Data.DataColumn("VAT", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnVAT);
                 this.columnTongThanhToan = new global::System.Data.DataColumn("TongThanhToan", typeof(decimal), null, global::System.Data.MappingType.Element);
@@ -1586,17 +1601,33 @@ namespace SuperProjectQ.AllForm.InHoaDon {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public decimal GiamGia {
+            public decimal TrietKhauVIP {
                 get {
                     try {
-                        return ((decimal)(this[this.tableHoaDonReal.GiamGiaColumn]));
+                        return ((decimal)(this[this.tableHoaDonReal.TrietKhauVIPColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'GiamGia\' in table \'HoaDonReal\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'TrietKhauVIP\' in table \'HoaDonReal\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableHoaDonReal.GiamGiaColumn] = value;
+                    this[this.tableHoaDonReal.TrietKhauVIPColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public decimal TrietKhauVoucher {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableHoaDonReal.TrietKhauVoucherColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TrietKhauVoucher\' in table \'HoaDonReal\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableHoaDonReal.TrietKhauVoucherColumn] = value;
                 }
             }
             
@@ -1814,14 +1845,26 @@ namespace SuperProjectQ.AllForm.InHoaDon {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsGiamGiaNull() {
-                return this.IsNull(this.tableHoaDonReal.GiamGiaColumn);
+            public bool IsTrietKhauVIPNull() {
+                return this.IsNull(this.tableHoaDonReal.TrietKhauVIPColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetGiamGiaNull() {
-                this[this.tableHoaDonReal.GiamGiaColumn] = global::System.Convert.DBNull;
+            public void SetTrietKhauVIPNull() {
+                this[this.tableHoaDonReal.TrietKhauVIPColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsTrietKhauVoucherNull() {
+                return this.IsNull(this.tableHoaDonReal.TrietKhauVoucherColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetTrietKhauVoucherNull() {
+                this[this.tableHoaDonReal.TrietKhauVoucherColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
