@@ -822,7 +822,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmThanhToan";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Thanh toán";
+            this.Text = " ";
             this.Load += new System.EventHandler(this.frmThanhToan_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picBoxCard)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxQRCode)).EndInit();

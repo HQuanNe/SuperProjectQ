@@ -167,8 +167,11 @@ namespace SuperProjectQ.FrmMixed
         {
             flag = true;
             plInfo.Enabled = true;
+
             Button_Control(true);
             Reset_Text();
+
+            txtSDT.Text = Session.SoDienThoai;
 
             //Những mục cần nhập khi thêm mới
             txtMaKH.Text = AutoCreateID();

@@ -110,25 +110,25 @@ namespace SuperProjectQ.FrmMixed
         {
             TongThanhToan();
             //Tạo mã QR
-            //const string nganHang = "MB";
-            //const string stk = "0382294559";
-            //const string tenTK = "NGUYEN DUC HONG QUAN";
-            //string noiDung = $"PHONG {Session.maPhong} THANH TOAN";
-            //double tienTT = Convert.ToDouble(Session.TongThanhToan);
-            //// Tạo đường dẫn API
-            //try
-            //{
-            //    string url = $"https://img.vietqr.io/image/{nganHang}-{stk}-compact2.png?amount={tienTT}&addInfo={noiDung}&accountName={tenTK}";
+            const string nganHang = "MB";
+            const string stk = "0382294559";
+            const string tenTK = "NGUYEN DUC HONG QUAN";
+            string noiDung = $"PHONG {Session.maPhong} THANH TOAN";
+            double tienTT = Convert.ToDouble(Session.TongThanhToan);
+            // Tạo đường dẫn API
+            try
+            {
+                string url = $"https://img.vietqr.io/image/{nganHang}-{stk}-compact2.png?amount={tienTT}&addInfo={noiDung}&accountName={tenTK}";
 
-            //    // Hiển thị lên PictureBox
-            //    picQRCode.SizeMode = PictureBoxSizeMode.StretchImage;
-            //    picQRCode.Load(url);
-            //}
-            //catch (Exception)
-            //{
+                // Hiển thị lên PictureBox
+                picQRCode.SizeMode = PictureBoxSizeMode.StretchImage;
+                picQRCode.Load(url);
+            }
+            catch (Exception)
+            {
 
-            //    throw;
-            //}
+                throw;
+            }
         }//Load mã QR
         private void LoadLabel()//Hiển thị lên giao diện
         {
@@ -362,6 +362,7 @@ namespace SuperProjectQ.FrmMixed
                     isCustomer = false; //Khách hàng mới
                     cmbVoucher.DataSource = null; //Xoá dữ liệu voucher
 
+                    Session.SoDienThoai = txtSDT.Text;
                     lblTenKH.Text = noData;
                     lblDiaChi.Text = noData;
                     lblVIP.Text = noData;

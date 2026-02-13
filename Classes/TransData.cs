@@ -18,6 +18,7 @@ namespace SuperProjectQ
         static ConnectData kn = new ConnectData();
         static DataTable dt = null;
         static SqlCommand cmd = null;
+
         public static void ConnectOpen()
         {
             kn.ConnOpen();
@@ -101,6 +102,36 @@ namespace SuperProjectQ
             }
             return MaHD += 1;
         }
+
+        public static void CapNhatKho(bool isPlus, string maSP, double soLuong)
+        {
+            ConnectOpen();
+
+            dt = kn.CreateTable($"SELECT * FROM KhoHang WHERE MaSP = '{maSP}'");
+
+            int soLuongTon = dt.Rows[0]["TonKho"] != DBNull.Value ? Convert.ToInt32(dt.Rows[0]["TonKho"]) : 0;
+            bool DonViTinh = dt.Rows[0]["DonViTinh"] != DBNull.Value && dt.Rows[0]["DonViTinh"].ToString() == "Kg" ? true : false;
+
+            dt.Clear();
+            dt = kn.CreateTable($"SELECT DinhLuong FROM SanPham WHERE MaSP = '{maSP}'");
+            double dinhLuong = dt.Rows[0]["DinhLuong"] != DBNull.Value ? Convert.ToDouble(dt.Rows[0]["DinhLuong"]) : 0;
+
+            if (DonViTinh) //Nếu đơn vị tính là Kg 
+            {
+                soLuong = soLuong * dinhLuong  / 1000;
+            }
+            
+            if (isPlus) {soLuongTon += (int)soLuong;} //Nếu trả lại đồ thì cộng số lượng vào kho
+            else {soLuongTon -= (int)soLuong; } //Nếu order đồ thì trừ số lượng trong kho
+
+            string sqlCapNhatKho = "UPDATE KhoHang SET TonKho = @TonKho WHERE MaSP = @MaSP";
+            cmd = new SqlCommand(sqlCapNhatKho, kn.conn);
+            cmd.Parameters.Clear();
+            cmd.Parameters.AddWithValue("@TonKho", soLuongTon);
+            cmd.Parameters.AddWithValue("@MaSP", maSP);
+            cmd.ExecuteNonQuery();
+        }
+
         public static string IDUser { get; set; }
         public static string MaQH { get; set; }
         public static string MaNV { get; set; }
@@ -108,6 +139,7 @@ namespace SuperProjectQ
         public static string ChucVu { get; set; }
         //Khách hàng
         public static string MaKH { get; set; }
+        public static string SoDienThoai { get; set; }
         public static int diemTichLuy { get; set; }
         //Vận chuyển tiền, nội dung,...  sang thanh toán
         public static int maHD { get; set; }

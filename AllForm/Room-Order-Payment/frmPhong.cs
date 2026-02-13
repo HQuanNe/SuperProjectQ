@@ -24,6 +24,35 @@ namespace SuperProjectQ.FrmMixed
         {
             InitializeComponent();
         }
+
+        class Button_Plus_And_Minus
+        {
+            public Button btn = null;
+
+            public void BtnPlus_ClickChange()
+            {
+                var parent = btn.Parent; // Panel chứa button và textbox
+                var maSP = parent.Controls[1];
+                int soLuong = 0;
+                if (maSP.Name == btn.Name)
+                {
+                    soLuong = Math.Abs(Convert.ToInt32(parent.Controls[1].Text)) + 1;
+                    parent.Controls[1].Text = soLuong.ToString();
+                }
+            }
+
+            public void BtnMinus_ClickChange()
+            {
+                var parent = btn.Parent; // Panel chứa button và textbox
+                var maSP = parent.Controls[1];
+                int soLuong = 0;
+                if (maSP.Name == btn.Name)
+                {
+                    soLuong = Math.Abs(Convert.ToInt32(parent.Controls[1].Text)) - 1;
+                    parent.Controls[1].Text = soLuong.ToString();
+                }
+            }
+        }
         DataTable dt = null;
         SqlCommand cmd = null;
         ConnectData kn = new ConnectData();
@@ -39,8 +68,6 @@ namespace SuperProjectQ.FrmMixed
         Color clrStatusClose = Color.FromArgb(192, 255, 192);
         Color clrStatusBooking = Color.FromArgb(192, 255, 255);
 
-        decimal gloDonGia = 0; //Đơn giá khi click chọn sản phẩm trong bảng đã order
-        string gloMaSP = null;
         double dinhMucKho = 0; //Định mức tồn kho
 
         private void LoadPhong()
@@ -135,7 +162,7 @@ namespace SuperProjectQ.FrmMixed
             flowLayoutOrdered.Controls.Clear();
 
             DataTable dt = new DataTable();
-            dt = kn.CreateTable($"SELECT ChiTietHD.MaCTHD, ChiTietHD.MaHD, ChiTietHD.MaSP, SanPham.TenHienThi, ChiTietHD.SoLuong, ChiTietHD.DonViTinh " +
+            dt = kn.CreateTable($"SELECT ChiTietHD.MaCTHD, ChiTietHD.MaHD, ChiTietHD.MaSP, SanPham.TenHienThi, ChiTietHD.SoLuong, ChiTietHD.DonViTinh, SanPham.DinhLuong " +
                 $"FROM ChiTietHD INNER JOIN SanPham ON ChiTietHD.MaSP = SanPham.MaSP " +
                 $"WHERE ChiTietHD.MaHD = {MaHD} ");
 
@@ -152,6 +179,7 @@ namespace SuperProjectQ.FrmMixed
 
                         Font = new Font("Times New Roman", 10F, FontStyle.Regular, GraphicsUnit.Point),
                         Margin = new Padding(2),
+                        Tag = row["MaSP"].ToString(),
                     };
                     Label lblTenSP = new Label()
                     {
@@ -162,19 +190,99 @@ namespace SuperProjectQ.FrmMixed
                         Location = new Point(5, plItem.Height / 2 - 12),
                         AutoSize = true,
                     };
+
+                    //Tính số lượng nếu loại sản phẩm là Kg
+                    int soLuong = 0;
+                    if(row["DonViTinh"].ToString() == "Kg")
+                    {
+                        double dinhLuong = Convert.ToDouble(row["DinhLuong"]);
+                        soLuong = Convert.ToInt32(Convert.ToDouble(row["SoLuong"]) * 1000 / dinhLuong);
+                    }
+                    else
+                    {
+                        soLuong = Convert.ToInt32(row["SoLuong"]);
+                    }
+                    #region  Nút tăng giảm số lượng
                     TextBox txtSoLuong = new TextBox()
                     {
-                        Text = row["SoLuong"].ToString(),
+                        Text = soLuong.ToString(),
                         TextAlign = HorizontalAlignment.Center,
-                        Size = new Size(50, 24),
+                        Size = new Size(40, 24),
                         ReadOnly = true,
 
                         Location = new Point(lblTenSP.Width + lblTenSP.Location.X + 80, plItem.Height / 2 - 12),
                         BorderStyle = BorderStyle.FixedSingle
                     };
+
+                    Button btnMinus = new Button()
+                    {
+                        Text = "-",
+                        TextAlign = ContentAlignment.MiddleCenter,
+                        Size = new Size(20, 24),
+                        BackColor = Color.White,
+
+                        Location = new Point(txtSoLuong.Location.X-20, plItem.Height / 2 - 12),
+
+                        FlatAppearance =
+                        {
+                            BorderSize = 0
+                        }
+                    };
+
+                    Button btnPlus = new Button()
+                    {
+                        Text = "+",
+                        TextAlign = ContentAlignment.MiddleCenter,
+                        Size = new Size(20, 24),
+                        BackColor = Color.White,
+
+                        Location = new Point(txtSoLuong.Location.X + txtSoLuong.Width, plItem.Height / 2 - 12),
+
+                        FlatAppearance =
+                        {
+                            BorderSize = 0
+                        }
+                    };
+                    #endregion
+
+                    Button btnXacNhan = new Button()
+                    {
+                        Text = "OK",
+                        TextAlign = ContentAlignment.MiddleCenter,
+                        Size = new Size(40, 24),
+                        BackColor = Color.Green,
+                        ForeColor = Color.White,
+                        Location = new Point(btnPlus.Location.X + btnPlus.Width, plItem.Height / 2 - 12),
+                        FlatAppearance =
+                        {
+                            BorderSize = 0
+                        }
+                    };  
+
                     flowLayoutOrdered.Controls.Add(plItem);
                     plItem.Controls.Add(lblTenSP);
+
                     plItem.Controls.Add(txtSoLuong);
+
+                    plItem.Controls.Add(btnMinus);
+                    btnMinus.Click += (s, e) =>
+                    {
+                        var btn = (Button)s;
+                        Button_Plus_And_Minus minus = new Button_Plus_And_Minus();
+                        minus.btn = btn;
+                        minus.BtnMinus_ClickChange();
+                    };
+
+                    plItem.Controls.Add(btnPlus);
+                    btnPlus.Click += (s, e) =>
+                    {
+                        var btn = (Button)s;
+                        Button_Plus_And_Minus plus = new Button_Plus_And_Minus();
+                        plus.btn = btn;
+                        plus.BtnPlus_ClickChange();
+                    };
+
+                    plItem.Controls.Add(btnXacNhan);
                 }
             }
         }
@@ -351,6 +459,8 @@ namespace SuperProjectQ.FrmMixed
         {
             if (Session.isPay)
             {
+                Load_Ordered((int)selectedPanel.Tag);
+
                 //Update hoá đơn
                 string sqlHD = $"UPDATE HoaDon SET MaKH = @MKH," +
                     $"GioRa = @GR, TongSoPhut = @TSP, TienPhong = @TP, TienDichVu = @TDV, TongTien = @TT, TrietKhauVIP = @TKVIP, TrietKhauVoucher = @TKV, VAT = @VAT, TongThanhToan = @TTT, PTTT = @PTTT, TrangThai = @TTHD, GhiChu = @GC WHERE MaHD = {billID}";
@@ -655,209 +765,29 @@ namespace SuperProjectQ.FrmMixed
             }
         } //Thay đổi tab phòng thường và VIP
 
-        //private void dgvMenuFood_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        //{
-        //    try
-        //    {
-        //        if (TakeNamePanel !=null)
-        //        {
-        //            int r = e.RowIndex;
-        //            string maSP = dgvMenuFood.Rows[r].Cells[0].Value?.ToString();
-        //            string tenSP = dgvMenuFood.Rows[r].Cells[1].Value?.ToString();
-        //            string donVi = dgvMenuFood.Rows[r].Cells[4].Value?.ToString();
-        //            int donGia = Convert.ToInt32(dgvMenuFood.Rows[r].Cells[5].Value?.ToString());
-        //            int soLuong = 1;
-        //            bool flag = true;
-        //            int index = 1;
-        //            //kiểm tra xem sản phẩm có trong bảng đã order chưa
-        //            for (int i = 0; i < dgvOrdered.Rows.Count; i++)
-        //            {
-        //                if (dgvOrdered.Rows[i].Cells[0].Value != null && dgvOrdered.Rows[i].Cells[0].Value?.ToString() == maSP)
-        //                {
-        //                    flag = false;
-        //                    index = i;
-        //                    break;
-        //                }
-        //            }
-        //            string maPhong = TakeNamePanel.Replace("pl", "");
-        //            string sqlCTHDTam = $"SELECT MaPhong FROM ChiTietHD WHERE MaSP = '{maSP}'";
-        //            //Nếu chaưa có thì thêm mới
-        //            if (flag) 
-        //            {
-        //                string strPanelTag = null;
-        //                strPanelTag = selectedPanel.Tag.ToString();
-
-        //                int intPanelTag = Convert.ToInt16(strPanelTag);
-        //                string sqlAdd = "INSERT INTO ChiTietHD (MaCTHD, MaHD, MaSP, SoLuong, DonVi, DonGia, ThanhTien) VALUES (@MCTHD, @MHD, @MSP, @SL, @DV, @DG, @TT)";
-        //                cmd = new SqlCommand(sqlAdd, kn.conn);
-        //                cmd.Parameters.Clear();
-        //                cmd.Parameters.AddWithValue("@MCTHD", Session.AutoCreateID("MaCTHD", "ChiTietHD"));
-        //                cmd.Parameters.AddWithValue("@MHD", intPanelTag);
-        //                cmd.Parameters.AddWithValue("@MSP", maSP);
-        //                cmd.Parameters.AddWithValue("@SL", 1);
-        //                cmd.Parameters.AddWithValue("@DV", donVi);
-        //                cmd.Parameters.AddWithValue("@DG", donGia);
-        //                cmd.Parameters.AddWithValue("@TT", donGia);
-        //                cmd.ExecuteNonQuery();
-        //                GetData_From_CTHD(intPanelTag);
-        //                TongTienDV(intPanelTag);
-        //            }
-        //            //Kiểm tra số lượng thêm vào có vượt tồn kho không
-        //            int SumAdded = 1 + Convert.ToInt16(dgvOrdered.Rows[index].Cells[2].Value);
-        //            //Lấy tồn kho
-        //            string sqlTonKho = $"SELECT TonKho FROM KhoHang WHERE MaSP = '{maSP}'";
-        //            cmd = new SqlCommand(sqlTonKho, kn.conn);
-        //            double tonKho = Convert.ToDouble(cmd.ExecuteScalar());
-        //            if (SumAdded > tonKho)
-        //            {
-        //                MessageBox.Show("hết hàng rùi !!!");
-        //                return;
-        //            }
-        //            else
-        //            {
-        //                //Nếu có rồi thì cập nhật số lượng lên 1
-        //                if (!flag)
-        //                {
-        //                    soLuong = Convert.ToInt16(dgvOrdered.Rows[index].Cells[2].Value);
-        //                    soLuong++;
-
-        //                    int intPanelTag = (int)selectedPanel.Tag;
-        //                    string sqlUpdate = "UPDATE ChiTietHD SET SoLuong = @SL, ThanhTien = @TT WHERE MaHD = @MHD AND MaSP = @MSP";
-        //                    cmd = new SqlCommand(sqlUpdate, kn.conn);
-        //                    cmd.Parameters.Clear();
-        //                    cmd.Parameters.AddWithValue("@MHD", intPanelTag);
-        //                    cmd.Parameters.AddWithValue("@MSP", maSP);
-        //                    cmd.Parameters.AddWithValue("@SL", soLuong);
-        //                    cmd.Parameters.AddWithValue("@TT", soLuong * donGia);
-        //                    cmd.ExecuteNonQuery();
-        //                    GetData_From_CTHD(intPanelTag);
-        //                    TongTienDV(intPanelTag);
-        //                }
-        //            }
-
-        //        }
-        //        else
-        //        {
-        //            MessageBox.Show("Hãy chọn một phòng");
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Lỗi: "+ex.Message);
-        //    }
-        //}
-        //private void AllButtons_Click(object sender, EventArgs e)
-        //{
-        //    Button btn = (Button)sender;
-        //    if (btn == null) return;
-        //    if (btn.Name == "btnAll")
-        //    {
-        //        dgvMenuFood.DataSource = null;
-        //        string sqlAllProd = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.DinhLuong, SanPham.DVTDinhLuong, SanPham.GiaBan FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP " +
-        //                            $"WHERE KhoHang.TonKho >= {dinhMucKho} " + " ORDER BY TenSP ASC";
-        //        dgvMenuFood.DataSource = kn.CreateTable(sqlAllProd);
-        //    }
-        //    else if(btn.Name == "btnFood")
-        //    {
-        //        dgvMenuFood.DataSource = null;
-        //        string sqlFood = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.DinhLuong, SanPham.DVTDinhLuong, SanPham.GiaBan \n" +
-        //                         $"FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP WHERE KhoHang.TonKho >= {dinhMucKho} AND KhoHang.MaDM = 'MDM01' OR KhoHang.MaDM = 'MDM03' ORDER BY TenSP ASC";
-        //        dgvMenuFood.DataSource = kn.CreateTable(sqlFood);
-        //    }
-        //    else if (btn.Name == "btnBeverage")
-        //    {
-        //        //Load đồ uống
-        //        dgvMenuFood.DataSource = null;
-        //        string sqlBeverage = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.DinhLuong, SanPham.DVTDinhLuong, SanPham.GiaBan \n" +
-        //                            $"FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP WHERE KhoHang.TonKho >= {dinhMucKho} AND KhoHang.MaDM = 'MDM02' ORDER BY TenSP ASC";
-        //        dgvMenuFood.DataSource = kn.CreateTable(sqlBeverage);
-        //    }
-        //    else if (btn.Name == "btnOther")
-        //    {
-        //        //Load khác
-        //        dgvMenuFood.DataSource = null;
-        //        string sqlOther = "SELECT SanPham.MaSP, KhoHang.TenSP, KhoHang.DonViTinh, SanPham.DinhLuong, SanPham.DVTDinhLuong, SanPham.GiaBan \n" +
-        //                          $"FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP WHERE KhoHang.TonKho >= {dinhMucKho} AND KhoHang.MaDM = 'MDM04' ORDER BY TenSP ASC";
-        //        dgvMenuFood.DataSource = kn.CreateTable(sqlOther);
-        //    }
-        //}
-
-        //private void btnConfirm_Click(object sender, EventArgs e)
-        //{
-        //    DialogResult reply = MessageBox.Show("Xác nhận thay đổi số lượng?","Thông báo",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
-        //    if (reply == DialogResult.Yes)
-        //    {
-        //        try
-        //        {
-        //            decimal soLuong = numSoLuong.Value;
-        //            string maPhong = TakeNamePanel.Replace("pl", "");
-
-        //            int intPanelTag = (int)selectedPanel.Tag;
-        //            if (soLuong == 0)
-        //            {
-        //                string sqlUpdate = "DELETE ChiTietHD WHERE MaHD = @MHD AND MaSP = @MSP";
-        //                cmd = new SqlCommand(sqlUpdate, kn.conn);
-        //                cmd.Parameters.Clear();
-        //                cmd.Parameters.AddWithValue("@MHD", intPanelTag);
-        //                cmd.Parameters.AddWithValue("@MSP", gloMaSP);
-        //                cmd.ExecuteNonQuery();
-        //                GetData_From_CTHD(intPanelTag);
-        //                TongTienDV(intPanelTag);
-        //            }
-        //            else
-        //            {
-        //                string sqlUpdate = "UPDATE ChiTietHD SET SoLuong = @SL, ThanhTien = @TT WHERE MaHD = @MHD AND MaSP = @MSP";
-        //                cmd = new SqlCommand(sqlUpdate, kn.conn);
-        //                cmd.Parameters.Clear();
-        //                cmd.Parameters.AddWithValue("@MHD", intPanelTag);
-        //                cmd.Parameters.AddWithValue("@MSP", gloMaSP);
-        //                cmd.Parameters.AddWithValue("@SL", soLuong);
-        //                cmd.Parameters.AddWithValue("@TT", soLuong * gloDonGia);
-        //                cmd.ExecuteNonQuery();
-        //                GetData_From_CTHD(intPanelTag);
-        //                TongTienDV(intPanelTag);
-        //            }
-        //        }
-        //        catch (SqlException ex)
-        //        {
-        //            switch (ex.Number)
-        //            {
-        //                case 8178:
-        //                    MessageBox.Show("Hãy chọn một sản phẩm");
-        //                    break;
-        //                default:
-        //                    MessageBox.Show(ex.Message + " " + ex.Number);
-        //                    break;
-        //            }
-        //            //MessageBox.Show(ex.Number.ToString());
-        //        }
-        //    }
-        //}
-
         private void btnOpenMenu_Click(object sender, EventArgs e)
         {
             frmOrder order = new frmOrder();
             order.ShowDialog();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnOrdered_Click(object sender, EventArgs e)
         {
-            if(selectedPanel.Tag !=null && selectedPanel.Tag.ToString() != "")
-            {
-                int baseLocationX = 17;
-                int newLocationY = 4;
-                Load_Ordered((int)selectedPanel.Tag);
-                if (!plOrdered.Visible)
-                {
-                    plPhong.Location = new Point(plOrdered.Width + 5, newLocationY);
+            if (selectedPanel == null) return;
+            if (selectedPanel.Tag != null && selectedPanel.Tag.ToString() != "") Load_Ordered((int)selectedPanel.Tag);
 
-                }
-                else
-                {
-                    plPhong.Location = new Point(baseLocationX, newLocationY);
-                }
-                plOrdered.Visible = !plOrdered.Visible;
+            int baseLocationX = 17;
+            int newLocationY = 4;
+            if (!plOrdered.Visible)
+            {
+                plPhong.Location = new Point(plOrdered.Width + 5, newLocationY);
+
             }
+            else
+            {
+                plPhong.Location = new Point(baseLocationX, newLocationY);
+            }
+            plOrdered.Visible = !plOrdered.Visible;
         }
     }
 }

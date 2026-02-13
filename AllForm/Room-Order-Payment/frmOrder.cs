@@ -15,6 +15,34 @@ namespace SuperProjectQ.AllForm
             InitializeComponent();
             kn.ConnOpen();
         }
+        class Button_Plus_And_Minus
+        {
+            public Button btn = null;
+            
+            public void BtnPlus_ClickChange()
+            {
+                var parent = btn.Parent; // Panel chứa button và textbox
+                var maSP = parent.Controls[3];
+                int soLuong = 0;
+                if (maSP.Name == btn.Name)
+                {
+                    soLuong = Math.Abs(Convert.ToInt32(parent.Controls[3].Text)) + 1;
+                    parent.Controls[3].Text = soLuong.ToString();
+                }
+            }
+
+            public void BtnMinus_ClickChange()
+            {
+                var parent = btn.Parent; // Panel chứa button và textbox
+                var maSP = parent.Controls[3];
+                int soLuong = 0;
+                if (maSP.Name == btn.Name)
+                {
+                    soLuong = Math.Abs(Convert.ToInt32(parent.Controls[3].Text)) - 1;
+                    parent.Controls[3].Text = soLuong.ToString();
+                }
+            }
+        }
         ConnectData kn = new ConnectData();
         DataTable dt = null;
         SqlCommand cmd = null;
@@ -34,7 +62,6 @@ namespace SuperProjectQ.AllForm
         Button btnMinus = null;
         Button btnOrder = null; // Khai báo object Button mua hàng
 
-        int soLuongNhapVao = 1;
         private void ItemPanel_SanPham(string tag_1 = "")
         {
 
@@ -213,6 +240,7 @@ namespace SuperProjectQ.AllForm
 
                 }
                 btnOrder.Click += BtnOrder_Click;
+
                 btnPlus.Click += BtnPlus_Click;
                 btnMinus.Click += BtnMinus_Click;
 
@@ -239,6 +267,8 @@ namespace SuperProjectQ.AllForm
 
             bool isAdded = false;
 
+            double soLuong = Convert.ToDouble(clickedButton.Parent.Controls[3].Text.Trim()); //Số lượng thêm vào hiện tại ở textbox
+
             if (selectedRoomButton == null)
             {
                 MessageBox.Show("Hãy chọn phòng");
@@ -264,8 +294,8 @@ namespace SuperProjectQ.AllForm
 
                     double dinhLuong = Convert.ToDouble(dt.Rows[0][4].ToString());
 
-                    if(donViTinh == "Kg") dinhLuong = dinhLuong / 1000 * soLuongNhapVao;
-                    else dinhLuong = soLuongNhapVao;
+                    if(donViTinh == "Kg") dinhLuong = dinhLuong / 1000 * soLuong;
+                    else dinhLuong = soLuong;
 
                     bool flag = true;
 
@@ -300,14 +330,11 @@ namespace SuperProjectQ.AllForm
                         isAdded = true;
                     }
                     //Kiểm tra số lượng thêm vào có vượt tồn kho không
-                    cmd = new SqlCommand($"SELECT SoLuong FROM ChiTietHD WHERE MaSP = '{maSP}'", kn.conn);
-                    double SumAdded = dinhLuong + Convert.ToDouble(cmd.ExecuteScalar());
                     //Lấy tồn kho
-
                     string sqlTonKho = $"SELECT TonKho FROM KhoHang WHERE MaSP = '{maSP}'";
                     cmd = new SqlCommand(sqlTonKho, kn.conn);
                     double tonKho = Convert.ToDouble(cmd.ExecuteScalar());
-                    if (SumAdded > tonKho)
+                    if (soLuong > tonKho)
                     {
                         MessageBox.Show("hết hàng rùi !!!");
                         return;
@@ -321,7 +348,7 @@ namespace SuperProjectQ.AllForm
 
                             double soLuongDaCo = (double)cmd.ExecuteScalar();
                             soLuongDaCo += dinhLuong;
-                            if (soLuongNhapVao <= 0) { MessageBox.Show("Số lượng < 1"); return; }
+                            if (soLuong <= 0) { MessageBox.Show("Số lượng < 1"); return; }
                             decimal thanhTien = Convert.ToDecimal((soLuongDaCo * 1000) / (dinhLuong*1000)) * donGia;
 
                             string sqlUpdate = "UPDATE ChiTietHD SET SoLuong = @SL, ThanhTien = @TT WHERE MaHD = @MHD AND MaSP = @MSP";
@@ -339,6 +366,8 @@ namespace SuperProjectQ.AllForm
                 }
                 if (isAdded)
                 {
+                    Session.CapNhatKho(false, clickedButton.Name, soLuong);
+
                     cmd = new SqlCommand($"SELECT TenHienThi FROM SanPham WHERE MaSP = '{clickedButton.Name}'", kn.conn);
                     string tenSP = (string)cmd.ExecuteScalar();
                     cmd = new SqlCommand($"SELECT TenPhong FROM Phong WHERE MaPhong = '{selectedRoomButton.Name}'", kn.conn);
@@ -404,40 +433,26 @@ namespace SuperProjectQ.AllForm
         private void BtnPlus_Click(object sender, EventArgs e)
         {
             var btn = (Button)sender;
-            var parent = btn.Parent; // Panel chứa button và textbox
-            var maSP = parent.Controls[3];
-            int soLuong = 0;
-            if (maSP.Name == btn.Name)
-            {
-                soLuong = Math.Abs(Convert.ToInt32(parent.Controls[3].Text)) + 1;
-                parent.Controls[3].Text = soLuong.ToString();
-            }
-            soLuongNhapVao = soLuong;
+            Button_Plus_And_Minus plus = new Button_Plus_And_Minus();
+            plus.btn = btn;
+            plus.BtnPlus_ClickChange();
         }
         private void BtnMinus_Click(object sender, EventArgs e)
         {
             var btn = (Button)sender;
-            var parent = btn.Parent; // Panel chứa button và textbox
-            var maSP = parent.Controls[3];
-            int soLuong = 0;
-            if (maSP.Name == btn.Name)
-            {
-                soLuong = Math.Abs(Convert.ToInt32(parent.Controls[3].Text)) - 1;
-                if (soLuongNhapVao <= 0) { MessageBox.Show("Số lượng < 1"); return; }
-                parent.Controls[3].Text = soLuong.ToString();
-            }
-            soLuongNhapVao = soLuong;
+            Button_Plus_And_Minus minus = new Button_Plus_And_Minus();
+            minus.btn = btn;
+            minus.BtnMinus_ClickChange();
         }
         private void txtSoLuong_Textchanged(object sender, EventArgs e)
         {
-            var txt = (TextBox)sender;
-            if (Convert.ToInt32(txtSoLuong.Text) <= 0)
+            var thisTxt = (TextBox)sender;
+            int.TryParse(thisTxt.Text, out int soLuong);
+            if (soLuong <= 0) 
             {
-                MessageBox.Show("Số lượng phải lớn hơn 1");
+                thisTxt.Text = "1";
                 return;
             }
-            else soLuongNhapVao = Convert.ToInt32(txt.Text);
-
         }
         //////////////////////////////////////////////////////////////////
         #region Các nút điều hướng

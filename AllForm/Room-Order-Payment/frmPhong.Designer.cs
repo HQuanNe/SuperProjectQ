@@ -41,9 +41,9 @@
             this.btnOpen = new System.Windows.Forms.Button();
             this.plControl = new System.Windows.Forms.Panel();
             this.btnHuyDatTruoc = new System.Windows.Forms.Button();
+            this.btnOrdered = new System.Windows.Forms.Button();
             this.btnDatTruoc = new System.Windows.Forms.Button();
             this.btnOpenMenu = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.plPhong = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.flowLayoutOrdered = new System.Windows.Forms.FlowLayoutPanel();
@@ -119,7 +119,7 @@
             this.lblInfo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblInfo.AutoSize = true;
             this.lblInfo.Font = new System.Drawing.Font("Times New Roman", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInfo.Location = new System.Drawing.Point(599, 8);
+            this.lblInfo.Location = new System.Drawing.Point(609, 8);
             this.lblInfo.Name = "lblInfo";
             this.lblInfo.Size = new System.Drawing.Size(39, 37);
             this.lblInfo.TabIndex = 11;
@@ -179,7 +179,7 @@
             // plControl
             // 
             this.plControl.Controls.Add(this.btnHuyDatTruoc);
-            this.plControl.Controls.Add(this.button1);
+            this.plControl.Controls.Add(this.btnOrdered);
             this.plControl.Controls.Add(this.btnDatTruoc);
             this.plControl.Controls.Add(this.btnOpen);
             this.plControl.Controls.Add(this.btnOpenMenu);
@@ -188,7 +188,7 @@
             this.plControl.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.plControl.Location = new System.Drawing.Point(0, 703);
             this.plControl.Name = "plControl";
-            this.plControl.Size = new System.Drawing.Size(1432, 100);
+            this.plControl.Size = new System.Drawing.Size(1482, 100);
             this.plControl.TabIndex = 20;
             // 
             // btnHuyDatTruoc
@@ -204,6 +204,17 @@
             this.btnHuyDatTruoc.Text = "Huỷ đặt trước";
             this.btnHuyDatTruoc.UseVisualStyleBackColor = false;
             this.btnHuyDatTruoc.Click += new System.EventHandler(this.btnHuyDatTruoc_Click);
+            // 
+            // btnOrdered
+            // 
+            this.btnOrdered.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOrdered.Location = new System.Drawing.Point(897, 13);
+            this.btnOrdered.Name = "btnOrdered";
+            this.btnOrdered.Size = new System.Drawing.Size(153, 69);
+            this.btnOrdered.TabIndex = 22;
+            this.btnOrdered.Text = "Đã Order";
+            this.btnOrdered.UseVisualStyleBackColor = true;
+            this.btnOrdered.Click += new System.EventHandler(this.btnOrdered_Click);
             // 
             // btnDatTruoc
             // 
@@ -230,17 +241,6 @@
             this.btnOpenMenu.UseVisualStyleBackColor = true;
             this.btnOpenMenu.Click += new System.EventHandler(this.btnOpenMenu_Click);
             // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(897, 26);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(153, 49);
-            this.button1.TabIndex = 22;
-            this.button1.Text = "test";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // plPhong
             // 
             this.plPhong.Controls.Add(this.label1);
@@ -257,9 +257,9 @@
             this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.label5.Font = new System.Drawing.Font("Times New Roman", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(3, 4);
-            this.label5.MinimumSize = new System.Drawing.Size(402, 80);
+            this.label5.MinimumSize = new System.Drawing.Size(420, 80);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(402, 80);
+            this.label5.Size = new System.Drawing.Size(420, 80);
             this.label5.TabIndex = 0;
             this.label5.Text = "Đã Order";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -271,7 +271,7 @@
             this.flowLayoutOrdered.BackColor = System.Drawing.SystemColors.Control;
             this.flowLayoutOrdered.Location = new System.Drawing.Point(3, 85);
             this.flowLayoutOrdered.Name = "flowLayoutOrdered";
-            this.flowLayoutOrdered.Size = new System.Drawing.Size(402, 703);
+            this.flowLayoutOrdered.Size = new System.Drawing.Size(420, 703);
             this.flowLayoutOrdered.TabIndex = 25;
             // 
             // plOrdered
@@ -281,7 +281,7 @@
             this.plOrdered.Dock = System.Windows.Forms.DockStyle.Left;
             this.plOrdered.Location = new System.Drawing.Point(0, 0);
             this.plOrdered.Name = "plOrdered";
-            this.plOrdered.Size = new System.Drawing.Size(409, 703);
+            this.plOrdered.Size = new System.Drawing.Size(420, 703);
             this.plOrdered.TabIndex = 26;
             // 
             // frmPhong
@@ -291,7 +291,7 @@
             this.AutoScroll = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(1432, 803);
+            this.ClientSize = new System.Drawing.Size(1482, 803);
             this.Controls.Add(this.plOrdered);
             this.Controls.Add(this.plPhong);
             this.Controls.Add(this.plControl);
@@ -329,7 +329,7 @@
         private System.Windows.Forms.Button btnDatTruoc;
         private System.Windows.Forms.Button btnHuyDatTruoc;
         private System.Windows.Forms.Button btnOpenMenu;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnOrdered;
         private System.Windows.Forms.Panel plPhong;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutOrdered;
