@@ -58,7 +58,8 @@ namespace SuperProjectQ.FrmMixed
         ConnectData kn = new ConnectData();
         string phong_MaNV = "QTV01"; //Session.MaNV;
         Panel selectedPanel = null; // Lưu trữ panel đang được chọn
-        string TakeNamePanel = null; //Xử lý khi click vào panel
+        string maPhong = ""; //Mã phòng gán vào name của panel phòng
+        int maHD = 0; //Mã hoá đơn gán vào tag của panel phòng
 
         string strStatusOpen = "Trạng thái: Đang chạy";
         string strStatusClose = "Trạng thái: Trống";
@@ -271,6 +272,8 @@ namespace SuperProjectQ.FrmMixed
                         Button_Plus_And_Minus minus = new Button_Plus_And_Minus();
                         minus.btn = btn;
                         minus.BtnMinus_ClickChange();
+
+                        Session.isPlus = false;
                     };
 
                     plItem.Controls.Add(btnPlus);
@@ -280,10 +283,45 @@ namespace SuperProjectQ.FrmMixed
                         Button_Plus_And_Minus plus = new Button_Plus_And_Minus();
                         plus.btn = btn;
                         plus.BtnPlus_ClickChange();
+
+                        Session.isPlus = true;
                     };
 
                     plItem.Controls.Add(btnXacNhan);
+                    btnXacNhan.Click += btnXacNhan_click;
+
+                    Session.isPlus = null;
                 }
+            }
+        }
+        private void btnXacNhan_click(object sender, EventArgs e)
+        {
+            DialogResult reply = DialogResult.Yes;
+            Button thisBtn = sender as Button;
+
+            if (Session.isPlus == true) reply = MessageBox.Show("Xác nhận thêm đồ vào phòng ?", "Xác nhận", MessageBoxButtons.YesNo);
+            else if (Session.isPlus == false) reply = MessageBox.Show("Xác nhận giảm đồ của phòng ?", "Xác nhận", MessageBoxButtons.YesNo);
+
+            if(reply == DialogResult.Yes && Session.isPlus.HasValue)
+            {
+                dt = new DataTable();
+                dt = kn.CreateTable($"SELECT SoLuong FROM ChiTietHD WHERE MaHD = {maHD} AND MaSP = '{thisBtn.Parent.Tag}'");
+
+                double soLuongHienTai = Convert.ToDouble(dt.Rows[0]["SoLuong"]);
+                double soLuongMoi = Convert.ToDouble(thisBtn.Parent.Controls[1].Text);
+
+                if (Session.isPlus == true) soLuongMoi = soLuongMoi - soLuongHienTai;
+                else if (Session.isPlus == false) soLuongMoi = soLuongHienTai - soLuongMoi;
+
+                string sqlUpdateSoLuong = $"UPDATE ChiTietHD SET SoLuong = @SLM WHERE MaHD = @MHD AND MaSP = @MSP";
+                cmd = new SqlCommand(sqlUpdateSoLuong, kn.conn);
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@SLM", Convert.ToDouble(thisBtn.Parent.Controls[1].Text));
+                cmd.Parameters.AddWithValue("@MHD", maHD);
+                cmd.Parameters.AddWithValue("@MSP", thisBtn.Parent.Tag.ToString());
+                cmd.ExecuteNonQuery();
+
+                Session.CapNhatKho(!Session.isPlus.Value, thisBtn.Parent.Tag.ToString(),soLuongMoi);
             }
         }
         private void DoCoSan(int maHD)
@@ -482,34 +520,34 @@ namespace SuperProjectQ.FrmMixed
                 cmd.ExecuteNonQuery();
             }
         } //Cập nhật bill khi đã TT xong
-        private void UpdateTonKho(int billID)
-        {
-            double soLuong = 0;
-            string maSP = null, sqlUpdateTonKho = null ;
-            double tonKho = 0;
-            //Lấy mã sp ở CTHD, số lượng
-            string sqlGetCTHD = $"SELECT MaSP, SoLuong FROM ChiTietHD WHERE MaHD = '{billID}'";
-            dt = new DataTable();
-            dt = kn.CreateTable(sqlGetCTHD);
-            foreach (DataRow dr in dt.Rows)
-            {
-                soLuong = Convert.ToDouble(dr["SoLuong"]);
-                maSP = dr["MaSP"].ToString();
+        //private void UpdateTonKho(int billID)
+        //{
+        //    double soLuong = 0;
+        //    string maSP = null, sqlUpdateTonKho = null ;
+        //    double tonKho = 0;
+        //    //Lấy mã sp ở CTHD, số lượng
+        //    string sqlGetCTHD = $"SELECT MaSP, SoLuong FROM ChiTietHD WHERE MaHD = '{billID}'";
+        //    dt = new DataTable();
+        //    dt = kn.CreateTable(sqlGetCTHD);
+        //    foreach (DataRow dr in dt.Rows)
+        //    {
+        //        soLuong = Convert.ToDouble(dr["SoLuong"]);
+        //        maSP = dr["MaSP"].ToString();
 
-                //từ mã sp trên lấy ra đơn vị tính, 
-                string sqlDVT = $"SELECT SanPham.MaSP, SanPham.DinhLuong, KhoHang.DonViTinh, KhoHang.TonKho FROM SanPham INNER JOIN KhoHang ON KhoHang.MaSP = SanPham.MaSP WHERE SanPham.MaSP = '{maSP}'";
-                dt = new DataTable();
-                dt = kn.CreateTable(sqlDVT);
-                //lấy tồn kho
-                tonKho = Convert.ToDouble(dt.Rows[0]["TonKho"]) - soLuong;
-                //nếu đơn vị là kg sẽ tính định lượng sang kg và trừ
-                sqlUpdateTonKho = $"UPDATE KhoHang SET TonKho = @TK WHERE MaSP = '{maSP}'";
-                cmd = new SqlCommand(sqlUpdateTonKho, kn.conn);
-                cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("@TK", tonKho);
-                cmd.ExecuteNonQuery();
-            }
-        }//Cập nhật tồn kho
+        //        //từ mã sp trên lấy ra đơn vị tính, 
+        //        string sqlDVT = $"SELECT SanPham.MaSP, SanPham.DinhLuong, KhoHang.DonViTinh, KhoHang.TonKho FROM SanPham INNER JOIN KhoHang ON KhoHang.MaSP = SanPham.MaSP WHERE SanPham.MaSP = '{maSP}'";
+        //        dt = new DataTable();
+        //        dt = kn.CreateTable(sqlDVT);
+        //        //lấy tồn kho
+        //        tonKho = Convert.ToDouble(dt.Rows[0]["TonKho"]) - soLuong;
+        //        //nếu đơn vị là kg sẽ tính định lượng sang kg và trừ
+        //        sqlUpdateTonKho = $"UPDATE KhoHang SET TonKho = @TK WHERE MaSP = '{maSP}'";
+        //        cmd = new SqlCommand(sqlUpdateTonKho, kn.conn);
+        //        cmd.Parameters.Clear();
+        //        cmd.Parameters.AddWithValue("@TK", tonKho);
+        //        cmd.ExecuteNonQuery();
+        //    }
+        //}//Cập nhật tồn kho
         private decimal TongTienDV(int MaHD)
         {
             //Tính tổng tiền
@@ -525,12 +563,6 @@ namespace SuperProjectQ.FrmMixed
             Session.TongTienDV = tongTienDV; // Gán biết dùng chung
             return tongTienDV;
         } //Tính tiền DV
-        private void GetData_From_CTHD(int maHD) //Load lại dữ liệu đã order khi mở lại chương trình
-        {
-            string sqlCTHD = $"SELECT ChiTietHD.MaSP, SanPham.TenHienThi, ChiTietHD.SoLuong, ChiTietHD.DonViTinh, ChiTietHD.DonGia, ChiTietHD.ThanhTien " +
-            $"FROM ChiTietHD \n" +
-            $"INNER JOIN SanPham ON ChiTietHD.MaSP = SanPham.MaSP WHERE MaHD = {maHD}";
-        }
         private void AllPanels_Click(object sender, EventArgs e)
         {
             //Xử lý panel đã click trong quá khứ
@@ -585,9 +617,8 @@ namespace SuperProjectQ.FrmMixed
                     continue;
                 }
             }
-            TakeNamePanel = selectedPanel.Name;
-            int maHD = Convert.ToInt32(selectedPanel.Tag);
-            string maPhong = selectedPanel.Name;
+            maPhong = selectedPanel.Name;
+            maHD = Convert.ToInt32(selectedPanel.Tag);
 
             Load_Ordered(maHD);
             TongTienDV(maHD);
@@ -632,12 +663,10 @@ namespace SuperProjectQ.FrmMixed
         {
             try
             {
-                if (TakeNamePanel == null){ MessageBox.Show("Hãy chọn một phòng"); return;}
+                if (maPhong == ""){ MessageBox.Show("Hãy chọn một phòng"); return;}
                 if (MessageBox.Show("Xác nhận đặt trước?", "Thông báo",MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     //Đổi màu, thời gian, chữ
-                    string maPhong = TakeNamePanel;
-
                     btnOpen.Visible = true;
                     btnClose.Visible = false;
                     btnDatTruoc.Visible = false;
@@ -661,10 +690,9 @@ namespace SuperProjectQ.FrmMixed
         {
             try
             {
-                if (TakeNamePanel == null) {MessageBox.Show("Hãy chọn một phòng"); return;}
+                if (maPhong == null) {MessageBox.Show("Hãy chọn một phòng"); return;}
 
                     //Đổi màu, thời gian, chữ
-                    string maPhong = TakeNamePanel;
                     btnOpen.Visible = true;
                     btnClose.Visible = false;
                     btnDatTruoc.Visible = true;
@@ -686,12 +714,11 @@ namespace SuperProjectQ.FrmMixed
         {
             try
             {
-                if (TakeNamePanel == null)
+                if (maPhong == null)
                 {
                     MessageBox.Show("Hãy chọn một phòng"); return;
                 }
                 //Đổi màu, thời gian, chữ
-                string maPhong = TakeNamePanel;
                 btnOpen.Visible = false;
                 btnClose.Visible = true;
                 btnDatTruoc.Visible = false;
@@ -709,7 +736,6 @@ namespace SuperProjectQ.FrmMixed
                 Update_Status_Room(1, maPhong);
                 Add_Bill(billID, maPhong);
                 //DoCoSan(billID);
-                GetData_From_CTHD(billID);
                 TongTienDV(billID);
             }
             catch (SqlException ex)
@@ -722,13 +748,11 @@ namespace SuperProjectQ.FrmMixed
         {
             try
             {
-                int billID = Convert.ToInt32(selectedPanel.Tag.ToString());
-                string maPhong = TakeNamePanel;
-                Session.maHD = billID;
+                Session.maHD = maHD;
 
-                TongTienDV(billID);
+                TongTienDV(maHD);
 
-                if (XacNhanTT(billID, maPhong))
+                if (XacNhanTT(maHD, maPhong))
                 {
                     //Đổi màu, thời gian, chữ
                     btnOpen.Visible = true;
@@ -741,9 +765,8 @@ namespace SuperProjectQ.FrmMixed
                     selectedPanel.Controls[1].Text = strStatusClose;
 
                     //Them bill
-                    Update_Bill(billID, maPhong);
+                    Update_Bill(maHD, maPhong);
                     Update_Status_Room(0, maPhong);
-                    UpdateTonKho(billID);
                 }
             }
             catch (SqlException ex)
@@ -774,7 +797,7 @@ namespace SuperProjectQ.FrmMixed
         private void btnOrdered_Click(object sender, EventArgs e)
         {
             if (selectedPanel == null) return;
-            if (selectedPanel.Tag != null && selectedPanel.Tag.ToString() != "") Load_Ordered((int)selectedPanel.Tag);
+            Load_Ordered(maHD);
 
             int baseLocationX = 17;
             int newLocationY = 4;

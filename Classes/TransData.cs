@@ -109,20 +109,21 @@ namespace SuperProjectQ
 
             dt = kn.CreateTable($"SELECT * FROM KhoHang WHERE MaSP = '{maSP}'");
 
-            int soLuongTon = dt.Rows[0]["TonKho"] != DBNull.Value ? Convert.ToInt32(dt.Rows[0]["TonKho"]) : 0;
+            double soLuongTon = dt.Rows[0]["TonKho"] != DBNull.Value ? Convert.ToDouble(dt.Rows[0]["TonKho"]) : 0;
             bool DonViTinh = dt.Rows[0]["DonViTinh"] != DBNull.Value && dt.Rows[0]["DonViTinh"].ToString() == "Kg" ? true : false;
+
+            MessageBox.Show($"Số lượng tồn kho trước khi cập nhật: {soLuongTon}");
 
             dt.Clear();
             dt = kn.CreateTable($"SELECT DinhLuong FROM SanPham WHERE MaSP = '{maSP}'");
             double dinhLuong = dt.Rows[0]["DinhLuong"] != DBNull.Value ? Convert.ToDouble(dt.Rows[0]["DinhLuong"]) : 0;
 
-            if (DonViTinh) //Nếu đơn vị tính là Kg 
-            {
-                soLuong = soLuong * dinhLuong  / 1000;
-            }
-            
-            if (isPlus) {soLuongTon += (int)soLuong;} //Nếu trả lại đồ thì cộng số lượng vào kho
-            else {soLuongTon -= (int)soLuong; } //Nếu order đồ thì trừ số lượng trong kho
+            if (DonViTinh) soLuong = soLuong * dinhLuong  / 1000; //Nếu đơn vị tính là Kg 
+
+            if (isPlus) {soLuongTon += soLuong;} //Nếu trả lại đồ thì cộng số lượng vào kho
+            else {soLuongTon -= soLuong; } //Nếu order đồ thì trừ số lượng trong kho
+
+            MessageBox.Show($"Số lượng tồn kho sau khi cập nhật: {soLuongTon}");
 
             string sqlCapNhatKho = "UPDATE KhoHang SET TonKho = @TonKho WHERE MaSP = @MaSP";
             cmd = new SqlCommand(sqlCapNhatKho, kn.conn);
@@ -130,7 +131,11 @@ namespace SuperProjectQ
             cmd.Parameters.AddWithValue("@TonKho", soLuongTon);
             cmd.Parameters.AddWithValue("@MaSP", maSP);
             cmd.ExecuteNonQuery();
+
+            Session.isPlus = null; //Reset lại giá trị isPlus sau khi cập nhật kho
+
         }
+        public static Nullable<bool> isPlus { get; set; } //Biến tạm để xác định là cộng hay trừ số lượng trong kho, nếu true là cộng, false là trừ, null là chưa xác định
 
         public static string IDUser { get; set; }
         public static string MaQH { get; set; }

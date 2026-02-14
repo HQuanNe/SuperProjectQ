@@ -366,6 +366,7 @@ namespace SuperProjectQ.AllForm
                 }
                 if (isAdded)
                 {
+                    MessageBox.Show(soLuong.ToString());
                     Session.CapNhatKho(false, clickedButton.Name, soLuong);
 
                     cmd = new SqlCommand($"SELECT TenHienThi FROM SanPham WHERE MaSP = '{clickedButton.Name}'", kn.conn);
