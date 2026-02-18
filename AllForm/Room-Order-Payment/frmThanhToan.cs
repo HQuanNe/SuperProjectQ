@@ -34,7 +34,6 @@ namespace SuperProjectQ.FrmMixed
         bool voucherTarget = false; //nếu có voucher được chọn sẽ là True
         int trangThaiVoucher = 0; //Trạng thái của voucher: 0 - Chưa dùng, 1 - đã dùng, 2 - hết hạn
 
-        const decimal VAT = SetParameters.VAT; //Mức thuế
         private int TienNhan()
         {
             int takeNum = 0;
@@ -169,8 +168,7 @@ namespace SuperProjectQ.FrmMixed
                 {
                     decimal giaMoiGio = Convert.ToDecimal(dt.Rows[0]["GiaTheoGio"]);
                     DateTime dateTimeIn = Convert.ToDateTime(dt.Rows[0]["GioVao"]); //Lấy giờ vào
-                    DateTime dateTimeOut = Convert.ToDateTime(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")); // Tính giờ ra
-                    TimeSpan tongThoiGian = dateTimeOut - dateTimeIn; //Tổng thời gian sử dụng
+                    TimeSpan tongThoiGian = Session.TimeOut - dateTimeIn; //Tổng thời gian sử dụng
 
                     double giaMoiPhut =  (double)TinhTienPhongSau_22h(dateTimeIn, giaMoiGio)/ 60; //Tính giá mỗi phút 
 
@@ -180,10 +178,9 @@ namespace SuperProjectQ.FrmMixed
 
 
                     decimal tongTien = tongTienPhong + tienDV;
-                    decimal tienVAT = (tongTien - trietKhauVIP - giamVoucher) * VAT;
+                    decimal tienVAT = (tongTien - trietKhauVIP - giamVoucher) * SetParameters.VAT;
                     
                     //Gán biến chung
-                    Session.TimeOut = dateTimeOut;
                     Session.TongSoPhut = tongSoPhut;
                     Session.TongTienPhong = tongTienPhong;
                     Session.TongTien = tongTien;

@@ -288,7 +288,7 @@
             this.panel3.Controls.Add(this.lblDiaChi);
             this.panel3.Controls.Add(this.lblVIP);
             this.panel3.Controls.Add(this.lblDiemTichLuy);
-            this.panel3.Location = new System.Drawing.Point(4, 134);
+            this.panel3.Location = new System.Drawing.Point(4, 57);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(403, 236);
             this.panel3.TabIndex = 32;
@@ -432,7 +432,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(3, 44);
+            this.label13.Location = new System.Drawing.Point(8, 347);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(119, 23);
             this.label13.TabIndex = 26;
@@ -443,7 +443,7 @@
             this.lblTienDV.AutoSize = true;
             this.lblTienDV.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTienDV.ForeColor = System.Drawing.Color.Olive;
-            this.lblTienDV.Location = new System.Drawing.Point(128, 44);
+            this.lblTienDV.Location = new System.Drawing.Point(133, 347);
             this.lblTienDV.Name = "lblTienDV";
             this.lblTienDV.Size = new System.Drawing.Size(24, 23);
             this.lblTienDV.TabIndex = 27;
@@ -516,7 +516,7 @@
             // txtSDT
             // 
             this.txtSDT.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSDT.Location = new System.Drawing.Point(191, 98);
+            this.txtSDT.Location = new System.Drawing.Point(191, 21);
             this.txtSDT.Multiline = true;
             this.txtSDT.Name = "txtSDT";
             this.txtSDT.Size = new System.Drawing.Size(204, 30);
@@ -527,7 +527,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(3, 102);
+            this.label5.Location = new System.Drawing.Point(3, 25);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(155, 23);
             this.label5.TabIndex = 7;
@@ -548,7 +548,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(3, 9);
+            this.label2.Location = new System.Drawing.Point(8, 312);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(110, 23);
             this.label2.TabIndex = 0;
@@ -559,7 +559,7 @@
             this.lblTienPhong.AutoSize = true;
             this.lblTienPhong.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTienPhong.ForeColor = System.Drawing.Color.Olive;
-            this.lblTienPhong.Location = new System.Drawing.Point(128, 9);
+            this.lblTienPhong.Location = new System.Drawing.Point(133, 312);
             this.lblTienPhong.Name = "lblTienPhong";
             this.lblTienPhong.Size = new System.Drawing.Size(24, 23);
             this.lblTienPhong.TabIndex = 1;

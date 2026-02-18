@@ -21,9 +21,9 @@ namespace SuperProjectQ
             InitializeComponent();
         }
         ConnectData kn = new ConnectData();
-        SqlDataAdapter adapter = null;
-        SqlDataAdapter adapter2 = null;
-        SqlDataAdapter adapter3 = null;
+        SqlDataAdapter adapterHD = null;
+        SqlDataAdapter adapterCTHD = null;
+        SqlDataAdapter adapterTrietKhau = null;
         int maHD = Session.maHD;
         private void PrintBill_Load(object sender, EventArgs e)
         {
@@ -40,7 +40,8 @@ namespace SuperProjectQ
             {
                 MessageBox.Show("Lỗi: " + ex.Message);
             }
-            //MessageBox.Show(Session.maHD.ToString());
+
+
             this.rpInHoaDon.LocalReport.DataSources.Clear();
             string sqlHD = $"SELECT HoaDon.MaHD, Phong.TenPhong, LoaiPhong.TenLoaiPhong, HoaDon.MaKH, HoaDon.MaNV, HoaDon.GioVao, HoaDon.GioRa, HoaDon.TongSoPhut, " +
                 $"HoaDon.TienPhong, HoaDon.TienDichVu, HoaDon.TongTien, HoaDon.TrietKhauVIP, HoaDon.TrietKhauVoucher, HoaDon.VAT, HoaDon.TongThanhToan, " +
@@ -49,16 +50,18 @@ namespace SuperProjectQ
             string sqlCTHD = $"SELECT ChiTietHD.MaHD, SanPham.TenHienThi, ChiTietHD.SoLuong, ChiTietHD.DonViTinh, ChiTietHD.DonGia, ChiTietHD.ThanhTien FROM ChiTietHD " +
                              $"INNER JOIN SanPham ON SanPham.MaSP = ChiTietHD.MaSP WHERE MaHD = {maHD}";
             
-            string sqlKH = $"SELECT Discount FROM KhachHang WHERE MaKH = '{Session.MaKH}'";
+            string sqlTrietKhau = $"SELECT Discount FROM KhachHang WHERE MaKH = '{Session.MaKH}'";
 
-            adapter = new SqlDataAdapter(sqlHD, kn.conn);
-            adapter2 = new SqlDataAdapter(sqlCTHD, kn.conn);
-            adapter3 = new SqlDataAdapter(sqlKH, kn.conn);
+            adapterHD = new SqlDataAdapter(sqlHD, kn.conn);
+            adapterCTHD = new SqlDataAdapter(sqlCTHD, kn.conn);
+            adapterTrietKhau = new SqlDataAdapter(sqlTrietKhau, kn.conn);
+
             DataSet ds = new DataSet();
-            adapter.Fill(ds, "HoaDon");
-            adapter2.Fill(ds, "ChitTietHD");
-            adapter3.Fill(ds, "KhachHang");
+            adapterHD.Fill(ds, "HoaDon");
+            adapterCTHD.Fill(ds, "ChitTietHD");
+            adapterTrietKhau.Fill(ds, "KhachHang");
             rpInHoaDon.LocalReport.ReportEmbeddedResource = "SuperProjectQ.AllForm.InHoaDon.RpInHoaDon.rdlc";
+
             //Đưa DL lên bảng báo cáo
             ReportDataSource rdsCTHD = new ReportDataSource("DataSetCTHD", ds.Tables["ChitTietHD"]);
             ReportDataSource rdsHoaDon = new ReportDataSource("DataSetHD", ds.Tables["HoaDon"]);
@@ -67,6 +70,13 @@ namespace SuperProjectQ
             rpInHoaDon.LocalReport.DataSources.Add(rdsCTHD);
             rpInHoaDon.LocalReport.DataSources.Add(rdsKH);
             rpInHoaDon.RefreshReport();
+
+            //Set tham so
+            ReportParameter[] SetPara = new ReportParameter[]
+            {
+                new ReportParameter("VAT", (SetParameters.VAT * 100).ToString()),
+            };
+            rpInHoaDon.LocalReport.SetParameters(SetPara);
 
             this.rpInHoaDon.RefreshReport();
         }

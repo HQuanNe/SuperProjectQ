@@ -264,6 +264,14 @@ namespace SuperProjectQ.FrmMixed
                     plItem.Controls.Add(lblTenSP);
 
                     plItem.Controls.Add(txtSoLuong);
+                    txtSoLuong.TextChanged += (s, e) =>
+                    {
+                        var txt = (TextBox)s;
+                        if (Convert.ToInt32(txt.Text) < 0)
+                        {
+                            txt.Text = "1";
+                        }
+                    };
 
                     plItem.Controls.Add(btnMinus);
                     btnMinus.Click += (s, e) =>
@@ -293,10 +301,10 @@ namespace SuperProjectQ.FrmMixed
                     Session.isPlus = null;
                 }
             }
-        }
+        } //Load sản phẩm đã order của phòng
         private void btnXacNhan_click(object sender, EventArgs e)
         {
-            DialogResult reply = DialogResult.Yes;
+            DialogResult? reply = null;
             Button thisBtn = sender as Button;
 
             if (Session.isPlus == true) reply = MessageBox.Show("Xác nhận thêm đồ vào phòng ?", "Xác nhận", MessageBoxButtons.YesNo);
@@ -321,7 +329,13 @@ namespace SuperProjectQ.FrmMixed
                 cmd.Parameters.AddWithValue("@MSP", thisBtn.Parent.Tag.ToString());
                 cmd.ExecuteNonQuery();
 
-                Session.CapNhatKho(!Session.isPlus.Value, thisBtn.Parent.Tag.ToString(),soLuongMoi);
+                //Xoá sản phẩm khỏi CTHD khi số lượng về 0
+                cmd = new SqlCommand("DELETE ChiTietHD WHERE SoLuong = 0", kn.conn);
+                cmd.ExecuteNonQuery();
+
+                Session.CapNhatKho(!Session.isPlus.Value, thisBtn.Parent.Tag.ToString(), soLuongMoi);
+
+                Load_Ordered(maHD);
             }
         }
         private void DoCoSan(int maHD)
@@ -520,34 +534,7 @@ namespace SuperProjectQ.FrmMixed
                 cmd.ExecuteNonQuery();
             }
         } //Cập nhật bill khi đã TT xong
-        //private void UpdateTonKho(int billID)
-        //{
-        //    double soLuong = 0;
-        //    string maSP = null, sqlUpdateTonKho = null ;
-        //    double tonKho = 0;
-        //    //Lấy mã sp ở CTHD, số lượng
-        //    string sqlGetCTHD = $"SELECT MaSP, SoLuong FROM ChiTietHD WHERE MaHD = '{billID}'";
-        //    dt = new DataTable();
-        //    dt = kn.CreateTable(sqlGetCTHD);
-        //    foreach (DataRow dr in dt.Rows)
-        //    {
-        //        soLuong = Convert.ToDouble(dr["SoLuong"]);
-        //        maSP = dr["MaSP"].ToString();
 
-        //        //từ mã sp trên lấy ra đơn vị tính, 
-        //        string sqlDVT = $"SELECT SanPham.MaSP, SanPham.DinhLuong, KhoHang.DonViTinh, KhoHang.TonKho FROM SanPham INNER JOIN KhoHang ON KhoHang.MaSP = SanPham.MaSP WHERE SanPham.MaSP = '{maSP}'";
-        //        dt = new DataTable();
-        //        dt = kn.CreateTable(sqlDVT);
-        //        //lấy tồn kho
-        //        tonKho = Convert.ToDouble(dt.Rows[0]["TonKho"]) - soLuong;
-        //        //nếu đơn vị là kg sẽ tính định lượng sang kg và trừ
-        //        sqlUpdateTonKho = $"UPDATE KhoHang SET TonKho = @TK WHERE MaSP = '{maSP}'";
-        //        cmd = new SqlCommand(sqlUpdateTonKho, kn.conn);
-        //        cmd.Parameters.Clear();
-        //        cmd.Parameters.AddWithValue("@TK", tonKho);
-        //        cmd.ExecuteNonQuery();
-        //    }
-        //}//Cập nhật tồn kho
         private decimal TongTienDV(int MaHD)
         {
             //Tính tổng tiền
@@ -559,7 +546,6 @@ namespace SuperProjectQ.FrmMixed
             {
                 tongTienDV += Convert.ToDecimal(dr["ThanhTien"]);
             }
-            //lblTongTien.Text = tongTienDV.ToString("#,##0 VND");
             Session.TongTienDV = tongTienDV; // Gán biết dùng chung
             return tongTienDV;
         } //Tính tiền DV
@@ -623,7 +609,7 @@ namespace SuperProjectQ.FrmMixed
             Load_Ordered(maHD);
             TongTienDV(maHD);
         }
-        private bool XacNhanTT(int billID, string RoomID) //Xác nhận qua bước tt
+        private bool XacNhanTT(string RoomID) //Xác nhận qua bước tt
         {
             bool xacNhanTT = false;
             DialogResult reply = MessageBox.Show("Xác nhận đóng ?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -748,11 +734,11 @@ namespace SuperProjectQ.FrmMixed
         {
             try
             {
-                Session.maHD = maHD;
+                TongTienDV(Session.maHD); //Tính tiền dịch vụ
 
-                TongTienDV(maHD);
+                DateTime dateTimeOut = Convert.ToDateTime(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")); // Tính giờ ra
 
-                if (XacNhanTT(maHD, maPhong))
+                if (XacNhanTT(maPhong))
                 {
                     //Đổi màu, thời gian, chữ
                     btnOpen.Visible = true;
@@ -764,7 +750,7 @@ namespace SuperProjectQ.FrmMixed
                     selectedPanel.BackColor = clrStatusClose;
                     selectedPanel.Controls[1].Text = strStatusClose;
 
-                    //Them bill
+                    //Cập nhật hoá đơn bill
                     Update_Bill(maHD, maPhong);
                     Update_Status_Room(0, maPhong);
                 }

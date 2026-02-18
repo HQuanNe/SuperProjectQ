@@ -28,8 +28,8 @@ namespace SuperProjectQ
         #region Giá, VAT, lãi suất hoá đơn, giá sau 22h,... trong frmThanhToan
         //Giá VAT, lãi suất hoá đơn, giá sau 22h
         public const double laiSuat = 0.02; //Lãi suất hoá đơn 2%/ngày khi quá hạn thanh toán
-        public const decimal VAT = 0.1m;
-        public const decimal PriceAfter_22H = 1.2m;
+        public const decimal VAT = 0.1m; //Thuế giá trị gia tăng 10%
+        public const decimal PriceAfter_22H = 1.2m; //Giá sau 22h tăng 20%
         #endregion
     }
 }

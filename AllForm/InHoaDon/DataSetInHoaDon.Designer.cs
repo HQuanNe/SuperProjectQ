@@ -982,7 +982,7 @@ namespace SuperProjectQ.AllForm.InHoaDon {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public ChiTietHDRow AddChiTietHDRow(string MaHD, string TenHienThi, short SoLuong, string DonViTinh, decimal DonGia, decimal ThanhTien) {
+            public ChiTietHDRow AddChiTietHDRow(string MaHD, string TenHienThi, int SoLuong, string DonViTinh, decimal DonGia, decimal ThanhTien) {
                 ChiTietHDRow rowChiTietHDRow = ((ChiTietHDRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         MaHD,
@@ -1028,7 +1028,7 @@ namespace SuperProjectQ.AllForm.InHoaDon {
                 base.Columns.Add(this.columnMaHD);
                 this.columnTenHienThi = new global::System.Data.DataColumn("TenHienThi", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTenHienThi);
-                this.columnSoLuong = new global::System.Data.DataColumn("SoLuong", typeof(short), null, global::System.Data.MappingType.Element);
+                this.columnSoLuong = new global::System.Data.DataColumn("SoLuong", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSoLuong);
                 this.columnDonViTinh = new global::System.Data.DataColumn("DonViTinh", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDonViTinh);
@@ -1976,10 +1976,10 @@ namespace SuperProjectQ.AllForm.InHoaDon {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public short SoLuong {
+            public int SoLuong {
                 get {
                     try {
-                        return ((short)(this[this.tableChiTietHD.SoLuongColumn]));
+                        return ((int)(this[this.tableChiTietHD.SoLuongColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'SoLuong\' in table \'ChiTietHD\' is DBNull.", e);

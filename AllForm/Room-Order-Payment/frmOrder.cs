@@ -294,8 +294,10 @@ namespace SuperProjectQ.AllForm
 
                     double dinhLuong = Convert.ToDouble(dt.Rows[0][4].ToString());
 
-                    if(donViTinh == "Kg") dinhLuong = dinhLuong / 1000 * soLuong;
-                    else dinhLuong = soLuong;
+                    if (donViTinh == "Kg") 
+                    { 
+                        donViTinh = "Đĩa";
+                    }
 
                     bool flag = true;
 
@@ -321,10 +323,10 @@ namespace SuperProjectQ.AllForm
                         cmd.Parameters.AddWithValue("@MCTHD", Session.AutoCreateID("MaCTHD", "ChiTietHD"));
                         cmd.Parameters.AddWithValue("@MHD", intMaHD);
                         cmd.Parameters.AddWithValue("@MSP", maSP);
-                        cmd.Parameters.AddWithValue("@SL", dinhLuong);
+                        cmd.Parameters.AddWithValue("@SL", soLuong);
                         cmd.Parameters.AddWithValue("@DV", donViTinh);
                         cmd.Parameters.AddWithValue("@DG", donGia);
-                        cmd.Parameters.AddWithValue("@TT", dinhLuong * donGia);
+                        cmd.Parameters.AddWithValue("@TT", soLuong * donGia);
                         cmd.ExecuteNonQuery();
 
                         isAdded = true;
@@ -410,6 +412,8 @@ namespace SuperProjectQ.AllForm
                 flowLayoutDSPhong.Controls.Add(btnDSPhong);
                 btnDSPhong.Click += BtnDSPhong_Click;
             }
+
+            lblDanhMuc.Text = "Tất cả";
 
             //Ẩn các nút con của nút cha ở thanh điều hướng
             HideBtnFoodChildren();
