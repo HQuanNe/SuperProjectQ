@@ -1,4 +1,5 @@
 ﻿using SuperProjectQ.AllForm;
+using SuperProjectQ.AllForm.Other;
 using SuperProjectQ.Frm_Main_Login_Register;
 using SuperProjectQ.FrmMixed;
 using System;
@@ -19,7 +20,7 @@ namespace SuperProjectQ
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmPhong());
+            Application.Run(new frmMainUI());
         }
     }
 }

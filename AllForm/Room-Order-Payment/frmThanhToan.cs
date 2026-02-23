@@ -18,6 +18,7 @@ namespace SuperProjectQ.FrmMixed
         public frmThanhToan()
         {
             InitializeComponent();
+            Session.SetParameters_Load();
         }
         ConnectData kn = new ConnectData();
         SqlDataAdapter da = null;
@@ -132,24 +133,24 @@ namespace SuperProjectQ.FrmMixed
         private void LoadLabel()//Hiển thị lên giao diện
         {
             lblTienPhong.Text = Session.TongTienPhong.ToString("#,##0 VND");
-            lblTienDV.Text = Session.TongTienDV.ToString("#,##0");
+            lblTienDV.Text = Session.TongTienDV.ToString("#,##0 VND");
 
             if (isCustomer)
             {
-                lblTrietKhau.Text = Session.DiscountVIP.ToString("#,##0");
-                lblTKVoucher.Text = giamVoucher.ToString("#,##0");
+                lblTrietKhau.Text = Session.DiscountVIP.ToString("#,##0 VND");
+                lblTKVoucher.Text = giamVoucher.ToString("#,##0 VND");
             }
             else lblTrietKhau.Text = "";
 
-            lblTienThue.Text = Session.TienVAT.ToString("#,##0");
-            lblTienThanhToan.Text = Session.TongThanhToan.ToString("#,##0");
+            lblTienThue.Text = Session.TienVAT.ToString("#,##0 VND");
+            lblTienThanhToan.Text = Session.TongThanhToan.ToString("#,##0 VND");
         }
         private decimal TinhTienPhongSau_22h(DateTime timeIn, decimal PricePerHour)
         {
             TimeSpan gioVao = timeIn.TimeOfDay;
             if (gioVao >= new TimeSpan(22, 0, 0) || gioVao <= new TimeSpan(6, 0, 0))
             {
-                PricePerHour *= SetParameters.PriceAfter_22H;
+                PricePerHour +=  PricePerHour * ((decimal)Session.PriceAfter_22H / 100);
             }
             return PricePerHour;
         }
@@ -170,15 +171,17 @@ namespace SuperProjectQ.FrmMixed
                     DateTime dateTimeIn = Convert.ToDateTime(dt.Rows[0]["GioVao"]); //Lấy giờ vào
                     TimeSpan tongThoiGian = Session.TimeOut - dateTimeIn; //Tổng thời gian sử dụng
 
-                    double giaMoiPhut =  (double)TinhTienPhongSau_22h(dateTimeIn, giaMoiGio)/ 60; //Tính giá mỗi phút 
+                    double giaMoiPhut =  (double)TinhTienPhongSau_22h(dateTimeIn, giaMoiGio) / 60; //Tính giá mỗi phút 
 
                     double tongSoPhut = Math.Round(tongThoiGian.TotalMinutes); //Làm tròn thời gian sử dụng (phút)
+                    MessageBox.Show($"Tổng thời gian sử dụng: {tongSoPhut} phút, giá mỗi phút: {giaMoiPhut.ToString("#,##0")} VND");
                     decimal tongTienPhong = Convert.ToDecimal(Math.Round(tongSoPhut * giaMoiPhut / 1000) * 1000); //Tính tổng tiền phòng có làm tròn
+                    MessageBox.Show($"Tổng tiền phòng: {tongTienPhong.ToString("#,##0")} VND");
                     decimal tienDV = Session.TongTienDV; //Lấy tiền dịch vụ
 
 
                     decimal tongTien = tongTienPhong + tienDV;
-                    decimal tienVAT = (tongTien - trietKhauVIP - giamVoucher) * SetParameters.VAT;
+                    decimal tienVAT = tongTien * ((decimal)Session.VAT / 100);
                     
                     //Gán biến chung
                     Session.TongSoPhut = tongSoPhut;
@@ -263,7 +266,7 @@ namespace SuperProjectQ.FrmMixed
             {
                 voucherTarget = cmbVoucher.SelectedValue != null && Convert.ToInt32(cmbVoucher.SelectedValue) != -1 ? true : false;
                 STTmaVoucher = Convert.ToInt32(cmbVoucher.SelectedValue);
-                TongThanhToan();
+                LoadQRCode();
             }
             //MessageBox.Show(cmbVoucher.SelectedValue.ToString());
         }  //Event khi thay đổi lựa chọn voucher
@@ -396,6 +399,8 @@ namespace SuperProjectQ.FrmMixed
             //Đặt tên theo PTTT
             PTTT = "QR Code";
             lblPTTT.Text = "PTTT: " + PTTT;
+
+            LoadLabel();
 
             LoadQRCode(); //Trong hàm này đã load hàm TongThanhToan()
         }

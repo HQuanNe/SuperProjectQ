@@ -1,4 +1,5 @@
-﻿using SuperProjectQ.FrmMixed;
+﻿using SuperProjectQ.AllForm.Other;
+using SuperProjectQ.FrmMixed;
 using SuperProjectQ.Properties;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace SuperProjectQ.Frm_Main_Login_Register
 {
@@ -28,7 +30,6 @@ namespace SuperProjectQ.Frm_Main_Login_Register
             {
                 var textColor = Color.WhiteSmoke;
                 this.BackgroundImage = darkImg;
-                ckcDarkMode.Text = "Light Mode";
                 ckcDarkMode.ForeColor = textColor;
                 plInfo.BackColor = Color.Gray;
                 lblTitleChucVu.ForeColor = textColor;
@@ -48,7 +49,6 @@ namespace SuperProjectQ.Frm_Main_Login_Register
             {
                 var textColor = Color.Black;
                 this.BackgroundImage = lightImg;
-                ckcDarkMode.Text = "Dark Mode";
                 ckcDarkMode.ForeColor = textColor;
                 plInfo.BackColor = Color.FromArgb(255, 224, 192);
                 lblTitleChucVu.ForeColor = textColor;
@@ -67,8 +67,16 @@ namespace SuperProjectQ.Frm_Main_Login_Register
         private void MN_NhanVien_DSNV_Click(object sender, EventArgs e)
         {
             frmNhanVien frmNhanVien = new frmNhanVien();
-            this.Visible = false;
-            frmNhanVien.ShowDialog();
+            frmNhanVien.TopLevel = false;
+            int x = (plControls.Width - frmNhanVien.Width) / 2;
+            int y = (plControls.Height - frmNhanVien.Height) / 2;
+
+            frmNhanVien.Location = new Point(x, y);
+            frmNhanVien.FormBorderStyle = FormBorderStyle.None;
+
+            plControls.Controls.Clear();
+            plControls.Controls.Add(frmNhanVien);
+            frmNhanVien.Show();
         }
 
         private void MNQuanLy_Phong_Click(object sender, EventArgs e)
@@ -80,6 +88,21 @@ namespace SuperProjectQ.Frm_Main_Login_Register
         private void btnBack_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void MNMore_Setting_Click(object sender, EventArgs e)
+        {
+            frmSetting setting = new frmSetting();
+            setting.TopLevel = false;
+            int x = (plControls.Width - setting.Width) / 2;
+            int y = (plControls.Height - setting.Height) / 2;
+
+            setting.Location = new Point(x, y);
+            setting.FormBorderStyle = FormBorderStyle.None;
+
+            plControls.Controls.Clear();
+            plControls.Controls.Add(setting);
+            setting.Show();
         }
 
         private string TenQH()

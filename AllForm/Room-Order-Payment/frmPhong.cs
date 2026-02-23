@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -734,9 +735,10 @@ namespace SuperProjectQ.FrmMixed
         {
             try
             {
-                TongTienDV(Session.maHD); //Tính tiền dịch vụ
+                TongTienDV(maHD); //Tính tiền dịch vụ
 
                 DateTime dateTimeOut = Convert.ToDateTime(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")); // Tính giờ ra
+                Session.TimeOut = dateTimeOut;
 
                 if (XacNhanTT(maPhong))
                 {

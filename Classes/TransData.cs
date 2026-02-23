@@ -19,6 +19,10 @@ namespace SuperProjectQ
         static DataTable dt = null;
         static SqlCommand cmd = null;
 
+        public static double VAT = 0;
+        public static double laiSuat = 0;
+        public static double PriceAfter_22H = 0;
+
         public static void ConnectOpen()
         {
             kn.ConnOpen();
@@ -35,7 +39,7 @@ namespace SuperProjectQ
             DateTime homNay = Convert.ToDateTime(DateTime.Now.ToString("dd/MM/yyyy"));
             int maHD = 0;
             TimeSpan soNgayQuaHan = TimeSpan.Zero;
-            double laiSuat = SetParameters.laiSuat; //Lãi suất 2%/ngày
+            double laiSuat = (Session.laiSuat / 100); //Lãi suất 2%/ngày
 
             string sqlGhiNo = "SELECT * FROM GhiNo";
             dt = kn.CreateTable(sqlGhiNo);
@@ -135,6 +139,21 @@ namespace SuperProjectQ
             Session.isPlus = null; //Reset lại giá trị isPlus sau khi cập nhật kho
 
         }
+
+        #region Giá, VAT, lãi suất hoá đơn, giá sau 22h,... trong frmThanhToan
+        //Giá VAT, lãi suất hoá đơn, giá sau 22h
+        public static void SetParameters_Load()
+        {
+            ConnectOpen();
+            string sqlThongSo = "SELECT * FROM ThongSo";
+            dt = new DataTable();
+            dt = kn.CreateTable(sqlThongSo);
+
+            VAT = Convert.ToDouble(dt.Rows[0]["GiaTri"]); //Thuế giá trị gia tăng 10%
+            laiSuat = Convert.ToDouble(dt.Rows[1]["GiaTri"]); //Lãi suất hoá đơn 2%/ngày khi quá hạn
+            PriceAfter_22H = Convert.ToDouble(dt.Rows[2]["GiaTri"]); //Giá sau 22h tăng 20%
+        }
+        #endregion
         public static Nullable<bool> isPlus { get; set; } //Biến tạm để xác định là cộng hay trừ số lượng trong kho, nếu true là cộng, false là trừ, null là chưa xác định
 
         public static string IDUser { get; set; }

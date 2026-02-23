@@ -107,6 +107,7 @@
             // 
             // frmLogin
             // 
+            this.AcceptButton = this.btnLogin;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackgroundImage = global::SuperProjectQ.Properties.Resources.Login;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;

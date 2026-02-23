@@ -74,7 +74,7 @@ namespace SuperProjectQ
                         Session.Datalog("login.txt", $"ID: {loginIDUser} - MãNV: {loginMaNV} đã đăng nhập");
                         frmMainUI MainUI = new frmMainUI();
                         MainUI.ShowDialog();
-                        this.Visible = false;
+                        this.Close();
                     }
                     else
                     {

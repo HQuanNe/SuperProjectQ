@@ -32,11 +32,12 @@
             this.lblTitleXinChao = new System.Windows.Forms.Label();
             this.plInfo = new System.Windows.Forms.Panel();
             this.lblQuyenHan = new System.Windows.Forms.Label();
+            this.btnBack = new System.Windows.Forms.Button();
             this.lblChucVu = new System.Windows.Forms.Label();
             this.lblTenNV = new System.Windows.Forms.Label();
             this.lblTitleQH = new System.Windows.Forms.Label();
             this.lblTitleChucVu = new System.Windows.Forms.Label();
-            this.MNQuanLy = new System.Windows.Forms.ToolStripMenuItem();
+            this.MNChung = new System.Windows.Forms.ToolStripMenuItem();
             this.MNChung_Phong = new System.Windows.Forms.ToolStripMenuItem();
             this.MNKhachHang = new System.Windows.Forms.ToolStripMenuItem();
             this.MNKH_DSKhachHang = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,11 +50,11 @@
             this.quảnLýKhoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nhậpKhoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MNMore = new System.Windows.Forms.ToolStripMenuItem();
-            this.đăngKýToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MNMore_Setting = new System.Windows.Forms.ToolStripMenuItem();
             this.đổiMậtKhẩuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MNMain = new System.Windows.Forms.MenuStrip();
             this.ckcDarkMode = new System.Windows.Forms.CheckBox();
-            this.btnBack = new System.Windows.Forms.Button();
+            this.plControls = new System.Windows.Forms.Panel();
             this.plInfo.SuspendLayout();
             this.MNMain.SuspendLayout();
             this.SuspendLayout();
@@ -61,10 +62,10 @@
             // lblTitleXinChao
             // 
             this.lblTitleXinChao.AutoSize = true;
-            this.lblTitleXinChao.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitleXinChao.Location = new System.Drawing.Point(13, 18);
+            this.lblTitleXinChao.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitleXinChao.Location = new System.Drawing.Point(27, 13);
             this.lblTitleXinChao.Name = "lblTitleXinChao";
-            this.lblTitleXinChao.Size = new System.Drawing.Size(131, 33);
+            this.lblTitleXinChao.Size = new System.Drawing.Size(79, 19);
             this.lblTitleXinChao.TabIndex = 1;
             this.lblTitleXinChao.Text = "Xin chào: ";
             // 
@@ -72,79 +73,93 @@
             // 
             this.plInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.plInfo.Controls.Add(this.lblQuyenHan);
+            this.plInfo.Controls.Add(this.btnBack);
             this.plInfo.Controls.Add(this.lblChucVu);
             this.plInfo.Controls.Add(this.lblTenNV);
             this.plInfo.Controls.Add(this.lblTitleQH);
             this.plInfo.Controls.Add(this.lblTitleChucVu);
             this.plInfo.Controls.Add(this.lblTitleXinChao);
-            this.plInfo.Location = new System.Drawing.Point(12, 366);
+            this.plInfo.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.plInfo.Location = new System.Drawing.Point(0, 756);
             this.plInfo.Name = "plInfo";
-            this.plInfo.Size = new System.Drawing.Size(480, 161);
+            this.plInfo.Size = new System.Drawing.Size(1082, 47);
             this.plInfo.TabIndex = 2;
             // 
             // lblQuyenHan
             // 
             this.lblQuyenHan.AutoSize = true;
-            this.lblQuyenHan.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblQuyenHan.Location = new System.Drawing.Point(165, 112);
+            this.lblQuyenHan.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblQuyenHan.Location = new System.Drawing.Point(682, 13);
             this.lblQuyenHan.Name = "lblQuyenHan";
-            this.lblQuyenHan.Size = new System.Drawing.Size(33, 33);
+            this.lblQuyenHan.Size = new System.Drawing.Size(21, 19);
             this.lblQuyenHan.TabIndex = 6;
             this.lblQuyenHan.Text = "--";
+            // 
+            // btnBack
+            // 
+            this.btnBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnBack.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBack.Location = new System.Drawing.Point(988, 0);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(82, 45);
+            this.btnBack.TabIndex = 6;
+            this.btnBack.Text = "Trở lại";
+            this.btnBack.UseVisualStyleBackColor = false;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // lblChucVu
             // 
             this.lblChucVu.AutoSize = true;
-            this.lblChucVu.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChucVu.Location = new System.Drawing.Point(165, 65);
+            this.lblChucVu.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblChucVu.Location = new System.Drawing.Point(418, 13);
             this.lblChucVu.Name = "lblChucVu";
-            this.lblChucVu.Size = new System.Drawing.Size(33, 33);
+            this.lblChucVu.Size = new System.Drawing.Size(21, 19);
             this.lblChucVu.TabIndex = 5;
             this.lblChucVu.Text = "--";
             // 
             // lblTenNV
             // 
             this.lblTenNV.AutoSize = true;
-            this.lblTenNV.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTenNV.Location = new System.Drawing.Point(165, 18);
+            this.lblTenNV.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTenNV.Location = new System.Drawing.Point(112, 13);
             this.lblTenNV.Name = "lblTenNV";
-            this.lblTenNV.Size = new System.Drawing.Size(33, 33);
+            this.lblTenNV.Size = new System.Drawing.Size(21, 19);
             this.lblTenNV.TabIndex = 4;
             this.lblTenNV.Text = "--";
             // 
             // lblTitleQH
             // 
             this.lblTitleQH.AutoSize = true;
-            this.lblTitleQH.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitleQH.Location = new System.Drawing.Point(13, 112);
+            this.lblTitleQH.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitleQH.Location = new System.Drawing.Point(587, 13);
             this.lblTitleQH.Name = "lblTitleQH";
-            this.lblTitleQH.Size = new System.Drawing.Size(150, 33);
+            this.lblTitleQH.Size = new System.Drawing.Size(89, 19);
             this.lblTitleQH.TabIndex = 3;
             this.lblTitleQH.Text = "Quyền hạn: ";
             // 
             // lblTitleChucVu
             // 
             this.lblTitleChucVu.AutoSize = true;
-            this.lblTitleChucVu.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitleChucVu.Location = new System.Drawing.Point(13, 65);
+            this.lblTitleChucVu.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitleChucVu.Location = new System.Drawing.Point(339, 13);
             this.lblTitleChucVu.Name = "lblTitleChucVu";
-            this.lblTitleChucVu.Size = new System.Drawing.Size(123, 33);
+            this.lblTitleChucVu.Size = new System.Drawing.Size(73, 19);
             this.lblTitleChucVu.TabIndex = 2;
             this.lblTitleChucVu.Text = "Chức vụ: ";
             // 
-            // MNQuanLy
+            // MNChung
             // 
-            this.MNQuanLy.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MNChung.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MNChung_Phong});
-            this.MNQuanLy.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MNQuanLy.Name = "MNQuanLy";
-            this.MNQuanLy.Size = new System.Drawing.Size(88, 30);
-            this.MNQuanLy.Text = "Chung";
+            this.MNChung.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MNChung.Name = "MNChung";
+            this.MNChung.Size = new System.Drawing.Size(88, 30);
+            this.MNChung.Text = "Chung";
             // 
             // MNChung_Phong
             // 
             this.MNChung_Phong.Name = "MNChung_Phong";
-            this.MNChung_Phong.Size = new System.Drawing.Size(224, 30);
+            this.MNChung_Phong.Size = new System.Drawing.Size(158, 30);
             this.MNChung_Phong.Text = "Phòng";
             this.MNChung_Phong.Click += new System.EventHandler(this.MNQuanLy_Phong_Click);
             // 
@@ -214,42 +229,43 @@
             // quảnLýKhoToolStripMenuItem
             // 
             this.quảnLýKhoToolStripMenuItem.Name = "quảnLýKhoToolStripMenuItem";
-            this.quảnLýKhoToolStripMenuItem.Size = new System.Drawing.Size(224, 30);
+            this.quảnLýKhoToolStripMenuItem.Size = new System.Drawing.Size(219, 30);
             this.quảnLýKhoToolStripMenuItem.Text = "Quản lý Kho";
             // 
             // nhậpKhoToolStripMenuItem
             // 
             this.nhậpKhoToolStripMenuItem.Name = "nhậpKhoToolStripMenuItem";
-            this.nhậpKhoToolStripMenuItem.Size = new System.Drawing.Size(224, 30);
+            this.nhậpKhoToolStripMenuItem.Size = new System.Drawing.Size(219, 30);
             this.nhậpKhoToolStripMenuItem.Text = "Nhập Kho";
             // 
             // MNMore
             // 
             this.MNMore.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.đăngKýToolStripMenuItem,
+            this.MNMore_Setting,
             this.đổiMậtKhẩuToolStripMenuItem});
             this.MNMore.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MNMore.Name = "MNMore";
             this.MNMore.Size = new System.Drawing.Size(126, 30);
             this.MNMore.Text = "Chức năng";
             // 
-            // đăngKýToolStripMenuItem
+            // MNMore_Setting
             // 
-            this.đăngKýToolStripMenuItem.Name = "đăngKýToolStripMenuItem";
-            this.đăngKýToolStripMenuItem.Size = new System.Drawing.Size(225, 30);
-            this.đăngKýToolStripMenuItem.Text = "Đăng ký";
+            this.MNMore_Setting.Name = "MNMore_Setting";
+            this.MNMore_Setting.Size = new System.Drawing.Size(182, 30);
+            this.MNMore_Setting.Text = "Cài đặt";
+            this.MNMore_Setting.Click += new System.EventHandler(this.MNMore_Setting_Click);
             // 
             // đổiMậtKhẩuToolStripMenuItem
             // 
             this.đổiMậtKhẩuToolStripMenuItem.Name = "đổiMậtKhẩuToolStripMenuItem";
-            this.đổiMậtKhẩuToolStripMenuItem.Size = new System.Drawing.Size(225, 30);
-            this.đổiMậtKhẩuToolStripMenuItem.Text = "Đổi mật khẩu";
+            this.đổiMậtKhẩuToolStripMenuItem.Size = new System.Drawing.Size(182, 30);
+            this.đổiMậtKhẩuToolStripMenuItem.Text = "Đăng Ký";
             // 
             // MNMain
             // 
             this.MNMain.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.MNMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MNQuanLy,
+            this.MNChung,
             this.MNKhachHang,
             this.MNNhanVien,
             this.MNBaoCao,
@@ -257,7 +273,7 @@
             this.MNMore});
             this.MNMain.Location = new System.Drawing.Point(0, 0);
             this.MNMain.Name = "MNMain";
-            this.MNMain.Size = new System.Drawing.Size(932, 34);
+            this.MNMain.Size = new System.Drawing.Size(1082, 34);
             this.MNMain.TabIndex = 3;
             this.MNMain.Text = "menuStrip2";
             // 
@@ -266,7 +282,7 @@
             this.ckcDarkMode.AutoSize = true;
             this.ckcDarkMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.ckcDarkMode.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckcDarkMode.Location = new System.Drawing.Point(765, 34);
+            this.ckcDarkMode.Location = new System.Drawing.Point(771, 4);
             this.ckcDarkMode.Name = "ckcDarkMode";
             this.ckcDarkMode.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.ckcDarkMode.Size = new System.Drawing.Size(149, 30);
@@ -275,25 +291,21 @@
             this.ckcDarkMode.UseVisualStyleBackColor = false;
             this.ckcDarkMode.CheckedChanged += new System.EventHandler(this.ckcDarkMode_CheckedChanged);
             // 
-            // btnBack
+            // plControls
             // 
-            this.btnBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.btnBack.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBack.Location = new System.Drawing.Point(748, 471);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(172, 49);
-            this.btnBack.TabIndex = 6;
-            this.btnBack.Text = "Trở lại";
-            this.btnBack.UseVisualStyleBackColor = false;
-            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            this.plControls.BackColor = System.Drawing.SystemColors.Control;
+            this.plControls.Location = new System.Drawing.Point(12, 46);
+            this.plControls.Name = "plControls";
+            this.plControls.Size = new System.Drawing.Size(1058, 704);
+            this.plControls.TabIndex = 7;
             // 
             // frmMainUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(932, 539);
-            this.Controls.Add(this.btnBack);
+            this.ClientSize = new System.Drawing.Size(1082, 803);
+            this.Controls.Add(this.plControls);
             this.Controls.Add(this.plInfo);
             this.Controls.Add(this.ckcDarkMode);
             this.Controls.Add(this.MNMain);
@@ -303,7 +315,7 @@
             this.Name = "frmMainUI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Giao diện quản lý";
-            this.TransparencyKey = System.Drawing.Color.Transparent;
+            this.TransparencyKey = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.Load += new System.EventHandler(this.frmMainUI_Load);
             this.plInfo.ResumeLayout(false);
             this.plInfo.PerformLayout();
@@ -322,7 +334,7 @@
         private System.Windows.Forms.Label lblChucVu;
         private System.Windows.Forms.Label lblTenNV;
         private System.Windows.Forms.Label lblQuyenHan;
-        private System.Windows.Forms.ToolStripMenuItem MNQuanLy;
+        private System.Windows.Forms.ToolStripMenuItem MNChung;
         private System.Windows.Forms.ToolStripMenuItem MNKhachHang;
         private System.Windows.Forms.ToolStripMenuItem MNNhanVien;
         private System.Windows.Forms.ToolStripMenuItem MNBaoCao;
@@ -333,12 +345,13 @@
         private System.Windows.Forms.ToolStripMenuItem MNKH_DSKhachHang;
         private System.Windows.Forms.ToolStripMenuItem MN_NhanVien_DSNV;
         private System.Windows.Forms.ToolStripMenuItem báoCaoDoanhThuToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem đăngKýToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem MNMore_Setting;
         private System.Windows.Forms.ToolStripMenuItem đổiMậtKhẩuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem MNChung_Phong;
         private System.Windows.Forms.ToolStripMenuItem MN_NhanVien_BangLuong;
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.ToolStripMenuItem quảnLýKhoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nhậpKhoToolStripMenuItem;
+        private System.Windows.Forms.Panel plControls;
     }
 }

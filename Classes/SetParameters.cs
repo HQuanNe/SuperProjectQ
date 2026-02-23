@@ -3,11 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace SuperProjectQ
 {
     internal class SetParameters
     {
+        private static ConnectData kn = new ConnectData();
+        private static DataTable dt = null;
+
+        private static void ConnectOpen()
+        {
+            kn.ConnOpen();
+        }
         #region //Kích thước các panel,... phòng trong frmPhong
         //Kích thước các panel phòng trong frmPhong
         public static int plDanhSachPhong_WIDTH = 173;
@@ -25,11 +34,5 @@ namespace SuperProjectQ
         public static int btnPhong_HEIGHT = 50;
         #endregion
 
-        #region Giá, VAT, lãi suất hoá đơn, giá sau 22h,... trong frmThanhToan
-        //Giá VAT, lãi suất hoá đơn, giá sau 22h
-        public const double laiSuat = 0.02; //Lãi suất hoá đơn 2%/ngày khi quá hạn thanh toán
-        public const decimal VAT = 0.1m; //Thuế giá trị gia tăng 10%
-        public const decimal PriceAfter_22H = 1.2m; //Giá sau 22h tăng 20%
-        #endregion
     }
 }

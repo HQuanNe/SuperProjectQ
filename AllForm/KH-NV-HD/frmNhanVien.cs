@@ -145,6 +145,7 @@ namespace SuperProjectQ.FrmMixed
                 ReadOnly_On();
                 Lock_Control();
                 dgvNhanVien.AutoGenerateColumns = false;
+                //dgvNhanVien.EditMode = 
                 //Thêm giới tính cho cmb
                 cmbGioiTinh.Items.Add("Nam");
                 cmbGioiTinh.Items.Add("Nữ");
