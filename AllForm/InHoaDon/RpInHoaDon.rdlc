@@ -31,7 +31,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>DataSetInHoaDon</rd:DataSetName>
-        <rd:SchemaPath>D:\Học_Tập\ADO-NET\Window-form\SuperProjectQ\FrmMixed\InHoaDon\DataSetInHoaDon.xsd</rd:SchemaPath>
+        <rd:SchemaPath>D:\Học_Tập\Programing_language\ADO-NET\Window-form\SuperProjectQ\AllForm\InHoaDon\DataSetInHoaDon.xsd</rd:SchemaPath>
         <rd:TableName>KhachHang</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
@@ -54,7 +54,7 @@
         </Field>
         <Field Name="SoLuong">
           <DataField>SoLuong</DataField>
-          <rd:TypeName>System.Int16</rd:TypeName>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="DonViTinh">
           <DataField>DonViTinh</DataField>
@@ -1543,7 +1543,7 @@ Format(Sum(Fields!Discount.Value, "DataSetKH") * 100, "0.##") &amp; "%):"</Value
   </ReportSections>
   <ReportParameters>
     <ReportParameter Name="VAT">
-      <DataType>String</DataType>
+      <DataType>Float</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
   </ReportParameters>

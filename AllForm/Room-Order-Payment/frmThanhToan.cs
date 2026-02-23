@@ -174,9 +174,9 @@ namespace SuperProjectQ.FrmMixed
                     double giaMoiPhut =  (double)TinhTienPhongSau_22h(dateTimeIn, giaMoiGio) / 60; //Tính giá mỗi phút 
 
                     double tongSoPhut = Math.Round(tongThoiGian.TotalMinutes); //Làm tròn thời gian sử dụng (phút)
-                    MessageBox.Show($"Tổng thời gian sử dụng: {tongSoPhut} phút, giá mỗi phút: {giaMoiPhut.ToString("#,##0")} VND");
+                    Console.WriteLine   ($"Tổng thời gian sử dụng: {tongSoPhut} phút, giá mỗi phút: {giaMoiPhut.ToString("#,##0")} VND");
                     decimal tongTienPhong = Convert.ToDecimal(Math.Round(tongSoPhut * giaMoiPhut / 1000) * 1000); //Tính tổng tiền phòng có làm tròn
-                    MessageBox.Show($"Tổng tiền phòng: {tongTienPhong.ToString("#,##0")} VND");
+                    Console.WriteLine($"Tổng tiền phòng: {tongTienPhong.ToString("#,##0")} VND");
                     decimal tienDV = Session.TongTienDV; //Lấy tiền dịch vụ
 
 

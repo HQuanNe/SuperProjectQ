@@ -124,6 +124,12 @@ namespace SuperProjectQ
 
             if (DonViTinh) soLuong = soLuong * dinhLuong  / 1000; //Nếu đơn vị tính là Kg 
 
+            if (soLuong > soLuongTon)
+            {
+                MessageBox.Show("Số lượng vượt quá tồn kho!");
+                return;
+            }
+
             if (isPlus) {soLuongTon += soLuong;} //Nếu trả lại đồ thì cộng số lượng vào kho
             else {soLuongTon -= soLuong; } //Nếu order đồ thì trừ số lượng trong kho
 

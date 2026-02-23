@@ -314,18 +314,22 @@ namespace SuperProjectQ.FrmMixed
             if(reply == DialogResult.Yes && Session.isPlus.HasValue)
             {
                 dt = new DataTable();
-                dt = kn.CreateTable($"SELECT SoLuong FROM ChiTietHD WHERE MaHD = {maHD} AND MaSP = '{thisBtn.Parent.Tag}'");
+                dt = kn.CreateTable($"SELECT SoLuong, DonGia FROM ChiTietHD WHERE MaHD = {maHD} AND MaSP = '{thisBtn.Parent.Tag}'");
 
                 double soLuongHienTai = Convert.ToDouble(dt.Rows[0]["SoLuong"]);
                 double soLuongMoi = Convert.ToDouble(thisBtn.Parent.Controls[1].Text);
+                double donGia = Convert.ToDouble(dt.Rows[0]["DonGia"]);
 
-                if (Session.isPlus == true) soLuongMoi = soLuongMoi - soLuongHienTai;
-                else if (Session.isPlus == false) soLuongMoi = soLuongHienTai - soLuongMoi;
+                double soLuongThayDoi = 0;
 
-                string sqlUpdateSoLuong = $"UPDATE ChiTietHD SET SoLuong = @SLM WHERE MaHD = @MHD AND MaSP = @MSP";
+                if (Session.isPlus == true) soLuongThayDoi = soLuongMoi - soLuongHienTai;
+                else if (Session.isPlus == false) soLuongThayDoi = soLuongHienTai - soLuongMoi;
+
+                string sqlUpdateSoLuong = $"UPDATE ChiTietHD SET SoLuong = @SLM, ThanhTien = @TT WHERE MaHD = @MHD AND MaSP = @MSP";
                 cmd = new SqlCommand(sqlUpdateSoLuong, kn.conn);
                 cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("@SLM", Convert.ToDouble(thisBtn.Parent.Controls[1].Text));
+                cmd.Parameters.AddWithValue("@SLM", soLuongMoi);
+                cmd.Parameters.AddWithValue("@TT", soLuongMoi * donGia);
                 cmd.Parameters.AddWithValue("@MHD", maHD);
                 cmd.Parameters.AddWithValue("@MSP", thisBtn.Parent.Tag.ToString());
                 cmd.ExecuteNonQuery();
@@ -334,7 +338,7 @@ namespace SuperProjectQ.FrmMixed
                 cmd = new SqlCommand("DELETE ChiTietHD WHERE SoLuong = 0", kn.conn);
                 cmd.ExecuteNonQuery();
 
-                Session.CapNhatKho(!Session.isPlus.Value, thisBtn.Parent.Tag.ToString(), soLuongMoi);
+                Session.CapNhatKho(!Session.isPlus.Value, thisBtn.Parent.Tag.ToString(), soLuongThayDoi);
 
                 Load_Ordered(maHD);
             }
@@ -512,8 +516,7 @@ namespace SuperProjectQ.FrmMixed
         {
             if (Session.isPay)
             {
-                Load_Ordered((int)selectedPanel.Tag);
-
+                Load_Ordered((int)Session.maHD);
                 //Update hoá đơn
                 string sqlHD = $"UPDATE HoaDon SET MaKH = @MKH," +
                     $"GioRa = @GR, TongSoPhut = @TSP, TienPhong = @TP, TienDichVu = @TDV, TongTien = @TT, TrietKhauVIP = @TKVIP, TrietKhauVoucher = @TKV, VAT = @VAT, TongThanhToan = @TTT, PTTT = @PTTT, TrangThai = @TTHD, GhiChu = @GC WHERE MaHD = {billID}";
@@ -715,15 +718,18 @@ namespace SuperProjectQ.FrmMixed
                 selectedPanel.BackColor = clrStatusOpen;
                 selectedPanel.Controls[1].Text = strStatusOpen;
 
-                int billID = Session.AutoCreateID("MaHD", "HoaDon");
+                int initMaHD = Session.AutoCreateID("MaHD", "HoaDon");
 
-                selectedPanel.Tag = billID;
+                Console.WriteLine("Mã hoá đơn: " + initMaHD);
+
+                selectedPanel.Tag = initMaHD;
+                maHD = initMaHD;
 
                 StatusCheck(maPhong);
                 Update_Status_Room(1, maPhong);
-                Add_Bill(billID, maPhong);
+                Add_Bill(initMaHD, maPhong);
                 //DoCoSan(billID);
-                TongTienDV(billID);
+                TongTienDV(initMaHD);
             }
             catch (SqlException ex)
             {
@@ -739,6 +745,7 @@ namespace SuperProjectQ.FrmMixed
 
                 DateTime dateTimeOut = Convert.ToDateTime(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")); // Tính giờ ra
                 Session.TimeOut = dateTimeOut;
+                Session.maHD = maHD;
 
                 if (XacNhanTT(maPhong))
                 {

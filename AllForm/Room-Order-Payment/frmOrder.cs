@@ -267,7 +267,7 @@ namespace SuperProjectQ.AllForm
 
             bool isAdded = false;
 
-            double soLuong = Convert.ToDouble(clickedButton.Parent.Controls[3].Text.Trim()); //Số lượng thêm vào hiện tại ở textbox
+            double soLuongOrder = Convert.ToDouble(clickedButton.Parent.Controls[3].Text.Trim()); //Số lượng thêm vào hiện tại ở textbox
 
             if (selectedRoomButton == null)
             {
@@ -323,53 +323,38 @@ namespace SuperProjectQ.AllForm
                         cmd.Parameters.AddWithValue("@MCTHD", Session.AutoCreateID("MaCTHD", "ChiTietHD"));
                         cmd.Parameters.AddWithValue("@MHD", intMaHD);
                         cmd.Parameters.AddWithValue("@MSP", maSP);
-                        cmd.Parameters.AddWithValue("@SL", soLuong);
+                        cmd.Parameters.AddWithValue("@SL", soLuongOrder);
                         cmd.Parameters.AddWithValue("@DV", donViTinh);
                         cmd.Parameters.AddWithValue("@DG", donGia);
-                        cmd.Parameters.AddWithValue("@TT", soLuong * donGia);
+                        cmd.Parameters.AddWithValue("@TT", soLuongOrder * donGia);
                         cmd.ExecuteNonQuery();
 
                         isAdded = true;
                     }
-                    //Kiểm tra số lượng thêm vào có vượt tồn kho không
-                    //Lấy tồn kho
-                    string sqlTonKho = $"SELECT TonKho FROM KhoHang WHERE MaSP = '{maSP}'";
-                    cmd = new SqlCommand(sqlTonKho, kn.conn);
-                    double tonKho = Convert.ToDouble(cmd.ExecuteScalar());
-                    if (soLuong > tonKho)
+                    //Nếu có rồi thì cập nhật số lượng lên 1
+                    if (!flag)
                     {
-                        MessageBox.Show("hết hàng rùi !!!");
-                        return;
-                    }
-                    else
-                    {
-                        //Nếu có rồi thì cập nhật số lượng lên 1
-                        if (!flag)
-                        {
-                            cmd = new SqlCommand($"SELECT SoLuong FROM ChiTietHD WHERE MaSP = '{maSP}' AND MaHD = {intMaHD} ", kn.conn);
+                        cmd = new SqlCommand($"SELECT SoLuong FROM ChiTietHD WHERE MaSP = '{maSP}' AND MaHD = {intMaHD} ", kn.conn);
 
-                            double soLuongDaCo = (double)cmd.ExecuteScalar();
-                            soLuongDaCo += dinhLuong;
-                            if (soLuong <= 0) { MessageBox.Show("Số lượng < 1"); return; }
-                            decimal thanhTien = Convert.ToDecimal((soLuongDaCo * 1000) / (dinhLuong*1000)) * donGia;
+                        double soLuongDaCo = soLuongOrder + Convert.ToDouble(cmd.ExecuteScalar());
+                        decimal thanhTien = Convert.ToDecimal(soLuongDaCo * donGia);
 
-                            string sqlUpdate = "UPDATE ChiTietHD SET SoLuong = @SL, ThanhTien = @TT WHERE MaHD = @MHD AND MaSP = @MSP";
-                            cmd = new SqlCommand(sqlUpdate, kn.conn);
-                            cmd.Parameters.Clear();
-                            cmd.Parameters.AddWithValue("@MHD", intMaHD);
-                            cmd.Parameters.AddWithValue("@MSP", maSP);
-                            cmd.Parameters.AddWithValue("@SL", soLuongDaCo);
-                            cmd.Parameters.AddWithValue("@TT", thanhTien);
-                            cmd.ExecuteNonQuery();
+                        string sqlUpdate = "UPDATE ChiTietHD SET SoLuong = @SL, ThanhTien = @TT WHERE MaHD = @MHD AND MaSP = @MSP";
+                        cmd = new SqlCommand(sqlUpdate, kn.conn);
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.AddWithValue("@MHD", intMaHD);
+                        cmd.Parameters.AddWithValue("@MSP", maSP);
+                        cmd.Parameters.AddWithValue("@SL", soLuongDaCo);
+                        cmd.Parameters.AddWithValue("@TT", thanhTien);
+                        cmd.ExecuteNonQuery();
 
-                            isAdded = true; 
-                        }
+                        isAdded = true; 
                     }
                 }
                 if (isAdded)
                 {
-                    MessageBox.Show(soLuong.ToString());
-                    Session.CapNhatKho(false, clickedButton.Name, soLuong);
+                    MessageBox.Show(soLuongOrder.ToString());
+                    Session.CapNhatKho(false, clickedButton.Name, soLuongOrder);
 
                     cmd = new SqlCommand($"SELECT TenHienThi FROM SanPham WHERE MaSP = '{clickedButton.Name}'", kn.conn);
                     string tenSP = (string)cmd.ExecuteScalar();

@@ -40,12 +40,14 @@ namespace SuperProjectQ
             {
                 MessageBox.Show("Lỗi: " + ex.Message);
             }
-
+            Console.WriteLine("MaHD in PrintBill: " + maHD);
 
             this.rpInHoaDon.LocalReport.DataSources.Clear();
             string sqlHD = $"SELECT HoaDon.MaHD, Phong.TenPhong, LoaiPhong.TenLoaiPhong, HoaDon.MaKH, HoaDon.MaNV, HoaDon.GioVao, HoaDon.GioRa, HoaDon.TongSoPhut, " +
-                $"HoaDon.TienPhong, HoaDon.TienDichVu, HoaDon.TongTien, HoaDon.TrietKhauVIP, HoaDon.TrietKhauVoucher, HoaDon.VAT, HoaDon.TongThanhToan, " +
-                $"HoaDon.PTTT, HoaDon.TrangThai FROM HoaDon INNER JOIN Phong ON Phong.MaPhong = HoaDon.MaPhong INNER JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong WHERE MaHD = {maHD}";
+                $"HoaDon.TienPhong, HoaDon.TienDichVu, HoaDon.TongTien, HoaDon.TrietKhauVIP, HoaDon.TrietKhauVoucher, HoaDon.VAT, HoaDon.TongThanhToan, HoaDon.PTTT, HoaDon.TrangThai " +
+                $"FROM HoaDon " +
+                $"INNER JOIN Phong ON Phong.MaPhong = HoaDon.MaPhong " +
+                $"INNER JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong WHERE MaHD = {maHD}";
             
             string sqlCTHD = $"SELECT ChiTietHD.MaHD, SanPham.TenHienThi, ChiTietHD.SoLuong, ChiTietHD.DonViTinh, ChiTietHD.DonGia, ChiTietHD.ThanhTien FROM ChiTietHD " +
                              $"INNER JOIN SanPham ON SanPham.MaSP = ChiTietHD.MaSP WHERE MaHD = {maHD}";
@@ -59,22 +61,21 @@ namespace SuperProjectQ
             DataSet ds = new DataSet();
             adapterHD.Fill(ds, "HoaDon");
             adapterCTHD.Fill(ds, "ChitTietHD");
-            adapterTrietKhau.Fill(ds, "KhachHang");
+            adapterTrietKhau.Fill(ds, "TrietKhauKH");
             rpInHoaDon.LocalReport.ReportEmbeddedResource = "SuperProjectQ.AllForm.InHoaDon.RpInHoaDon.rdlc";
 
             //Đưa DL lên bảng báo cáo
             ReportDataSource rdsCTHD = new ReportDataSource("DataSetCTHD", ds.Tables["ChitTietHD"]);
             ReportDataSource rdsHoaDon = new ReportDataSource("DataSetHD", ds.Tables["HoaDon"]);
-            ReportDataSource rdsKH = new ReportDataSource("DataSetKH", ds.Tables["KhachHang"]);
+            ReportDataSource rdsTKKH = new ReportDataSource("DataSetKH", ds.Tables["TrietKhauKH"]);
             rpInHoaDon.LocalReport.DataSources.Add(rdsHoaDon);
             rpInHoaDon.LocalReport.DataSources.Add(rdsCTHD);
-            rpInHoaDon.LocalReport.DataSources.Add(rdsKH);
-            rpInHoaDon.RefreshReport();
+            rpInHoaDon.LocalReport.DataSources.Add(rdsTKKH);
 
             //Set tham so
             ReportParameter[] SetPara = new ReportParameter[]
             {
-                new ReportParameter("VAT", (Session.VAT * 100).ToString()),
+                new ReportParameter("VAT", (Session.VAT).ToString()),
             };
             rpInHoaDon.LocalReport.SetParameters(SetPara);
 

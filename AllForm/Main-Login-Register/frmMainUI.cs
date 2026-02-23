@@ -82,8 +82,7 @@ namespace SuperProjectQ.Frm_Main_Login_Register
         private void MNQuanLy_Phong_Click(object sender, EventArgs e)
         {
             frmPhong frmPhong = new frmPhong();
-            frmPhong.Visible = true;
-            this.Visible = false;
+            frmPhong.Show();
         }
         private void btnBack_Click(object sender, EventArgs e)
         {
