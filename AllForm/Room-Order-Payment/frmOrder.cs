@@ -47,7 +47,7 @@ namespace SuperProjectQ.AllForm
         DataTable dt = null;
         SqlCommand cmd = null;
 
-        Button btnDSPhong = null; // Panel chứa danh sách phòng
+        public Button btnDSPhong = null; // Panel chứa danh sách phòng
         Button btnPassClick = null; // Lưu button phòng đang được click
 
         Panel plItem = null; // Panel chứa từng sản phẩm
@@ -62,12 +62,13 @@ namespace SuperProjectQ.AllForm
         Button btnMinus = null;
         Button btnOrder = null; // Khai báo object Button mua hàng
 
-        private void ItemPanel_SanPham(string tag_1 = "")
+        private void ItemPanel_SanPham_Load(string tag_1 = "")
         {
+            flowLayoutDSSanPham.Controls.Clear();
 
             string sqlSP = "SELECT SanPham.MaSP, SanPham.TenHienThi, SanPham.GiaBan, SanPham.HinhAnh, KhoHang.MaDM " +
                            $"FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP  " +
-                           $"WHERE KhoHang.MaDM LIKE '%{tag_1}%' AND KhoHang.TonKho >=20 ORDER BY SanPham.TenHienThi";
+                           $"WHERE KhoHang.MaDM LIKE '%{tag_1}%' AND KhoHang.TonKho >= {Session.MinTonKho} ORDER BY SanPham.TenHienThi";
             dt = kn.CreateTable(sqlSP);
 
             foreach (DataRow row in dt.Rows)
@@ -115,7 +116,7 @@ namespace SuperProjectQ.AllForm
                         Width = SetParameters.pbOrder_WIDTH,
                         Height = SetParameters.pbOrder_HEIGHT,
                         SizeMode = PictureBoxSizeMode.Zoom,
-                        Image = Image.FromFile(Application.StartupPath + $"\\Image\\{pathImage = pathImage + row["HinhAnh"]}"),
+                        Image = Image.FromFile(Application.StartupPath + $"\\Images\\{pathImage = pathImage + row["HinhAnh"]}"),
                         Location = new Point(20, 10),
                         //BackColor = Color.Red,
                     };
@@ -247,7 +248,6 @@ namespace SuperProjectQ.AllForm
                 txtSoLuong.TextChanged += txtSoLuong_Textchanged;
 
                 flowLayoutDSSanPham.Controls.Add(plItem);
-                flowLayoutDSPhong.Controls.Add(btnDSPhong);
 
                 plItem.Controls.Add(pbItem);
                 plItem.Controls.Add(lblTenSanPham);
@@ -259,6 +259,41 @@ namespace SuperProjectQ.AllForm
 
                 plItem.Controls.Add(btnOrder);
 
+            }
+        }
+        private void Phong_Load()
+        {
+            flowLayoutDSPhong.Controls.Clear();
+
+            string sqlPhong = "SELECT * FROM Phong WHERE TrangThai = 1";
+            dt = new DataTable();
+            dt = kn.CreateTable(sqlPhong);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                btnDSPhong = new Button() // Tạo FlowLayoutPanel chứa phòng
+                {
+                    Width = SetParameters.btnPhong_WIDTH,
+                    Height = SetParameters.btnPhong_HEIGHT,
+
+                    Name = row["MaPhong"].ToString(), // Lưu mã phòng vào Name của Button
+
+                    BackColor = Color.FromArgb(192, 255, 255),
+                    FlatStyle = FlatStyle.Flat,
+                    Font = new Font("Times New Roman", 11F, FontStyle.Bold, GraphicsUnit.Point),
+                    ForeColor = Color.Black,
+                    Text = row["TenPhong"].ToString(),
+                    TextAlign = ContentAlignment.MiddleCenter,
+
+                    FlatAppearance =
+                    {
+                        MouseOverBackColor = Color.Cyan,
+                        MouseDownBackColor = Color.Blue,
+                        BorderSize = 0,
+                    }
+                };
+                flowLayoutDSPhong.Controls.Add(btnDSPhong);
+                btnDSPhong.Click += BtnDSPhong_Click;
             }
         }
         private void BtnOrder_Click(object sender, EventArgs e)
@@ -366,37 +401,8 @@ namespace SuperProjectQ.AllForm
         }
         private void frmOrder_Load(object sender, EventArgs e)
         {
-            ItemPanel_SanPham();
-
-            string sqlPhong = "SELECT * FROM Phong WHERE TrangThai = 1";
-            dt = kn.CreateTable(sqlPhong);
-
-            foreach (DataRow row in dt.Rows)
-            {
-                btnDSPhong = new Button() // Tạo FlowLayoutPanel chứa phòng
-                {
-                    Width = SetParameters.btnPhong_WIDTH,
-                    Height = SetParameters.btnPhong_HEIGHT,
-
-                    Name = row["MaPhong"].ToString(), // Lưu mã phòng vào Name của Button
-
-                    BackColor = Color.FromArgb(192, 255, 255),
-                    FlatStyle = FlatStyle.Flat,
-                    Font = new Font("Times New Roman", 11F, FontStyle.Bold, GraphicsUnit.Point),
-                    ForeColor = Color.Black,
-                    Text = row["TenPhong"].ToString(),
-                    TextAlign = ContentAlignment.MiddleCenter,
-                    
-                    FlatAppearance =
-                    {
-                        MouseOverBackColor = Color.Cyan,
-                        MouseDownBackColor = Color.Blue,
-                        BorderSize = 0,
-                    }
-                };
-                flowLayoutDSPhong.Controls.Add(btnDSPhong);
-                btnDSPhong.Click += BtnDSPhong_Click;
-            }
+            ItemPanel_SanPham_Load();
+            Phong_Load();
 
             lblDanhMuc.Text = "Tất cả";
 
@@ -596,8 +602,12 @@ namespace SuperProjectQ.AllForm
         {
 
         }
+
         #endregion
 
-
+        private void frmOrder_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            flowLayoutDSPhong.Controls.Clear();
+        }
     }
 }

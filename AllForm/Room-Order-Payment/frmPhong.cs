@@ -326,17 +326,22 @@ namespace SuperProjectQ.FrmMixed
                 else if (Session.isPlus == false) soLuongThayDoi = soLuongHienTai - soLuongMoi;
 
                 string sqlUpdateSoLuong = $"UPDATE ChiTietHD SET SoLuong = @SLM, ThanhTien = @TT WHERE MaHD = @MHD AND MaSP = @MSP";
-                cmd = new SqlCommand(sqlUpdateSoLuong, kn.conn);
-                cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("@SLM", soLuongMoi);
-                cmd.Parameters.AddWithValue("@TT", soLuongMoi * donGia);
-                cmd.Parameters.AddWithValue("@MHD", maHD);
-                cmd.Parameters.AddWithValue("@MSP", thisBtn.Parent.Tag.ToString());
-                cmd.ExecuteNonQuery();
+                using (cmd = new SqlCommand(sqlUpdateSoLuong, kn.conn))
+                {
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@SLM", soLuongMoi);
+                    cmd.Parameters.AddWithValue("@TT", soLuongMoi * donGia);
+                    cmd.Parameters.AddWithValue("@MHD", maHD);
+                    cmd.Parameters.AddWithValue("@MSP", thisBtn.Parent.Tag.ToString());
+                    cmd.ExecuteNonQuery();
+                };
+
 
                 //Xoá sản phẩm khỏi CTHD khi số lượng về 0
-                cmd = new SqlCommand("DELETE ChiTietHD WHERE SoLuong = 0", kn.conn);
-                cmd.ExecuteNonQuery();
+                using (cmd = new SqlCommand("DELETE ChiTietHD WHERE SoLuong = 0", kn.conn))
+                {
+                    cmd.ExecuteNonQuery();
+                }
 
                 Session.CapNhatKho(!Session.isPlus.Value, thisBtn.Parent.Tag.ToString(), soLuongThayDoi);
 
@@ -520,22 +525,24 @@ namespace SuperProjectQ.FrmMixed
                 //Update hoá đơn
                 string sqlHD = $"UPDATE HoaDon SET MaKH = @MKH," +
                     $"GioRa = @GR, TongSoPhut = @TSP, TienPhong = @TP, TienDichVu = @TDV, TongTien = @TT, TrietKhauVIP = @TKVIP, TrietKhauVoucher = @TKV, VAT = @VAT, TongThanhToan = @TTT, PTTT = @PTTT, TrangThai = @TTHD, GhiChu = @GC WHERE MaHD = {billID}";
-                cmd = new SqlCommand(sqlHD, kn.conn);
-                cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("@MKH", Session.MaKH);
-                cmd.Parameters.AddWithValue("@GR", Session.TimeOut);
-                cmd.Parameters.AddWithValue("@TSP", Session.TongSoPhut);
-                cmd.Parameters.AddWithValue("@TP", Session.TongTienPhong);
-                cmd.Parameters.AddWithValue("@TDV", Session.TongTienDV);
-                cmd.Parameters.AddWithValue("@TT", Session.TongTien);
-                cmd.Parameters.AddWithValue("@TKVIP", Session.DiscountVIP);
-                cmd.Parameters.AddWithValue("@TKV", Session.DiscountVoucher);
-                cmd.Parameters.AddWithValue("@VAT", Session.TienVAT);
-                cmd.Parameters.AddWithValue("@TTT", Session.TongThanhToan);
-                cmd.Parameters.AddWithValue("@PTTT", Session.PTTT);
-                cmd.Parameters.AddWithValue("@TTHD", Session.TrangThaiHD);
-                cmd.Parameters.AddWithValue("@GC", "test");
-                cmd.ExecuteNonQuery();
+                using (cmd = new SqlCommand(sqlHD, kn.conn))
+                {
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@MKH", Session.MaKH);
+                    cmd.Parameters.AddWithValue("@GR", Session.TimeOut);
+                    cmd.Parameters.AddWithValue("@TSP", Session.TongSoPhut);
+                    cmd.Parameters.AddWithValue("@TP", Session.TongTienPhong);
+                    cmd.Parameters.AddWithValue("@TDV", Session.TongTienDV);
+                    cmd.Parameters.AddWithValue("@TT", Session.TongTien);
+                    cmd.Parameters.AddWithValue("@TKVIP", Session.DiscountVIP);
+                    cmd.Parameters.AddWithValue("@TKV", Session.DiscountVoucher);
+                    cmd.Parameters.AddWithValue("@VAT", Session.TienVAT);
+                    cmd.Parameters.AddWithValue("@TTT", Session.TongThanhToan);
+                    cmd.Parameters.AddWithValue("@PTTT", Session.PTTT);
+                    cmd.Parameters.AddWithValue("@TTHD", Session.TrangThaiHD);
+                    cmd.Parameters.AddWithValue("@GC", "test");
+                    cmd.ExecuteNonQuery();
+                }
             }
         } //Cập nhật bill khi đã TT xong
 
@@ -642,6 +649,8 @@ namespace SuperProjectQ.FrmMixed
 
                 //Ẩn nút Order
                 btnOrder.Visible = false;
+
+                maPhong = null; //Gán mã phòng bằng null để khi chưa chọn phòng nào sẽ không thao tác được
             }
             catch (SqlException ex)
             {
@@ -720,7 +729,7 @@ namespace SuperProjectQ.FrmMixed
 
                 int initMaHD = Session.AutoCreateID("MaHD", "HoaDon");
 
-                Console.WriteLine("Mã hoá đơn: " + initMaHD);
+                Console.WriteLine("Mã hoá đơn khởi tạo: " + initMaHD);
 
                 selectedPanel.Tag = initMaHD;
                 maHD = initMaHD;
@@ -785,8 +794,10 @@ namespace SuperProjectQ.FrmMixed
 
         private void btnOpenMenu_Click(object sender, EventArgs e)
         {
-            frmOrder order = new frmOrder();
-            order.ShowDialog();
+            using (frmOrder order = new frmOrder())
+            {
+                order.ShowDialog();
+            }
         }
 
         private void btnOrdered_Click(object sender, EventArgs e)

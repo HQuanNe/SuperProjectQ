@@ -45,10 +45,11 @@
             this.label14 = new System.Windows.Forms.Label();
             this.plTTKH = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.btnVoucher = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.cmbVoucher = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -277,10 +278,11 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.panel3.Controls.Add(this.textBox1);
+            this.panel3.Controls.Add(this.btnVoucher);
             this.panel3.Controls.Add(this.label6);
             this.panel3.Controls.Add(this.label7);
             this.panel3.Controls.Add(this.label16);
-            this.panel3.Controls.Add(this.cmbVoucher);
             this.panel3.Controls.Add(this.label8);
             this.panel3.Controls.Add(this.label9);
             this.panel3.Controls.Add(this.label10);
@@ -292,6 +294,27 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(403, 236);
             this.panel3.TabIndex = 32;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(97, 187);
+            this.textBox1.MinimumSize = new System.Drawing.Size(4, 30);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(192, 40);
+            this.textBox1.TabIndex = 31;
+            // 
+            // btnVoucher
+            // 
+            this.btnVoucher.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVoucher.Location = new System.Drawing.Point(295, 187);
+            this.btnVoucher.Name = "btnVoucher";
+            this.btnVoucher.Size = new System.Drawing.Size(90, 40);
+            this.btnVoucher.TabIndex = 30;
+            this.btnVoucher.Text = "Voucher";
+            this.btnVoucher.UseVisualStyleBackColor = true;
+            this.btnVoucher.Click += new System.EventHandler(this.btnVoucher_Click);
             // 
             // label6
             // 
@@ -322,16 +345,6 @@
             this.label16.Size = new System.Drawing.Size(86, 23);
             this.label16.TabIndex = 29;
             this.label16.Text = "Voucher:";
-            // 
-            // cmbVoucher
-            // 
-            this.cmbVoucher.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbVoucher.FormattingEnabled = true;
-            this.cmbVoucher.Location = new System.Drawing.Point(97, 192);
-            this.cmbVoucher.Name = "cmbVoucher";
-            this.cmbVoucher.Size = new System.Drawing.Size(294, 30);
-            this.cmbVoucher.TabIndex = 28;
-            this.cmbVoucher.SelectedValueChanged += new System.EventHandler(this.cmbVoucher_SelectedValueChanged);
             // 
             // label8
             // 
@@ -905,11 +918,12 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox txtCCCD;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.ComboBox cmbVoucher;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label lblTKVoucher;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Button btnDSGhiNo;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Button btnVoucher;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

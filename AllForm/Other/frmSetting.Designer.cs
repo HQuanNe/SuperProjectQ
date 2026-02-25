@@ -36,20 +36,20 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.plThongSo = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtVAT = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtLaiSuat = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.txtGiaSau22H = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtLaiSuat = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtVAT = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.btnSave = new System.Windows.Forms.Button();
             this.plGeneral = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
@@ -64,19 +64,23 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.plControls = new System.Windows.Forms.Panel();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.txtSLTKTT = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.plThongSo.SuspendLayout();
-            this.panel4.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
+            this.panel5.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.plGeneral.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel9.SuspendLayout();
             this.panel10.SuspendLayout();
             this.plControls.SuspendLayout();
+            this.panel7.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -128,51 +132,38 @@
             // plThongSo
             // 
             this.plThongSo.BackColor = System.Drawing.Color.White;
+            this.plThongSo.Controls.Add(this.panel7);
             this.plThongSo.Controls.Add(this.panel6);
             this.plThongSo.Controls.Add(this.panel5);
             this.plThongSo.Controls.Add(this.panel3);
             resources.ApplyResources(this.plThongSo, "plThongSo");
             this.plThongSo.Name = "plThongSo";
             // 
-            // panel4
+            // panel6
             // 
-            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.panel4.Controls.Add(this.btnSave);
-            resources.ApplyResources(this.panel4, "panel4");
-            this.panel4.Name = "panel4";
+            this.panel6.Controls.Add(this.label6);
+            this.panel6.Controls.Add(this.txtGiaSau22H);
+            this.panel6.Controls.Add(this.label7);
+            resources.ApplyResources(this.panel6, "panel6");
+            this.panel6.Name = "panel6";
             // 
-            // btnSave
+            // label6
             // 
-            resources.ApplyResources(this.btnSave, "btnSave");
-            this.btnSave.Name = "btnSave";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.Name = "label6";
             // 
-            // panel3
+            // txtGiaSau22H
             // 
-            this.panel3.Controls.Add(this.label3);
-            this.panel3.Controls.Add(this.txtVAT);
-            this.panel3.Controls.Add(this.label2);
-            resources.ApplyResources(this.panel3, "panel3");
-            this.panel3.Name = "panel3";
+            this.txtGiaSau22H.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtGiaSau22H.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            resources.ApplyResources(this.txtGiaSau22H, "txtGiaSau22H");
+            this.txtGiaSau22H.Name = "txtGiaSau22H";
+            this.txtGiaSau22H.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
             // 
-            // label2
+            // label7
             // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
-            // 
-            // txtVAT
-            // 
-            this.txtVAT.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.txtVAT.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            resources.ApplyResources(this.txtVAT, "txtVAT");
-            this.txtVAT.Name = "txtVAT";
-            this.txtVAT.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
-            // 
-            // label3
-            // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.Name = "label7";
             // 
             // panel5
             // 
@@ -200,31 +191,45 @@
             resources.ApplyResources(this.label5, "label5");
             this.label5.Name = "label5";
             // 
-            // panel6
+            // panel3
             // 
-            this.panel6.Controls.Add(this.label6);
-            this.panel6.Controls.Add(this.txtGiaSau22H);
-            this.panel6.Controls.Add(this.label7);
-            resources.ApplyResources(this.panel6, "panel6");
-            this.panel6.Name = "panel6";
+            this.panel3.Controls.Add(this.label3);
+            this.panel3.Controls.Add(this.txtVAT);
+            this.panel3.Controls.Add(this.label2);
+            resources.ApplyResources(this.panel3, "panel3");
+            this.panel3.Name = "panel3";
             // 
-            // label6
+            // label3
             // 
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.Name = "label6";
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
             // 
-            // txtGiaSau22H
+            // txtVAT
             // 
-            this.txtGiaSau22H.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.txtGiaSau22H.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            resources.ApplyResources(this.txtGiaSau22H, "txtGiaSau22H");
-            this.txtGiaSau22H.Name = "txtGiaSau22H";
-            this.txtGiaSau22H.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
+            this.txtVAT.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtVAT.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            resources.ApplyResources(this.txtVAT, "txtVAT");
+            this.txtVAT.Name = "txtVAT";
+            this.txtVAT.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
             // 
-            // label7
+            // label2
             // 
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.Name = "label7";
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.panel4.Controls.Add(this.btnSave);
+            resources.ApplyResources(this.panel4, "panel4");
+            this.panel4.Name = "panel4";
+            // 
+            // btnSave
+            // 
+            resources.ApplyResources(this.btnSave, "btnSave");
+            this.btnSave.Name = "btnSave";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // plGeneral
             // 
@@ -318,6 +323,26 @@
             resources.ApplyResources(this.plControls, "plControls");
             this.plControls.Name = "plControls";
             // 
+            // panel7
+            // 
+            this.panel7.Controls.Add(this.txtSLTKTT);
+            this.panel7.Controls.Add(this.label15);
+            resources.ApplyResources(this.panel7, "panel7");
+            this.panel7.Name = "panel7";
+            // 
+            // txtSLTKTT
+            // 
+            this.txtSLTKTT.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtSLTKTT.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            resources.ApplyResources(this.txtSLTKTT, "txtSLTKTT");
+            this.txtSLTKTT.Name = "txtSLTKTT";
+            this.txtSLTKTT.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
+            // 
+            // label15
+            // 
+            resources.ApplyResources(this.label15, "label15");
+            this.label15.Name = "label15";
+            // 
             // frmSetting
             // 
             resources.ApplyResources(this, "$this");
@@ -335,13 +360,13 @@
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.plThongSo.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.panel4.ResumeLayout(false);
             this.plGeneral.ResumeLayout(false);
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
@@ -350,6 +375,8 @@
             this.panel10.ResumeLayout(false);
             this.panel10.PerformLayout();
             this.plControls.ResumeLayout(false);
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -390,5 +417,8 @@
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Panel plControls;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.TextBox txtSLTKTT;
+        private System.Windows.Forms.Label label15;
     }
 }

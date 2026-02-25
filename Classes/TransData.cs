@@ -22,6 +22,7 @@ namespace SuperProjectQ
         public static double VAT = 0;
         public static double laiSuat = 0;
         public static double PriceAfter_22H = 0;
+        public static double MinTonKho = 0;
 
         public static void ConnectOpen()
         {
@@ -158,6 +159,7 @@ namespace SuperProjectQ
             VAT = Convert.ToDouble(dt.Rows[0]["GiaTri"]); //Thuế giá trị gia tăng 10%
             laiSuat = Convert.ToDouble(dt.Rows[1]["GiaTri"]); //Lãi suất hoá đơn 2%/ngày khi quá hạn
             PriceAfter_22H = Convert.ToDouble(dt.Rows[2]["GiaTri"]); //Giá sau 22h tăng 20%
+            MinTonKho = Convert.ToDouble(dt.Rows[3]["GiaTri"]); //Số lượng tồn kho tối thiểu
         }
         #endregion
         public static Nullable<bool> isPlus { get; set; } //Biến tạm để xác định là cộng hay trừ số lượng trong kho, nếu true là cộng, false là trừ, null là chưa xác định
@@ -171,6 +173,7 @@ namespace SuperProjectQ
         public static string MaKH { get; set; }
         public static string SoDienThoai { get; set; }
         public static int diemTichLuy { get; set; }
+
         //Vận chuyển tiền, nội dung,...  sang thanh toán
         public static int maHD { get; set; }
         public static string maPhong = "";
@@ -188,5 +191,10 @@ namespace SuperProjectQ
         public static bool isPay { get; set; } // Nếu true là đã thanh toán và sẽ xuất hoá đơn
         public static string PTTT { get; set; } //Phương thức thanh toán
         public static bool TrangThaiHD { get; set; } // Trạng thái hoá đơn
+
+        //Voucher
+        public static int STTVoucher { get; set; } //STT voucher được chọn để áp dụng vào hoá đơn
+        public static string tenVoucher { get; set; } = "";//Tên voucher được chọn
+        public static bool isUsedVoucher { get; set; } //Đã áp dụng voucher vào hoá đơn hay chưa
     }
 }

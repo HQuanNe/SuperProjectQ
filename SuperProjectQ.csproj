@@ -78,6 +78,12 @@
     <Compile Include="AllForm\Other\frmSetting.Designer.cs">
       <DependentUpon>frmSetting.cs</DependentUpon>
     </Compile>
+    <Compile Include="AllForm\Other\frmVoucherKhachHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\Other\frmVoucherKhachHang.Designer.cs">
+      <DependentUpon>frmVoucherKhachHang.cs</DependentUpon>
+    </Compile>
     <Compile Include="AllForm\Room-Order-Payment\frmOrder.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -172,6 +178,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AllForm\Other\frmSetting.resx">
       <DependentUpon>frmSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\Other\frmVoucherKhachHang.resx">
+      <DependentUpon>frmVoucherKhachHang.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AllForm\Room-Order-Payment\frmPhong.resx">
       <DependentUpon>frmPhong.cs</DependentUpon>

@@ -32,6 +32,7 @@ namespace SuperProjectQ.AllForm.Other
             txtVAT.Text = Session.VAT.ToString();
             txtLaiSuat.Text = Session.laiSuat.ToString();
             txtGiaSau22H.Text = Session.PriceAfter_22H.ToString();
+            txtSLTKTT.Text = Session.MinTonKho.ToString();
 
             thongSoChanged = false;
         }
@@ -92,12 +93,13 @@ namespace SuperProjectQ.AllForm.Other
 
                 if (thongSoChanged)
                 {
-                    for (int i = 1; i <= 3; i++)
+                    for (int i = 1; i <= 4; i++)
                     {
                         cmd = new SqlCommand($"UPDATE ThongSo SET GiaTri = @GT WHERE STT = {i}", kn.conn);
-                        cmd.Parameters.AddWithValue("@GT", i == 1 ? double.Parse(txtVAT.Text) : i == 2 ? double.Parse(txtLaiSuat.Text) : double.Parse(txtGiaSau22H.Text));
+                        cmd.Parameters.AddWithValue("@GT", i == 1 ? double.Parse(txtVAT.Text) : i == 2 ? double.Parse(txtLaiSuat.Text) : i == 3 ? double.Parse(txtGiaSau22H.Text) : double.Parse(txtSLTKTT.Text));
                         cmd.ExecuteNonQuery();
                     }
+                    ThongSo_Load();
                 }
             }
         }

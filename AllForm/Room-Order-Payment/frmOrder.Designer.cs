@@ -343,11 +343,13 @@
             this.Controls.Add(this.btnOtherService);
             this.Controls.Add(this.flowLayoutDSPhong);
             this.Controls.Add(this.flowLayoutDSSanPham);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmOrder";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Order";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmOrder_FormClosed);
             this.Load += new System.EventHandler(this.frmOrder_Load);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);

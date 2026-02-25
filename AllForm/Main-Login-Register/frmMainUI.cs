@@ -78,6 +78,20 @@ namespace SuperProjectQ.Frm_Main_Login_Register
             plControls.Controls.Add(frmNhanVien);
             frmNhanVien.Show();
         }
+        private void MNKH_DSKhachHang_Click(object sender, EventArgs e)
+        {
+            frmKhachHang frmKhachHang = new frmKhachHang();
+            frmKhachHang.TopLevel = false;
+            int x = (plControls.Width - frmKhachHang.Width) / 2;
+            int y = (plControls.Height - frmKhachHang.Height) / 2;
+
+            frmKhachHang.Location = new Point(x, y);
+            frmKhachHang.FormBorderStyle = FormBorderStyle.None;
+
+            plControls.Controls.Clear();
+            plControls.Controls.Add(frmKhachHang);
+            frmKhachHang.Show();
+        }
 
         private void MNQuanLy_Phong_Click(object sender, EventArgs e)
         {

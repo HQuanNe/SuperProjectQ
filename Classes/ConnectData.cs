@@ -28,10 +28,13 @@ namespace SuperProjectQ
         {
             try
             {
-                adapter = new SqlDataAdapter(sql, conn);
-                dt = new DataTable();
-                adapter.Fill(dt);
-                return dt;
+                using (adapter = new SqlDataAdapter(sql, conn))
+                {
+                    dt = new DataTable();
+                    adapter.Fill(dt);
+                    return dt;
+                }
+
 
             }
             catch (SqlException ex)

@@ -306,8 +306,6 @@ namespace SuperProjectQ.FrmMixed
         private void btnBack_Click(object sender, EventArgs e)
         {
             this.Close();
-            frmMainUI mainUI = new frmMainUI();
-            mainUI.Visible = true;
         }
 
         private void dgvNhanVien_CellClick(object sender, DataGridViewCellEventArgs e)

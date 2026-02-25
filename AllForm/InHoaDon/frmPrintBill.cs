@@ -40,7 +40,7 @@ namespace SuperProjectQ
             {
                 MessageBox.Show("Lỗi: " + ex.Message);
             }
-            Console.WriteLine("MaHD in PrintBill: " + maHD);
+            Console.WriteLine("Session Mã HD: " + maHD);
 
             this.rpInHoaDon.LocalReport.DataSources.Clear();
             string sqlHD = $"SELECT HoaDon.MaHD, Phong.TenPhong, LoaiPhong.TenLoaiPhong, HoaDon.MaKH, HoaDon.MaNV, HoaDon.GioVao, HoaDon.GioRa, HoaDon.TongSoPhut, " +
@@ -69,6 +69,7 @@ namespace SuperProjectQ
             ReportDataSource rdsHoaDon = new ReportDataSource("DataSetHD", ds.Tables["HoaDon"]);
             ReportDataSource rdsTKKH = new ReportDataSource("DataSetKH", ds.Tables["TrietKhauKH"]);
             rpInHoaDon.LocalReport.DataSources.Add(rdsHoaDon);
+
             rpInHoaDon.LocalReport.DataSources.Add(rdsCTHD);
             rpInHoaDon.LocalReport.DataSources.Add(rdsTKKH);
 
