@@ -17,8 +17,15 @@ namespace SuperProjectQ
 
         public void ConnOpen()
         {
-            if(conn == null) conn = new SqlConnection(strconn);
-            if(conn.State != ConnectionState.Open) conn.Open();
+            try
+            {
+                if (conn == null) conn = new SqlConnection(strconn);
+                if (conn.State != ConnectionState.Open) conn.Open();
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show($"Lỗi kết nối CSDL Vui lòng kiểm tra lại kết nối!!!\n Lỗi: {ex.Message}");
+            }
         }
         public void ConnClose()
         {

@@ -15,8 +15,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
-
 namespace SuperProjectQ.FrmMixed
 {
     public partial class frmPhong : Form
@@ -25,11 +23,11 @@ namespace SuperProjectQ.FrmMixed
         {
             InitializeComponent();
         }
-
+        
         class Button_Plus_And_Minus
         {
             public Button btn = null;
-
+            
             public void BtnPlus_ClickChange()
             {
                 var parent = btn.Parent; // Panel chứa button và textbox
@@ -363,7 +361,7 @@ namespace SuperProjectQ.FrmMixed
                 string donViTinh = dr["DonViTinh"].ToString();
                 decimal donGia = Convert.ToDecimal(dr["GiaBan"]);
                 string sqlThemDo = $"INSERT INTO ChiTietHD  (MaCTHD, MaHD, MaSP, SoLuong, DonVi, DonGia, ThanhTien)" +
-                    $"VALUES ({Session.AutoCreateID("MaCTHD", "ChiTietHD")}, '{maHD}', '{maSP}', {soLuong}, '{donViTinh}', {donGia}, {soLuong*donGia})";
+                    $"VALUES ({Session.AutoCreateID_Interger("MaCTHD", "ChiTietHD")}, '{maHD}', '{maSP}', {soLuong}, '{donViTinh}', {donGia}, {soLuong*donGia})";
                 cmd = new SqlCommand(sqlThemDo, kn.conn);
                 cmd.ExecuteNonQuery();
                 TongTienDV(maHD);
@@ -727,7 +725,7 @@ namespace SuperProjectQ.FrmMixed
                 selectedPanel.BackColor = clrStatusOpen;
                 selectedPanel.Controls[1].Text = strStatusOpen;
 
-                int initMaHD = Session.AutoCreateID("MaHD", "HoaDon");
+                int initMaHD = Session.AutoCreateID_Interger("MaHD", "HoaDon");
 
                 Console.WriteLine("Mã hoá đơn khởi tạo: " + initMaHD);
 

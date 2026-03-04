@@ -105,13 +105,9 @@ namespace SuperProjectQ.FrmMixed
             string sqlGetMaxID = "SELECT TOP 1 MaNV FROM NhanVien WHERE MaNV NOT LIKE '%QTV%' ORDER BY MaNV DESC";
             dt = new DataTable();
             dt = kn.CreateTable(sqlGetMaxID);
-            string id = null;
-            foreach (DataRow dr in dt.Rows)
-            {
-                id = dr["MaNV"].ToString();
-            }
+
             string target = "NV";
-            id = id.Replace(target, "");
+            string id = dt.Rows[0]["MaNV"].ToString().Replace(target, "");
             int tangMa = Convert.ToInt16(id) + 1;
             string newID = null;
             //Định dạng lại mã nếu <10 thì thêm 2 số 0, <100 thì thêm 1 số 0

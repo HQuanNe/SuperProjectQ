@@ -62,33 +62,49 @@ namespace SuperProjectQ.AllForm
         Button btnMinus = null;
         Button btnOrder = null; // Khai báo object Button mua hàng
 
-        private void ItemPanel_SanPham_Load(string tag_1 = "")
+        private void ItemPanel_SanPham_Load(string tag_1 = "", bool isCombo = false)
         {
             flowLayoutDSSanPham.Controls.Clear();
+
+            string maSP = "MaSP", maDM = "MaDM", tenHienThi = "TenHienThi", giaBan = "GiaBan", hinhAnh = "HinhAnh";
 
             string sqlSP = "SELECT SanPham.MaSP, SanPham.TenHienThi, SanPham.GiaBan, SanPham.HinhAnh, KhoHang.MaDM " +
                            $"FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP  " +
                            $"WHERE KhoHang.MaDM LIKE '%{tag_1}%' AND KhoHang.TonKho >= {Session.MinTonKho} ORDER BY SanPham.TenHienThi";
-            dt = kn.CreateTable(sqlSP);
 
+            if(isCombo)
+            {
+                sqlSP = "SELECT DISTINCT Combo.MaCombo, Combo.TenCombo, Combo.MaDM, Combo.DonGia, combo.HinhAnh " +
+                    "FROM Combo " +
+                    "INNER JOIN ChiTietCombo ON Combo.MaCombo = ChiTietCombo.MaComBo " +
+                    "INNER JOIN KhoHang ON KhoHang.MaSP = ChiTietCombo.MaSP";
+                
+                maSP = "MaCombo"; tenHienThi = "TenCombo"; maDM = "MaDM"; giaBan = "DonGia"; hinhAnh = "HinhAnh";
+
+            }
+
+                dt = kn.CreateTable(sqlSP);
+
+            if (dt == null || dt.Rows.Count < 1) return;
             foreach (DataRow row in dt.Rows)
             {
                 string pathImage = "";
 
                 plItem = new Panel() // Tạo panel cho mỗi sản phẩm
                 {
-                    Width = SetParameters.plOrder_WIDTH,
-                    Height = SetParameters.plOrder_HEIGHT,
+                    Width = SetParameters.plSanPham_WIDTH,
+                    Height = SetParameters.plSanPham_HEIGHT,
                     Margin = new Padding(2),
                     BackColor = Color.White,
                     BorderStyle = BorderStyle.FixedSingle,
 
-                    Tag = row["MaDM"].ToString(), // Lưu mã DM vào Tag
+                    Name = row[maSP].ToString(), // Lưu mã SP vào Name của Panel
+                    Tag = row[maDM].ToString(), // Lưu mã DM vào Tag
 
 
                 };
 
-                switch (row["MaDM"].ToString())
+                switch (row[maDM].ToString())
                 {
                     case "MDM01":
                     case "MDM03":
@@ -109,14 +125,14 @@ namespace SuperProjectQ.AllForm
                         break;
                 } //Kiểm tra danh mục sản phẩm để gán file ảnh đúng
 
-                if (row["HinhAnh"] != DBNull.Value && row["HinhAnh"].ToString() != "")// Kiểm tra nếu có hình ảnh
+                if (row[hinhAnh] != DBNull.Value && row[hinhAnh].ToString() != "")// Kiểm tra nếu có hình ảnh
                 {
                     pbItem = new PictureBox() // Tạo PictureBox cho hình ảnh sản phẩm
                     {
-                        Width = SetParameters.pbOrder_WIDTH,
-                        Height = SetParameters.pbOrder_HEIGHT,
+                        Width = SetParameters.pbSanPham_WIDTH,
+                        Height = SetParameters.pbSanPham_HEIGHT,
                         SizeMode = PictureBoxSizeMode.Zoom,
-                        Image = Image.FromFile(Application.StartupPath + $"\\Images\\{pathImage = pathImage + row["HinhAnh"]}"),
+                        Image = Image.FromFile(Application.StartupPath + $"\\Images\\{pathImage = pathImage + row[hinhAnh]}"),
                         Location = new Point(20, 10),
                         //BackColor = Color.Red,
                     };
@@ -124,27 +140,27 @@ namespace SuperProjectQ.AllForm
                     lblTenSanPham = new Label() // Tạo Label cho tên sản phẩm
                     {
                         Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point),
-                        Text = $"{row["TenHienThi"].ToString()}",
+                        Text = $"{row[tenHienThi].ToString()}",
                         ForeColor = Color.Black,
                         AutoSize = true,
 
-                        MinimumSize = new Size(SetParameters.pbOrder_WIDTH, 0),
-                        MaximumSize = new Size(SetParameters.pbOrder_WIDTH + 10, 0),
+                        MinimumSize = new Size(SetParameters.pbSanPham_WIDTH, 0),
+                        MaximumSize = new Size(SetParameters.pbSanPham_WIDTH + 10, 0),
 
                         Location = new Point(20, pbItem.Location.Y + pbItem.Height + 5),
                         TextAlign = ContentAlignment.MiddleCenter,
                         //BackColor = Color.Red,
                     };
-                    decimal giaBan = Convert.ToDecimal(row["GiaBan"]); // Lấy giá bán từ cơ sở dữ liệu
+                    decimal decGiaBan = Convert.ToDecimal(row[giaBan]); // Lấy giá bán từ cơ sở dữ liệu
                     lblGiaBan = new Label()// Tạo Label cho giá bán
                     {
                         Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point),
                         ForeColor = Color.Red,
-                        Text = giaBan.ToString("#,##0") + "đ",
+                        Text = decGiaBan.ToString("#,##0") + "đ",
                         AutoSize = true,
 
-                        MinimumSize = new Size(SetParameters.pbOrder_WIDTH, 0),
-                        MaximumSize = new Size(SetParameters.pbOrder_WIDTH + 10, 0),
+                        MinimumSize = new Size(SetParameters.pbSanPham_WIDTH, 0),
+                        MaximumSize = new Size(SetParameters.pbSanPham_WIDTH + 10, 0),
                         TextAlign = ContentAlignment.MiddleCenter,
 
                         Location = new Point(20, (lblTenSanPham.Location.Y + lblTenSanPham.Height) + 45),
@@ -157,7 +173,7 @@ namespace SuperProjectQ.AllForm
                         Width = 80,
                         Height = 30,
 
-                        Name = row["MaSP"].ToString(),
+                        Name = row[maSP].ToString(),
 
                         Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point),
                         Text = $"1",
@@ -172,7 +188,7 @@ namespace SuperProjectQ.AllForm
                         Width = 30,
                         Height = 20,
 
-                        Name = row["MaSP"].ToString(),
+                        Name = row[maSP].ToString(),
 
                         Font = new Font("Times New Roman", 10F, FontStyle.Bold, GraphicsUnit.Point),
                         Text = $"+",
@@ -194,7 +210,7 @@ namespace SuperProjectQ.AllForm
                         Width = 30,
                         Height = 20,
 
-                        Name = row["MaSP"].ToString(),
+                        Name = row[maSP].ToString(),
 
                         Font = new Font("Times New Roman", 10F, FontStyle.Bold, GraphicsUnit.Point),
                         Text = $"-",
@@ -220,13 +236,13 @@ namespace SuperProjectQ.AllForm
 
                         Text = "Gọi đồ",
 
-                        Name = row["MaSP"].ToString(), // Lưu mã SP vào Name của Button
+                        Name = row[maSP].ToString(), // Lưu mã SP vào Name của Button
 
                         Font = new Font("Times New Roman", 18F, FontStyle.Bold, GraphicsUnit.Point),
                         ForeColor = Color.Black,
                         BackColor = Color.FromArgb(192, 255, 255),
                         FlatStyle = FlatStyle.Flat,
-                        Location = new Point(45, (lblGiaBan.Location.Y + lblGiaBan.Height) + 75),
+                        Location = new Point((plItem.Width - 200) /2, (lblGiaBan.Location.Y + lblGiaBan.Height) + 75),
 
 
                         FlatAppearance =
@@ -355,7 +371,7 @@ namespace SuperProjectQ.AllForm
                         string sqlAdd = "INSERT INTO ChiTietHD (MaCTHD, MaHD, MaSP, SoLuong, DonViTinh, DonGia, ThanhTien) VALUES (@MCTHD, @MHD, @MSP, @SL, @DV, @DG, @TT)";
                         cmd = new SqlCommand(sqlAdd, kn.conn);
                         cmd.Parameters.Clear();
-                        cmd.Parameters.AddWithValue("@MCTHD", Session.AutoCreateID("MaCTHD", "ChiTietHD"));
+                        cmd.Parameters.AddWithValue("@MCTHD", Session.AutoCreateID_Interger("MaCTHD", "ChiTietHD"));
                         cmd.Parameters.AddWithValue("@MHD", intMaHD);
                         cmd.Parameters.AddWithValue("@MSP", maSP);
                         cmd.Parameters.AddWithValue("@SL", soLuongOrder);
@@ -404,8 +420,6 @@ namespace SuperProjectQ.AllForm
             ItemPanel_SanPham_Load();
             Phong_Load();
 
-            lblDanhMuc.Text = "Tất cả";
-
             //Ẩn các nút con của nút cha ở thanh điều hướng
             HideBtnFoodChildren();
             HideBtnDrinkChildren();
@@ -420,7 +434,6 @@ namespace SuperProjectQ.AllForm
             {
                 clickedButton.BackColor = Color.Blue;
                 clickedButton.ForeColor = Color.White;
-                lblTenPhong.Text = clickedButton.Text;
                 btnPassClick = clickedButton;
 
                 selectedRoomButton = clickedButton;
@@ -483,7 +496,6 @@ namespace SuperProjectQ.AllForm
         } //Hiển thị panel sản phẩm theo tag
         private void btnAll_Click(object sender, EventArgs e)
         {
-            lblDanhMuc.Text = btnAll.Text;
             HideBtnFoodChildren();
             HideBtnDrinkChildren();
 
@@ -499,7 +511,6 @@ namespace SuperProjectQ.AllForm
         {
             if (foodFlag)
             {
-                lblDanhMuc.Text = btnFood.Text.Replace("▶", "");
                 btnSnack.Visible = true;
                 btnDoKho.Visible = true;
                 btnHoaQua.Visible = true;
@@ -513,7 +524,6 @@ namespace SuperProjectQ.AllForm
             }
             else
             {
-                lblDanhMuc.Text = btnFood.Text.Replace("▼", "");
                 HideBtnFoodChildren();
                 btnFood.Text = "Đồ ăn ▶️";
 
@@ -522,20 +532,15 @@ namespace SuperProjectQ.AllForm
         }
         private void btnSnack_Click(object sender, EventArgs e)
         {
-            lblDanhMuc.Text = btnFood.Text.Replace("▼", "") + " - " + btnSnack.Text;
-
             ShowPanelByTag("MDM03");
         }
         private void btnDoKho_Click(object sender, EventArgs e)
         {
-            lblDanhMuc.Text = btnFood.Text.Replace("▼", "") + " - " + btnDoKho.Text;
-
             ShowPanelByTag("MDM01");
         }
 
         private void btnHoaQua_Click(object sender, EventArgs e)
         {
-            lblDanhMuc.Text = btnFood.Text.Replace("▼", "") + " - " + btnHoaQua.Text;
 
             ShowPanelByTag("MDM06");
         }
@@ -546,7 +551,6 @@ namespace SuperProjectQ.AllForm
         {
             if (drinkFlag)
             {
-                lblDanhMuc.Text = btnDrink.Text;
                 btnRuou.Visible = true;
                 btnNuocNgot.Visible = true;
                 btnNuocKhoang.Visible = true;
@@ -559,7 +563,6 @@ namespace SuperProjectQ.AllForm
             }
             else
             {
-                lblDanhMuc.Text = btnDrink.Text.Replace("▼", "");
                 HideBtnDrinkChildren();
 
                 btnDrink.Text = "Đồ uống ▶";
@@ -569,25 +572,21 @@ namespace SuperProjectQ.AllForm
         }
         private void btnRuou_Click(object sender, EventArgs e)
         {
-            lblDanhMuc.Text = btnDrink.Text.Replace("▼", "") + " - " + btnRuou.Text;
             ShowPanelByTag("MDM02");
         }
 
         private void btnNuocNgot_Click(object sender, EventArgs e)
         {
-            lblDanhMuc.Text = btnDrink.Text.Replace("▼", "") + " - " + btnNuocNgot.Text;
             ShowPanelByTag("MDM07");
         }
 
         private void btnNuocKhoang_Click(object sender, EventArgs e)
         {
-            lblDanhMuc.Text = btnDrink.Text.Replace("▼", "") + " - " + btnNuocKhoang.Text;
             ShowPanelByTag("MDM08");
         }
         #endregion
         private void btnOther_Click(object sender, EventArgs e)
         {
-            lblDanhMuc.Text = btnOther.Text;
             HideBtnFoodChildren();
             HideBtnDrinkChildren();
 
@@ -600,7 +599,7 @@ namespace SuperProjectQ.AllForm
         }
         private void btnCombo_Click(object sender, EventArgs e)
         {
-
+            ItemPanel_SanPham_Load("", true);
         }
 
         #endregion

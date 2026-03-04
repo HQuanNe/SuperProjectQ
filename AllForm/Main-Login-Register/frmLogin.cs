@@ -22,11 +22,15 @@ namespace SuperProjectQ
 
         }
         ConnectData kn = new ConnectData();
+        SqlCommand cmd = null;
+        bool isLoginSuccess;
         private void frmLogin_Load(object sender, EventArgs e)
         {
             try
             {
                 kn.ConnOpen();
+
+                InfoSaved_Load();
             }
             catch (SqlException ex)
             {
@@ -34,7 +38,26 @@ namespace SuperProjectQ
                 return;
             }
         }
-
+        private void SaveInfo_Checked()
+        {
+            if (ckcLuuTT.Checked && isLoginSuccess)
+            {
+                cmd = new SqlCommand("INSERT INTO Session (STT, UserName, ThoiGianLuu) VALUES (@STT, @UserName, GETDATE())", kn.conn);
+                cmd.Parameters.AddWithValue("@STT", Session.AutoCreateID_Interger("STT", "Session"));
+                cmd.Parameters.AddWithValue("@UserName", txtUserName.Text.Trim());
+                cmd.ExecuteNonQuery();
+            }
+        }
+        private void InfoSaved_Load()
+        {
+            string sqlInfoSaved = "SELECT TOP 1 * FROM Session ORDER BY ThoiGianLuu DESC";
+            DataTable dt = new DataTable();
+            dt = kn.CreateTable(sqlInfoSaved);
+            if (dt.Rows.Count > 0)
+            {
+                txtUserName.Text = dt.Rows[0]["UserName"].ToString();
+            }
+        }
         private void btnLogin_Click(object sender, EventArgs e)
         {
             try
@@ -46,10 +69,18 @@ namespace SuperProjectQ
                 }
                 else
                 {
-                    string loginIDUser = null, loginMaNV = null, loginTenNV = null, loginChucVu = null ;
+                    string tenDangNhap = txtUserName.Text.Trim(), matKhau = txtPassword.Text.Trim();
+                    if (tenDangNhap.Contains("'") || matKhau.Contains("'"))
+                    {
+                        MessageBox.Show("Tên đăng nhập hoặc mật khẩu không chính xác");
+                        return;
+                    }
+
+                    string loginIDUser = null, loginMaNV = null, loginTenNV = null, loginChucVu = null;
                     string sqlLogin = $"SELECT * FROM Users WHERE UserName = '{txtUserName.Text.Trim()}' AND Password = '{txtPassword.Text.Trim()}'";
                     DataTable dt = new DataTable();
                     dt = kn.CreateTable(sqlLogin);
+                    if (dt.Rows.Count < 0) return;
                     foreach (DataRow rowIDUser in dt.Rows)
                     {
                         loginIDUser = rowIDUser["IDUser"].ToString();
@@ -70,11 +101,13 @@ namespace SuperProjectQ
                         Session.MaNV = loginMaNV;
                         Session.TenNV = loginTenNV;
                         Session.ChucVu = loginChucVu;
-                        //Lưu log 
-                        Session.Datalog("login.txt", $"ID: {loginIDUser} - MãNV: {loginMaNV} đã đăng nhập");
+
+                        isLoginSuccess = true;
+                        SaveInfo_Checked();
+
+                        Session.Datalog("login.txt", $"ID: {loginIDUser} - MãNV: {loginMaNV} đã đăng nhập"); //Lưu log 
                         frmMainUI MainUI = new frmMainUI();
                         MainUI.ShowDialog();
-                        this.Close();
                     }
                     else
                     {

@@ -317,7 +317,7 @@
             // btnThoat
             // 
             this.btnThoat.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnThoat.Location = new System.Drawing.Point(803, 557);
+            this.btnThoat.Location = new System.Drawing.Point(803, 564);
             this.btnThoat.Name = "btnThoat";
             this.btnThoat.Size = new System.Drawing.Size(181, 78);
             this.btnThoat.TabIndex = 16;
@@ -391,7 +391,7 @@
             this.dgvKhachHang.RowHeadersWidth = 51;
             this.dgvKhachHang.RowTemplate.Height = 24;
             this.dgvKhachHang.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvKhachHang.Size = new System.Drawing.Size(785, 445);
+            this.dgvKhachHang.Size = new System.Drawing.Size(785, 452);
             this.dgvKhachHang.TabIndex = 17;
             this.dgvKhachHang.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvKhachHang_CellClick);
             // 
@@ -441,6 +441,7 @@
             this.DiemTichLuy.HeaderText = "Điểm tích luỹ";
             this.DiemTichLuy.MinimumWidth = 6;
             this.DiemTichLuy.Name = "DiemTichLuy";
+            this.DiemTichLuy.Width = 125;
             // 
             // Discount
             // 
@@ -452,8 +453,7 @@
             // 
             // frmKhachHang
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(996, 654);
             this.Controls.Add(this.dgvKhachHang);
             this.Controls.Add(this.panel1);
@@ -464,7 +464,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmKhachHang";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmKhachHang";
+            this.Text = "Khách hàng";
             this.Load += new System.EventHandler(this.frmKhachHang_Load);
             this.plInfo.ResumeLayout(false);
             this.plInfo.PerformLayout();

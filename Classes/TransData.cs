@@ -19,10 +19,17 @@ namespace SuperProjectQ
         static DataTable dt = null;
         static SqlCommand cmd = null;
 
-        public static double VAT = 0;
-        public static double laiSuat = 0;
-        public static double PriceAfter_22H = 0;
-        public static double MinTonKho = 0;
+        #region Các thông số
+        public static double VAT;
+        public static double laiSuat;
+        public static double PriceAfter_22H;
+        public static double MinTonKho;
+        public static double amountPerPointVIP; //Số tiền trên mỗi điểm VIP
+        #endregion
+
+        #region
+
+        #endregion
 
         public static void ConnectOpen()
         {
@@ -93,7 +100,7 @@ namespace SuperProjectQ
                 }
             }
         } // Hàm kiểm tra voucher hết hạn
-        public static int AutoCreateID(string colName, string tableName) //tạo mã tự động
+        public static int AutoCreateID_Interger(string colName, string tableName) //tạo mã số tự động
         {
             ConnectOpen();
 
@@ -107,7 +114,38 @@ namespace SuperProjectQ
             }
             return MaHD += 1;
         }
+        public static string AutoCreateID_String(string colName, string tableName, string target)
+        {
+            ConnectOpen();
 
+            string sqlGetMaxID = $"SELECT TOP 1 {colName} FROM {tableName} ORDER BY {colName} DESC";
+            cmd = new SqlCommand(sqlGetMaxID, kn.conn);
+
+            string id = cmd.ExecuteScalar().ToString().Replace(target, "");
+            int tangMa = Convert.ToInt16(id) + 1;
+            string newID = null;
+
+            if(target.Length == 3)
+            {
+                //Định dạng lại mã nếu <10 thì thêm 2 số 0, <100 thì thêm 1 số 0
+                if (tangMa < 10)
+                    newID = target + "0" + tangMa.ToString();
+                else
+                    newID = target + tangMa.ToString();
+                return newID;
+            }
+            else
+            {
+                //Định dạng lại mã nếu <10 thì thêm 2 số 0, <100 thì thêm 1 số 0
+                if (tangMa < 10)
+                    newID = target + "00" + tangMa.ToString();
+                else if (tangMa < 100)
+                    newID = target + "0" + tangMa.ToString();
+                else
+                    newID = target + tangMa.ToString();
+                return newID;
+            }
+        } //Tạo mã có chuỗi
         public static void CapNhatKho(bool isPlus, string maSP, double soLuong)
         {
             ConnectOpen();
@@ -160,6 +198,8 @@ namespace SuperProjectQ
             laiSuat = Convert.ToDouble(dt.Rows[1]["GiaTri"]); //Lãi suất hoá đơn 2%/ngày khi quá hạn
             PriceAfter_22H = Convert.ToDouble(dt.Rows[2]["GiaTri"]); //Giá sau 22h tăng 20%
             MinTonKho = Convert.ToDouble(dt.Rows[3]["GiaTri"]); //Số lượng tồn kho tối thiểu
+            MinTonKho = Convert.ToDouble(dt.Rows[3]["GiaTri"]); //Số lượng tồn kho tối thiểu
+            amountPerPointVIP = Convert.ToDouble(dt.Rows[4]["GiaTri"]); //Số tiền trên mỗi điểm VIP
         }
         #endregion
         public static Nullable<bool> isPlus { get; set; } //Biến tạm để xác định là cộng hay trừ số lượng trong kho, nếu true là cộng, false là trừ, null là chưa xác định

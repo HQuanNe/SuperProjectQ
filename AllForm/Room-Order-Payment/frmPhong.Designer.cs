@@ -73,11 +73,11 @@
             this.tabCtrlRoom.Controls.Add(this.tabPageNormal);
             this.tabCtrlRoom.Controls.Add(this.tabPageVIP);
             this.tabCtrlRoom.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabCtrlRoom.Location = new System.Drawing.Point(3, 47);
+            this.tabCtrlRoom.Location = new System.Drawing.Point(3, 49);
             this.tabCtrlRoom.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabCtrlRoom.Name = "tabCtrlRoom";
             this.tabCtrlRoom.SelectedIndex = 0;
-            this.tabCtrlRoom.Size = new System.Drawing.Size(992, 630);
+            this.tabCtrlRoom.Size = new System.Drawing.Size(992, 551);
             this.tabCtrlRoom.TabIndex = 8;
             this.tabCtrlRoom.SelectedIndexChanged += new System.EventHandler(this.tabCtrlRoom_SelectedIndexChanged);
             // 
@@ -89,7 +89,7 @@
             this.tabPageNormal.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPageNormal.Name = "tabPageNormal";
             this.tabPageNormal.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPageNormal.Size = new System.Drawing.Size(984, 598);
+            this.tabPageNormal.Size = new System.Drawing.Size(984, 519);
             this.tabPageNormal.TabIndex = 0;
             this.tabPageNormal.Text = "Phòng thường";
             // 
@@ -101,7 +101,7 @@
             this.tabPageVIP.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPageVIP.Name = "tabPageVIP";
             this.tabPageVIP.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPageVIP.Size = new System.Drawing.Size(984, 598);
+            this.tabPageVIP.Size = new System.Drawing.Size(984, 519);
             this.tabPageVIP.TabIndex = 1;
             this.tabPageVIP.Text = "Phòng VIP";
             // 
@@ -139,12 +139,14 @@
             // btnClose
             // 
             this.btnClose.BackColor = System.Drawing.Color.Red;
-            this.btnClose.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.ForeColor = System.Drawing.Color.MidnightBlue;
             this.btnClose.Location = new System.Drawing.Point(4, 2);
             this.btnClose.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(300, 96);
+            this.btnClose.Size = new System.Drawing.Size(240, 70);
             this.btnClose.TabIndex = 2;
             this.btnClose.Text = "Đóng phòng";
             this.btnClose.UseVisualStyleBackColor = false;
@@ -154,7 +156,7 @@
             // 
             this.btnOrder.BackColor = System.Drawing.Color.White;
             this.btnOrder.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOrder.Location = new System.Drawing.Point(1356, 15);
+            this.btnOrder.Location = new System.Drawing.Point(1356, 2);
             this.btnOrder.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnOrder.Name = "btnOrder";
             this.btnOrder.Size = new System.Drawing.Size(105, 71);
@@ -165,12 +167,14 @@
             // btnOpen
             // 
             this.btnOpen.BackColor = System.Drawing.Color.Lime;
-            this.btnOpen.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOpen.FlatAppearance.BorderSize = 0;
+            this.btnOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOpen.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOpen.ForeColor = System.Drawing.Color.MidnightBlue;
             this.btnOpen.Location = new System.Drawing.Point(4, 2);
             this.btnOpen.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(300, 96);
+            this.btnOpen.Size = new System.Drawing.Size(240, 70);
             this.btnOpen.TabIndex = 0;
             this.btnOpen.Text = "Mở phòng";
             this.btnOpen.UseVisualStyleBackColor = false;
@@ -186,20 +190,22 @@
             this.plControl.Controls.Add(this.btnOrder);
             this.plControl.Controls.Add(this.btnClose);
             this.plControl.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.plControl.Location = new System.Drawing.Point(0, 703);
+            this.plControl.Location = new System.Drawing.Point(0, 640);
             this.plControl.Name = "plControl";
-            this.plControl.Size = new System.Drawing.Size(1482, 100);
+            this.plControl.Size = new System.Drawing.Size(1482, 80);
             this.plControl.TabIndex = 20;
             // 
             // btnHuyDatTruoc
             // 
             this.btnHuyDatTruoc.BackColor = System.Drawing.Color.Teal;
-            this.btnHuyDatTruoc.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHuyDatTruoc.FlatAppearance.BorderSize = 0;
+            this.btnHuyDatTruoc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHuyDatTruoc.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHuyDatTruoc.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btnHuyDatTruoc.Location = new System.Drawing.Point(310, 2);
+            this.btnHuyDatTruoc.Location = new System.Drawing.Point(250, 2);
             this.btnHuyDatTruoc.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnHuyDatTruoc.Name = "btnHuyDatTruoc";
-            this.btnHuyDatTruoc.Size = new System.Drawing.Size(300, 96);
+            this.btnHuyDatTruoc.Size = new System.Drawing.Size(240, 70);
             this.btnHuyDatTruoc.TabIndex = 7;
             this.btnHuyDatTruoc.Text = "Huỷ đặt trước";
             this.btnHuyDatTruoc.UseVisualStyleBackColor = false;
@@ -207,10 +213,12 @@
             // 
             // btnOrdered
             // 
+            this.btnOrdered.FlatAppearance.BorderSize = 0;
+            this.btnOrdered.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOrdered.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOrdered.Location = new System.Drawing.Point(897, 13);
+            this.btnOrdered.Location = new System.Drawing.Point(897, 2);
             this.btnOrdered.Name = "btnOrdered";
-            this.btnOrdered.Size = new System.Drawing.Size(153, 69);
+            this.btnOrdered.Size = new System.Drawing.Size(153, 70);
             this.btnOrdered.TabIndex = 22;
             this.btnOrdered.Text = "Đã Order";
             this.btnOrdered.UseVisualStyleBackColor = true;
@@ -219,12 +227,14 @@
             // btnDatTruoc
             // 
             this.btnDatTruoc.BackColor = System.Drawing.Color.Aqua;
-            this.btnDatTruoc.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDatTruoc.FlatAppearance.BorderSize = 0;
+            this.btnDatTruoc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDatTruoc.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDatTruoc.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.btnDatTruoc.Location = new System.Drawing.Point(310, 2);
+            this.btnDatTruoc.Location = new System.Drawing.Point(250, 2);
             this.btnDatTruoc.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnDatTruoc.Name = "btnDatTruoc";
-            this.btnDatTruoc.Size = new System.Drawing.Size(300, 96);
+            this.btnDatTruoc.Size = new System.Drawing.Size(240, 70);
             this.btnDatTruoc.TabIndex = 6;
             this.btnDatTruoc.Text = "Đặt trước";
             this.btnDatTruoc.UseVisualStyleBackColor = false;
@@ -232,10 +242,12 @@
             // 
             // btnOpenMenu
             // 
+            this.btnOpenMenu.FlatAppearance.BorderSize = 0;
+            this.btnOpenMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOpenMenu.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOpenMenu.Location = new System.Drawing.Point(716, 13);
+            this.btnOpenMenu.Location = new System.Drawing.Point(496, 2);
             this.btnOpenMenu.Name = "btnOpenMenu";
-            this.btnOpenMenu.Size = new System.Drawing.Size(153, 69);
+            this.btnOpenMenu.Size = new System.Drawing.Size(153, 70);
             this.btnOpenMenu.TabIndex = 21;
             this.btnOpenMenu.Text = "Mở menu";
             this.btnOpenMenu.UseVisualStyleBackColor = true;
@@ -248,7 +260,7 @@
             this.plPhong.Controls.Add(this.tabCtrlRoom);
             this.plPhong.Location = new System.Drawing.Point(17, 4);
             this.plPhong.Name = "plPhong";
-            this.plPhong.Size = new System.Drawing.Size(1010, 692);
+            this.plPhong.Size = new System.Drawing.Size(1010, 624);
             this.plPhong.TabIndex = 24;
             // 
             // label5
@@ -281,7 +293,7 @@
             this.plOrdered.Dock = System.Windows.Forms.DockStyle.Left;
             this.plOrdered.Location = new System.Drawing.Point(0, 0);
             this.plOrdered.Name = "plOrdered";
-            this.plOrdered.Size = new System.Drawing.Size(420, 703);
+            this.plOrdered.Size = new System.Drawing.Size(420, 640);
             this.plOrdered.TabIndex = 26;
             // 
             // frmPhong
@@ -291,7 +303,7 @@
             this.AutoScroll = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(1482, 803);
+            this.ClientSize = new System.Drawing.Size(1482, 720);
             this.Controls.Add(this.plOrdered);
             this.Controls.Add(this.plPhong);
             this.Controls.Add(this.plControl);

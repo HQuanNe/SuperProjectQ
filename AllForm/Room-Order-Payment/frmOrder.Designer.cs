@@ -44,8 +44,6 @@
             this.btnRuou = new System.Windows.Forms.Button();
             this.btnNuocNgot = new System.Windows.Forms.Button();
             this.btnNuocKhoang = new System.Windows.Forms.Button();
-            this.lblDanhMuc = new System.Windows.Forms.Label();
-            this.lblTenPhong = new System.Windows.Forms.Label();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,10 +52,11 @@
             this.flowLayoutDSSanPham.AutoScroll = true;
             this.flowLayoutDSSanPham.AutoScrollMinSize = new System.Drawing.Size(0, 650);
             this.flowLayoutDSSanPham.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.flowLayoutDSSanPham.Location = new System.Drawing.Point(303, 116);
+            this.flowLayoutDSSanPham.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.flowLayoutDSSanPham.Location = new System.Drawing.Point(300, 12);
             this.flowLayoutDSSanPham.Name = "flowLayoutDSSanPham";
             this.flowLayoutDSSanPham.Padding = new System.Windows.Forms.Padding(5);
-            this.flowLayoutDSSanPham.Size = new System.Drawing.Size(1217, 665);
+            this.flowLayoutDSSanPham.Size = new System.Drawing.Size(1170, 719);
             this.flowLayoutDSSanPham.TabIndex = 0;
             // 
             // btnAll
@@ -151,9 +150,9 @@
             // flowLayoutDSPhong
             // 
             this.flowLayoutDSPhong.BackColor = System.Drawing.Color.Transparent;
-            this.flowLayoutDSPhong.Location = new System.Drawing.Point(12, 576);
+            this.flowLayoutDSPhong.Location = new System.Drawing.Point(12, 472);
             this.flowLayoutDSPhong.Name = "flowLayoutDSPhong";
-            this.flowLayoutDSPhong.Size = new System.Drawing.Size(285, 205);
+            this.flowLayoutDSPhong.Size = new System.Drawing.Size(285, 259);
             this.flowLayoutDSPhong.TabIndex = 2;
             // 
             // btnOtherService
@@ -165,7 +164,7 @@
             this.btnOtherService.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Cyan;
             this.btnOtherService.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOtherService.Font = new System.Drawing.Font("Times New Roman", 28F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOtherService.Location = new System.Drawing.Point(12, 502);
+            this.btnOtherService.Location = new System.Drawing.Point(12, 398);
             this.btnOtherService.Name = "btnOtherService";
             this.btnOtherService.Size = new System.Drawing.Size(285, 68);
             this.btnOtherService.TabIndex = 6;
@@ -188,7 +187,7 @@
             this.flowLayoutPanel1.Controls.Add(this.btnNuocKhoang);
             this.flowLayoutPanel1.Controls.Add(this.btnOther);
             this.flowLayoutPanel1.Controls.Add(this.btnCombo);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 116);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(9, 12);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(285, 380);
             this.flowLayoutPanel1.TabIndex = 3;
@@ -301,44 +300,14 @@
             this.btnNuocKhoang.UseVisualStyleBackColor = false;
             this.btnNuocKhoang.Click += new System.EventHandler(this.btnNuocKhoang_Click);
             // 
-            // lblDanhMuc
-            // 
-            this.lblDanhMuc.AutoSize = true;
-            this.lblDanhMuc.BackColor = System.Drawing.Color.SkyBlue;
-            this.lblDanhMuc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblDanhMuc.Font = new System.Drawing.Font("Times New Roman", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDanhMuc.Location = new System.Drawing.Point(904, 9);
-            this.lblDanhMuc.MinimumSize = new System.Drawing.Size(400, 80);
-            this.lblDanhMuc.Name = "lblDanhMuc";
-            this.lblDanhMuc.Size = new System.Drawing.Size(400, 80);
-            this.lblDanhMuc.TabIndex = 7;
-            this.lblDanhMuc.Text = "--";
-            this.lblDanhMuc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblTenPhong
-            // 
-            this.lblTenPhong.AutoSize = true;
-            this.lblTenPhong.BackColor = System.Drawing.Color.Violet;
-            this.lblTenPhong.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblTenPhong.Font = new System.Drawing.Font("Times New Roman", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTenPhong.Location = new System.Drawing.Point(1370, 9);
-            this.lblTenPhong.MinimumSize = new System.Drawing.Size(150, 80);
-            this.lblTenPhong.Name = "lblTenPhong";
-            this.lblTenPhong.Size = new System.Drawing.Size(150, 80);
-            this.lblTenPhong.TabIndex = 8;
-            this.lblTenPhong.Text = "--";
-            this.lblTenPhong.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // frmOrder
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoScroll = true;
             this.AutoScrollMinSize = new System.Drawing.Size(0, 700);
-            this.BackgroundImage = global::SuperProjectQ.Properties.Resources.Menu;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(1525, 793);
-            this.Controls.Add(this.lblTenPhong);
-            this.Controls.Add(this.lblDanhMuc);
+            this.ClientSize = new System.Drawing.Size(1482, 733);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.btnOtherService);
             this.Controls.Add(this.flowLayoutDSPhong);
@@ -353,7 +322,6 @@
             this.Load += new System.EventHandler(this.frmOrder_Load);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -368,8 +336,6 @@
         private System.Windows.Forms.Button btnAll;
         private System.Windows.Forms.Button btnOtherService;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Label lblDanhMuc;
-        private System.Windows.Forms.Label lblTenPhong;
         private System.Windows.Forms.Button btnSnack;
         private System.Windows.Forms.Button btnDoKho;
         private System.Windows.Forms.Button btnHoaQua;

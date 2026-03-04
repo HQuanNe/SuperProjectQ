@@ -30,12 +30,16 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSetting));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnVIP = new System.Windows.Forms.Button();
             this.btnThongSo = new System.Windows.Forms.Button();
             this.btnGeneral = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.plThongSo = new System.Windows.Forms.Panel();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.txtSLTKTT = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.txtGiaSau22H = new System.Windows.Forms.TextBox();
@@ -51,6 +55,16 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.btnSave = new System.Windows.Forms.Button();
             this.plGeneral = new System.Windows.Forms.Panel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.btnSuaDM = new System.Windows.Forms.Button();
+            this.btnThemDM = new System.Windows.Forms.Button();
+            this.txtTenDM = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.cmbDanhMuc = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtMaDM = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -64,32 +78,64 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.plControls = new System.Windows.Forms.Panel();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.txtSLTKTT = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
+            this.plVIP = new System.Windows.Forms.Panel();
+            this.plBangVIP = new System.Windows.Forms.Panel();
+            this.panel14 = new System.Windows.Forms.Panel();
+            this.label21 = new System.Windows.Forms.Label();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.panel15 = new System.Windows.Forms.Panel();
+            this.label23 = new System.Windows.Forms.Label();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.panel16 = new System.Windows.Forms.Panel();
+            this.label25 = new System.Windows.Forms.Label();
+            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.label18 = new System.Windows.Forms.Label();
+            this.txtAmountPerPointVIP = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.plThongSo.SuspendLayout();
+            this.panel7.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.plGeneral.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.panel11.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel9.SuspendLayout();
             this.panel10.SuspendLayout();
             this.plControls.SuspendLayout();
-            this.panel7.SuspendLayout();
+            this.plVIP.SuspendLayout();
+            this.panel14.SuspendLayout();
+            this.panel15.SuspendLayout();
+            this.panel16.SuspendLayout();
+            this.panel12.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.panel1.Controls.Add(this.btnVIP);
             this.panel1.Controls.Add(this.btnThongSo);
             this.panel1.Controls.Add(this.btnGeneral);
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
+            // 
+            // btnVIP
+            // 
+            this.btnVIP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.btnVIP.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(this.btnVIP, "btnVIP");
+            this.btnVIP.Name = "btnVIP";
+            this.btnVIP.UseVisualStyleBackColor = false;
+            this.btnVIP.Click += new System.EventHandler(this.Allbtn_Click);
             // 
             // btnThongSo
             // 
@@ -132,12 +178,33 @@
             // plThongSo
             // 
             this.plThongSo.BackColor = System.Drawing.Color.White;
+            this.plThongSo.Controls.Add(this.panel12);
             this.plThongSo.Controls.Add(this.panel7);
             this.plThongSo.Controls.Add(this.panel6);
             this.plThongSo.Controls.Add(this.panel5);
             this.plThongSo.Controls.Add(this.panel3);
             resources.ApplyResources(this.plThongSo, "plThongSo");
             this.plThongSo.Name = "plThongSo";
+            // 
+            // panel7
+            // 
+            this.panel7.Controls.Add(this.txtSLTKTT);
+            this.panel7.Controls.Add(this.label15);
+            resources.ApplyResources(this.panel7, "panel7");
+            this.panel7.Name = "panel7";
+            // 
+            // txtSLTKTT
+            // 
+            this.txtSLTKTT.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtSLTKTT.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            resources.ApplyResources(this.txtSLTKTT, "txtSLTKTT");
+            this.txtSLTKTT.Name = "txtSLTKTT";
+            this.txtSLTKTT.TextChanged += new System.EventHandler(this.AllTextBoxThongSo_TextChanged);
+            // 
+            // label15
+            // 
+            resources.ApplyResources(this.label15, "label15");
+            this.label15.Name = "label15";
             // 
             // panel6
             // 
@@ -158,7 +225,7 @@
             this.txtGiaSau22H.BorderStyle = System.Windows.Forms.BorderStyle.None;
             resources.ApplyResources(this.txtGiaSau22H, "txtGiaSau22H");
             this.txtGiaSau22H.Name = "txtGiaSau22H";
-            this.txtGiaSau22H.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
+            this.txtGiaSau22H.TextChanged += new System.EventHandler(this.AllTextBoxThongSo_TextChanged);
             // 
             // label7
             // 
@@ -184,7 +251,7 @@
             this.txtLaiSuat.BorderStyle = System.Windows.Forms.BorderStyle.None;
             resources.ApplyResources(this.txtLaiSuat, "txtLaiSuat");
             this.txtLaiSuat.Name = "txtLaiSuat";
-            this.txtLaiSuat.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
+            this.txtLaiSuat.TextChanged += new System.EventHandler(this.AllTextBoxThongSo_TextChanged);
             // 
             // label5
             // 
@@ -210,7 +277,7 @@
             this.txtVAT.BorderStyle = System.Windows.Forms.BorderStyle.None;
             resources.ApplyResources(this.txtVAT, "txtVAT");
             this.txtVAT.Name = "txtVAT";
-            this.txtVAT.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
+            this.txtVAT.TextChanged += new System.EventHandler(this.AllTextBoxThongSo_TextChanged);
             // 
             // label2
             // 
@@ -234,11 +301,85 @@
             // plGeneral
             // 
             this.plGeneral.BackColor = System.Drawing.Color.White;
+            this.plGeneral.Controls.Add(this.groupBox1);
             this.plGeneral.Controls.Add(this.panel8);
             this.plGeneral.Controls.Add(this.panel9);
             this.plGeneral.Controls.Add(this.panel10);
             resources.ApplyResources(this.plGeneral, "plGeneral");
             this.plGeneral.Name = "plGeneral";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.panel11);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
+            // 
+            // panel11
+            // 
+            this.panel11.Controls.Add(this.btnSuaDM);
+            this.panel11.Controls.Add(this.btnThemDM);
+            this.panel11.Controls.Add(this.txtTenDM);
+            this.panel11.Controls.Add(this.label17);
+            this.panel11.Controls.Add(this.cmbDanhMuc);
+            this.panel11.Controls.Add(this.label14);
+            this.panel11.Controls.Add(this.txtMaDM);
+            this.panel11.Controls.Add(this.label16);
+            resources.ApplyResources(this.panel11, "panel11");
+            this.panel11.Name = "panel11";
+            // 
+            // btnSuaDM
+            // 
+            resources.ApplyResources(this.btnSuaDM, "btnSuaDM");
+            this.btnSuaDM.Name = "btnSuaDM";
+            this.btnSuaDM.UseVisualStyleBackColor = true;
+            this.btnSuaDM.Click += new System.EventHandler(this.btnSuaDM_Click);
+            // 
+            // btnThemDM
+            // 
+            resources.ApplyResources(this.btnThemDM, "btnThemDM");
+            this.btnThemDM.Name = "btnThemDM";
+            this.btnThemDM.UseVisualStyleBackColor = true;
+            this.btnThemDM.Click += new System.EventHandler(this.btnThemDM_Click);
+            // 
+            // txtTenDM
+            // 
+            this.txtTenDM.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtTenDM.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            resources.ApplyResources(this.txtTenDM, "txtTenDM");
+            this.txtTenDM.Name = "txtTenDM";
+            this.txtTenDM.TextChanged += new System.EventHandler(this.TxtDanhMuc_Changed);
+            // 
+            // label17
+            // 
+            resources.ApplyResources(this.label17, "label17");
+            this.label17.Name = "label17";
+            // 
+            // cmbDanhMuc
+            // 
+            this.cmbDanhMuc.FormattingEnabled = true;
+            resources.ApplyResources(this.cmbDanhMuc, "cmbDanhMuc");
+            this.cmbDanhMuc.Name = "cmbDanhMuc";
+            this.cmbDanhMuc.SelectedValueChanged += new System.EventHandler(this.cmbDanhMuc_SelectedValueChanged);
+            // 
+            // label14
+            // 
+            resources.ApplyResources(this.label14, "label14");
+            this.label14.Name = "label14";
+            // 
+            // txtMaDM
+            // 
+            this.txtMaDM.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtMaDM.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            resources.ApplyResources(this.txtMaDM, "txtMaDM");
+            this.txtMaDM.Name = "txtMaDM";
+            this.txtMaDM.ReadOnly = true;
+            this.txtMaDM.TextChanged += new System.EventHandler(this.TxtDanhMuc_Changed);
+            // 
+            // label16
+            // 
+            resources.ApplyResources(this.label16, "label16");
+            this.label16.Name = "label16";
             // 
             // panel8
             // 
@@ -318,35 +459,133 @@
             // plControls
             // 
             this.plControls.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.plControls.Controls.Add(this.plVIP);
             this.plControls.Controls.Add(this.plThongSo);
             this.plControls.Controls.Add(this.plGeneral);
             resources.ApplyResources(this.plControls, "plControls");
             this.plControls.Name = "plControls";
             // 
-            // panel7
+            // plVIP
             // 
-            this.panel7.Controls.Add(this.txtSLTKTT);
-            this.panel7.Controls.Add(this.label15);
-            resources.ApplyResources(this.panel7, "panel7");
-            this.panel7.Name = "panel7";
+            this.plVIP.BackColor = System.Drawing.Color.White;
+            this.plVIP.Controls.Add(this.plBangVIP);
+            this.plVIP.Controls.Add(this.panel14);
+            this.plVIP.Controls.Add(this.panel15);
+            this.plVIP.Controls.Add(this.panel16);
+            resources.ApplyResources(this.plVIP, "plVIP");
+            this.plVIP.Name = "plVIP";
             // 
-            // txtSLTKTT
+            // plBangVIP
             // 
-            this.txtSLTKTT.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.txtSLTKTT.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            resources.ApplyResources(this.txtSLTKTT, "txtSLTKTT");
-            this.txtSLTKTT.Name = "txtSLTKTT";
-            this.txtSLTKTT.TextChanged += new System.EventHandler(this.AllTextBox_TextChanged);
+            this.plBangVIP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            resources.ApplyResources(this.plBangVIP, "plBangVIP");
+            this.plBangVIP.Name = "plBangVIP";
             // 
-            // label15
+            // panel14
             // 
-            resources.ApplyResources(this.label15, "label15");
-            this.label15.Name = "label15";
+            this.panel14.Controls.Add(this.label21);
+            this.panel14.Controls.Add(this.textBox6);
+            this.panel14.Controls.Add(this.label22);
+            resources.ApplyResources(this.panel14, "panel14");
+            this.panel14.Name = "panel14";
+            // 
+            // label21
+            // 
+            resources.ApplyResources(this.label21, "label21");
+            this.label21.Name = "label21";
+            // 
+            // textBox6
+            // 
+            this.textBox6.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.textBox6.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            resources.ApplyResources(this.textBox6, "textBox6");
+            this.textBox6.Name = "textBox6";
+            // 
+            // label22
+            // 
+            resources.ApplyResources(this.label22, "label22");
+            this.label22.Name = "label22";
+            // 
+            // panel15
+            // 
+            this.panel15.Controls.Add(this.label23);
+            this.panel15.Controls.Add(this.textBox7);
+            this.panel15.Controls.Add(this.label24);
+            resources.ApplyResources(this.panel15, "panel15");
+            this.panel15.Name = "panel15";
+            // 
+            // label23
+            // 
+            resources.ApplyResources(this.label23, "label23");
+            this.label23.Name = "label23";
+            // 
+            // textBox7
+            // 
+            this.textBox7.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.textBox7.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            resources.ApplyResources(this.textBox7, "textBox7");
+            this.textBox7.Name = "textBox7";
+            // 
+            // label24
+            // 
+            resources.ApplyResources(this.label24, "label24");
+            this.label24.Name = "label24";
+            // 
+            // panel16
+            // 
+            this.panel16.Controls.Add(this.label25);
+            this.panel16.Controls.Add(this.textBox8);
+            this.panel16.Controls.Add(this.label26);
+            resources.ApplyResources(this.panel16, "panel16");
+            this.panel16.Name = "panel16";
+            // 
+            // label25
+            // 
+            resources.ApplyResources(this.label25, "label25");
+            this.label25.Name = "label25";
+            // 
+            // textBox8
+            // 
+            this.textBox8.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.textBox8.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            resources.ApplyResources(this.textBox8, "textBox8");
+            this.textBox8.Name = "textBox8";
+            // 
+            // label26
+            // 
+            resources.ApplyResources(this.label26, "label26");
+            this.label26.Name = "label26";
+            // 
+            // panel12
+            // 
+            this.panel12.Controls.Add(this.label18);
+            this.panel12.Controls.Add(this.txtAmountPerPointVIP);
+            this.panel12.Controls.Add(this.label19);
+            resources.ApplyResources(this.panel12, "panel12");
+            this.panel12.Name = "panel12";
+            // 
+            // label18
+            // 
+            resources.ApplyResources(this.label18, "label18");
+            this.label18.Name = "label18";
+            // 
+            // txtAmountPerPointVIP
+            // 
+            this.txtAmountPerPointVIP.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtAmountPerPointVIP.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            resources.ApplyResources(this.txtAmountPerPointVIP, "txtAmountPerPointVIP");
+            this.txtAmountPerPointVIP.Name = "txtAmountPerPointVIP";
+            this.txtAmountPerPointVIP.TextChanged += new System.EventHandler(this.AllTextBoxThongSo_TextChanged);
+            // 
+            // label19
+            // 
+            resources.ApplyResources(this.label19, "label19");
+            this.label19.Name = "label19";
             // 
             // frmSetting
             // 
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
@@ -360,6 +599,8 @@
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.plThongSo.ResumeLayout(false);
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             this.panel5.ResumeLayout(false);
@@ -368,6 +609,9 @@
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.plGeneral.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.panel11.ResumeLayout(false);
+            this.panel11.PerformLayout();
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
             this.panel9.ResumeLayout(false);
@@ -375,8 +619,15 @@
             this.panel10.ResumeLayout(false);
             this.panel10.PerformLayout();
             this.plControls.ResumeLayout(false);
-            this.panel7.ResumeLayout(false);
-            this.panel7.PerformLayout();
+            this.plVIP.ResumeLayout(false);
+            this.panel14.ResumeLayout(false);
+            this.panel14.PerformLayout();
+            this.panel15.ResumeLayout(false);
+            this.panel15.PerformLayout();
+            this.panel16.ResumeLayout(false);
+            this.panel16.PerformLayout();
+            this.panel12.ResumeLayout(false);
+            this.panel12.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -420,5 +671,34 @@
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.TextBox txtSLTKTT;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Panel panel11;
+        private System.Windows.Forms.Button btnThemDM;
+        private System.Windows.Forms.TextBox txtTenDM;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.ComboBox cmbDanhMuc;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txtMaDM;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Button btnSuaDM;
+        private System.Windows.Forms.Button btnVIP;
+        private System.Windows.Forms.Panel plVIP;
+        private System.Windows.Forms.Panel panel14;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Panel panel15;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Panel panel16;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Panel plBangVIP;
+        private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox txtAmountPerPointVIP;
+        private System.Windows.Forms.Label label19;
     }
 }

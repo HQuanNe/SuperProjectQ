@@ -45,26 +45,6 @@ namespace SuperProjectQ.FrmMixed
                 btnKoGhi.Visible = false;
             }
         }
-        private string AutoCreateID()
-        {
-            string sqlGetMaxID = "SELECT TOP 1 MaKH FROM KhachHang ORDER BY MaKH DESC";
-            dt = new DataTable();
-            dt = kn.CreateTable(sqlGetMaxID);
-            string id = dt.Rows[0]["MaKH"].ToString(); //Lấy mã lớn nhất
-            string target = "KH";  
-            id = id.Replace(target, ""); //Xoá phần chữ để lấy phần số
-            int tangMa = Convert.ToInt16(id) + 1; //Tăng mã lên 1
-
-            string newID = null;
-            //Định dạng lại mã nếu <10 thì thêm 2 số 0, <100 thì thêm 1 số 0
-            if (tangMa < 10)
-                newID = target + "00" + tangMa.ToString();
-            else if (tangMa < 100)
-                newID = target + "0" + tangMa.ToString();
-            else
-                newID = target + tangMa.ToString();
-            return newID;
-        }//Tự động tăng mã
         private void FocusDataByID(string id)
         {
             if (string.IsNullOrEmpty(id)) return;
@@ -171,10 +151,10 @@ namespace SuperProjectQ.FrmMixed
             Button_Control(true);
             Reset_Text();
 
-            txtSDT.Text = Session.SoDienThoai;
+            //txtSDT.Text = Session.SoDienThoai;
 
             //Những mục cần nhập khi thêm mới
-            txtMaKH.Text = AutoCreateID();
+            txtMaKH.Text = Session.AutoCreateID_String("MaKH", "KhachHang", "KH");
             txtDiscount.Text = "0";
             txtDTL.Text = "0";
             txtVIP.Text = "VIP0";
@@ -236,6 +216,7 @@ namespace SuperProjectQ.FrmMixed
                     if (txtMaKH.Text == "" || txtTenKH.Text == "" || txtDiaChi.Text == "" || txtSDT.Text == "" || txtVIP.Text == "" || txtDTL.Text == "" || txtDiscount.Text == "")
                     {
                         MessageBox.Show("Tất cả các dữ liệu không được để trống!!!");
+                        return;
                     }
                     else
                     {

@@ -34,6 +34,7 @@
             this.btnRegister = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnLogin = new System.Windows.Forms.Button();
+            this.ckcLuuTT = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // txtUserName
@@ -105,6 +106,18 @@
             this.btnLogin.UseVisualStyleBackColor = false;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
+            // ckcLuuTT
+            // 
+            this.ckcLuuTT.AutoSize = true;
+            this.ckcLuuTT.BackColor = System.Drawing.Color.Transparent;
+            this.ckcLuuTT.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ckcLuuTT.Location = new System.Drawing.Point(697, 256);
+            this.ckcLuuTT.Name = "ckcLuuTT";
+            this.ckcLuuTT.Size = new System.Drawing.Size(193, 23);
+            this.ckcLuuTT.TabIndex = 6;
+            this.ckcLuuTT.Text = "Lưu thông tin đăng nhập";
+            this.ckcLuuTT.UseVisualStyleBackColor = false;
+            // 
             // frmLogin
             // 
             this.AcceptButton = this.btnLogin;
@@ -112,6 +125,7 @@
             this.BackgroundImage = global::SuperProjectQ.Properties.Resources.Login;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(1152, 557);
+            this.Controls.Add(this.ckcLuuTT);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnRegister);
@@ -135,6 +149,7 @@
         private System.Windows.Forms.Button btnRegister;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnLogin;
+        private System.Windows.Forms.CheckBox ckcLuuTT;
     }
 }
 

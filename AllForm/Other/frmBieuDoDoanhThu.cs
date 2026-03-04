@@ -1,0 +1,215 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
+
+namespace SuperProjectQ.AllForm.Other
+{
+    public partial class frmBieuDoDoanhThu : Form
+    {
+        public frmBieuDoDoanhThu()
+        {
+            InitializeComponent();
+        }
+        ConnectData kn = new ConnectData();
+        DataTable dt = null;
+        private void BieuDo_Load()
+        {
+            string title = "năm 2026", isQuarter = "NgayLap", note = "Ngày";
+            int date = dtKhoangThoiGian.Value.Year;
+
+            string sqlDoanhThu = sqlDoanhThu = $"SELECT CAST(GioRa AS DATE) AS {isQuarter}, SUM(TongThanhToan - VAT) AS DoanhThu " +
+                            $"FROM HoaDon WHERE GioRa IS NOT NULL AND YEAR(CAST(GioRa AS DATE)) = {date}" +
+                            $"GROUP BY CAST(GioRa AS DATE) ORDER BY {isQuarter} ASC";
+            ;
+            if (radBtnQuy.Checked)
+            {
+
+                if (cmbQuy.SelectedIndex == -1 || cmbQuy.SelectedItem == null) return;
+                date = dtKhoangThoiGian.Value.Day;
+                title = $"{cmbQuy.SelectedItem.ToString()}/{cmbYear.SelectedValue}";
+
+                isQuarter = "Quy";
+                note = "Quý";
+
+                sqlDoanhThu = $"SELECT DATEPART(QUARTER, CAST(GioRa AS DATE)) AS {isQuarter}, SUM(TongThanhToan - VAT) AS DoanhThu " +
+                    $"FROM HoaDon WHERE GioRa IS NOT NULL AND DATEPART(QUARTER, CAST(GioRa AS DATE)) = {cmbQuy.SelectedItem.ToString().Replace("Quý ", "")} " +
+                    $"AND YEAR(CAST (GioRa AS DATE)) = {cmbYear.SelectedValue}" +
+                    $"GROUP BY DATEPART(QUARTER, CAST(GioRa AS DATE)), YEAR(CAST (GioRa AS DATE)) " +
+                    $"ORDER BY {isQuarter} ASC";
+            }
+            if(radBtnMONTH.Checked || radBtnYEAR.Checked)
+            {
+                if (radBtnMONTH.Checked)
+                {
+                    date = dtKhoangThoiGian.Value.Month;
+                    title = $"tháng {date}/{dtKhoangThoiGian.Value.Year}";
+
+                    sqlDoanhThu = $"SELECT CAST(GioRa AS DATE) AS {isQuarter}, SUM(TongThanhToan - VAT) AS DoanhThu " +
+                            $"FROM HoaDon WHERE GioRa IS NOT NULL AND MONTH(CAST(GioRa AS DATE)) = {date} " +
+                            $"AND MONTH(CAST(GioRa AS DATE)) = {date} " +
+                            $"AND YEAR(CAST(GioRa AS DATE)) = {dtKhoangThoiGian.Value.Year}" +
+                            $"GROUP BY CAST(GioRa AS DATE) ORDER BY {isQuarter} ASC";
+
+                }
+                else if (radBtnYEAR.Checked)
+                {
+                    date = dtKhoangThoiGian.Value.Year;
+                    title = $"năm {date}";
+
+                    sqlDoanhThu = $"SELECT CAST(GioRa AS DATE) AS {isQuarter}, SUM(TongThanhToan - VAT) AS DoanhThu " +
+                            $"FROM HoaDon WHERE GioRa IS NOT NULL AND YEAR(CAST(GioRa AS DATE)) = {date}" +
+                            $"GROUP BY CAST(GioRa AS DATE) ORDER BY {isQuarter} ASC";
+
+                }
+                isQuarter = "NgayLap";
+            }
+
+            dt = new DataTable();
+            dt = kn.CreateTable(sqlDoanhThu);
+
+            //Xóa các dữ liệu cũ trên biểu đồ để làm sạch
+            chartDoanhThu.Series.Clear();
+            chartDoanhThu.ChartAreas.Clear();
+            chartDoanhThu.ChartAreas.Add(new ChartArea("MainArea"));
+
+            Series series = new Series("Doanh Thu");
+            series.XValueMember = $"{isQuarter}";    // Trục X (ngang) là Ngày
+            series.YValueMembers = "DoanhThu"; // Trục Y (dọc) là Tiền
+
+            series.IsValueShownAsLabel = true;
+            series.Font = new Font("Times New Roman", 14, FontStyle.Bold);
+            series.LabelForeColor = Color.Blue;
+            series.LabelFormat = "N0"; // Dùng định dạng kiểu 1,000
+
+            //Đổ DataTable vào datasource Chart
+            chartDoanhThu.DataSource = dt;
+            chartDoanhThu.Series.Add(series);
+            //chartDoanhThu.ChartAreas["MainArea"].Area3DStyle.Enable3D = true;
+
+            //Chú thích trục X và Y
+            chartDoanhThu.ChartAreas["MainArea"].AxisX.Title = $"{note}";
+            chartDoanhThu.ChartAreas["MainArea"].AxisY.Title = "Số tiền (VNĐ)";
+
+            //if()
+
+            chartDoanhThu.Titles["TitleTenBieuDo"].Text = $"Biểu đồ doanh thu {title}";
+        }
+        private void SanPhamBanChay_Load()
+        {
+            dt = new DataTable();
+            dt = kn.CreateTable("SELECT ChiTietHD.MaSP, SanPham.TenHienThi, SUM(ChiTietHD.SoLuong) AS TongSPDaBan, ChiTietHD.DonViTinh " +
+                "FROM ChiTietHD " +
+                "INNER JOIN SanPham ON SanPham.MaSP = ChiTietHD.MaSP " +
+                "GROUP BY ChiTietHD.MaSP,SanPham.TenHienThi , ChiTietHD.DonViTinh " +
+                "ORDER BY TongSPDaBan ASC");
+
+            //Xóa các dữ liệu cũ trên biểu đồ để làm sạch
+            chartDoanhThu.Series.Clear();
+            chartDoanhThu.ChartAreas.Clear();
+            chartDoanhThu.ChartAreas.Add(new ChartArea("PopularProducts"));
+
+            Legend legend = new Legend();
+            legend.Font = new Font("Times New Roman", 14, FontStyle.Regular);
+
+            Series series = new Series("Sản phẩm bán chạy");
+
+            foreach (DataRow row in dt.Rows)
+            {
+                series.Points.AddXY(row["TenHienThi"], row["TongSPDaBan"]);
+            }
+
+            series.IsValueShownAsLabel = true;
+            series.Font = new Font("Times New Roman", 14, FontStyle.Regular);
+            series.LabelForeColor = Color.Blue;
+            series.LabelFormat = "N0"; // Dùng định dạng kiểu 1,000
+
+            //Đổ DataTable vào datasource Chart
+            chartDoanhThu.Series.Add(series);
+            chartDoanhThu.Legends.Clear();
+            chartDoanhThu.Legends.Add(legend);
+            chartDoanhThu.Series["Sản phẩm bán chạy"].ChartType = SeriesChartType.Pie;
+
+            chartDoanhThu.Titles["TitleTenBieuDo"].Text = $"Biểu đồ sản phẩm bán chạy";
+        }
+        private void cmbQuy_LoadData() 
+        { 
+            cmbQuy.Items.Add("Quý 1");
+            cmbQuy.Items.Add("Quý 2");
+            cmbQuy.Items.Add("Quý 3");
+            cmbQuy.Items.Add("Quý 4");
+        }
+        private void cmbYear_Load()
+        {
+            dt = new DataTable();
+            dt = kn.CreateTable("SELECT DISTINCT YEAR(GioRa) AS Nam FROM HoaDon WHERE GioRa IS NOT NULL ORDER BY Nam ASC");
+            cmbYear.DataSource = dt;
+            cmbYear.DisplayMember = "Nam";
+            cmbYear.ValueMember = "Nam";
+        }
+        private void frmBieuDoDoanhThu_Load(object sender, EventArgs e)
+        {
+            kn.ConnOpen();
+
+            BieuDo_Load();
+
+            cmbQuy_LoadData();
+            cmbYear_Load();
+
+            cmbQuy.Visible = false;
+            cmbYear.Visible = false;
+
+        }
+
+        private void radBtn_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radBtnQuy.Checked)
+            {
+                radBtnMONTH.Checked = false;
+                radBtnYEAR.Checked = false;
+
+                cmbQuy.Visible = true;
+                cmbYear.Visible = true;
+                dtKhoangThoiGian.Visible = false;
+            }
+            else if (radBtnMONTH.Checked)
+            {
+                radBtnQuy.Checked = false;
+                radBtnYEAR.Checked = false;
+                cmbQuy.Visible = false;
+                cmbYear.Visible = false;
+                dtKhoangThoiGian.Visible = true;
+            }
+            else if (radBtnYEAR.Checked)
+            {
+                radBtnQuy.Checked = false;
+                radBtnMONTH.Checked = false;
+                cmbQuy.Visible = false;
+                cmbYear.Visible = false;
+                dtKhoangThoiGian.Visible = true;
+            }
+        }
+
+        private void btnLoadBieuDo_Click(object sender, EventArgs e)
+        {
+            if(!radBtnQuy.Checked && !radBtnMONTH.Checked && !radBtnYEAR.Checked)
+            {
+                MessageBox.Show("Vui lòng chọn loại hiển thị doanh thu!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            BieuDo_Load();
+        }
+
+        private void btnPopularProd_Click(object sender, EventArgs e)
+        {
+            SanPhamBanChay_Load();
+        }
+    }
+}

@@ -24,11 +24,11 @@ namespace SuperProjectQ
         #endregion
 
         #region //Kích thước các panel, picturebox,... phòng trong frmOrder
-        public static int plOrder_WIDTH = 290;
-        public static int plOrder_HEIGHT = 300;
+        public static int plSanPham_WIDTH = 280;
+        public static int plSanPham_HEIGHT = 300;
         //
-        public static int pbOrder_WIDTH = 250;
-        public static int pbOrder_HEIGHT = 120;
+        public static int pbSanPham_WIDTH = 250;
+        public static int pbSanPham_HEIGHT = 120;
         //
         public static int btnPhong_WIDTH = 60;
         public static int btnPhong_HEIGHT = 50;

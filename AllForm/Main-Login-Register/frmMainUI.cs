@@ -1,9 +1,12 @@
-﻿using SuperProjectQ.AllForm.Other;
+﻿using Mscc.GenerativeAI.Types;
+using SuperProjectQ.AllForm;
+using SuperProjectQ.AllForm.Other;
 using SuperProjectQ.FrmMixed;
 using SuperProjectQ.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -12,110 +15,81 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
+using Mscc.GenerativeAI; //Thư viện Google AI
+
 namespace SuperProjectQ.Frm_Main_Login_Register
 {
     public partial class frmMainUI : Form
     {
         public frmMainUI()
         {
+            //System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12; //Hỗ trợ chạy AI cho phiên bản .NET Framework 
             InitializeComponent();
+            model = AIchatBot.GenerativeModel(Model.Gemini25Flash); //Lấy Model (Phiên bản Gemini 2.5Flash)
         }
+        GoogleAI AIchatBot = new GoogleAI(ConfigurationManager.AppSettings["GeminiAPIKey"]); // Tạo đôi tượng kết nối với Google AI bằng API Key
+        GenerativeModel model; //Khởi tạo Model
+
         ConnectData kn = new ConnectData();
-        string mainIDUser = Session.IDUser, mainTenNV = Session.TenNV, mainChucVu = Session.ChucVu;
-        Image lightImg = null; //Properties.Resources.bgMainUI;
-        Image darkImg = null; //Properties.Resources.DarkModebgMainUI;
-        private void ckcDarkMode_CheckedChanged(object sender, EventArgs e)
+        string mainIDUser = Session.IDUser, mainTenNV = Session.TenNV;
+
+        private void AddForm(Form form)
         {
-            if (ckcDarkMode.Checked)
+            plControls.Controls.Clear();
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            //form.Dock = DockStyle.Fill;
+            form.Show();
+
+            plControls.Controls.Add(form);
+        }
+
+        private void AllMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem MNItemClicked = sender as ToolStripMenuItem;
+
+            plControls.Visible = true;
+
+            switch (MNItemClicked.Name)
             {
-                var textColor = Color.WhiteSmoke;
-                this.BackgroundImage = darkImg;
-                ckcDarkMode.ForeColor = textColor;
-                plInfo.BackColor = Color.Gray;
-                lblTitleChucVu.ForeColor = textColor;
-                lblTitleXinChao.ForeColor = textColor;
-                lblTitleQH.ForeColor = textColor;
-                lblTenNV.ForeColor = textColor;
-                lblChucVu.ForeColor = textColor;
-                lblQuyenHan.ForeColor = textColor;
-                ckcDarkMode.BackColor = Color.Gray;
-                btnBack.BackColor = Color.Gray;
-                MNMain.BackColor = Color.Gray;
-                MNMain.ForeColor = textColor;
-                btnBack.ForeColor = textColor;
-
+                case "MNHome":
+                    plControls.Visible = false;
+                    break;
+                case "MNRoom":
+                    frmPhong phong = new frmPhong();
+                    AddForm(phong);
+                    break;
+                case "MNMenuOrder":
+                    frmOrder menu = new frmOrder();
+                    AddForm(menu);
+                    break;
+                case "btnNhanVien":
+                    frmNhanVien nhanVien = new frmNhanVien();
+                    AddForm(nhanVien);
+                    break;
+                case "btnKhachHang":
+                    frmKhachHang khachHang = new frmKhachHang();
+                    AddForm(khachHang);
+                    break;
+                case "btnKhoHang":
+                    frmKho khoHang = new frmKho();
+                    AddForm(khoHang);
+                    break;
+                case "btnHoaDon":
+                    frmHoaDon hoaDon = new frmHoaDon();
+                    AddForm(hoaDon);
+                    break;
+                case "btnChart":
+                    frmBieuDoDoanhThu chart = new frmBieuDoDoanhThu();
+                    AddForm(chart);
+                    break;
+                case "btnSetting":
+                    frmSetting setting = new frmSetting();
+                    AddForm(setting);
+                    break;
+                default:
+                    return;
             }
-            else 
-            {
-                var textColor = Color.Black;
-                this.BackgroundImage = lightImg;
-                ckcDarkMode.ForeColor = textColor;
-                plInfo.BackColor = Color.FromArgb(255, 224, 192);
-                lblTitleChucVu.ForeColor = textColor;
-                lblTitleXinChao.ForeColor = textColor;
-                lblTitleQH.ForeColor = textColor;
-                lblTenNV.ForeColor = textColor;
-                lblChucVu.ForeColor = textColor;
-                lblQuyenHan.ForeColor = textColor;
-                ckcDarkMode.BackColor = Color.FromArgb(255, 224, 192);
-                btnBack.BackColor = Color.FromArgb(255, 192, 192);
-                MNMain.BackColor = Color.WhiteSmoke;
-                MNMain.ForeColor = textColor;
-                btnBack.ForeColor = textColor;
-            }
-        }
-        private void MN_NhanVien_DSNV_Click(object sender, EventArgs e)
-        {
-            frmNhanVien frmNhanVien = new frmNhanVien();
-            frmNhanVien.TopLevel = false;
-            int x = (plControls.Width - frmNhanVien.Width) / 2;
-            int y = (plControls.Height - frmNhanVien.Height) / 2;
-
-            frmNhanVien.Location = new Point(x, y);
-            frmNhanVien.FormBorderStyle = FormBorderStyle.None;
-
-            plControls.Controls.Clear();
-            plControls.Controls.Add(frmNhanVien);
-            frmNhanVien.Show();
-        }
-        private void MNKH_DSKhachHang_Click(object sender, EventArgs e)
-        {
-            frmKhachHang frmKhachHang = new frmKhachHang();
-            frmKhachHang.TopLevel = false;
-            int x = (plControls.Width - frmKhachHang.Width) / 2;
-            int y = (plControls.Height - frmKhachHang.Height) / 2;
-
-            frmKhachHang.Location = new Point(x, y);
-            frmKhachHang.FormBorderStyle = FormBorderStyle.None;
-
-            plControls.Controls.Clear();
-            plControls.Controls.Add(frmKhachHang);
-            frmKhachHang.Show();
-        }
-
-        private void MNQuanLy_Phong_Click(object sender, EventArgs e)
-        {
-            frmPhong frmPhong = new frmPhong();
-            frmPhong.Show();
-        }
-        private void btnBack_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void MNMore_Setting_Click(object sender, EventArgs e)
-        {
-            frmSetting setting = new frmSetting();
-            setting.TopLevel = false;
-            int x = (plControls.Width - setting.Width) / 2;
-            int y = (plControls.Height - setting.Height) / 2;
-
-            setting.Location = new Point(x, y);
-            setting.FormBorderStyle = FormBorderStyle.None;
-
-            plControls.Controls.Clear();
-            plControls.Controls.Add(setting);
-            setting.Show();
         }
 
         private string TenQH()
@@ -130,15 +104,138 @@ namespace SuperProjectQ.Frm_Main_Login_Register
             }
             return mainTenQH;
         }
+
         private void frmMainUI_Load(object sender, EventArgs e)
         {
             kn.ConnOpen();
             lblTenNV.Text = mainTenNV;
-            lblChucVu.Text = mainChucVu;
-            lblQuyenHan.Text = TenQH();
+
+            plControls.Visible = false;
 
             Session.KiemTraGhiNo(); // Kiểm tra ghi nợ khi mở form Main
             Session.KiemTraVoucher(); //Kiểm tra voucher khi mở form Main
         }
+
+        #region AI Chatbot
+        Panel plAIChatbot = null;
+        private void btnAIChatbot_Click(object sender, EventArgs e)
+        {
+            if (this.Controls.Contains(plAIChatbot))
+            {
+                plAIChatbot.Visible = !plAIChatbot.Visible;
+                return;
+            }
+            plAIChatbot = new Panel()
+            {
+                Width = 500,
+                Height = 700,
+                MinimumSize = new Size(500, 700),
+
+                BackColor = Color.FromArgb(255, 228, 181),
+                Anchor = AnchorStyles.Right,
+                Dock = DockStyle.Right,
+                //BackColor = Color.Red,
+            };
+            Label lblTitle = new Label()
+            {
+                MinimumSize = new Size(200, 60),
+
+                Text = "Trợ lý ảo AI",
+                Font = new Font("Times New Roman", 26, FontStyle.Bold),
+
+                Location = new Point((plAIChatbot.Width - 200) / 2, 5)
+            };
+            RichTextBox rtxtChatHistory = new RichTextBox()
+            {
+                Width = 460,
+                Height = 580,
+
+                ReadOnly = true,
+                HideSelection = true,
+                ForeColor = Color.Green,
+                Font = new Font("Times New Roman", 12, FontStyle.Regular),
+
+                Location = new Point((plAIChatbot.Width - 460) / 2, 60),
+            };
+            TextBox txtRequest = new TextBox()
+            {
+                Width = rtxtChatHistory.Width - 60,
+                Height = 80,
+
+                MinimumSize = new Size(0, 80),
+                Margin = new Padding(5),
+                Font = new Font("Times New Roman", 12, FontStyle.Regular),
+
+                Location = new Point((plAIChatbot.Width - rtxtChatHistory.Width) / 2, rtxtChatHistory.Height + 70)
+            };
+            Button btnSendRequest = new Button()
+            {
+                Width = rtxtChatHistory.Width - txtRequest.Width,
+                Height = 80,
+
+                FlatAppearance =
+                {
+                },
+
+                BackColor = Color.FromArgb(240, 230, 140),
+                FlatStyle = FlatStyle.Flat,
+                MinimumSize = new Size(0, 80),
+                Margin = new Padding(5),
+                Text = "Gửi",
+                Font = new Font("Times New Roman", 12, FontStyle.Regular),
+
+                Location = new Point(txtRequest.Width + 20, rtxtChatHistory.Height + 70)
+            };
+
+            plAIChatbot.Controls.Add(btnSendRequest);
+            plAIChatbot.Controls.Add(txtRequest);
+            plAIChatbot.Controls.Add(rtxtChatHistory);
+            plAIChatbot.Controls.Add(lblTitle);
+            this.Controls.Add(plAIChatbot);
+            this.AcceptButton = btnSendRequest;
+
+            btnSendRequest.Click += async (sender, e) =>
+            {
+                //async là hàm bất đồng bộ tránh việc Not Responding khi AI trả lời
+                string requestMessage = txtRequest.Text;  //Gửi đi câu hỏi
+
+                if (string.IsNullOrEmpty(requestMessage)) return;
+
+                rtxtChatHistory.AppendText($"Tôi: {requestMessage}\n\n");
+                txtRequest.Clear();
+                try
+                {
+                    var responding = await model.GenerateContent(requestMessage); //Gửi câu hỏi cho AI chờ phản hồi
+                    if (responding == null || responding.Text == null)
+                    {
+                        MessageBox.Show("Lỗi");
+                        return;
+                    }//nếu null sẽ báo lỗi
+                    rtxtChatHistory.AppendText($"Trợ lý Para: {responding.Text}\n\n"); //Thêm câu trả lời
+                }
+                catch (GeminiApiException ex)
+                {
+                    MessageBox.Show("Lỗi kết nối AI Chatbot " + ex.Message);
+                    return;
+                }
+            };
+        }
+        #endregion
+        private void btnOpenNavBar_Click(object sender, EventArgs e)
+        {
+            plNavBar.Visible = !plNavBar.Visible;
+
+            if (!plNavBar.Visible)
+            {
+                plControls.Location = new Point(0, plControls.Location.Y);
+                plControls.Width += plNavBar.Width;
+            }
+            else
+            {
+                plControls.Location = new Point(plNavBar.Width, plControls.Location.Y);
+                plControls.Width -= plNavBar.Width;
+            }
+        }
+
     }
 }

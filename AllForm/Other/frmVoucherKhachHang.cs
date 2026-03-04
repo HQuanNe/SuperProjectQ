@@ -52,7 +52,7 @@ namespace SuperProjectQ.AllForm.Other
                         giamVoucher = Session.TongTien * giaTriGiam;
                         Session.DiscountVoucher = giamVoucher;
 
-                        if (Session.DiscountVoucher > Convert.ToDecimal(dt.Rows[0]["GiamToiDa"]))
+                        if (Session.DiscountVoucher > Convert.ToDecimal(dt.Rows[0]["GiamToiDa"]) && Convert.ToDecimal(dt.Rows[0]["GiamToiDa"]) > 0)
                         {
                             Session.DiscountVoucher = Convert.ToDecimal(dt.Rows[0]["GiamToiDa"]);
                         }

@@ -31,280 +31,334 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMainUI));
             this.lblTitleXinChao = new System.Windows.Forms.Label();
             this.plInfo = new System.Windows.Forms.Panel();
-            this.lblQuyenHan = new System.Windows.Forms.Label();
-            this.btnBack = new System.Windows.Forms.Button();
-            this.lblChucVu = new System.Windows.Forms.Label();
+            this.btnAIChatbot = new System.Windows.Forms.Button();
+            this.btnOpenNavBar = new System.Windows.Forms.Button();
             this.lblTenNV = new System.Windows.Forms.Label();
-            this.lblTitleQH = new System.Windows.Forms.Label();
-            this.lblTitleChucVu = new System.Windows.Forms.Label();
-            this.MNChung = new System.Windows.Forms.ToolStripMenuItem();
-            this.MNChung_Phong = new System.Windows.Forms.ToolStripMenuItem();
-            this.MNKhachHang = new System.Windows.Forms.ToolStripMenuItem();
-            this.MNKH_DSKhachHang = new System.Windows.Forms.ToolStripMenuItem();
-            this.MNNhanVien = new System.Windows.Forms.ToolStripMenuItem();
-            this.MN_NhanVien_DSNV = new System.Windows.Forms.ToolStripMenuItem();
-            this.MN_NhanVien_BangLuong = new System.Windows.Forms.ToolStripMenuItem();
-            this.MNBaoCao = new System.Windows.Forms.ToolStripMenuItem();
-            this.báoCaoDoanhThuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.MNKho = new System.Windows.Forms.ToolStripMenuItem();
-            this.quảnLýKhoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.MNMore = new System.Windows.Forms.ToolStripMenuItem();
-            this.MNMore_Setting = new System.Windows.Forms.ToolStripMenuItem();
-            this.đổiMậtKhẩuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.MNMain = new System.Windows.Forms.MenuStrip();
-            this.ckcDarkMode = new System.Windows.Forms.CheckBox();
+            this.btnLogOut = new System.Windows.Forms.Button();
             this.plControls = new System.Windows.Forms.Panel();
+            this.MNNavBar = new System.Windows.Forms.MenuStrip();
+            this.MNHome = new System.Windows.Forms.ToolStripMenuItem();
+            this.MNRoom = new System.Windows.Forms.ToolStripMenuItem();
+            this.MNMenuOrder = new System.Windows.Forms.ToolStripMenuItem();
+            this.MNBill = new System.Windows.Forms.ToolStripMenuItem();
+            this.MNStaffs = new System.Windows.Forms.ToolStripMenuItem();
+            this.MNCustomers = new System.Windows.Forms.ToolStripMenuItem();
+            this.MNWareHouse = new System.Windows.Forms.ToolStripMenuItem();
+            this.MNChart = new System.Windows.Forms.ToolStripMenuItem();
+            this.MNMore = new System.Windows.Forms.ToolStripMenuItem();
+            this.sToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnSetting = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.plNavBar = new System.Windows.Forms.Panel();
             this.plInfo.SuspendLayout();
-            this.MNMain.SuspendLayout();
+            this.MNNavBar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.plNavBar.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblTitleXinChao
             // 
+            this.lblTitleXinChao.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblTitleXinChao.AutoSize = true;
-            this.lblTitleXinChao.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitleXinChao.Location = new System.Drawing.Point(27, 13);
+            this.lblTitleXinChao.Font = new System.Drawing.Font("Times New Roman", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitleXinChao.Location = new System.Drawing.Point(919, 16);
             this.lblTitleXinChao.Name = "lblTitleXinChao";
-            this.lblTitleXinChao.Size = new System.Drawing.Size(79, 19);
+            this.lblTitleXinChao.Size = new System.Drawing.Size(65, 16);
             this.lblTitleXinChao.TabIndex = 1;
             this.lblTitleXinChao.Text = "Xin chào: ";
             // 
             // plInfo
             // 
             this.plInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.plInfo.Controls.Add(this.lblQuyenHan);
-            this.plInfo.Controls.Add(this.btnBack);
-            this.plInfo.Controls.Add(this.lblChucVu);
+            this.plInfo.Controls.Add(this.btnAIChatbot);
+            this.plInfo.Controls.Add(this.btnOpenNavBar);
             this.plInfo.Controls.Add(this.lblTenNV);
-            this.plInfo.Controls.Add(this.lblTitleQH);
-            this.plInfo.Controls.Add(this.lblTitleChucVu);
             this.plInfo.Controls.Add(this.lblTitleXinChao);
-            this.plInfo.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.plInfo.Location = new System.Drawing.Point(0, 756);
+            this.plInfo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.plInfo.Location = new System.Drawing.Point(0, 0);
             this.plInfo.Name = "plInfo";
-            this.plInfo.Size = new System.Drawing.Size(1082, 47);
+            this.plInfo.Size = new System.Drawing.Size(1482, 45);
             this.plInfo.TabIndex = 2;
             // 
-            // lblQuyenHan
+            // btnAIChatbot
             // 
-            this.lblQuyenHan.AutoSize = true;
-            this.lblQuyenHan.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblQuyenHan.Location = new System.Drawing.Point(682, 13);
-            this.lblQuyenHan.Name = "lblQuyenHan";
-            this.lblQuyenHan.Size = new System.Drawing.Size(21, 19);
-            this.lblQuyenHan.TabIndex = 6;
-            this.lblQuyenHan.Text = "--";
+            this.btnAIChatbot.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnAIChatbot.BackColor = System.Drawing.Color.Transparent;
+            this.btnAIChatbot.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.btnAIChatbot.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.btnAIChatbot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAIChatbot.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAIChatbot.Image = ((System.Drawing.Image)(resources.GetObject("btnAIChatbot.Image")));
+            this.btnAIChatbot.Location = new System.Drawing.Point(1348, 3);
+            this.btnAIChatbot.Name = "btnAIChatbot";
+            this.btnAIChatbot.Size = new System.Drawing.Size(131, 38);
+            this.btnAIChatbot.TabIndex = 8;
+            this.btnAIChatbot.Text = "Trợ lý AI";
+            this.btnAIChatbot.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnAIChatbot.UseVisualStyleBackColor = false;
+            this.btnAIChatbot.Click += new System.EventHandler(this.btnAIChatbot_Click);
             // 
-            // btnBack
+            // btnOpenNavBar
             // 
-            this.btnBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.btnBack.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBack.Location = new System.Drawing.Point(988, 0);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(82, 45);
-            this.btnBack.TabIndex = 6;
-            this.btnBack.Text = "Trở lại";
-            this.btnBack.UseVisualStyleBackColor = false;
-            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
-            // 
-            // lblChucVu
-            // 
-            this.lblChucVu.AutoSize = true;
-            this.lblChucVu.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChucVu.Location = new System.Drawing.Point(418, 13);
-            this.lblChucVu.Name = "lblChucVu";
-            this.lblChucVu.Size = new System.Drawing.Size(21, 19);
-            this.lblChucVu.TabIndex = 5;
-            this.lblChucVu.Text = "--";
+            this.btnOpenNavBar.BackColor = System.Drawing.Color.Transparent;
+            this.btnOpenNavBar.FlatAppearance.BorderSize = 0;
+            this.btnOpenNavBar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.btnOpenNavBar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.btnOpenNavBar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOpenNavBar.Image = ((System.Drawing.Image)(resources.GetObject("btnOpenNavBar.Image")));
+            this.btnOpenNavBar.Location = new System.Drawing.Point(5, 4);
+            this.btnOpenNavBar.Name = "btnOpenNavBar";
+            this.btnOpenNavBar.Size = new System.Drawing.Size(33, 25);
+            this.btnOpenNavBar.TabIndex = 7;
+            this.btnOpenNavBar.UseVisualStyleBackColor = false;
+            this.btnOpenNavBar.Click += new System.EventHandler(this.btnOpenNavBar_Click);
             // 
             // lblTenNV
             // 
+            this.lblTenNV.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblTenNV.AutoSize = true;
-            this.lblTenNV.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTenNV.Location = new System.Drawing.Point(112, 13);
+            this.lblTenNV.Font = new System.Drawing.Font("Times New Roman", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTenNV.Location = new System.Drawing.Point(1004, 16);
             this.lblTenNV.Name = "lblTenNV";
-            this.lblTenNV.Size = new System.Drawing.Size(21, 19);
+            this.lblTenNV.Size = new System.Drawing.Size(17, 16);
             this.lblTenNV.TabIndex = 4;
             this.lblTenNV.Text = "--";
             // 
-            // lblTitleQH
+            // btnLogOut
             // 
-            this.lblTitleQH.AutoSize = true;
-            this.lblTitleQH.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitleQH.Location = new System.Drawing.Point(587, 13);
-            this.lblTitleQH.Name = "lblTitleQH";
-            this.lblTitleQH.Size = new System.Drawing.Size(89, 19);
-            this.lblTitleQH.TabIndex = 3;
-            this.lblTitleQH.Text = "Quyền hạn: ";
+            this.btnLogOut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnLogOut.BackColor = System.Drawing.Color.Red;
+            this.btnLogOut.FlatAppearance.BorderSize = 0;
+            this.btnLogOut.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnLogOut.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btnLogOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLogOut.Font = new System.Drawing.Font("Times New Roman", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLogOut.ForeColor = System.Drawing.Color.White;
+            this.btnLogOut.Image = ((System.Drawing.Image)(resources.GetObject("btnLogOut.Image")));
+            this.btnLogOut.Location = new System.Drawing.Point(9, 662);
+            this.btnLogOut.Name = "btnLogOut";
+            this.btnLogOut.Size = new System.Drawing.Size(235, 55);
+            this.btnLogOut.TabIndex = 6;
+            this.btnLogOut.Text = "Đăng xuất";
+            this.btnLogOut.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnLogOut.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnLogOut.UseVisualStyleBackColor = false;
             // 
-            // lblTitleChucVu
+            // plControls
             // 
-            this.lblTitleChucVu.AutoSize = true;
-            this.lblTitleChucVu.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitleChucVu.Location = new System.Drawing.Point(339, 13);
-            this.lblTitleChucVu.Name = "lblTitleChucVu";
-            this.lblTitleChucVu.Size = new System.Drawing.Size(73, 19);
-            this.lblTitleChucVu.TabIndex = 2;
-            this.lblTitleChucVu.Text = "Chức vụ: ";
+            this.plControls.BackColor = System.Drawing.Color.White;
+            this.plControls.Dock = System.Windows.Forms.DockStyle.Right;
+            this.plControls.Location = new System.Drawing.Point(257, 45);
+            this.plControls.MaximumSize = new System.Drawing.Size(2200, 1200);
+            this.plControls.MinimumSize = new System.Drawing.Size(800, 0);
+            this.plControls.Name = "plControls";
+            this.plControls.Size = new System.Drawing.Size(1225, 728);
+            this.plControls.TabIndex = 7;
             // 
-            // MNChung
+            // MNNavBar
             // 
-            this.MNChung.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MNChung_Phong});
-            this.MNChung.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MNChung.Name = "MNChung";
-            this.MNChung.Size = new System.Drawing.Size(88, 30);
-            this.MNChung.Text = "Chung";
+            this.MNNavBar.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.MNNavBar.BackColor = System.Drawing.Color.White;
+            this.MNNavBar.Dock = System.Windows.Forms.DockStyle.None;
+            this.MNNavBar.Font = new System.Drawing.Font("Times New Roman", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MNNavBar.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.MNNavBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MNHome,
+            this.MNRoom,
+            this.MNMenuOrder,
+            this.MNBill,
+            this.MNStaffs,
+            this.MNCustomers,
+            this.MNWareHouse,
+            this.MNChart,
+            this.MNMore});
+            this.MNNavBar.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
+            this.MNNavBar.Location = new System.Drawing.Point(9, 81);
+            this.MNNavBar.MaximumSize = new System.Drawing.Size(300, 1000);
+            this.MNNavBar.MinimumSize = new System.Drawing.Size(240, 0);
+            this.MNNavBar.Name = "MNNavBar";
+            this.MNNavBar.Size = new System.Drawing.Size(240, 438);
+            this.MNNavBar.TabIndex = 10;
+            this.MNNavBar.Text = "NavBar";
             // 
-            // MNChung_Phong
+            // MNHome
             // 
-            this.MNChung_Phong.Name = "MNChung_Phong";
-            this.MNChung_Phong.Size = new System.Drawing.Size(224, 30);
-            this.MNChung_Phong.Text = "Phòng";
-            this.MNChung_Phong.Click += new System.EventHandler(this.MNQuanLy_Phong_Click);
+            this.MNHome.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MNHome.Image = ((System.Drawing.Image)(resources.GetObject("MNHome.Image")));
+            this.MNHome.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.MNHome.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.MNHome.Name = "MNHome";
+            this.MNHome.Padding = new System.Windows.Forms.Padding(5);
+            this.MNHome.Size = new System.Drawing.Size(231, 48);
+            this.MNHome.Text = "Trang chủ";
+            this.MNHome.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            this.MNHome.Click += new System.EventHandler(this.AllMenu_Click);
             // 
-            // MNKhachHang
+            // MNRoom
             // 
-            this.MNKhachHang.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MNKH_DSKhachHang});
-            this.MNKhachHang.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MNKhachHang.Name = "MNKhachHang";
-            this.MNKhachHang.Size = new System.Drawing.Size(137, 30);
-            this.MNKhachHang.Text = "Khách hàng";
+            this.MNRoom.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MNRoom.Image = ((System.Drawing.Image)(resources.GetObject("MNRoom.Image")));
+            this.MNRoom.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.MNRoom.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.MNRoom.Name = "MNRoom";
+            this.MNRoom.Padding = new System.Windows.Forms.Padding(5);
+            this.MNRoom.Size = new System.Drawing.Size(231, 48);
+            this.MNRoom.Text = "Phòng";
+            this.MNRoom.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            this.MNRoom.Click += new System.EventHandler(this.AllMenu_Click);
             // 
-            // MNKH_DSKhachHang
+            // MNMenuOrder
             // 
-            this.MNKH_DSKhachHang.Name = "MNKH_DSKhachHang";
-            this.MNKH_DSKhachHang.Size = new System.Drawing.Size(308, 30);
-            this.MNKH_DSKhachHang.Text = "Danh sách khách hàng";
-            this.MNKH_DSKhachHang.Click += new System.EventHandler(this.MNKH_DSKhachHang_Click);
+            this.MNMenuOrder.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MNMenuOrder.Image = ((System.Drawing.Image)(resources.GetObject("MNMenuOrder.Image")));
+            this.MNMenuOrder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.MNMenuOrder.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.MNMenuOrder.Name = "MNMenuOrder";
+            this.MNMenuOrder.Padding = new System.Windows.Forms.Padding(5);
+            this.MNMenuOrder.Size = new System.Drawing.Size(231, 48);
+            this.MNMenuOrder.Text = "Menu";
+            this.MNMenuOrder.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            this.MNMenuOrder.Click += new System.EventHandler(this.AllMenu_Click);
             // 
-            // MNNhanVien
+            // MNBill
             // 
-            this.MNNhanVien.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MN_NhanVien_DSNV,
-            this.MN_NhanVien_BangLuong});
-            this.MNNhanVien.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MNNhanVien.Name = "MNNhanVien";
-            this.MNNhanVien.Size = new System.Drawing.Size(122, 30);
-            this.MNNhanVien.Text = "Nhân viên";
+            this.MNBill.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MNBill.Image = ((System.Drawing.Image)(resources.GetObject("MNBill.Image")));
+            this.MNBill.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.MNBill.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.MNBill.Name = "MNBill";
+            this.MNBill.Padding = new System.Windows.Forms.Padding(5);
+            this.MNBill.Size = new System.Drawing.Size(231, 48);
+            this.MNBill.Text = "Hoá đơn";
+            this.MNBill.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            this.MNBill.Click += new System.EventHandler(this.AllMenu_Click);
             // 
-            // MN_NhanVien_DSNV
+            // MNStaffs
             // 
-            this.MN_NhanVien_DSNV.Name = "MN_NhanVien_DSNV";
-            this.MN_NhanVien_DSNV.Size = new System.Drawing.Size(293, 30);
-            this.MN_NhanVien_DSNV.Text = "Danh sách nhân viên";
-            this.MN_NhanVien_DSNV.Click += new System.EventHandler(this.MN_NhanVien_DSNV_Click);
+            this.MNStaffs.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MNStaffs.Image = ((System.Drawing.Image)(resources.GetObject("MNStaffs.Image")));
+            this.MNStaffs.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.MNStaffs.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.MNStaffs.Name = "MNStaffs";
+            this.MNStaffs.Padding = new System.Windows.Forms.Padding(5);
+            this.MNStaffs.Size = new System.Drawing.Size(231, 48);
+            this.MNStaffs.Text = "Nhân viên";
+            this.MNStaffs.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            this.MNStaffs.Click += new System.EventHandler(this.AllMenu_Click);
             // 
-            // MN_NhanVien_BangLuong
+            // MNCustomers
             // 
-            this.MN_NhanVien_BangLuong.Name = "MN_NhanVien_BangLuong";
-            this.MN_NhanVien_BangLuong.Size = new System.Drawing.Size(293, 30);
-            this.MN_NhanVien_BangLuong.Text = "Bảng lương";
+            this.MNCustomers.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MNCustomers.Image = ((System.Drawing.Image)(resources.GetObject("MNCustomers.Image")));
+            this.MNCustomers.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.MNCustomers.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.MNCustomers.Name = "MNCustomers";
+            this.MNCustomers.Padding = new System.Windows.Forms.Padding(5);
+            this.MNCustomers.Size = new System.Drawing.Size(231, 48);
+            this.MNCustomers.Text = "Khách hàng";
+            this.MNCustomers.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            this.MNCustomers.Click += new System.EventHandler(this.AllMenu_Click);
             // 
-            // MNBaoCao
+            // MNWareHouse
             // 
-            this.MNBaoCao.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.báoCaoDoanhThuToolStripMenuItem});
-            this.MNBaoCao.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MNBaoCao.Name = "MNBaoCao";
-            this.MNBaoCao.Size = new System.Drawing.Size(105, 30);
-            this.MNBaoCao.Text = "Báo Cáo";
+            this.MNWareHouse.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MNWareHouse.Image = ((System.Drawing.Image)(resources.GetObject("MNWareHouse.Image")));
+            this.MNWareHouse.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.MNWareHouse.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.MNWareHouse.Name = "MNWareHouse";
+            this.MNWareHouse.Padding = new System.Windows.Forms.Padding(5);
+            this.MNWareHouse.Size = new System.Drawing.Size(231, 48);
+            this.MNWareHouse.Text = "Kho ";
+            this.MNWareHouse.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            this.MNWareHouse.Click += new System.EventHandler(this.AllMenu_Click);
             // 
-            // báoCaoDoanhThuToolStripMenuItem
+            // MNChart
             // 
-            this.báoCaoDoanhThuToolStripMenuItem.Name = "báoCaoDoanhThuToolStripMenuItem";
-            this.báoCaoDoanhThuToolStripMenuItem.Size = new System.Drawing.Size(272, 30);
-            this.báoCaoDoanhThuToolStripMenuItem.Text = "Báo cao doanh thu";
-            // 
-            // MNKho
-            // 
-            this.MNKho.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.quảnLýKhoToolStripMenuItem});
-            this.MNKho.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MNKho.Name = "MNKho";
-            this.MNKho.Size = new System.Drawing.Size(66, 30);
-            this.MNKho.Text = "Kho";
-            // 
-            // quảnLýKhoToolStripMenuItem
-            // 
-            this.quảnLýKhoToolStripMenuItem.Name = "quảnLýKhoToolStripMenuItem";
-            this.quảnLýKhoToolStripMenuItem.Size = new System.Drawing.Size(224, 30);
-            this.quảnLýKhoToolStripMenuItem.Text = "Quản lý Kho";
+            this.MNChart.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MNChart.Image = ((System.Drawing.Image)(resources.GetObject("MNChart.Image")));
+            this.MNChart.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.MNChart.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.MNChart.Name = "MNChart";
+            this.MNChart.Padding = new System.Windows.Forms.Padding(5);
+            this.MNChart.Size = new System.Drawing.Size(231, 48);
+            this.MNChart.Text = "Biểu đồ";
+            this.MNChart.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             // 
             // MNMore
             // 
             this.MNMore.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MNMore_Setting,
-            this.đổiMậtKhẩuToolStripMenuItem});
-            this.MNMore.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sToolStripMenuItem});
+            this.MNMore.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MNMore.Image = ((System.Drawing.Image)(resources.GetObject("MNMore.Image")));
+            this.MNMore.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.MNMore.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.MNMore.Name = "MNMore";
-            this.MNMore.Size = new System.Drawing.Size(126, 30);
-            this.MNMore.Text = "Chức năng";
+            this.MNMore.Padding = new System.Windows.Forms.Padding(5);
+            this.MNMore.Size = new System.Drawing.Size(231, 48);
+            this.MNMore.Text = "Thêm";
+            this.MNMore.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            this.MNMore.Click += new System.EventHandler(this.AllMenu_Click);
             // 
-            // MNMore_Setting
+            // sToolStripMenuItem
             // 
-            this.MNMore_Setting.Name = "MNMore_Setting";
-            this.MNMore_Setting.Size = new System.Drawing.Size(224, 30);
-            this.MNMore_Setting.Text = "Cài đặt";
-            this.MNMore_Setting.Click += new System.EventHandler(this.MNMore_Setting_Click);
+            this.sToolStripMenuItem.Name = "sToolStripMenuItem";
+            this.sToolStripMenuItem.Size = new System.Drawing.Size(115, 38);
+            this.sToolStripMenuItem.Text = "s";
             // 
-            // đổiMậtKhẩuToolStripMenuItem
+            // btnSetting
             // 
-            this.đổiMậtKhẩuToolStripMenuItem.Name = "đổiMậtKhẩuToolStripMenuItem";
-            this.đổiMậtKhẩuToolStripMenuItem.Size = new System.Drawing.Size(224, 30);
-            this.đổiMậtKhẩuToolStripMenuItem.Text = "Đăng Ký";
+            this.btnSetting.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSetting.BackColor = System.Drawing.Color.Cyan;
+            this.btnSetting.FlatAppearance.BorderSize = 0;
+            this.btnSetting.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnSetting.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.btnSetting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSetting.Font = new System.Drawing.Font("Times New Roman", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSetting.ForeColor = System.Drawing.Color.White;
+            this.btnSetting.Image = ((System.Drawing.Image)(resources.GetObject("btnSetting.Image")));
+            this.btnSetting.Location = new System.Drawing.Point(9, 590);
+            this.btnSetting.Name = "btnSetting";
+            this.btnSetting.Size = new System.Drawing.Size(235, 55);
+            this.btnSetting.TabIndex = 11;
+            this.btnSetting.Text = "Cài đặt";
+            this.btnSetting.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSetting.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnSetting.UseVisualStyleBackColor = false;
             // 
-            // MNMain
+            // pictureBox1
             // 
-            this.MNMain.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.MNMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MNChung,
-            this.MNKhachHang,
-            this.MNNhanVien,
-            this.MNBaoCao,
-            this.MNKho,
-            this.MNMore});
-            this.MNMain.Location = new System.Drawing.Point(0, 0);
-            this.MNMain.Name = "MNMain";
-            this.MNMain.Size = new System.Drawing.Size(1082, 34);
-            this.MNMain.TabIndex = 3;
-            this.MNMain.Text = "menuStrip2";
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(80, 6);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(90, 77);
+            this.pictureBox1.TabIndex = 12;
+            this.pictureBox1.TabStop = false;
             // 
-            // ckcDarkMode
+            // plNavBar
             // 
-            this.ckcDarkMode.AutoSize = true;
-            this.ckcDarkMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.ckcDarkMode.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckcDarkMode.Location = new System.Drawing.Point(771, 4);
-            this.ckcDarkMode.Name = "ckcDarkMode";
-            this.ckcDarkMode.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.ckcDarkMode.Size = new System.Drawing.Size(149, 30);
-            this.ckcDarkMode.TabIndex = 5;
-            this.ckcDarkMode.Text = "Dark Mode";
-            this.ckcDarkMode.UseVisualStyleBackColor = false;
-            this.ckcDarkMode.CheckedChanged += new System.EventHandler(this.ckcDarkMode_CheckedChanged);
-            // 
-            // plControls
-            // 
-            this.plControls.BackColor = System.Drawing.SystemColors.Control;
-            this.plControls.Location = new System.Drawing.Point(12, 46);
-            this.plControls.Name = "plControls";
-            this.plControls.Size = new System.Drawing.Size(1058, 704);
-            this.plControls.TabIndex = 7;
+            this.plNavBar.Controls.Add(this.btnSetting);
+            this.plNavBar.Controls.Add(this.btnLogOut);
+            this.plNavBar.Controls.Add(this.pictureBox1);
+            this.plNavBar.Controls.Add(this.MNNavBar);
+            this.plNavBar.Dock = System.Windows.Forms.DockStyle.Left;
+            this.plNavBar.Location = new System.Drawing.Point(0, 45);
+            this.plNavBar.Name = "plNavBar";
+            this.plNavBar.Size = new System.Drawing.Size(257, 728);
+            this.plNavBar.TabIndex = 8;
             // 
             // frmMainUI
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BackColor = System.Drawing.Color.White;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1082, 803);
+            this.ClientSize = new System.Drawing.Size(1482, 773);
+            this.Controls.Add(this.plNavBar);
             this.Controls.Add(this.plControls);
             this.Controls.Add(this.plInfo);
-            this.Controls.Add(this.ckcDarkMode);
-            this.Controls.Add(this.MNMain);
             this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.MNNavBar;
             this.Name = "frmMainUI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Giao diện quản lý";
@@ -312,38 +366,36 @@
             this.Load += new System.EventHandler(this.frmMainUI_Load);
             this.plInfo.ResumeLayout(false);
             this.plInfo.PerformLayout();
-            this.MNMain.ResumeLayout(false);
-            this.MNMain.PerformLayout();
+            this.MNNavBar.ResumeLayout(false);
+            this.MNNavBar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.plNavBar.ResumeLayout(false);
+            this.plNavBar.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.Label lblTitleXinChao;
         private System.Windows.Forms.Panel plInfo;
-        private System.Windows.Forms.Label lblTitleQH;
-        private System.Windows.Forms.Label lblTitleChucVu;
-        private System.Windows.Forms.Label lblChucVu;
         private System.Windows.Forms.Label lblTenNV;
-        private System.Windows.Forms.Label lblQuyenHan;
-        private System.Windows.Forms.ToolStripMenuItem MNChung;
-        private System.Windows.Forms.ToolStripMenuItem MNKhachHang;
-        private System.Windows.Forms.ToolStripMenuItem MNNhanVien;
-        private System.Windows.Forms.ToolStripMenuItem MNBaoCao;
-        private System.Windows.Forms.ToolStripMenuItem MNKho;
-        private System.Windows.Forms.ToolStripMenuItem MNMore;
-        private System.Windows.Forms.MenuStrip MNMain;
-        private System.Windows.Forms.CheckBox ckcDarkMode;
-        private System.Windows.Forms.ToolStripMenuItem MNKH_DSKhachHang;
-        private System.Windows.Forms.ToolStripMenuItem MN_NhanVien_DSNV;
-        private System.Windows.Forms.ToolStripMenuItem báoCaoDoanhThuToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem MNMore_Setting;
-        private System.Windows.Forms.ToolStripMenuItem đổiMậtKhẩuToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem MNChung_Phong;
-        private System.Windows.Forms.ToolStripMenuItem MN_NhanVien_BangLuong;
-        private System.Windows.Forms.Button btnBack;
-        private System.Windows.Forms.ToolStripMenuItem quảnLýKhoToolStripMenuItem;
+        private System.Windows.Forms.Button btnLogOut;
+        private System.Windows.Forms.Button btnOpenNavBar;
         private System.Windows.Forms.Panel plControls;
+        private System.Windows.Forms.MenuStrip MNNavBar;
+        private System.Windows.Forms.ToolStripMenuItem MNHome;
+        private System.Windows.Forms.ToolStripMenuItem MNMore;
+        private System.Windows.Forms.ToolStripMenuItem MNRoom;
+        private System.Windows.Forms.ToolStripMenuItem MNMenuOrder;
+        private System.Windows.Forms.ToolStripMenuItem MNBill;
+        private System.Windows.Forms.ToolStripMenuItem MNStaffs;
+        private System.Windows.Forms.ToolStripMenuItem MNCustomers;
+        private System.Windows.Forms.ToolStripMenuItem MNWareHouse;
+        private System.Windows.Forms.Button btnSetting;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Panel plNavBar;
+        private System.Windows.Forms.ToolStripMenuItem MNChart;
+        private System.Windows.Forms.ToolStripMenuItem sToolStripMenuItem;
+        private System.Windows.Forms.Button btnAIChatbot;
     }
 }

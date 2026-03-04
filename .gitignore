@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Bỏ qua việc chạy file này tránh lộ API Key
+App.config
