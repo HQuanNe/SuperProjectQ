@@ -43,13 +43,14 @@
             this.MNBill = new System.Windows.Forms.ToolStripMenuItem();
             this.MNStaffs = new System.Windows.Forms.ToolStripMenuItem();
             this.MNCustomers = new System.Windows.Forms.ToolStripMenuItem();
-            this.MNWareHouse = new System.Windows.Forms.ToolStripMenuItem();
+            this.MNStorage = new System.Windows.Forms.ToolStripMenuItem();
             this.MNChart = new System.Windows.Forms.ToolStripMenuItem();
             this.MNMore = new System.Windows.Forms.ToolStripMenuItem();
             this.sToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSetting = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.plNavBar = new System.Windows.Forms.Panel();
+            this.voucherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.plInfo.SuspendLayout();
             this.MNNavBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -61,7 +62,7 @@
             this.lblTitleXinChao.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblTitleXinChao.AutoSize = true;
             this.lblTitleXinChao.Font = new System.Drawing.Font("Times New Roman", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitleXinChao.Location = new System.Drawing.Point(919, 16);
+            this.lblTitleXinChao.Location = new System.Drawing.Point(915, 14);
             this.lblTitleXinChao.Name = "lblTitleXinChao";
             this.lblTitleXinChao.Size = new System.Drawing.Size(65, 16);
             this.lblTitleXinChao.TabIndex = 1;
@@ -70,6 +71,7 @@
             // plInfo
             // 
             this.plInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.plInfo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.plInfo.Controls.Add(this.btnAIChatbot);
             this.plInfo.Controls.Add(this.btnOpenNavBar);
             this.plInfo.Controls.Add(this.lblTenNV);
@@ -89,13 +91,14 @@
             this.btnAIChatbot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAIChatbot.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAIChatbot.Image = ((System.Drawing.Image)(resources.GetObject("btnAIChatbot.Image")));
-            this.btnAIChatbot.Location = new System.Drawing.Point(1348, 3);
+            this.btnAIChatbot.Location = new System.Drawing.Point(1344, 1);
             this.btnAIChatbot.Name = "btnAIChatbot";
             this.btnAIChatbot.Size = new System.Drawing.Size(131, 38);
             this.btnAIChatbot.TabIndex = 8;
             this.btnAIChatbot.Text = "Trợ lý AI";
             this.btnAIChatbot.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAIChatbot.UseVisualStyleBackColor = false;
+            this.btnAIChatbot.Visible = false;
             this.btnAIChatbot.Click += new System.EventHandler(this.btnAIChatbot_Click);
             // 
             // btnOpenNavBar
@@ -106,7 +109,7 @@
             this.btnOpenNavBar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.btnOpenNavBar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOpenNavBar.Image = ((System.Drawing.Image)(resources.GetObject("btnOpenNavBar.Image")));
-            this.btnOpenNavBar.Location = new System.Drawing.Point(5, 4);
+            this.btnOpenNavBar.Location = new System.Drawing.Point(5, 7);
             this.btnOpenNavBar.Name = "btnOpenNavBar";
             this.btnOpenNavBar.Size = new System.Drawing.Size(33, 25);
             this.btnOpenNavBar.TabIndex = 7;
@@ -118,7 +121,7 @@
             this.lblTenNV.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblTenNV.AutoSize = true;
             this.lblTenNV.Font = new System.Drawing.Font("Times New Roman", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTenNV.Location = new System.Drawing.Point(1004, 16);
+            this.lblTenNV.Location = new System.Drawing.Point(1000, 14);
             this.lblTenNV.Name = "lblTenNV";
             this.lblTenNV.Size = new System.Drawing.Size(17, 16);
             this.lblTenNV.TabIndex = 4;
@@ -146,11 +149,13 @@
             // 
             // plControls
             // 
-            this.plControls.BackColor = System.Drawing.Color.White;
-            this.plControls.Dock = System.Windows.Forms.DockStyle.Right;
+            this.plControls.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.plControls.BackColor = System.Drawing.Color.WhiteSmoke;
             this.plControls.Location = new System.Drawing.Point(257, 45);
-            this.plControls.MaximumSize = new System.Drawing.Size(2200, 1200);
-            this.plControls.MinimumSize = new System.Drawing.Size(800, 0);
+            this.plControls.MaximumSize = new System.Drawing.Size(2500, 1500);
+            this.plControls.MinimumSize = new System.Drawing.Size(1225, 0);
             this.plControls.Name = "plControls";
             this.plControls.Size = new System.Drawing.Size(1225, 728);
             this.plControls.TabIndex = 7;
@@ -169,7 +174,7 @@
             this.MNBill,
             this.MNStaffs,
             this.MNCustomers,
-            this.MNWareHouse,
+            this.MNStorage,
             this.MNChart,
             this.MNMore});
             this.MNNavBar.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
@@ -177,7 +182,7 @@
             this.MNNavBar.MaximumSize = new System.Drawing.Size(300, 1000);
             this.MNNavBar.MinimumSize = new System.Drawing.Size(240, 0);
             this.MNNavBar.Name = "MNNavBar";
-            this.MNNavBar.Size = new System.Drawing.Size(240, 438);
+            this.MNNavBar.Size = new System.Drawing.Size(240, 462);
             this.MNNavBar.TabIndex = 10;
             this.MNNavBar.Text = "NavBar";
             // 
@@ -189,7 +194,7 @@
             this.MNHome.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.MNHome.Name = "MNHome";
             this.MNHome.Padding = new System.Windows.Forms.Padding(5);
-            this.MNHome.Size = new System.Drawing.Size(231, 48);
+            this.MNHome.Size = new System.Drawing.Size(233, 48);
             this.MNHome.Text = "Trang chủ";
             this.MNHome.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.MNHome.Click += new System.EventHandler(this.AllMenu_Click);
@@ -202,7 +207,7 @@
             this.MNRoom.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.MNRoom.Name = "MNRoom";
             this.MNRoom.Padding = new System.Windows.Forms.Padding(5);
-            this.MNRoom.Size = new System.Drawing.Size(231, 48);
+            this.MNRoom.Size = new System.Drawing.Size(233, 48);
             this.MNRoom.Text = "Phòng";
             this.MNRoom.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.MNRoom.Click += new System.EventHandler(this.AllMenu_Click);
@@ -215,7 +220,7 @@
             this.MNMenuOrder.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.MNMenuOrder.Name = "MNMenuOrder";
             this.MNMenuOrder.Padding = new System.Windows.Forms.Padding(5);
-            this.MNMenuOrder.Size = new System.Drawing.Size(231, 48);
+            this.MNMenuOrder.Size = new System.Drawing.Size(233, 48);
             this.MNMenuOrder.Text = "Menu";
             this.MNMenuOrder.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.MNMenuOrder.Click += new System.EventHandler(this.AllMenu_Click);
@@ -228,7 +233,7 @@
             this.MNBill.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.MNBill.Name = "MNBill";
             this.MNBill.Padding = new System.Windows.Forms.Padding(5);
-            this.MNBill.Size = new System.Drawing.Size(231, 48);
+            this.MNBill.Size = new System.Drawing.Size(233, 48);
             this.MNBill.Text = "Hoá đơn";
             this.MNBill.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.MNBill.Click += new System.EventHandler(this.AllMenu_Click);
@@ -241,7 +246,7 @@
             this.MNStaffs.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.MNStaffs.Name = "MNStaffs";
             this.MNStaffs.Padding = new System.Windows.Forms.Padding(5);
-            this.MNStaffs.Size = new System.Drawing.Size(231, 48);
+            this.MNStaffs.Size = new System.Drawing.Size(233, 48);
             this.MNStaffs.Text = "Nhân viên";
             this.MNStaffs.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.MNStaffs.Click += new System.EventHandler(this.AllMenu_Click);
@@ -254,23 +259,23 @@
             this.MNCustomers.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.MNCustomers.Name = "MNCustomers";
             this.MNCustomers.Padding = new System.Windows.Forms.Padding(5);
-            this.MNCustomers.Size = new System.Drawing.Size(231, 48);
+            this.MNCustomers.Size = new System.Drawing.Size(233, 48);
             this.MNCustomers.Text = "Khách hàng";
             this.MNCustomers.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.MNCustomers.Click += new System.EventHandler(this.AllMenu_Click);
             // 
-            // MNWareHouse
+            // MNStorage
             // 
-            this.MNWareHouse.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MNWareHouse.Image = ((System.Drawing.Image)(resources.GetObject("MNWareHouse.Image")));
-            this.MNWareHouse.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.MNWareHouse.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.MNWareHouse.Name = "MNWareHouse";
-            this.MNWareHouse.Padding = new System.Windows.Forms.Padding(5);
-            this.MNWareHouse.Size = new System.Drawing.Size(231, 48);
-            this.MNWareHouse.Text = "Kho ";
-            this.MNWareHouse.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
-            this.MNWareHouse.Click += new System.EventHandler(this.AllMenu_Click);
+            this.MNStorage.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MNStorage.Image = ((System.Drawing.Image)(resources.GetObject("MNStorage.Image")));
+            this.MNStorage.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.MNStorage.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.MNStorage.Name = "MNStorage";
+            this.MNStorage.Padding = new System.Windows.Forms.Padding(5);
+            this.MNStorage.Size = new System.Drawing.Size(233, 48);
+            this.MNStorage.Text = "Kho ";
+            this.MNStorage.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            this.MNStorage.Click += new System.EventHandler(this.AllMenu_Click);
             // 
             // MNChart
             // 
@@ -280,30 +285,33 @@
             this.MNChart.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.MNChart.Name = "MNChart";
             this.MNChart.Padding = new System.Windows.Forms.Padding(5);
-            this.MNChart.Size = new System.Drawing.Size(231, 48);
+            this.MNChart.Size = new System.Drawing.Size(233, 48);
             this.MNChart.Text = "Biểu đồ";
             this.MNChart.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            this.MNChart.Click += new System.EventHandler(this.AllMenu_Click);
             // 
             // MNMore
             // 
             this.MNMore.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sToolStripMenuItem});
+            this.sToolStripMenuItem,
+            this.voucherToolStripMenuItem});
             this.MNMore.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MNMore.Image = ((System.Drawing.Image)(resources.GetObject("MNMore.Image")));
             this.MNMore.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.MNMore.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.MNMore.Name = "MNMore";
             this.MNMore.Padding = new System.Windows.Forms.Padding(5);
-            this.MNMore.Size = new System.Drawing.Size(231, 48);
+            this.MNMore.Size = new System.Drawing.Size(233, 48);
             this.MNMore.Text = "Thêm";
             this.MNMore.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.MNMore.Click += new System.EventHandler(this.AllMenu_Click);
             // 
             // sToolStripMenuItem
             // 
+            this.sToolStripMenuItem.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sToolStripMenuItem.Name = "sToolStripMenuItem";
-            this.sToolStripMenuItem.Size = new System.Drawing.Size(115, 38);
-            this.sToolStripMenuItem.Text = "s";
+            this.sToolStripMenuItem.Size = new System.Drawing.Size(224, 38);
+            this.sToolStripMenuItem.Text = "Sản phẩm";
             // 
             // btnSetting
             // 
@@ -324,6 +332,7 @@
             this.btnSetting.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSetting.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnSetting.UseVisualStyleBackColor = false;
+            this.btnSetting.Click += new System.EventHandler(this.btnSetting_Click);
             // 
             // pictureBox1
             // 
@@ -346,6 +355,13 @@
             this.plNavBar.Size = new System.Drawing.Size(257, 728);
             this.plNavBar.TabIndex = 8;
             // 
+            // voucherToolStripMenuItem
+            // 
+            this.voucherToolStripMenuItem.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.voucherToolStripMenuItem.Name = "voucherToolStripMenuItem";
+            this.voucherToolStripMenuItem.Size = new System.Drawing.Size(224, 30);
+            this.voucherToolStripMenuItem.Text = "Voucher";
+            // 
             // frmMainUI
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -353,8 +369,8 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1482, 773);
-            this.Controls.Add(this.plNavBar);
             this.Controls.Add(this.plControls);
+            this.Controls.Add(this.plNavBar);
             this.Controls.Add(this.plInfo);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -390,12 +406,13 @@
         private System.Windows.Forms.ToolStripMenuItem MNBill;
         private System.Windows.Forms.ToolStripMenuItem MNStaffs;
         private System.Windows.Forms.ToolStripMenuItem MNCustomers;
-        private System.Windows.Forms.ToolStripMenuItem MNWareHouse;
+        private System.Windows.Forms.ToolStripMenuItem MNStorage;
         private System.Windows.Forms.Button btnSetting;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel plNavBar;
         private System.Windows.Forms.ToolStripMenuItem MNChart;
         private System.Windows.Forms.ToolStripMenuItem sToolStripMenuItem;
         private System.Windows.Forms.Button btnAIChatbot;
+        private System.Windows.Forms.ToolStripMenuItem voucherToolStripMenuItem;
     }
 }

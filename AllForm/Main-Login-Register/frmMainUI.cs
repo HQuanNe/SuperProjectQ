@@ -16,6 +16,7 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 
 using Mscc.GenerativeAI; //Thư viện Google AI
+using SuperProjectQ.Classes; 
 
 namespace SuperProjectQ.Frm_Main_Login_Register
 {
@@ -23,34 +24,48 @@ namespace SuperProjectQ.Frm_Main_Login_Register
     {
         public frmMainUI()
         {
-            //System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12; //Hỗ trợ chạy AI cho phiên bản .NET Framework 
+            //System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12; //Hỗ trợ chạy AI cho phiên bản .NET Framework dươi 4.8
             InitializeComponent();
-            model = AIchatBot.GenerativeModel(Model.Gemini25Flash); //Lấy Model (Phiên bản Gemini 2.5Flash)
+
+            var root = new Content(AI.GetDataFromSQL());
+
+            model = AIchatBot.GenerativeModel(Model.Gemini25Flash, systemInstruction: root); //Lấy Model (Phiên bản Gemini 2.5Flash)
         }
         GoogleAI AIchatBot = new GoogleAI(ConfigurationManager.AppSettings["GeminiAPIKey"]); // Tạo đôi tượng kết nối với Google AI bằng API Key
         GenerativeModel model; //Khởi tạo Model
 
         ConnectData kn = new ConnectData();
+        AIChatbotRepository AI = new AIChatbotRepository(); //Kho CSDL
+        private ChatSession chatSession; //Phiên làm việc
+
+        ToolStripMenuItem MNItemClicked = null; //MenuItem click trước đó
+
         string mainIDUser = Session.IDUser, mainTenNV = Session.TenNV;
 
         private void AddForm(Form form)
         {
+
+            plControls.Visible = true;
+
             plControls.Controls.Clear();
             form.TopLevel = false;
             form.FormBorderStyle = FormBorderStyle.None;
-            //form.Dock = DockStyle.Fill;
+            form.SendToBack();
             form.Show();
 
             plControls.Controls.Add(form);
         }
-
         private void AllMenu_Click(object sender, EventArgs e)
         {
-            ToolStripMenuItem MNItemClicked = sender as ToolStripMenuItem;
+            ToolStripMenuItem MNItemClick = sender as ToolStripMenuItem;
 
-            plControls.Visible = true;
+            if (MNItemClicked != null) { MNItemClicked.BackColor = Color.White; MNItemClicked.ForeColor = Color.Black; }
+            ;
+            MNItemClick.BackColor = Color.Gray;
+            MNItemClick.ForeColor = Color.White;
+            MNItemClicked = MNItemClick;
 
-            switch (MNItemClicked.Name)
+            switch (MNItemClick.Name)
             {
                 case "MNHome":
                     plControls.Visible = false;
@@ -63,29 +78,27 @@ namespace SuperProjectQ.Frm_Main_Login_Register
                     frmOrder menu = new frmOrder();
                     AddForm(menu);
                     break;
-                case "btnNhanVien":
-                    frmNhanVien nhanVien = new frmNhanVien();
-                    AddForm(nhanVien);
-                    break;
-                case "btnKhachHang":
-                    frmKhachHang khachHang = new frmKhachHang();
-                    AddForm(khachHang);
-                    break;
-                case "btnKhoHang":
-                    frmKho khoHang = new frmKho();
-                    AddForm(khoHang);
-                    break;
-                case "btnHoaDon":
+                case "MNBill":
                     frmHoaDon hoaDon = new frmHoaDon();
                     AddForm(hoaDon);
                     break;
-                case "btnChart":
+                case "MNStaffs":
+                    frmNhanVien nhanVien = new frmNhanVien();
+                    AddForm(nhanVien);
+                    break;
+                case "MNCustomers":
+                    frmKhachHang khachHang = new frmKhachHang();
+                    AddForm(khachHang);
+                    break;
+                case "MNStorage":
+                    frmKho khoHang = new frmKho();
+                    AddForm(khoHang);
+                    break;
+                case "MNChart":
                     frmBieuDoDoanhThu chart = new frmBieuDoDoanhThu();
                     AddForm(chart);
                     break;
-                case "btnSetting":
-                    frmSetting setting = new frmSetting();
-                    AddForm(setting);
+                case "MNMore":
                     break;
                 default:
                     return;
@@ -112,6 +125,10 @@ namespace SuperProjectQ.Frm_Main_Login_Register
 
             plControls.Visible = false;
 
+            var oldHistory = AI.GetHistory(); //Lấy dữ liệu cũ đã lưu trong SQL
+            chatSession = model.StartChat(oldHistory); //Gán data đó làm giá trị khởi đầu
+
+
             Session.KiemTraGhiNo(); // Kiểm tra ghi nợ khi mở form Main
             Session.KiemTraVoucher(); //Kiểm tra voucher khi mở form Main
         }
@@ -127,8 +144,8 @@ namespace SuperProjectQ.Frm_Main_Login_Register
             }
             plAIChatbot = new Panel()
             {
-                Width = 500,
-                Height = 700,
+                Width = 800,
+                Height = 600,
                 MinimumSize = new Size(500, 700),
 
                 BackColor = Color.FromArgb(255, 228, 181),
@@ -147,15 +164,15 @@ namespace SuperProjectQ.Frm_Main_Login_Register
             };
             RichTextBox rtxtChatHistory = new RichTextBox()
             {
-                Width = 460,
-                Height = 580,
+                Width = 760,
+                Height = 550,
 
                 ReadOnly = true,
                 HideSelection = true,
                 ForeColor = Color.Green,
                 Font = new Font("Times New Roman", 12, FontStyle.Regular),
 
-                Location = new Point((plAIChatbot.Width - 460) / 2, 60),
+                Location = new Point((plAIChatbot.Width - 760) / 2, 60),
             };
             TextBox txtRequest = new TextBox()
             {
@@ -192,35 +209,50 @@ namespace SuperProjectQ.Frm_Main_Login_Register
             plAIChatbot.Controls.Add(rtxtChatHistory);
             plAIChatbot.Controls.Add(lblTitle);
             this.Controls.Add(plAIChatbot);
+            plAIChatbot.BringToFront();
             this.AcceptButton = btnSendRequest;
+
 
             btnSendRequest.Click += async (sender, e) =>
             {
+
                 //async là hàm bất đồng bộ tránh việc Not Responding khi AI trả lời
                 string requestMessage = txtRequest.Text;  //Gửi đi câu hỏi
+                AI.SaveNewMessage("user", txtRequest.Text);
 
-                if (string.IsNullOrEmpty(requestMessage)) return;
+                if (string.IsNullOrEmpty(requestMessage)) return; //nếu Request rỗng
 
                 rtxtChatHistory.AppendText($"Tôi: {requestMessage}\n\n");
                 txtRequest.Clear();
                 try
                 {
-                    var responding = await model.GenerateContent(requestMessage); //Gửi câu hỏi cho AI chờ phản hồi
-                    if (responding == null || responding.Text == null)
+                    //model.GenerateContent(requestMessage); //Gửi câu hỏi cho AI chờ phản hồi
+                    var respond = await chatSession.SendMessage(requestMessage); //Dùng ChatSession để AI nhớ được ngữ cảnh
+                    
+                    if (respond == null || respond.Text == null)
                     {
                         MessageBox.Show("Lỗi");
                         return;
                     }//nếu null sẽ báo lỗi
-                    rtxtChatHistory.AppendText($"Trợ lý Para: {responding.Text}\n\n"); //Thêm câu trả lời
+
+                    AI.SaveNewMessage("AI", respond.Text); //Lưu cầu trả lời của AI
+
+                    rtxtChatHistory.AppendText($"Trợ lý ParaD: {respond.Text}\n\n"); //Thêm câu trả lời
                 }
                 catch (GeminiApiException ex)
                 {
-                    MessageBox.Show("Lỗi kết nối AI Chatbot " + ex.Message);
+                    MessageBox.Show("Lỗi kết nối AI Chatbot \n" + ex.Message);
                     return;
                 }
             };
         }
         #endregion
+        private void btnSetting_Click(object sender, EventArgs e)
+        {
+            frmSetting setting = new frmSetting();
+            AddForm(setting);
+        }
+
         private void btnOpenNavBar_Click(object sender, EventArgs e)
         {
             plNavBar.Visible = !plNavBar.Visible;

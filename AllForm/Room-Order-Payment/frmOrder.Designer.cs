@@ -75,7 +75,7 @@
             this.btnAll.TabIndex = 5;
             this.btnAll.Text = "Tất cả";
             this.btnAll.UseVisualStyleBackColor = false;
-            this.btnAll.Click += new System.EventHandler(this.btnAll_Click);
+            this.btnAll.Click += new System.EventHandler(this.AllButton_Click);
             // 
             // btnCombo
             // 
@@ -109,7 +109,7 @@
             this.btnOther.TabIndex = 3;
             this.btnOther.Text = "Khác";
             this.btnOther.UseVisualStyleBackColor = false;
-            this.btnOther.Click += new System.EventHandler(this.btnOther_Click);
+            this.btnOther.Click += new System.EventHandler(this.AllButton_Click);
             // 
             // btnDrink
             // 
@@ -127,7 +127,7 @@
             this.btnDrink.TabIndex = 2;
             this.btnDrink.Text = "Đồ uống ▶";
             this.btnDrink.UseVisualStyleBackColor = false;
-            this.btnDrink.Click += new System.EventHandler(this.btnDrink_Click);
+            this.btnDrink.Click += new System.EventHandler(this.AllButton_Click);
             // 
             // btnFood
             // 
@@ -145,7 +145,7 @@
             this.btnFood.TabIndex = 1;
             this.btnFood.Text = "Đồ ăn ▶️";
             this.btnFood.UseVisualStyleBackColor = false;
-            this.btnFood.Click += new System.EventHandler(this.btnFood_Click);
+            this.btnFood.Click += new System.EventHandler(this.AllButton_Click);
             // 
             // flowLayoutDSPhong
             // 
@@ -208,7 +208,7 @@
             this.btnDoKho.TabIndex = 7;
             this.btnDoKho.Text = "Đồ khô";
             this.btnDoKho.UseVisualStyleBackColor = false;
-            this.btnDoKho.Click += new System.EventHandler(this.btnDoKho_Click);
+            this.btnDoKho.Click += new System.EventHandler(this.AllButton_Click);
             // 
             // btnSnack
             // 
@@ -226,7 +226,7 @@
             this.btnSnack.TabIndex = 6;
             this.btnSnack.Text = "Snack";
             this.btnSnack.UseVisualStyleBackColor = false;
-            this.btnSnack.Click += new System.EventHandler(this.btnSnack_Click);
+            this.btnSnack.Click += new System.EventHandler(this.AllButton_Click);
             // 
             // btnHoaQua
             // 
@@ -244,7 +244,7 @@
             this.btnHoaQua.TabIndex = 8;
             this.btnHoaQua.Text = "Hoa quả";
             this.btnHoaQua.UseVisualStyleBackColor = false;
-            this.btnHoaQua.Click += new System.EventHandler(this.btnHoaQua_Click);
+            this.btnHoaQua.Click += new System.EventHandler(this.AllButton_Click);
             // 
             // btnRuou
             // 
@@ -262,7 +262,7 @@
             this.btnRuou.TabIndex = 10;
             this.btnRuou.Text = "Rượu/Bia";
             this.btnRuou.UseVisualStyleBackColor = false;
-            this.btnRuou.Click += new System.EventHandler(this.btnRuou_Click);
+            this.btnRuou.Click += new System.EventHandler(this.AllButton_Click);
             // 
             // btnNuocNgot
             // 
@@ -280,7 +280,7 @@
             this.btnNuocNgot.TabIndex = 9;
             this.btnNuocNgot.Text = "Nước ngọt";
             this.btnNuocNgot.UseVisualStyleBackColor = false;
-            this.btnNuocNgot.Click += new System.EventHandler(this.btnNuocNgot_Click);
+            this.btnNuocNgot.Click += new System.EventHandler(this.AllButton_Click);
             // 
             // btnNuocKhoang
             // 
@@ -298,7 +298,7 @@
             this.btnNuocKhoang.TabIndex = 11;
             this.btnNuocKhoang.Text = "Nước khoáng";
             this.btnNuocKhoang.UseVisualStyleBackColor = false;
-            this.btnNuocKhoang.Click += new System.EventHandler(this.btnNuocKhoang_Click);
+            this.btnNuocKhoang.Click += new System.EventHandler(this.AllButton_Click);
             // 
             // frmOrder
             // 

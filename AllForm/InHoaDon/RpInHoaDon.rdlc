@@ -48,8 +48,8 @@
           <DataField>MaHD</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="TenHienThi">
-          <DataField>TenHienThi</DataField>
+        <Field Name="TenMatHang">
+          <DataField>TenMatHang</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="SoLuong">
@@ -180,6 +180,7 @@
                   <TextRun>
                     <Value>Dịch vụ:</Value>
                     <Style>
+                      <FontFamily>Times New Roman</FontFamily>
                       <FontSize>8pt</FontSize>
                     </Style>
                   </TextRun>
@@ -211,6 +212,7 @@
                   <TextRun>
                     <Value>Tiền phòng:</Value>
                     <Style>
+                      <FontFamily>Times New Roman</FontFamily>
                       <FontSize>8pt</FontSize>
                     </Style>
                   </TextRun>
@@ -238,19 +240,19 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>2.4303cm</Width>
+                  <Width>2.46183cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.70824cm</Width>
+                  <Width>0.7cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.88593cm</Width>
+                  <Width>1.23122cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.54373cm</Width>
+                  <Width>1.5085cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.7789cm</Width>
+                  <Width>1.76367cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -268,6 +270,7 @@
                                 <TextRun>
                                   <Value>Tên SP</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -301,6 +304,7 @@
                                 <TextRun>
                                   <Value>SL</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -336,6 +340,7 @@
                                 <TextRun>
                                   <Value>DVT</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -371,6 +376,7 @@
                                 <TextRun>
                                   <Value>Đ.Giá</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -406,6 +412,7 @@
                                 <TextRun>
                                   <Value>T.Tiền</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -437,15 +444,16 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="TenHienThi">
+                        <Textbox Name="TenMatHang">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!TenHienThi.Value</Value>
+                                  <Value>=Fields!TenMatHang.Value</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -454,7 +462,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>TenHienThi</rd:DefaultName>
+                          <rd:DefaultName>TenMatHang</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -479,6 +487,7 @@
                                 <TextRun>
                                   <Value>=Fields!SoLuong.Value</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -514,6 +523,7 @@
                                 <TextRun>
                                   <Value>=Fields!DonViTinh.Value</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -549,6 +559,7 @@
                                 <TextRun>
                                   <Value>=Format(Fields!DonGia.Value, "#,##0")</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -584,6 +595,7 @@
                                 <TextRun>
                                   <Value>=Format(Fields!ThanhTien.Value, "#,##0")</Value>
                                   <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -633,9 +645,8 @@
             </TablixRowHierarchy>
             <DataSetName>DataSetCTHD</DataSetName>
             <Top>4.64727cm</Top>
-            <Left>0.15595cm</Left>
             <Height>1.073cm</Height>
-            <Width>7.3471cm</Width>
+            <Width>7.66522cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -647,6 +658,7 @@
               <BottomBorder>
                 <Style>Solid</Style>
               </BottomBorder>
+              <FontFamily>Times New Roman</FontFamily>
               <FontSize>6pt</FontSize>
             </Style>
           </Tablix>
@@ -658,7 +670,9 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Format(Sum(Fields!TienPhong.Value, "DataSetHD"), "#,##0")</Value>
-                    <Style />
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -690,7 +704,9 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Format(Sum(Fields!TienDichVu.Value, "DataSetHD"), "#,##0")</Value>
-                    <Style />
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -722,7 +738,9 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Format(Sum(Fields!TongThanhToan.Value, "DataSetHD"), "#,##0")</Value>
-                    <Style />
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -755,6 +773,7 @@
                   <TextRun>
                     <Value>=First(Fields!PTTT.Value, "DataSetHD")</Value>
                     <Style>
+                      <FontFamily>Times New Roman</FontFamily>
                       <FontSize>11pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -788,6 +807,7 @@
                   <TextRun>
                     <Value>Karaoke Thiên Đường</Value>
                     <Style>
+                      <FontFamily>Times New Roman</FontFamily>
                       <FontSize>14pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -823,6 +843,7 @@
                   <TextRun>
                     <Value>QL32 - Vân Sa - xã Cổ Đô - Thành Phố Hà Nội</Value>
                     <Style>
+                      <FontFamily>Times New Roman</FontFamily>
                       <FontSize>6pt</FontSize>
                     </Style>
                   </TextRun>
@@ -836,6 +857,7 @@
                   <TextRun>
                     <Value>SĐT: 0382 294 559 - 0363 636 360</Value>
                     <Style>
+                      <FontFamily>Times New Roman</FontFamily>
                       <FontSize>6pt</FontSize>
                     </Style>
                   </TextRun>
@@ -870,6 +892,7 @@
                   <TextRun>
                     <Value>HOÁ ĐƠN THANH TOÁN</Value>
                     <Style>
+                      <FontFamily>Times New Roman</FontFamily>
                       <FontSize>16pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -905,6 +928,7 @@
                   <TextRun>
                     <Value>Giờ vào: </Value>
                     <Style>
+                      <FontFamily>Times New Roman</FontFamily>
                       <FontSize>8pt</FontSize>
                     </Style>
                   </TextRun>
@@ -916,6 +940,7 @@
                   <TextRun>
                     <Value />
                     <Style>
+                      <FontFamily>Times New Roman</FontFamily>
                       <FontSize>8pt</FontSize>
                     </Style>
                   </TextRun>
@@ -948,6 +973,7 @@
                   <TextRun>
                     <Value>Giờ ra: </Value>
                     <Style>
+                      <FontFamily>Times New Roman</FontFamily>
                       <FontSize>8pt</FontSize>
                     </Style>
                   </TextRun>
@@ -959,6 +985,7 @@
                   <TextRun>
                     <Value />
                     <Style>
+                      <FontFamily>Times New Roman</FontFamily>
                       <FontSize>8pt</FontSize>
                     </Style>
                   </TextRun>
@@ -967,7 +994,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox21</rd:DefaultName>
-            <Top>2.6978cm</Top>
+            <Top>2.6343cm</Top>
             <Left>1.43349cm</Left>
             <Height>0.55834cm</Height>
             <Width>1.41944cm</Width>
@@ -991,6 +1018,7 @@
                   <TextRun>
                     <Value>Thời gian: </Value>
                     <Style>
+                      <FontFamily>Times New Roman</FontFamily>
                       <FontSize>8pt</FontSize>
                     </Style>
                   </TextRun>
@@ -1002,6 +1030,7 @@
                   <TextRun>
                     <Value />
                     <Style>
+                      <FontFamily>Times New Roman</FontFamily>
                       <FontSize>8pt</FontSize>
                     </Style>
                   </TextRun>
@@ -1010,7 +1039,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox21</rd:DefaultName>
-            <Top>3.13905cm</Top>
+            <Top>3.0438cm</Top>
             <Left>1.43349cm</Left>
             <Height>0.55834cm</Height>
             <Width>1.41944cm</Width>
@@ -1034,6 +1063,7 @@
                   <TextRun>
                     <Value>=Format(First(Fields!GioVao.Value, "DataSetHD"), "dd/MM/yyyy HH:mm:ss")</Value>
                     <Style>
+                      <FontFamily>Times New Roman</FontFamily>
                       <FontSize>8pt</FontSize>
                     </Style>
                   </TextRun>
@@ -1081,6 +1111,7 @@
                   <TextRun>
                     <Value>=Format(First(Fields!GioRa.Value, "DataSetHD"), "dd/MM/yyyy HH:mm:ss")</Value>
                     <Style>
+                      <FontFamily>Times New Roman</FontFamily>
                       <FontSize>8pt</FontSize>
                     </Style>
                   </TextRun>
@@ -1089,7 +1120,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>GioVao</rd:DefaultName>
-            <Top>2.69781cm</Top>
+            <Top>2.63431cm</Top>
             <Left>3.26321cm</Left>
             <Height>0.55834cm</Height>
             <Width>3.29495cm</Width>
@@ -1113,6 +1144,7 @@
                   <TextRun>
                     <Value>=First(Fields!TongSoPhut.Value, "DataSetHD").ToString() + " Phút"</Value>
                     <Style>
+                      <FontFamily>Times New Roman</FontFamily>
                       <FontSize>8pt</FontSize>
                     </Style>
                   </TextRun>
@@ -1121,7 +1153,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>GioVao</rd:DefaultName>
-            <Top>3.13905cm</Top>
+            <Top>3.0438cm</Top>
             <Left>3.26321cm</Left>
             <Height>0.55834cm</Height>
             <Width>3.29495cm</Width>
@@ -1146,6 +1178,7 @@
                     <Value>Cảm ơn và hẹn gặp lại quý khách!</Value>
                     <Style>
                       <FontStyle>Italic</FontStyle>
+                      <FontFamily>Times New Roman</FontFamily>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -1179,6 +1212,7 @@
                   <TextRun>
                     <Value>Tên phòng:</Value>
                     <Style>
+                      <FontFamily>Times New Roman</FontFamily>
                       <FontSize>8pt</FontSize>
                     </Style>
                   </TextRun>
@@ -1190,6 +1224,7 @@
                   <TextRun>
                     <Value />
                     <Style>
+                      <FontFamily>Times New Roman</FontFamily>
                       <FontSize>8pt</FontSize>
                     </Style>
                   </TextRun>
@@ -1222,6 +1257,7 @@
                   <TextRun>
                     <Value>Loại phòng: </Value>
                     <Style>
+                      <FontFamily>Times New Roman</FontFamily>
                       <FontSize>8pt</FontSize>
                     </Style>
                   </TextRun>
@@ -1233,6 +1269,7 @@
                   <TextRun>
                     <Value />
                     <Style>
+                      <FontFamily>Times New Roman</FontFamily>
                       <FontSize>8pt</FontSize>
                     </Style>
                   </TextRun>
@@ -1265,6 +1302,7 @@
                   <TextRun>
                     <Value>=First(Fields!TenPhong.Value, "DataSetHD")</Value>
                     <Style>
+                      <FontFamily>Times New Roman</FontFamily>
                       <FontSize>8pt</FontSize>
                     </Style>
                   </TextRun>
@@ -1297,6 +1335,7 @@
                   <TextRun>
                     <Value>=First(Fields!TenLoaiPhong.Value, "DataSetHD")</Value>
                     <Style>
+                      <FontFamily>Times New Roman</FontFamily>
                       <FontSize>8pt</FontSize>
                     </Style>
                   </TextRun>
@@ -1329,6 +1368,7 @@
                   <TextRun>
                     <Value>= "VAT: (" &amp; Parameters!VAT.Value &amp; "%)"</Value>
                     <Style>
+                      <FontFamily>Times New Roman</FontFamily>
                       <FontSize>8pt</FontSize>
                     </Style>
                   </TextRun>
@@ -1360,7 +1400,9 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Format(Sum(Fields!VAT.Value, "DataSetHD"), "#,##0")</Value>
-                    <Style />
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -1394,6 +1436,7 @@
                     <Value>="Triết khấu VIP (" &amp; 
 Format(Sum(Fields!Discount.Value, "DataSetKH") * 100, "0.##") &amp; "%):"</Value>
                     <Style>
+                      <FontFamily>Times New Roman</FontFamily>
                       <FontSize>8pt</FontSize>
                     </Style>
                   </TextRun>
@@ -1436,7 +1479,9 @@ Format(Sum(Fields!Discount.Value, "DataSetKH") * 100, "0.##") &amp; "%):"</Value
                 <TextRuns>
                   <TextRun>
                     <Value>=Format(Sum(Fields!TrietKhauVIP.Value, "DataSetHD"), "#,##0")</Value>
-                    <Style />
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -1469,6 +1514,7 @@ Format(Sum(Fields!Discount.Value, "DataSetKH") * 100, "0.##") &amp; "%):"</Value
                   <TextRun>
                     <Value>="Triết khấu Voucher: "</Value>
                     <Style>
+                      <FontFamily>Times New Roman</FontFamily>
                       <FontSize>8pt</FontSize>
                     </Style>
                   </TextRun>
@@ -1500,7 +1546,9 @@ Format(Sum(Fields!Discount.Value, "DataSetKH") * 100, "0.##") &amp; "%):"</Value
                 <TextRuns>
                   <TextRun>
                     <Value>=Format(Sum(Fields!TrietKhauVoucher.Value, "DataSetHD"), "#,##0")</Value>
-                    <Style />
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -1528,7 +1576,7 @@ Format(Sum(Fields!Discount.Value, "DataSetKH") * 100, "0.##") &amp; "%):"</Value
         <Height>4.70387in</Height>
         <Style />
       </Body>
-      <Width>3.02686in</Width>
+      <Width>3.04527in</Width>
       <Page>
         <PageHeight>29.7cm</PageHeight>
         <PageWidth>21cm</PageWidth>

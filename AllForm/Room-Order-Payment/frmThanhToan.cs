@@ -118,6 +118,8 @@ namespace SuperProjectQ.FrmMixed
                 // Hiển thị lên PictureBox
                 picQRCode.SizeMode = PictureBoxSizeMode.StretchImage;
                 picQRCode.Load(url);
+                Session.picQRCode = picQRCode;
+                
             }
             catch (Exception)
             {

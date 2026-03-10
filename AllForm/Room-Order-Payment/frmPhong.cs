@@ -162,8 +162,12 @@ namespace SuperProjectQ.FrmMixed
             flowLayoutOrdered.Controls.Clear();
 
             DataTable dt = new DataTable();
-            dt = kn.CreateTable($"SELECT ChiTietHD.MaCTHD, ChiTietHD.MaHD, ChiTietHD.MaSP, SanPham.TenHienThi, ChiTietHD.SoLuong, ChiTietHD.DonViTinh, SanPham.DinhLuong " +
-                $"FROM ChiTietHD INNER JOIN SanPham ON ChiTietHD.MaSP = SanPham.MaSP " +
+            dt = kn.CreateTable($"SELECT ChiTietHD.MaHD, ChiTietHD.MaSP, " +
+                $"COALESCE(SanPham.TenMatHang, Combo.TenCombo) AS TenMatHang, " +
+                $"ChiTietHD.SoLuong, ChiTietHD.DonViTinh, SanPham.DinhLuong " +
+                $"FROM ChiTietHD " +
+                $"LEFT JOIN SanPham ON ChiTietHD.MaSP = SanPham.MaSP_Menu AND ChiTietHD.LoaiHang = 0 " +
+                $"LEFT JOIN Combo ON ChiTietHD.MaSP = Combo.MaCombo AND ChiTietHD.LoaiHang =  1 " +
                 $"WHERE ChiTietHD.MaHD = {MaHD} ");
 
             if(dt.Rows.Count > 0)
@@ -183,7 +187,7 @@ namespace SuperProjectQ.FrmMixed
                     };
                     Label lblTenSP = new Label()
                     {
-                        Text = row["TenHienThi"].ToString(),
+                        Text = row["TenMatHang"].ToString(),
 
                         MaximumSize = new Size(150, 50),
 
@@ -340,8 +344,13 @@ namespace SuperProjectQ.FrmMixed
                 {
                     cmd.ExecuteNonQuery();
                 }
+                string maSP = thisBtn.Parent.Tag.ToString();
 
-                Session.CapNhatKho(!Session.isPlus.Value, thisBtn.Parent.Tag.ToString(), soLuongThayDoi);
+                if (!(maSP.Contains("SPM"))) Session.isCombo = true;
+                else Session.isCombo = false;
+
+                MessageBox.Show("SL thay doi" + soLuongThayDoi.ToString());
+                Session.CapNhatKho(!Session.isPlus.Value, maSP, soLuongThayDoi); //Cập nhật kho
 
                 Load_Ordered(maHD);
             }

@@ -70,16 +70,19 @@ namespace SuperProjectQ
                 else
                 {
                     string tenDangNhap = txtUserName.Text.Trim(), matKhau = txtPassword.Text.Trim();
-                    if (tenDangNhap.Contains("'") || matKhau.Contains("'"))
+
+                    string[] textBox = new string[]
                     {
-                        MessageBox.Show("Tên đăng nhập hoặc mật khẩu không chính xác");
-                        return;
-                    }
+                        txtUserName.Text,
+                        txtPassword.Text,
+                    };
+                    if (!Session.xuLyChuoi(textBox)) { MessageBox.Show("Tên đăng nhập hoặc mật khẩu không chính xác");  return;}
 
                     string loginIDUser = null, loginMaNV = null, loginTenNV = null, loginChucVu = null;
                     string sqlLogin = $"SELECT * FROM Users WHERE UserName = '{txtUserName.Text.Trim()}' AND Password = '{txtPassword.Text.Trim()}'";
                     DataTable dt = new DataTable();
                     dt = kn.CreateTable(sqlLogin);
+
                     if (dt.Rows.Count < 0) return;
                     foreach (DataRow rowIDUser in dt.Rows)
                     {
@@ -89,11 +92,9 @@ namespace SuperProjectQ
                         string sqlTenNV = $"SELECT * FROM NhanVien WHERE MaNV = '{loginMaNV}'";
                         DataTable dtTenNV = new DataTable();
                         dtTenNV = kn.CreateTable(sqlTenNV);
-                        foreach (DataRow rowTenNV in dtTenNV.Rows)
-                        {
-                            loginTenNV = rowTenNV["TenNV"].ToString();
-                            loginChucVu = rowTenNV["ChucVu"].ToString();
-                        }
+
+                        loginTenNV = dtTenNV.Rows[0]["TenNV"].ToString();
+                        loginChucVu = dtTenNV.Rows[0]["ChucVu"].ToString();
                     }
                     if (loginIDUser != null)
                     {
@@ -108,6 +109,8 @@ namespace SuperProjectQ
                         Session.Datalog("login.txt", $"ID: {loginIDUser} - MãNV: {loginMaNV} đã đăng nhập"); //Lưu log 
                         frmMainUI MainUI = new frmMainUI();
                         MainUI.ShowDialog();
+
+                        txtPassword.Clear();
                     }
                     else
                     {

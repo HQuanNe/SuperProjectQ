@@ -33,6 +33,8 @@ namespace SuperProjectQ.FrmMixed
             {
                 //dgvHoaDon.AutoGenerateColumns = false;
                 kn.ConnOpen();
+
+                Session.StandardDataGridView(dgvHoaDon);
                 Load_DB();
             }
             catch (SqlException ex)
@@ -44,17 +46,7 @@ namespace SuperProjectQ.FrmMixed
 
         private void dgvHoaDon_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            int maHD = Convert.ToInt32(dgvHoaDon.Rows[e.RowIndex].Cells["MaHD"].Value);
 
-            dt = new DataTable();
-            dt = kn.CreateTable($"SELECT ChiTietHD.MaCTHD, ChiTietHD.MaHD, ChiTietHD.MaSP, SanPham.TenHienThi, " +
-                $"ChiTietHD.SoLuong, ChiTietHD.DonViTinh, ChiTietHD.DonGia, ChiTietHD.ThanhTien " +
-                $"FROM ChiTietHD " +
-                $"INNER JOIN SanPham ON SanPham.MaSP = ChiTietHD.MaSP " +
-                $"INNER JOIN HoaDon ON HoaDon.MaHD = ChiTietHD.MaHD " +
-                $"WHERE ChiTietHD.MaHD = {maHD} AND HoaDon.TrangThai = 1 ");
-            dgvCTHD.DataSource = null;
-            dgvCTHD.DataSource = dt;
         }
     }
 }

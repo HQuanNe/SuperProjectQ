@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data;
-using System.Data.SqlClient;
-using System.IO;
-using System.Runtime.CompilerServices;
 namespace SuperProjectQ
 {
     internal class TransData
@@ -19,22 +20,27 @@ namespace SuperProjectQ
         static DataTable dt = null;
         static SqlCommand cmd = null;
 
-        #region Các thông số
-        public static double VAT;
-        public static double laiSuat;
-        public static double PriceAfter_22H;
-        public static double MinTonKho;
-        public static double amountPerPointVIP; //Số tiền trên mỗi điểm VIP
-        #endregion
+        public static class DuLieuKhoHang
+        {
+            public static string MaSP;
+            public static string TenSP;
+            public static string DanhMuc;
+            public static string DonViTinh;
+            public static string TonKho;
+            public static DateTime NgayCapNhat;
+            public static decimal DonGiaNhap;
+            public static int TrangThai;
+            public static string GhiChu;
+            public static string HinhAnh;
 
-        #region
 
-        #endregion
+        }
 
         public static void ConnectOpen()
         {
             kn.ConnOpen();
         }
+
         public static void Datalog(string fileTxtName, string content)
         {
             File.AppendAllText($"D:\\Học_Tập\\Programing_language\\ADO-NET\\DataLog\\{fileTxtName}", $"\n{DateTime.Now.ToString()}: {content}");
@@ -128,7 +134,7 @@ namespace SuperProjectQ
             if(target.Length == 3)
             {
                 //Định dạng lại mã nếu <10 thì thêm 2 số 0, <100 thì thêm 1 số 0
-                if (tangMa < 10)
+                if (tangMa < 10 && target != "SPK")
                     newID = target + "0" + tangMa.ToString();
                 else
                     newID = target + tangMa.ToString();
@@ -150,43 +156,94 @@ namespace SuperProjectQ
         {
             ConnectOpen();
 
-            dt = kn.CreateTable($"SELECT * FROM KhoHang WHERE MaSP = '{maSP}'");
-
-            double soLuongTon = dt.Rows[0]["TonKho"] != DBNull.Value ? Convert.ToDouble(dt.Rows[0]["TonKho"]) : 0;
-            bool DonViTinh = dt.Rows[0]["DonViTinh"] != DBNull.Value && dt.Rows[0]["DonViTinh"].ToString() == "Kg" ? true : false;
-
-            MessageBox.Show($"Số lượng tồn kho trước khi cập nhật: {soLuongTon}");
-
-            dt.Clear();
-            dt = kn.CreateTable($"SELECT DinhLuong FROM SanPham WHERE MaSP = '{maSP}'");
-            double dinhLuong = dt.Rows[0]["DinhLuong"] != DBNull.Value ? Convert.ToDouble(dt.Rows[0]["DinhLuong"]) : 0;
-
-            if (DonViTinh) soLuong = soLuong * dinhLuong  / 1000; //Nếu đơn vị tính là Kg 
-
-            if (soLuong > soLuongTon)
+            string sqlSanPham = $"SELECT KhoHang.TonKho, KhoHang.DonViTinh, SanPham.DinhLuong FROM Khohang " +
+                $"INNER JOIN SanPham ON KhoHang.MaSP_Kho = SanPham.MaSP_Kho " +
+                $"WHERE SanPham.MaSP_Menu = '{maSP}'";
+            if (Session.isCombo)
             {
-                MessageBox.Show("Số lượng vượt quá tồn kho!");
-                return;
+                sqlSanPham = "SELECT SanPham.MaSP_Menu, KhoHang.TonKho, KhoHang.DonViTinh, SanPham.DinhLuong, ChiTietCombo.SoLuong " +
+                    "FROM KhoHang " +
+                    "INNER JOIN SanPham ON SanPham.MaSP_Kho = KhoHang.MaSP_Kho " +
+                    "INNER JOIN ChiTietCombo ON ChiTietCombo.MaSP = SanPham.MaSP_Menu " +
+                    $"WHERE ChiTietCombo.MaComBo = '{maSP}'";
             }
 
-            if (isPlus) {soLuongTon += soLuong;} //Nếu trả lại đồ thì cộng số lượng vào kho
-            else {soLuongTon -= soLuong; } //Nếu order đồ thì trừ số lượng trong kho
+            dt = kn.CreateTable(sqlSanPham);
+            foreach (DataRow row in dt.Rows)
+            {
+                double newSoLuong = 0; 
 
-            MessageBox.Show($"Số lượng tồn kho sau khi cập nhật: {soLuongTon}");
+                double soLuongTon = row["TonKho"] != DBNull.Value ? Convert.ToDouble(row["TonKho"]) : 0;
+                bool DonViTinh = row["DonViTinh"] != DBNull.Value && row["DonViTinh"].ToString() == "Kg" ? true : false;
 
-            string sqlCapNhatKho = "UPDATE KhoHang SET TonKho = @TonKho WHERE MaSP = @MaSP";
-            cmd = new SqlCommand(sqlCapNhatKho, kn.conn);
-            cmd.Parameters.Clear();
-            cmd.Parameters.AddWithValue("@TonKho", soLuongTon);
-            cmd.Parameters.AddWithValue("@MaSP", maSP);
-            cmd.ExecuteNonQuery();
+                if (Session.isCombo)
+                {
+                    newSoLuong = soLuong * Convert.ToDouble(row["SoLuong"]);
+                    Console.WriteLine("SL da thay doi "+ newSoLuong);
 
-            Session.isPlus = null; //Reset lại giá trị isPlus sau khi cập nhật kho
+                    maSP = dt.Rows.Count > 0 ? row["MaSP_Menu"].ToString() : "";
+                } // Nếu là combo set lại tham số 
 
+                Console.WriteLine($"Số lượng tồn kho trước khi cập nhật: {soLuongTon}");
+
+                double dinhLuong = row["DinhLuong"] != DBNull.Value ? Convert.ToDouble(row["DinhLuong"]) : 0;
+
+                if (DonViTinh) newSoLuong = newSoLuong * dinhLuong / 1000; //Nếu đơn vị tính là Kg
+                Console.WriteLine($"Số lượng sau khi * với định lg/1000: {newSoLuong}");
+
+                if (soLuong > soLuongTon)
+                {
+                    MessageBox.Show("Số lượng vượt quá tồn kho!");
+                    return;
+                }
+
+                if (isPlus) { soLuongTon += newSoLuong; } //Nếu trả lại đồ thì cộng số lượng vào kho
+                else { soLuongTon -= newSoLuong; } //Nếu order đồ thì trừ số lượng trong kho
+
+                Console.WriteLine($"Số lượng tồn kho sau khi cập nhật: {soLuongTon}");
+
+                string sqlCapNhatKho = "UPDATE KhoHang SET TonKho = @TonKho " +
+                    "FROM KhoHang " +
+                    "INNER JOIN SanPham ON SanPham.MaSP_Kho = KhoHang.MaSP_Kho " +
+                    "WHERE MaSP_Menu = @MaSP";
+                cmd = new SqlCommand(sqlCapNhatKho, kn.conn);
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@TonKho", soLuongTon);
+                cmd.Parameters.AddWithValue("@MaSP", maSP);
+                cmd.ExecuteNonQuery();
+
+                Session.isPlus = null; //Reset lại giá trị isPlus sau khi cập nhật kho
+            }
+        }
+        public static bool xuLyChuoi(string[] textBoxArray)
+        {
+            foreach (string textBox in textBoxArray)
+            {
+                if (textBox.Contains("'")) return false;
+            }
+            return true;
+        }
+        public static bool  XuLySo(string[] textBoxArray)
+        {
+            foreach (string textBox in textBoxArray)
+            {
+                if(!decimal.TryParse(textBox, out decimal value))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         #region Giá, VAT, lãi suất hoá đơn, giá sau 22h,... trong frmThanhToan
         //Giá VAT, lãi suất hoá đơn, giá sau 22h
+        #region Các thông số
+        public static double VAT;
+        public static double laiSuat;
+        public static double PriceAfter_22H;
+        public static double MinTonKho;
+        public static double amountPerPointVIP; //Số tiền trên mỗi điểm VIP
+        #endregion
         public static void SetParameters_Load()
         {
             ConnectOpen();
@@ -202,6 +259,39 @@ namespace SuperProjectQ
             amountPerPointVIP = Convert.ToDouble(dt.Rows[4]["GiaTri"]); //Số tiền trên mỗi điểm VIP
         }
         #endregion
+
+        public static void StandardDataGridView(DataGridView dgv)
+        {
+            dgv.EditMode = DataGridViewEditMode.EditProgrammatically;
+            dgv.AllowUserToAddRows = false;
+            dgv.AllowUserToDeleteRows = false;
+            dgv.AllowUserToResizeColumns = false;
+            dgv.AllowUserToResizeRows = false;
+            dgv.BorderStyle = BorderStyle.None;
+            dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgv.RowHeadersVisible = false;
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            //header
+            dgv.EnableHeadersVisualStyles = false;// 1. Cho phép tùy biến Header
+            dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dgv.ColumnHeadersHeight = 40;
+
+            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Times New Roman", 10, FontStyle.Bold);
+            dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.Lime;
+            //cells
+            dgv.DefaultCellStyle.Font = new Font("Times New Roman", 9, FontStyle.Regular);
+            dgv.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            dgv.RowTemplate.Height = 35;
+
+            dgv.DefaultCellStyle.BackColor = Color.FromArgb(240, 255, 240);
+            dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 255, 250);
+
+            dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 255, 127);
+            dgv.DefaultCellStyle.SelectionForeColor = Color.Black;
+        } //DGV tiêu chuẩn
         public static Nullable<bool> isPlus { get; set; } //Biến tạm để xác định là cộng hay trừ số lượng trong kho, nếu true là cộng, false là trừ, null là chưa xác định
 
         public static string IDUser { get; set; }
@@ -219,6 +309,7 @@ namespace SuperProjectQ
         public static string maPhong = "";
         public static DateTime TimeOut { get; set; } // Thời gian đóng phòng
 
+        #region Hoá đơn
         public static double TongSoPhut { get; set; } //Tổng số phút sử dụng phòng
         public static decimal TongTien { get; set; } //Tiền phòng + dịch vụ
         public static decimal TongTienDV { get; set; } // tiền dịch vụ
@@ -231,10 +322,15 @@ namespace SuperProjectQ
         public static bool isPay { get; set; } // Nếu true là đã thanh toán và sẽ xuất hoá đơn
         public static string PTTT { get; set; } //Phương thức thanh toán
         public static bool TrangThaiHD { get; set; } // Trạng thái hoá đơn
-
+        #endregion
         //Voucher
         public static int STTVoucher { get; set; } //STT voucher được chọn để áp dụng vào hoá đơn
         public static string tenVoucher { get; set; } = "";//Tên voucher được chọn
         public static bool isUsedVoucher { get; set; } //Đã áp dụng voucher vào hoá đơn hay chưa
+
+        public static bool isCombo { get; set; } = false; //Kiểm tra xem sản phẩm thêm vào có phải combo hay không
+
+        //Ảnh QR
+        public static PictureBox picQRCode { get; set; }
     }
 }

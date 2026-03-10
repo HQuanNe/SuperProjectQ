@@ -37,6 +37,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.plThongSo = new System.Windows.Forms.Panel();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.label18 = new System.Windows.Forms.Label();
+            this.txtAmountPerPointVIP = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
             this.txtSLTKTT = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -92,14 +96,11 @@
             this.label25 = new System.Windows.Forms.Label();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
-            this.panel12 = new System.Windows.Forms.Panel();
-            this.label18 = new System.Windows.Forms.Label();
-            this.txtAmountPerPointVIP = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.plThongSo.SuspendLayout();
+            this.panel12.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -116,7 +117,6 @@
             this.panel14.SuspendLayout();
             this.panel15.SuspendLayout();
             this.panel16.SuspendLayout();
-            this.panel12.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -185,6 +185,32 @@
             this.plThongSo.Controls.Add(this.panel3);
             resources.ApplyResources(this.plThongSo, "plThongSo");
             this.plThongSo.Name = "plThongSo";
+            // 
+            // panel12
+            // 
+            this.panel12.Controls.Add(this.label18);
+            this.panel12.Controls.Add(this.txtAmountPerPointVIP);
+            this.panel12.Controls.Add(this.label19);
+            resources.ApplyResources(this.panel12, "panel12");
+            this.panel12.Name = "panel12";
+            // 
+            // label18
+            // 
+            resources.ApplyResources(this.label18, "label18");
+            this.label18.Name = "label18";
+            // 
+            // txtAmountPerPointVIP
+            // 
+            this.txtAmountPerPointVIP.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtAmountPerPointVIP.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            resources.ApplyResources(this.txtAmountPerPointVIP, "txtAmountPerPointVIP");
+            this.txtAmountPerPointVIP.Name = "txtAmountPerPointVIP";
+            this.txtAmountPerPointVIP.TextChanged += new System.EventHandler(this.AllTextBoxThongSo_TextChanged);
+            // 
+            // label19
+            // 
+            resources.ApplyResources(this.label19, "label19");
+            this.label19.Name = "label19";
             // 
             // panel7
             // 
@@ -556,32 +582,6 @@
             resources.ApplyResources(this.label26, "label26");
             this.label26.Name = "label26";
             // 
-            // panel12
-            // 
-            this.panel12.Controls.Add(this.label18);
-            this.panel12.Controls.Add(this.txtAmountPerPointVIP);
-            this.panel12.Controls.Add(this.label19);
-            resources.ApplyResources(this.panel12, "panel12");
-            this.panel12.Name = "panel12";
-            // 
-            // label18
-            // 
-            resources.ApplyResources(this.label18, "label18");
-            this.label18.Name = "label18";
-            // 
-            // txtAmountPerPointVIP
-            // 
-            this.txtAmountPerPointVIP.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.txtAmountPerPointVIP.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            resources.ApplyResources(this.txtAmountPerPointVIP, "txtAmountPerPointVIP");
-            this.txtAmountPerPointVIP.Name = "txtAmountPerPointVIP";
-            this.txtAmountPerPointVIP.TextChanged += new System.EventHandler(this.AllTextBoxThongSo_TextChanged);
-            // 
-            // label19
-            // 
-            resources.ApplyResources(this.label19, "label19");
-            this.label19.Name = "label19";
-            // 
             // frmSetting
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -599,6 +599,8 @@
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.plThongSo.ResumeLayout(false);
+            this.panel12.ResumeLayout(false);
+            this.panel12.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
             this.panel6.ResumeLayout(false);
@@ -626,8 +628,6 @@
             this.panel15.PerformLayout();
             this.panel16.ResumeLayout(false);
             this.panel16.PerformLayout();
-            this.panel12.ResumeLayout(false);
-            this.panel12.PerformLayout();
             this.ResumeLayout(false);
 
         }

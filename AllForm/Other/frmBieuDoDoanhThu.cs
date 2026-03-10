@@ -104,10 +104,12 @@ namespace SuperProjectQ.AllForm.Other
         private void SanPhamBanChay_Load()
         {
             dt = new DataTable();
-            dt = kn.CreateTable("SELECT ChiTietHD.MaSP, SanPham.TenHienThi, SUM(ChiTietHD.SoLuong) AS TongSPDaBan, ChiTietHD.DonViTinh " +
-                "FROM ChiTietHD " +
-                "INNER JOIN SanPham ON SanPham.MaSP = ChiTietHD.MaSP " +
-                "GROUP BY ChiTietHD.MaSP,SanPham.TenHienThi , ChiTietHD.DonViTinh " +
+            dt = kn.CreateTable("SELECT ct.MaSP, COALESCE(Sanpham.TenMatHang, Combo.TenCombo) AS TenMatHang, " +
+                "SUM(ct.SoLuong) AS TongSPDaBan, ct.DonViTinh " +
+                "FROM ChiTietHD ct " +
+                "LEFT JOIN SanPham ON SanPham.MaSP_Menu = ct.MaSP AND ct.LoaiHang = 0 " +
+                "LEFT JOIN Combo ON Combo.MaCombo = ct.MaSP AND ct.LoaiHang = 1 " +
+                "GROUP BY ct.MaSP, COALESCE(Sanpham.TenMatHang, Combo.TenCombo) , ct.DonViTinh " +
                 "ORDER BY TongSPDaBan ASC");
 
             //Xóa các dữ liệu cũ trên biểu đồ để làm sạch
@@ -116,13 +118,14 @@ namespace SuperProjectQ.AllForm.Other
             chartDoanhThu.ChartAreas.Add(new ChartArea("PopularProducts"));
 
             Legend legend = new Legend();
-            legend.Font = new Font("Times New Roman", 14, FontStyle.Regular);
+            legend.Font = new Font("Times New Roman", 12, FontStyle.Regular);
 
             Series series = new Series("Sản phẩm bán chạy");
 
+            if (dt.Rows.Count < 1 || dt == null) return;
             foreach (DataRow row in dt.Rows)
             {
-                series.Points.AddXY(row["TenHienThi"], row["TongSPDaBan"]);
+                series.Points.AddXY(row["TenMatHang"], row["TongSPDaBan"]);
             }
 
             series.IsValueShownAsLabel = true;
@@ -210,6 +213,11 @@ namespace SuperProjectQ.AllForm.Other
         private void btnPopularProd_Click(object sender, EventArgs e)
         {
             SanPhamBanChay_Load();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

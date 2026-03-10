@@ -47,6 +47,8 @@ namespace SuperProjectQ.AllForm
         DataTable dt = null;
         SqlCommand cmd = null;
 
+        bool ComboInit = true; //Kiểm tra xem đã khởi tạo combo chưa
+
         public Button btnDSPhong = null; // Panel chứa danh sách phòng
         Button btnPassClick = null; // Lưu button phòng đang được click
 
@@ -64,26 +66,25 @@ namespace SuperProjectQ.AllForm
 
         private void ItemPanel_SanPham_Load(string tag_1 = "", bool isCombo = false)
         {
-            flowLayoutDSSanPham.Controls.Clear();
 
-            string maSP = "MaSP", maDM = "MaDM", tenHienThi = "TenHienThi", giaBan = "GiaBan", hinhAnh = "HinhAnh";
+            string maSP = "MaSP_Menu", maDM = "MaDM", tenHienThi = "TenMatHang", giaBan = "GiaBan", hinhAnh = "HinhAnh";
 
-            string sqlSP = "SELECT SanPham.MaSP, SanPham.TenHienThi, SanPham.GiaBan, SanPham.HinhAnh, KhoHang.MaDM " +
-                           $"FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP = KhoHang.MaSP  " +
-                           $"WHERE KhoHang.MaDM LIKE '%{tag_1}%' AND KhoHang.TonKho >= {Session.MinTonKho} ORDER BY SanPham.TenHienThi";
+            string sqlSP = "SELECT SanPham.MaSP_Menu, SanPham.TenMatHang, SanPham.GiaBan, KhoHang.HinhAnh, KhoHang.MaDM " +
+                           $"FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP_Kho = KhoHang.MaSP_Kho " +
+                           $"WHERE KhoHang.MaDM LIKE '%{tag_1}%' AND KhoHang.TonKho >= {Session.MinTonKho} ORDER BY SanPham.TenMatHang";
 
-            if(isCombo)
+            if (isCombo)
             {
                 sqlSP = "SELECT DISTINCT Combo.MaCombo, Combo.TenCombo, Combo.MaDM, Combo.DonGia, combo.HinhAnh " +
                     "FROM Combo " +
                     "INNER JOIN ChiTietCombo ON Combo.MaCombo = ChiTietCombo.MaComBo " +
-                    "INNER JOIN KhoHang ON KhoHang.MaSP = ChiTietCombo.MaSP";
-                
+                    "INNER JOIN SanPham ON SanPham.MaSP_Menu = SanPham.MaSP_Menu";
+
                 maSP = "MaCombo"; tenHienThi = "TenCombo"; maDM = "MaDM"; giaBan = "DonGia"; hinhAnh = "HinhAnh";
 
             }
 
-                dt = kn.CreateTable(sqlSP);
+            dt = kn.CreateTable(sqlSP);
 
             if (dt == null || dt.Rows.Count < 1) return;
             foreach (DataRow row in dt.Rows)
@@ -315,7 +316,7 @@ namespace SuperProjectQ.AllForm
         private void BtnOrder_Click(object sender, EventArgs e)
         {
             Button clickedButton = (Button)sender;
-
+            MessageBox.Show(clickedButton.Name);
             bool isAdded = false;
 
             double soLuongOrder = Convert.ToDouble(clickedButton.Parent.Controls[3].Text.Trim()); //Số lượng thêm vào hiện tại ở textbox
@@ -329,26 +330,38 @@ namespace SuperProjectQ.AllForm
             {
                 if (MessageBox.Show($"Thêm sản phẩm này vào phòng {selectedRoomButton.Name}", "Thông báo", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    dt = new DataTable();
-                    dt = kn.CreateTable($"SELECT SanPham.MaSP, SanPham.TenHienThi, KhoHang.DonViTinh, SanPham.GiaBan, SanPham.DinhLuong FROM SanPham INNER JOIN KhoHang ON KhoHang.MaSP = SanPham.MaSP " +
-                        $"WHERE SanPham.MaSP = '{clickedButton.Name}'");
+                    string sqlSanPham = $"SELECT SanPham.MaSP_Menu, SanPham.TenMatHang, KhoHang.DonViTinh, SanPham.GiaBan, SanPham.DinhLuong " +
+                        $"FROM SanPham " +
+                        $"INNER JOIN KhoHang ON KhoHang.MaSP_Kho = SanPham.MaSP_Kho " +
+                        $"WHERE SanPham.MaSP_Menu = '{clickedButton.Name}'";
 
+                    if (!(clickedButton.Name.Contains("SPM"))) //Nếu là phải combo set = true
+                    {
+                        sqlSanPham = $"SELECT Combo.MaCombo, Combo.TenCombo, Combo.DonViTinh, Combo.DonGia " +
+                        $"FROM Combo " +
+                        $"WHERE Combo.MaCombo = '{clickedButton.Name}'";
+
+                        Session.isCombo = true;
+                    }
+
+                    dt = new DataTable();
+                    dt = kn.CreateTable(sqlSanPham);
+                    #region Lấy mã HĐ
                     cmd = new SqlCommand($"SELECT HoaDon.MaHD FROM HoaDon " +
                                         $"INNER JOIN Phong ON Phong.MaPhong = HoaDon.MaPhong " +
                                         $"WHERE HoaDon.MaPhong = '{selectedRoomButton.Name}' AND Phong.TrangThai = 1 AND HoaDon.TrangThai = 0", kn.conn);
                     int intMaHD = Convert.ToInt32(cmd.ExecuteScalar());
+                    #endregion
 
                     string maSP = dt.Rows[0][0].ToString();
                     string tenSP = dt.Rows[0][1].ToString();
+
                     string donViTinh = dt.Rows[0][2].ToString();
                     int donGia = Convert.ToInt32(dt.Rows[0][3].ToString());
 
-                    double dinhLuong = Convert.ToDouble(dt.Rows[0][4].ToString());
+                    double dinhLuong = !Session.isCombo ? Convert.ToDouble(dt.Rows[0][4].ToString()) : 0;
 
-                    if (donViTinh == "Kg") 
-                    { 
-                        donViTinh = "Đĩa";
-                    }
+                    if (donViTinh == "Kg") donViTinh = "Đĩa";
 
                     bool flag = true;
 
@@ -368,12 +381,14 @@ namespace SuperProjectQ.AllForm
                     //Nếu chaưa có thì thêm mới
                     if (flag)
                     {
-                        string sqlAdd = "INSERT INTO ChiTietHD (MaCTHD, MaHD, MaSP, SoLuong, DonViTinh, DonGia, ThanhTien) VALUES (@MCTHD, @MHD, @MSP, @SL, @DV, @DG, @TT)";
+                        string sqlAdd = "INSERT INTO ChiTietHD (MaCTHD, MaHD, MaSP, LoaiHang, SoLuong, DonViTinh, DonGia, ThanhTien) " +
+                            "VALUES (@MCTHD, @MHD, @MSP, @LH, @SL, @DV, @DG, @TT)";
                         cmd = new SqlCommand(sqlAdd, kn.conn);
                         cmd.Parameters.Clear();
                         cmd.Parameters.AddWithValue("@MCTHD", Session.AutoCreateID_Interger("MaCTHD", "ChiTietHD"));
                         cmd.Parameters.AddWithValue("@MHD", intMaHD);
                         cmd.Parameters.AddWithValue("@MSP", maSP);
+                        cmd.Parameters.AddWithValue("LH", Session.isCombo);
                         cmd.Parameters.AddWithValue("@SL", soLuongOrder);
                         cmd.Parameters.AddWithValue("@DV", donViTinh);
                         cmd.Parameters.AddWithValue("@DG", donGia);
@@ -404,13 +419,15 @@ namespace SuperProjectQ.AllForm
                 }
                 if (isAdded)
                 {
-                    MessageBox.Show(soLuongOrder.ToString());
+                    Console.WriteLine(soLuongOrder.ToString());
                     Session.CapNhatKho(false, clickedButton.Name, soLuongOrder);
 
-                    cmd = new SqlCommand($"SELECT TenHienThi FROM SanPham WHERE MaSP = '{clickedButton.Name}'", kn.conn);
+                    cmd = new SqlCommand($"SELECT TenMatHang FROM SanPham WHERE MaSP_Menu = '{clickedButton.Name}'", kn.conn);
                     string tenSP = (string)cmd.ExecuteScalar();
                     cmd = new SqlCommand($"SELECT TenPhong FROM Phong WHERE MaPhong = '{selectedRoomButton.Name}'", kn.conn);
                     string tenPhong = (string)cmd.ExecuteScalar();
+
+                    Session.isCombo = false;
                     MessageBox.Show($"Đã thêm sản phẩm {tenSP} cho phòng {tenPhong}"); return;
                 }
             }
@@ -494,112 +511,110 @@ namespace SuperProjectQ.AllForm
 
             } 
         } //Hiển thị panel sản phẩm theo tag
-        private void btnAll_Click(object sender, EventArgs e)
+        private void AllButton_Click(object sender, EventArgs e)
         {
-            HideBtnFoodChildren();
-            HideBtnDrinkChildren();
+            Button btnclicked = (Button)sender;
 
-            foodFlag = true;
-            drinkFlag = true;
-            btnFood.Text = "Đồ ăn ▶️";
-            btnDrink.Text = "Đồ uống ▶️";
-
-            ShowPanelByTag("");
-        }
-        #region Nút đồ ăn
-        private void btnFood_Click(object sender, EventArgs e)
-        {
-            if (foodFlag)
+            //flowLayoutDSSanPham.Controls.Clear();
+            //ItemPanel_SanPham_Load();
+            switch (btnclicked.Name)
             {
-                btnSnack.Visible = true;
-                btnDoKho.Visible = true;
-                btnHoaQua.Visible = true;
+                case "btnAll":
+                    HideBtnFoodChildren();
+                    HideBtnDrinkChildren();
 
-                btnFood.Text = "Đồ ăn ▼";
+                    foodFlag = true;
+                    drinkFlag = true;
+                    btnFood.Text = "Đồ ăn ▶️";
+                    btnDrink.Text = "Đồ uống ▶️";
 
-                ShowPanelByTag("MDM01,MDM03,MDM05,MDM06");
-                HideBtnDrinkChildren();
+                    ShowPanelByTag("");
+                    break;
+                case "btnFood":
+                    if (foodFlag)
+                    {
+                        btnSnack.Visible = true;
+                        btnDoKho.Visible = true;
+                        btnHoaQua.Visible = true;
 
-                foodFlag = false;
+                        btnFood.Text = "Đồ ăn ▼";
+
+                        ShowPanelByTag("MDM01,MDM03,MDM05,MDM06");
+                        HideBtnDrinkChildren();
+
+                        foodFlag = false;
+                    }
+                    else
+                    {
+                        HideBtnFoodChildren();
+                        btnFood.Text = "Đồ ăn ▶️";
+
+                        foodFlag = true;
+                    }
+                    break;
+                case "btnSnack":
+                    ShowPanelByTag("MDM03");
+                    break;
+                case "btnDoKho":
+                    ShowPanelByTag("MDM01");
+                    break;
+                case "btnHoaQua":
+                    ShowPanelByTag("MDM06");
+                    break;
+                case "btnDrink":
+                    if (drinkFlag)
+                    {
+                        btnRuou.Visible = true;
+                        btnNuocNgot.Visible = true;
+                        btnNuocKhoang.Visible = true;
+
+                        btnDrink.Text = "Đồ uống ▼";
+
+                        ShowPanelByTag("MDM02,MDM07,MDM08");
+
+                        drinkFlag = false;
+                    }
+                    else
+                    {
+                        HideBtnDrinkChildren();
+
+                        btnDrink.Text = "Đồ uống ▶";
+
+                        drinkFlag = true;
+                    }
+                    break;
+                case "btnRuou":
+                    ShowPanelByTag("MDM02");
+                    break;
+                case "btnNuocNgot":
+                    ShowPanelByTag("MDM07");
+                    break;
+                case "btnNuocKhoang":
+                    ShowPanelByTag("MDM07");
+                    break;
+                case "btnOther":
+                    HideBtnFoodChildren();
+                    HideBtnDrinkChildren();
+
+                    foodFlag = true;
+                    drinkFlag = true;
+                    btnFood.Text = "Đồ ăn ▶️";
+                    btnDrink.Text = "Đồ uống ▶️";
+
+                    ShowPanelByTag("MDM04");
+                    break;
+                default:
+                    break;
             }
-            else
-            {
-                HideBtnFoodChildren();
-                btnFood.Text = "Đồ ăn ▶️";
-
-                foodFlag = true;
-            }
-        }
-        private void btnSnack_Click(object sender, EventArgs e)
-        {
-            ShowPanelByTag("MDM03");
-        }
-        private void btnDoKho_Click(object sender, EventArgs e)
-        {
-            ShowPanelByTag("MDM01");
-        }
-
-        private void btnHoaQua_Click(object sender, EventArgs e)
-        {
-
-            ShowPanelByTag("MDM06");
-        }
-        #endregion
-
-        #region Nút đồ uống
-        private void btnDrink_Click(object sender, EventArgs e)
-        {
-            if (drinkFlag)
-            {
-                btnRuou.Visible = true;
-                btnNuocNgot.Visible = true;
-                btnNuocKhoang.Visible = true;
-
-                btnDrink.Text = "Đồ uống ▼";
-
-                ShowPanelByTag("MDM02,MDM07,MDM08");
-
-                drinkFlag = false;
-            }
-            else
-            {
-                HideBtnDrinkChildren();
-
-                btnDrink.Text = "Đồ uống ▶";
-
-                drinkFlag = true;
-            }
-        }
-        private void btnRuou_Click(object sender, EventArgs e)
-        {
-            ShowPanelByTag("MDM02");
-        }
-
-        private void btnNuocNgot_Click(object sender, EventArgs e)
-        {
-            ShowPanelByTag("MDM07");
-        }
-
-        private void btnNuocKhoang_Click(object sender, EventArgs e)
-        {
-            ShowPanelByTag("MDM08");
-        }
-        #endregion
-        private void btnOther_Click(object sender, EventArgs e)
-        {
-            HideBtnFoodChildren();
-            HideBtnDrinkChildren();
-
-            foodFlag = true;
-            drinkFlag = true;
-            btnFood.Text = "Đồ ăn ▶️";
-            btnDrink.Text = "Đồ uống ▶️";
-
-            ShowPanelByTag("MDM04");
         }
         private void btnCombo_Click(object sender, EventArgs e)
         {
-            ItemPanel_SanPham_Load("", true);
+            if (ComboInit)
+            {
+                ItemPanel_SanPham_Load("MDM09", ComboInit);
+                ComboInit = false;
+            }
+            ShowPanelByTag("MDM09");
         }
 
         #endregion

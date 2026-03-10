@@ -75,7 +75,9 @@ namespace SuperProjectQ.AllForm.Other
         {
             dt = new DataTable();
             dt = kn.CreateTable( $"SELECT VoucherKhachHang.STT, Voucher.MaVoucher, VoucherKhachHang.MaKH, VoucherKhachHang.NgayHetHan, Voucher.TenVoucher, Voucher.GiaTriGiam, Voucher.LoaiGiamGia, Voucher.GiamToiDa, Voucher.GTDonHangToiThieu, Voucher.HinhAnh " +
-                $"FROM Voucher INNER JOIN VoucherKhachHang ON Voucher.MaVoucher = VoucherKhachHang.MaVoucher WHERE VoucherKhachHang.TrangThai = 0 AND VoucherKhachHang.MaKH = '{Session.MaKH}' ");
+                $"FROM Voucher " +
+                $"INNER JOIN VoucherKhachHang ON Voucher.MaVoucher = VoucherKhachHang.MaVoucher " +
+                $"WHERE VoucherKhachHang.TrangThai = 0 AND VoucherKhachHang.MaKH = '{Session.MaKH}' ");
 
             if (dt.Rows.Count < 0 && dt.Rows != null) return;
             foreach (DataRow row in dt.Rows)

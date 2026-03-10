@@ -120,6 +120,7 @@ namespace SuperProjectQ.FrmMixed
                 txtVIP.Text = row.Cells[4].Value.ToString();
                 txtDTL.Text = row.Cells[5].Value.ToString();
                 txtDiscount.Text = (Convert.ToDouble(row.Cells[6].Value) * 100).ToString() + "%";
+
             }
         }
 
@@ -155,6 +156,7 @@ namespace SuperProjectQ.FrmMixed
 
             //Những mục cần nhập khi thêm mới
             txtMaKH.Text = Session.AutoCreateID_String("MaKH", "KhachHang", "KH");
+            txtSDT.Text = Session.SoDienThoai;
             txtDiscount.Text = "0";
             txtDTL.Text = "0";
             txtVIP.Text = "VIP0";

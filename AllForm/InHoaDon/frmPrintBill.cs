@@ -27,8 +27,9 @@ namespace SuperProjectQ
         int maHD = Session.maHD;
         private void PrintBill_Load(object sender, EventArgs e)
         {
-            PageSettings pSetting = new PageSettings();
             PaperSize k80Size = new PaperSize("K80", 315, 800);
+
+            PageSettings pSetting = new PageSettings();
             pSetting.Margins = new Margins(5, 5, 5, 5);
             pSetting.PaperSize = k80Size;
             this.rpInHoaDon.SetPageSettings(pSetting);
@@ -47,10 +48,15 @@ namespace SuperProjectQ
                 $"HoaDon.TienPhong, HoaDon.TienDichVu, HoaDon.TongTien, HoaDon.TrietKhauVIP, HoaDon.TrietKhauVoucher, HoaDon.VAT, HoaDon.TongThanhToan, HoaDon.PTTT, HoaDon.TrangThai " +
                 $"FROM HoaDon " +
                 $"INNER JOIN Phong ON Phong.MaPhong = HoaDon.MaPhong " +
-                $"INNER JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong WHERE MaHD = {maHD}";
+                $"INNER JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong WHERE MaHD = {36}";
             
-            string sqlCTHD = $"SELECT ChiTietHD.MaHD, SanPham.TenHienThi, ChiTietHD.SoLuong, ChiTietHD.DonViTinh, ChiTietHD.DonGia, ChiTietHD.ThanhTien FROM ChiTietHD " +
-                             $"INNER JOIN SanPham ON SanPham.MaSP = ChiTietHD.MaSP WHERE MaHD = {maHD}";
+            string sqlCTHD = $"SELECT ct.MaHD, " +
+                $"COALESCE(Sanpham.TenMatHang, Combo.TenCombo) AS TenMatHang, " +
+                $"ct.SoLuong, ct.DonViTinh, ct.DonGia, ct.ThanhTien " +
+                $"FROM ChiTietHD ct " +
+                $"LEFT JOIN SanPham ON SanPham.MaSP_Menu = ct.MaSP AND ct.LoaiHang = 0 " +
+                $"LEFT JOIN Combo ON Combo.MaCombo = ct.MaSP AND ct.LoaiHang = 1" +
+                $"WHERE MaHD = {36}";
             
             string sqlTrietKhau = $"SELECT Discount FROM KhachHang WHERE MaKH = '{Session.MaKH}'";
 
