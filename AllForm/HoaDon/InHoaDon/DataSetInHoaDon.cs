@@ -10,7 +10,7 @@ namespace SuperProjectQ
 {
 }
 
-namespace SuperProjectQ.AllForm.InHoaDon
+namespace SuperProjectQ.AllForm.HoaDon.InHoaDon
 {
 
 

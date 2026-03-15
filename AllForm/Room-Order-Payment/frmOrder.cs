@@ -316,7 +316,7 @@ namespace SuperProjectQ.AllForm
         private void BtnOrder_Click(object sender, EventArgs e)
         {
             Button clickedButton = (Button)sender;
-            MessageBox.Show(clickedButton.Name);
+            Console.WriteLine( "Mã SP đang trỏ: " + clickedButton.Name);
             bool isAdded = false;
 
             double soLuongOrder = Convert.ToDouble(clickedButton.Parent.Controls[3].Text.Trim()); //Số lượng thêm vào hiện tại ở textbox
@@ -477,6 +477,7 @@ namespace SuperProjectQ.AllForm
             if (soLuong <= 0) 
             {
                 thisTxt.Text = "1";
+                thisTxt.SelectionStart = thisTxt.Text.Length;
                 return;
             }
         }

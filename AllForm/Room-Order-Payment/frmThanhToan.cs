@@ -518,6 +518,7 @@ namespace SuperProjectQ.FrmMixed
         private void btnVoucher_Click(object sender, EventArgs e)
         {
             frmVoucherKhachHang frmVoucher = new frmVoucherKhachHang();
+            frmVoucher.FormBorderStyle = FormBorderStyle.None;
 
             frmVoucher.FormClosed += (s, args) =>
             {

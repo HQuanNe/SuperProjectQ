@@ -52,6 +52,7 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Discount" msprop:Generator_ColumnPropNameInTable="DiscountColumn" msprop:Generator_ColumnPropNameInRow="Discount" msprop:Generator_UserColumnName="Discount" msprop:Generator_ColumnVarNameInTable="columnDiscount" type="xs:double" minOccurs="0" />
+              <xs:element name="TenKH" msprop:Generator_ColumnPropNameInRow="TenKH" msprop:Generator_ColumnPropNameInTable="TenKHColumn" msprop:Generator_ColumnVarNameInTable="columnTenKH" msprop:Generator_UserColumnName="TenKH" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

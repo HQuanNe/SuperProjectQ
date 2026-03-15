@@ -105,6 +105,9 @@
     <Reference Include="Mscc.GenerativeAI, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Mscc.GenerativeAI.3.1.0\lib\netstandard2.0\Mscc.GenerativeAI.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
@@ -163,6 +166,18 @@
     <Compile Include="AllForm\KhoHang\frmThemKhoHang.Designer.cs">
       <DependentUpon>frmThemKhoHang.cs</DependentUpon>
     </Compile>
+    <Compile Include="AllForm\KhoHang\frmXacNhan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\KhoHang\frmXacNhan.Designer.cs">
+      <DependentUpon>frmXacNhan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AllForm\NhapKho\frmNhapHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\NhapKho\frmNhapHang.Designer.cs">
+      <DependentUpon>frmNhapHang.cs</DependentUpon>
+    </Compile>
     <Compile Include="AllForm\Other\frmBieuDoDoanhThu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -207,10 +222,10 @@
     <Compile Include="AllForm\Other\frmKhachHang.Designer.cs">
       <DependentUpon>frmKhachHang.cs</DependentUpon>
     </Compile>
-    <Compile Include="AllForm\InHoaDon\DataSetInHoaDon.cs">
+    <Compile Include="AllForm\HoaDon\InHoaDon\DataSetInHoaDon.cs">
       <DependentUpon>DataSetInHoaDon.xsd</DependentUpon>
     </Compile>
-    <Compile Include="AllForm\InHoaDon\DataSetInHoaDon.Designer.cs">
+    <Compile Include="AllForm\HoaDon\InHoaDon\DataSetInHoaDon.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSetInHoaDon.xsd</DependentUpon>
@@ -227,10 +242,10 @@
     <Compile Include="AllForm\Main-Login-Register\frmMainUI.Designer.cs">
       <DependentUpon>frmMainUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="AllForm\Other\frmHoaDon.cs">
+    <Compile Include="AllForm\HoaDon\frmHoaDon.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AllForm\Other\frmHoaDon.Designer.cs">
+    <Compile Include="AllForm\HoaDon\frmHoaDon.Designer.cs">
       <DependentUpon>frmHoaDon.cs</DependentUpon>
     </Compile>
     <Compile Include="AllForm\Other\frmNhanVien.cs">
@@ -251,10 +266,10 @@
     <Compile Include="AllForm\Room-Order-Payment\frmThanhToan.Designer.cs">
       <DependentUpon>frmThanhToan.cs</DependentUpon>
     </Compile>
-    <Compile Include="AllForm\InHoaDon\frmPrintBill.cs">
+    <Compile Include="AllForm\HoaDon\InHoaDon\frmPrintBill.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AllForm\InHoaDon\frmPrintBill.Designer.cs">
+    <Compile Include="AllForm\HoaDon\InHoaDon\frmPrintBill.Designer.cs">
       <DependentUpon>frmPrintBill.cs</DependentUpon>
     </Compile>
     <Compile Include="Nullable\AllowNullAttribute.cs" />
@@ -288,13 +303,19 @@
     <EmbeddedResource Include="AllForm\KhoHang\frmThemKhoHang.resx">
       <DependentUpon>frmThemKhoHang.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\KhoHang\frmXacNhan.resx">
+      <DependentUpon>frmXacNhan.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AllForm\Main-Login-Register\frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AllForm\Main-Login-Register\frmMainUI.resx">
       <DependentUpon>frmMainUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AllForm\Other\frmHoaDon.resx">
+    <EmbeddedResource Include="AllForm\NhapKho\frmNhapHang.resx">
+      <DependentUpon>frmNhapHang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\HoaDon\frmHoaDon.resx">
       <DependentUpon>frmHoaDon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AllForm\Other\frmKhachHang.resx">
@@ -324,7 +345,7 @@
     <EmbeddedResource Include="AllForm\Room-Order-Payment\frmThanhToan.resx">
       <DependentUpon>frmThanhToan.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AllForm\InHoaDon\frmPrintBill.resx">
+    <EmbeddedResource Include="AllForm\HoaDon\InHoaDon\frmPrintBill.resx">
       <DependentUpon>frmPrintBill.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AllForm\Room-Order-Payment\frmOrder.resx">
@@ -335,18 +356,18 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="AllForm\InHoaDon\RpInHoaDon.rdlc">
+    <EmbeddedResource Include="AllForm\HoaDon\InHoaDon\RpInHoaDon.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <None Include="AllForm\InHoaDon\DataSetInHoaDon.xsc">
+    <None Include="AllForm\HoaDon\InHoaDon\DataSetInHoaDon.xsc">
       <DependentUpon>DataSetInHoaDon.xsd</DependentUpon>
     </None>
-    <None Include="AllForm\InHoaDon\DataSetInHoaDon.xsd">
+    <None Include="AllForm\HoaDon\InHoaDon\DataSetInHoaDon.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSetInHoaDon.Designer.cs</LastGenOutput>
     </None>
-    <None Include="AllForm\InHoaDon\DataSetInHoaDon.xss">
+    <None Include="AllForm\HoaDon\InHoaDon\DataSetInHoaDon.xss">
       <DependentUpon>DataSetInHoaDon.xsd</DependentUpon>
     </None>
     <None Include="App.config.example" />

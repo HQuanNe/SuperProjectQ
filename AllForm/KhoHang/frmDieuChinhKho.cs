@@ -45,6 +45,7 @@ namespace SuperProjectQ.AllForm.KhoHang
             txtTonKho.Text = Session.DuLieuKhoHang.TonKho;
             dtNgayCapNhat.Value = Session.DuLieuKhoHang.NgayCapNhat;
             txtDonGia.Text = Session.DuLieuKhoHang.DonGiaNhap.ToString();
+            txtGhiChu.Text = Session.DuLieuKhoHang.GhiChu;
         }
         private void Picture_Load()
         {
@@ -117,6 +118,12 @@ namespace SuperProjectQ.AllForm.KhoHang
             {
                 try
                 {
+                    string[] txtSo = new string[]
+{
+                    txtDonGia.Text, txtTonKho.Text
+};
+                    if (!Session.XuLySo(txtSo)) { MessageBox.Show("Đơn giá hoặc tồn kho phải là số!!!"); return; }
+
                     string sqlUpdate = "UPDATE KHoHang SET " +
                         "TenSP = @TSP, MaDM = @MDM, DonViTinh = @DVT, TonKho = @TK, NgayCapNhat = @NCN, DonGiaNhap = @DGN, TrangThai = @TT, HinhAnh = @HA, GhiChu = @GC " +
                         "WHERE MaSP_Kho = @MSP";
@@ -128,14 +135,14 @@ namespace SuperProjectQ.AllForm.KhoHang
                     cmd.Parameters.AddWithValue("@TK", Convert.ToDouble(txtTonKho.Text.Trim()));
                     cmd.Parameters.AddWithValue("@NCN", dtNgayCapNhat.Value);
                     cmd.Parameters.AddWithValue("@DGN", Convert.ToDecimal(txtDonGia.Text.Trim().Replace(".","")));
-                    cmd.Parameters.AddWithValue("@TT", Convert.ToBoolean(cmbDanhMuc.SelectedIndex));
+                    cmd.Parameters.AddWithValue("@TT", Convert.ToBoolean(cmbTrangThai.SelectedIndex));
                     cmd.Parameters.AddWithValue("@HA", string.IsNullOrEmpty(Session.DuLieuKhoHang.HinhAnh) ? Path.GetFileName(newPathImage) : Session.DuLieuKhoHang.HinhAnh);
                     cmd.Parameters.AddWithValue("@GC", txtGhiChu.Text);
                     cmd.Parameters.AddWithValue("@MSP", Session.DuLieuKhoHang.MaSP.ToString().Trim());
                     cmd.ExecuteNonQuery();
 
                     if(hasImage) File.Copy(newPathImage, oldPathImage, true); //Lưu đè ảnh cũ
-                    else File.Copy(newPathImage, Application.StartupPath + $"\\Images\\{folderImage}\\{Path.GetFileName(newPathImage)}", false);
+                    else if(hasImage) File.Copy(newPathImage, Application.StartupPath + $"\\Images\\{folderImage}\\{Path.GetFileName(newPathImage)}", false);
 
                     MessageBox.Show("Cập nhật sản phẩm thành công!!!");
                     this.Close();
@@ -182,27 +189,53 @@ namespace SuperProjectQ.AllForm.KhoHang
             }
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void txtDonGia_TextChanged(object sender, EventArgs e)
         {
-            txtDonGia.Text = decimal.TryParse(txtDonGia.Text, out decimal value) ?  value.ToString("#,##0") : "0";
-            txtDonGia.SelectionStart = txtDonGia.Text.Length;
+            if(decimal.TryParse(txtDonGia.Text, out decimal value))
+            {
+                txtDonGia.Text = value.ToString("#,##0");
+                txtDonGia.SelectionStart = txtDonGia.Text.Length;
+            }
         }
 
         private void btnXoá_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Bạn có chắc chắn muốn xóa sản phẩm này không, không thể khôi phục?", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
-                string sqlDelete = "DELETE FROM KhoHang WHERE MaSP_Kho = @MaSP";
-                cmd = new SqlCommand(sqlDelete, kn.conn);
-                cmd.Parameters.AddWithValue("@MaSP",Session.DuLieuKhoHang.MaSP);
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Xóa sản phẩm thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
+                frmXacNhan xacNhan = new frmXacNhan();
+                xacNhan.FormBorderStyle = FormBorderStyle.None;
+                xacNhan.ShowDialog();
+                if (Session.DuLieuKhoHang.isDeleted)
+                {
+                    string sqlDelete = "DELETE FROM KhoHang WHERE MaSP_Kho = @MaSP";
+                    cmd = new SqlCommand(sqlDelete, kn.conn);
+                    cmd.Parameters.AddWithValue("@MaSP", Session.DuLieuKhoHang.MaSP);
+                    cmd.ExecuteNonQuery();
+
+                    if (File.Exists(oldPathImage)) //File.Exists: kiểm tra tệp có tồn tại không
+                    {
+                        try
+                        {
+                            picImageSP.Dispose();
+                            picImageSP.Image = null;
+
+                            GC.Collect();
+                            GC.WaitForPendingFinalizers();
+
+
+                            File.Delete(oldPathImage); //Xoá ảnh
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Lỗi xoá ảnh: \n" + ex.Message);
+                            return;
+                        }
+                    }
+                    Session.DuLieuKhoHang.isDeleted = false;
+
+                    MessageBox.Show("Xóa sản phẩm thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }
             }
         }
     }

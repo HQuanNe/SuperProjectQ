@@ -21,6 +21,8 @@ namespace SuperProjectQ.FrmMixed
         DataTable dt = null;
         SqlDataAdapter adapter = null;
         bool flag; //Biến cờ
+
+        string[] textBox;
         private void Load_DB()
         {
             string sqlKH = "SELECT * FROM KhachHang";
@@ -44,6 +46,18 @@ namespace SuperProjectQ.FrmMixed
                 btnGhi.Visible = false;
                 btnKoGhi.Visible = false;
             }
+        }
+        private void AddVoucher(string MaKH)
+        {
+            string sqlAddVoucher = "INSERT INTO VoucherKhachHang(STT, MaKH, MaVoucher, NgayNhan, NgayHetHan, TrangThai) " +
+                "VALUES (@STT, @MKH, 'VCH01', GETDATE(), @NHH, 0)";
+            cmd = new SqlCommand(sqlAddVoucher, kn.conn);
+            cmd.Parameters.Clear();
+            cmd.Parameters.AddWithValue("@STT", Session.AutoCreateID_Interger("STT", "VoucherKhachHang"));
+            cmd.Parameters.AddWithValue("@MKH", MaKH);
+            cmd.Parameters.AddWithValue("@NHH", DateTime.Now.Date.AddDays(30));
+            cmd.ExecuteNonQuery();
+
         }
         private void FocusDataByID(string id)
         {
@@ -130,6 +144,12 @@ namespace SuperProjectQ.FrmMixed
             {
                 if (MessageBox.Show("Bạn có chắc chắn muốn xóa khách hàng này không, không thể khôi phục?", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
+                    string sqlDeleteVoucher = "DELETE VoucherKhachHang WHERE MaKH = @MKH";
+                    cmd = new SqlCommand(sqlDeleteVoucher, kn.conn);
+                    cmd.Parameters.AddWithValue("@MaKH", txtMaKH.Text);
+                    cmd.ExecuteNonQuery();
+                    Load_DB();
+
                     string sqlDelete = "DELETE FROM KhachHang WHERE MaKH = @MaKH";
                     cmd = new SqlCommand(sqlDelete, kn.conn);
                     cmd.Parameters.AddWithValue("@MaKH", txtMaKH.Text);
@@ -148,6 +168,7 @@ namespace SuperProjectQ.FrmMixed
         {
             flag = true;
             plInfo.Enabled = true;
+            txtMaKH.Enabled = false;
 
             Button_Control(true);
             Reset_Text();
@@ -169,7 +190,7 @@ namespace SuperProjectQ.FrmMixed
             Button_Control(true);
         }
 
-        private void btnGhi_Click(object sender, EventArgs e)
+        private async void btnGhi_Click(object sender, EventArgs e)
         {
             try
             {
@@ -183,6 +204,14 @@ namespace SuperProjectQ.FrmMixed
                     }
                     else
                     {
+                        textBox = new string[]
+                        {
+                            txtDiscount.Text,
+                            txtSDT.Text.Trim(),
+                            txtDTL.Text
+                        };
+                        if (!Session.XuLySo(textBox)) { MessageBox.Show("Lỗi định dạng số, vui lòng kiểm tra lại!!!"); return; }
+
                         DialogResult traloi;
                         traloi = MessageBox.Show("Bạn có muốn thêm DL không???", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                         if (traloi == DialogResult.Yes)
@@ -204,6 +233,11 @@ namespace SuperProjectQ.FrmMixed
                             Reset_Text();
 
                             Session.MaKH = txtMaKH.Text.Trim();
+
+                            await Task.Delay(5000);  
+                            AddVoucher(txtMaKH.Text.Trim());
+
+                            
                         }
                         else
                         {

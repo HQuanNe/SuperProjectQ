@@ -48,7 +48,7 @@ namespace SuperProjectQ
                 $"HoaDon.TienPhong, HoaDon.TienDichVu, HoaDon.TongTien, HoaDon.TrietKhauVIP, HoaDon.TrietKhauVoucher, HoaDon.VAT, HoaDon.TongThanhToan, HoaDon.PTTT, HoaDon.TrangThai " +
                 $"FROM HoaDon " +
                 $"INNER JOIN Phong ON Phong.MaPhong = HoaDon.MaPhong " +
-                $"INNER JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong WHERE MaHD = {36}";
+                $"INNER JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong WHERE MaHD = {Session.maHD}";
             
             string sqlCTHD = $"SELECT ct.MaHD, " +
                 $"COALESCE(Sanpham.TenMatHang, Combo.TenCombo) AS TenMatHang, " +
@@ -56,9 +56,9 @@ namespace SuperProjectQ
                 $"FROM ChiTietHD ct " +
                 $"LEFT JOIN SanPham ON SanPham.MaSP_Menu = ct.MaSP AND ct.LoaiHang = 0 " +
                 $"LEFT JOIN Combo ON Combo.MaCombo = ct.MaSP AND ct.LoaiHang = 1" +
-                $"WHERE MaHD = {36}";
+                $"WHERE MaHD = {Session.maHD}";
             
-            string sqlTrietKhau = $"SELECT Discount FROM KhachHang WHERE MaKH = '{Session.MaKH}'";
+            string sqlTrietKhau = $"SELECT TenKH, Discount FROM KhachHang WHERE MaKH = '{Session.MaKH}'";
 
             adapterHD = new SqlDataAdapter(sqlHD, kn.conn);
             adapterCTHD = new SqlDataAdapter(sqlCTHD, kn.conn);
@@ -68,7 +68,7 @@ namespace SuperProjectQ
             adapterHD.Fill(ds, "HoaDon");
             adapterCTHD.Fill(ds, "ChitTietHD");
             adapterTrietKhau.Fill(ds, "TrietKhauKH");
-            rpInHoaDon.LocalReport.ReportEmbeddedResource = "SuperProjectQ.AllForm.InHoaDon.RpInHoaDon.rdlc";
+            rpInHoaDon.LocalReport.ReportEmbeddedResource = "SuperProjectQ.AllForm.HoaDon.InHoaDon.RpInHoaDon.rdlc";
 
             //Đưa DL lên bảng báo cáo
             ReportDataSource rdsCTHD = new ReportDataSource("DataSetCTHD", ds.Tables["ChitTietHD"]);

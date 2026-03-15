@@ -391,7 +391,7 @@
             this.MaKH.HeaderText = "Mã KH";
             this.MaKH.MinimumWidth = 6;
             this.MaKH.Name = "MaKH";
-            this.MaKH.Width = 55;
+            this.MaKH.Width = 112;
             // 
             // TenKH
             // 
@@ -399,7 +399,7 @@
             this.TenKH.HeaderText = "Tên KH";
             this.TenKH.MinimumWidth = 6;
             this.TenKH.Name = "TenKH";
-            this.TenKH.Width = 110;
+            this.TenKH.Width = 111;
             // 
             // DiaChi
             // 
@@ -407,7 +407,7 @@
             this.DiaChi.HeaderText = "Địa chỉ";
             this.DiaChi.MinimumWidth = 6;
             this.DiaChi.Name = "DiaChi";
-            this.DiaChi.Width = 120;
+            this.DiaChi.Width = 112;
             // 
             // SoDienThoai
             // 
@@ -415,7 +415,7 @@
             this.SoDienThoai.HeaderText = "Số điện thoại";
             this.SoDienThoai.MinimumWidth = 6;
             this.SoDienThoai.Name = "SoDienThoai";
-            this.SoDienThoai.Width = 90;
+            this.SoDienThoai.Width = 112;
             // 
             // VIP
             // 
@@ -423,7 +423,7 @@
             this.VIP.HeaderText = "VIP";
             this.VIP.MinimumWidth = 6;
             this.VIP.Name = "VIP";
-            this.VIP.Width = 55;
+            this.VIP.Width = 112;
             // 
             // DiemTichLuy
             // 
@@ -431,7 +431,7 @@
             this.DiemTichLuy.HeaderText = "Điểm tích luỹ";
             this.DiemTichLuy.MinimumWidth = 6;
             this.DiemTichLuy.Name = "DiemTichLuy";
-            this.DiemTichLuy.Width = 125;
+            this.DiemTichLuy.Width = 111;
             // 
             // Discount
             // 
@@ -439,7 +439,7 @@
             this.Discount.HeaderText = "Triết khấu";
             this.Discount.MinimumWidth = 6;
             this.Discount.Name = "Discount";
-            this.Discount.Width = 60;
+            this.Discount.Width = 112;
             // 
             // frmKhachHang
             // 

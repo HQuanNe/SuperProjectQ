@@ -24,7 +24,7 @@ namespace SuperProjectQ.Classes
             cmd.Parameters.Clear();
             //cmd.Parameters.AddWithValue("@STT", Session.AutoCreateID_Interger("STT", "AIChatbotHistory"));
             cmd.Parameters.AddWithValue("@Ten", ten);
-            cmd.Parameters.AddWithValue("ND", noiDung);
+            cmd.Parameters.AddWithValue("@ND", noiDung);
             cmd.ExecuteNonQuery();
         } //Lưu hội thoại cũ
         public List<ContentResponse> GetHistory(int limit = 999)
@@ -39,7 +39,7 @@ namespace SuperProjectQ.Classes
                 string name = row["Ten"].ToString();
                 string content = row["NoiDung"].ToString();
 
-                history.Insert(0, new ContentResponse(content, name == "user" ? Role.User : Role.Model));
+                history.Insert(0, new ContentResponse(content, name == "User" ? Role.User : Role.Model));
             }
 
             return history;
@@ -55,7 +55,7 @@ namespace SuperProjectQ.Classes
                 {"Dưới đây là danh sách nhân viên:", "SELECT * FROM NhanVien" },
                 {"Dưới đây là danh sách khách hàng:", "SELECT * FROM KhachHang" },
                 {"Dưới đây là danh sách sản phẩm:", "SELECT * FROM SanPham" },
-                {"Dưới đây là danh sách kho hàng:", "SELECT * FROM KhoHang" },
+                {"Dưới đây là danh sách kho hàng (trạng thái true là đã thanh toán và ngược lại):", "SELECT * FROM KhoHang" },
             };
 
             foreach(string key in dictTable.Keys)
@@ -93,6 +93,19 @@ namespace SuperProjectQ.Classes
                             $"Định lượng: {row["DinhLuong"].ToString()}" +
                             $"Đơn vị định lượng: {row["DVTDinhLuong"].ToString()}" +
                             $"Giá bán ra: {row["GiaBan"].ToString()}");
+
+                    }
+                    else if (dictTable[key].Contains("KhoHang"))
+                    {
+                        sb.AppendLine($"- Mã SP: {row["MaSP_Kho"].ToString()} " +
+                            $"Tên: {row["TenSP"].ToString()}" +
+                            $"Mã danh mục: {row["MaDM"].ToString()}" +
+                            $"Đơn vị tính: {row["DonViTinh"].ToString()}" +
+                            $"Tồn kho: {row["TonKho"].ToString()}" +
+                            $"Ngày cập nhật: {row["NgayCapNhat"].ToString()}" +
+                            $"Trạng thái: {row["TrangThai"].ToString()}" +
+                            $"Tên hình ảnh: {row["HinhAnh"].ToString()}" +
+                            $"Ghi chú: {row["GhiChu"].ToString()}");
 
                     }
                 }

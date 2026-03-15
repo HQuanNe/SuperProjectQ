@@ -90,10 +90,10 @@
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Times New Roman", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(287, 10);
+            this.lblTitle.Font = new System.Drawing.Font("Times New Roman", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.Location = new System.Drawing.Point(281, 10);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(228, 53);
+            this.lblTitle.Size = new System.Drawing.Size(241, 53);
             this.lblTitle.TabIndex = 5;
             this.lblTitle.Text = "Điều chỉnh";
             // 
@@ -124,7 +124,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(775, 602);
             this.panel1.TabIndex = 4;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // cmbDanhMuc
             // 
@@ -340,6 +339,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(233)))), ((int)(((byte)(247)))));
             this.ClientSize = new System.Drawing.Size(802, 753);
             this.Controls.Add(this.btnThoat);
             this.Controls.Add(this.btnXoá);

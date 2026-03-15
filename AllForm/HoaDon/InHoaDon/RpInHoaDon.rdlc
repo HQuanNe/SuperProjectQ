@@ -28,6 +28,10 @@
           <DataField>Discount</DataField>
           <rd:TypeName>System.Double</rd:TypeName>
         </Field>
+        <Field Name="TenKH">
+          <DataField>TenKH</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>DataSetInHoaDon</rd:DataSetName>
@@ -189,7 +193,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox30</rd:DefaultName>
-            <Top>5.82963cm</Top>
+            <Top>7.09963cm</Top>
             <Left>0.15595cm</Left>
             <Height>0.6cm</Height>
             <Width>1.93517cm</Width>
@@ -221,7 +225,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox30</rd:DefaultName>
-            <Top>6.30615cm</Top>
+            <Top>7.57615cm</Top>
             <Left>0.15595cm</Left>
             <Height>0.6cm</Height>
             <Width>1.93517cm</Width>
@@ -644,7 +648,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSetCTHD</DataSetName>
-            <Top>4.64727cm</Top>
+            <Top>5.59977cm</Top>
             <Height>1.073cm</Height>
             <Width>7.66522cm</Width>
             <ZIndex>2</ZIndex>
@@ -681,7 +685,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>TienPhong</rd:DefaultName>
-            <Top>6.30263cm</Top>
+            <Top>7.25513cm</Top>
             <Left>3.78838cm</Left>
             <Height>0.6cm</Height>
             <Width>3.71468cm</Width>
@@ -715,7 +719,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>TienDichVu</rd:DefaultName>
-            <Top>5.82963cm</Top>
+            <Top>6.78213cm</Top>
             <Left>3.78838cm</Left>
             <Height>0.6cm</Height>
             <Width>3.71468cm</Width>
@@ -749,7 +753,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>TongTien</rd:DefaultName>
-            <Top>9.83422cm</Top>
+            <Top>10.78672cm</Top>
             <Left>3.78838cm</Left>
             <Height>0.6cm</Height>
             <Width>3.71467cm</Width>
@@ -783,7 +787,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox30</rd:DefaultName>
-            <Top>9.83422cm</Top>
+            <Top>10.78672cm</Top>
             <Left>0.15595cm</Left>
             <Height>0.6cm</Height>
             <Width>3.04759cm</Width>
@@ -1189,7 +1193,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox4</rd:DefaultName>
-            <Top>11.3055cm</Top>
+            <Top>12.893cm</Top>
             <Left>0.42573cm</Left>
             <Height>0.64233cm</Height>
             <Width>6.95045cm</Width>
@@ -1377,7 +1381,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox30</rd:DefaultName>
-            <Top>8.15174cm</Top>
+            <Top>9.42174cm</Top>
             <Left>0.15595cm</Left>
             <Height>0.6cm</Height>
             <Width>1.93517cm</Width>
@@ -1411,7 +1415,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>VAT</rd:DefaultName>
-            <Top>8.15174cm</Top>
+            <Top>9.10424cm</Top>
             <Left>3.78838cm</Left>
             <Height>0.6cm</Height>
             <Width>3.71468cm</Width>
@@ -1445,7 +1449,7 @@ Format(Sum(Fields!Discount.Value, "DataSetKH") * 100, "0.##") &amp; "%):"</Value
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox30</rd:DefaultName>
-            <Top>6.75447cm</Top>
+            <Top>7.70697cm</Top>
             <Left>0.15595cm</Left>
             <Height>0.6cm</Height>
             <Width>3.45604cm</Width>
@@ -1461,7 +1465,7 @@ Format(Sum(Fields!Discount.Value, "DataSetKH") * 100, "0.##") &amp; "%):"</Value
             </Style>
           </Textbox>
           <Line Name="Line1">
-            <Top>10.64235cm</Top>
+            <Top>11.59485cm</Top>
             <Height>0cm</Height>
             <Width>7.68823cm</Width>
             <ZIndex>25</ZIndex>
@@ -1490,7 +1494,7 @@ Format(Sum(Fields!Discount.Value, "DataSetKH") * 100, "0.##") &amp; "%):"</Value
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>TrietKhauVoucher</rd:DefaultName>
-            <Top>6.75447cm</Top>
+            <Top>7.70697cm</Top>
             <Left>3.78838cm</Left>
             <Height>0.6cm</Height>
             <Width>3.71468cm</Width>
@@ -1523,7 +1527,7 @@ Format(Sum(Fields!Discount.Value, "DataSetKH") * 100, "0.##") &amp; "%):"</Value
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox30</rd:DefaultName>
-            <Top>7.44591cm</Top>
+            <Top>8.39841cm</Top>
             <Left>0.15595cm</Left>
             <Height>0.6cm</Height>
             <Width>3.45604cm</Width>
@@ -1557,7 +1561,7 @@ Format(Sum(Fields!Discount.Value, "DataSetKH") * 100, "0.##") &amp; "%):"</Value
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>VAT</rd:DefaultName>
-            <Top>7.44591cm</Top>
+            <Top>8.39841cm</Top>
             <Left>3.78838cm</Left>
             <Height>0.6cm</Height>
             <Width>3.71468cm</Width>
@@ -1572,8 +1576,38 @@ Format(Sum(Fields!Discount.Value, "DataSetKH") * 100, "0.##") &amp; "%):"</Value
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Textbox Name="Textbox1">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>= "Khách: " &amp; First(Fields!TenKH.Value, "DataSetKH")</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox1</rd:DefaultName>
+            <Top>4.53185cm</Top>
+            <Left>0.42573cm</Left>
+            <Height>0.6cm</Height>
+            <Width>2.5cm</Width>
+            <ZIndex>29</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
-        <Height>4.70387in</Height>
+        <Height>5.32887in</Height>
         <Style />
       </Body>
       <Width>3.04527in</Width>

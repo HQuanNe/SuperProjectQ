@@ -385,9 +385,8 @@
             // 
             // frmVoucher
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1001, 660);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.ClientSize = new System.Drawing.Size(998, 660);
             this.Controls.Add(this.dgvKhachHang);
             this.Controls.Add(this.plButton);
             this.Controls.Add(this.btnThoat);

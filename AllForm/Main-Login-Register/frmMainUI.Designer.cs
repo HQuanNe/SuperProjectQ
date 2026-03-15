@@ -28,9 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMainUI));
             this.lblTitleXinChao = new System.Windows.Forms.Label();
             this.plInfo = new System.Windows.Forms.Panel();
+            this.lblWeather = new System.Windows.Forms.Label();
+            this.lblClock = new System.Windows.Forms.Label();
             this.btnAIChatbot = new System.Windows.Forms.Button();
             this.btnOpenNavBar = new System.Windows.Forms.Button();
             this.lblTenNV = new System.Windows.Forms.Label();
@@ -46,15 +49,21 @@
             this.MNStorage = new System.Windows.Forms.ToolStripMenuItem();
             this.MNChart = new System.Windows.Forms.ToolStripMenuItem();
             this.MNMore = new System.Windows.Forms.ToolStripMenuItem();
-            this.sToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MNMore_SanPham = new System.Windows.Forms.ToolStripMenuItem();
+            this.MNMore_Voucher = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSetting = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.plNavBar = new System.Windows.Forms.Panel();
-            this.voucherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timerClock = new System.Windows.Forms.Timer(this.components);
+            this.timerWeather = new System.Windows.Forms.Timer(this.components);
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.plInfo.SuspendLayout();
             this.MNNavBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.plNavBar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTitleXinChao
@@ -70,8 +79,12 @@
             // 
             // plInfo
             // 
-            this.plInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.plInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(255)))), ((int)(((byte)(253)))));
             this.plInfo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.plInfo.Controls.Add(this.pictureBox3);
+            this.plInfo.Controls.Add(this.pictureBox2);
+            this.plInfo.Controls.Add(this.lblWeather);
+            this.plInfo.Controls.Add(this.lblClock);
             this.plInfo.Controls.Add(this.btnAIChatbot);
             this.plInfo.Controls.Add(this.btnOpenNavBar);
             this.plInfo.Controls.Add(this.lblTenNV);
@@ -81,6 +94,28 @@
             this.plInfo.Name = "plInfo";
             this.plInfo.Size = new System.Drawing.Size(1482, 45);
             this.plInfo.TabIndex = 2;
+            // 
+            // lblWeather
+            // 
+            this.lblWeather.AutoSize = true;
+            this.lblWeather.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWeather.Location = new System.Drawing.Point(598, 12);
+            this.lblWeather.Name = "lblWeather";
+            this.lblWeather.Size = new System.Drawing.Size(21, 20);
+            this.lblWeather.TabIndex = 10;
+            this.lblWeather.Text = "--";
+            // 
+            // lblClock
+            // 
+            this.lblClock.AutoSize = true;
+            this.lblClock.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClock.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(75)))), ((int)(((byte)(95)))));
+            this.lblClock.Location = new System.Drawing.Point(292, 12);
+            this.lblClock.Name = "lblClock";
+            this.lblClock.Size = new System.Drawing.Size(21, 20);
+            this.lblClock.TabIndex = 9;
+            this.lblClock.Text = "--";
+            this.lblClock.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnAIChatbot
             // 
@@ -98,7 +133,6 @@
             this.btnAIChatbot.Text = "Trợ lý AI";
             this.btnAIChatbot.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAIChatbot.UseVisualStyleBackColor = false;
-            this.btnAIChatbot.Visible = false;
             this.btnAIChatbot.Click += new System.EventHandler(this.btnAIChatbot_Click);
             // 
             // btnOpenNavBar
@@ -146,17 +180,19 @@
             this.btnLogOut.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnLogOut.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnLogOut.UseVisualStyleBackColor = false;
+            this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
             // 
             // plControls
             // 
             this.plControls.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.plControls.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.plControls.BackColor = System.Drawing.Color.IndianRed;
             this.plControls.Location = new System.Drawing.Point(257, 45);
             this.plControls.MaximumSize = new System.Drawing.Size(2500, 1500);
             this.plControls.MinimumSize = new System.Drawing.Size(1225, 0);
             this.plControls.Name = "plControls";
+            this.plControls.Padding = new System.Windows.Forms.Padding(5);
             this.plControls.Size = new System.Drawing.Size(1225, 728);
             this.plControls.TabIndex = 7;
             // 
@@ -178,11 +214,11 @@
             this.MNChart,
             this.MNMore});
             this.MNNavBar.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
-            this.MNNavBar.Location = new System.Drawing.Point(9, 81);
+            this.MNNavBar.Location = new System.Drawing.Point(9, 77);
             this.MNNavBar.MaximumSize = new System.Drawing.Size(300, 1000);
             this.MNNavBar.MinimumSize = new System.Drawing.Size(240, 0);
             this.MNNavBar.Name = "MNNavBar";
-            this.MNNavBar.Size = new System.Drawing.Size(240, 462);
+            this.MNNavBar.Size = new System.Drawing.Size(240, 438);
             this.MNNavBar.TabIndex = 10;
             this.MNNavBar.Text = "NavBar";
             // 
@@ -293,8 +329,8 @@
             // MNMore
             // 
             this.MNMore.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sToolStripMenuItem,
-            this.voucherToolStripMenuItem});
+            this.MNMore_SanPham,
+            this.MNMore_Voucher});
             this.MNMore.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MNMore.Image = ((System.Drawing.Image)(resources.GetObject("MNMore.Image")));
             this.MNMore.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -306,12 +342,22 @@
             this.MNMore.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.MNMore.Click += new System.EventHandler(this.AllMenu_Click);
             // 
-            // sToolStripMenuItem
+            // MNMore_SanPham
             // 
-            this.sToolStripMenuItem.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sToolStripMenuItem.Name = "sToolStripMenuItem";
-            this.sToolStripMenuItem.Size = new System.Drawing.Size(224, 38);
-            this.sToolStripMenuItem.Text = "Sản phẩm";
+            this.MNMore_SanPham.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MNMore_SanPham.Image = ((System.Drawing.Image)(resources.GetObject("MNMore_SanPham.Image")));
+            this.MNMore_SanPham.Name = "MNMore_SanPham";
+            this.MNMore_SanPham.Size = new System.Drawing.Size(194, 30);
+            this.MNMore_SanPham.Text = "Sản phẩm";
+            // 
+            // MNMore_Voucher
+            // 
+            this.MNMore_Voucher.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MNMore_Voucher.Image = ((System.Drawing.Image)(resources.GetObject("MNMore_Voucher.Image")));
+            this.MNMore_Voucher.Name = "MNMore_Voucher";
+            this.MNMore_Voucher.Size = new System.Drawing.Size(194, 30);
+            this.MNMore_Voucher.Text = "Voucher";
+            this.MNMore_Voucher.Click += new System.EventHandler(this.AllMenu_Click);
             // 
             // btnSetting
             // 
@@ -337,9 +383,9 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(80, 6);
+            this.pictureBox1.Location = new System.Drawing.Point(80, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(90, 77);
+            this.pictureBox1.Size = new System.Drawing.Size(90, 68);
             this.pictureBox1.TabIndex = 12;
             this.pictureBox1.TabStop = false;
             // 
@@ -355,12 +401,28 @@
             this.plNavBar.Size = new System.Drawing.Size(257, 728);
             this.plNavBar.TabIndex = 8;
             // 
-            // voucherToolStripMenuItem
+            // timerClock
             // 
-            this.voucherToolStripMenuItem.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.voucherToolStripMenuItem.Name = "voucherToolStripMenuItem";
-            this.voucherToolStripMenuItem.Size = new System.Drawing.Size(224, 30);
-            this.voucherToolStripMenuItem.Text = "Voucher";
+            this.timerClock.Interval = 1000;
+            this.timerClock.Tick += new System.EventHandler(this.timerClock_Tick);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(559, 5);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(41, 34);
+            this.pictureBox2.TabIndex = 11;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Location = new System.Drawing.Point(255, 5);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(41, 34);
+            this.pictureBox3.TabIndex = 12;
+            this.pictureBox3.TabStop = false;
             // 
             // frmMainUI
             // 
@@ -379,6 +441,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Giao diện quản lý";
             this.TransparencyKey = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmMainUI_Load);
             this.plInfo.ResumeLayout(false);
             this.plInfo.PerformLayout();
@@ -387,6 +450,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.plNavBar.ResumeLayout(false);
             this.plNavBar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -411,8 +476,14 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel plNavBar;
         private System.Windows.Forms.ToolStripMenuItem MNChart;
-        private System.Windows.Forms.ToolStripMenuItem sToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem MNMore_SanPham;
         private System.Windows.Forms.Button btnAIChatbot;
-        private System.Windows.Forms.ToolStripMenuItem voucherToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem MNMore_Voucher;
+        private System.Windows.Forms.Label lblClock;
+        private System.Windows.Forms.Timer timerClock;
+        private System.Windows.Forms.Label lblWeather;
+        private System.Windows.Forms.Timer timerWeather;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBox3;
     }
 }

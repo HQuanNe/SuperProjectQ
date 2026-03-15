@@ -111,8 +111,8 @@ namespace SuperProjectQ.AllForm.KhoHang
                 cmd.Parameters.AddWithValue("@TSP", txtTenSP.Text.Trim());
                 cmd.Parameters.AddWithValue("@MaDM", cmbDanhMuc.SelectedValue);
                 cmd.Parameters.AddWithValue("@DVT", txtDVT.Text.Trim());
-                cmd.Parameters.AddWithValue("@TK", Convert.ToDouble(txtTonKho.Text.Trim()));
-                cmd.Parameters.AddWithValue("@DGN", Convert.ToDecimal(txtDonGia.Text.Trim()));
+                cmd.Parameters.AddWithValue("@TK", Convert.ToDouble(txtTonKho.Text.Trim().Replace(".", "")));
+                cmd.Parameters.AddWithValue("@DGN", Convert.ToDecimal(txtDonGia.Text.Trim().Replace(".", "")));
                 cmd.Parameters.AddWithValue("@HA", fileName);
                 cmd.Parameters.AddWithValue("@GC", txtGhiChu.Text.Trim());
                 cmd.ExecuteNonQuery();
@@ -129,6 +129,24 @@ namespace SuperProjectQ.AllForm.KhoHang
         private void btnThoat_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void txtDonGia_TextChanged(object sender, EventArgs e)
+        {
+            if (decimal.TryParse(txtDonGia.Text, out decimal value))
+            {
+                txtDonGia.Text = value.ToString("#,##0");
+                txtDonGia.SelectionStart = txtDonGia.Text.Length;
+            }
+        }
+
+        private void txtTonKho_TextChanged(object sender, EventArgs e)
+        {
+            if (decimal.TryParse(txtTonKho.Text, out decimal value))
+            {
+                txtTonKho.Text = value.ToString("#,##0");
+                txtTonKho.SelectionStart = txtTonKho.Text.Length;
+            }
         }
     }
 }

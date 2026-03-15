@@ -115,6 +115,7 @@
             this.txtDonGia.Name = "txtDonGia";
             this.txtDonGia.Size = new System.Drawing.Size(320, 45);
             this.txtDonGia.TabIndex = 12;
+            this.txtDonGia.TextChanged += new System.EventHandler(this.txtDonGia_TextChanged);
             // 
             // label5
             // 
@@ -135,6 +136,7 @@
             this.txtTonKho.Name = "txtTonKho";
             this.txtTonKho.Size = new System.Drawing.Size(320, 45);
             this.txtTonKho.TabIndex = 10;
+            this.txtTonKho.TextChanged += new System.EventHandler(this.txtTonKho_TextChanged);
             // 
             // label4
             // 
@@ -233,10 +235,10 @@
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Times New Roman", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(238, 13);
+            this.lblTitle.Font = new System.Drawing.Font("Times New Roman", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.Location = new System.Drawing.Point(226, 13);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(324, 53);
+            this.lblTitle.Size = new System.Drawing.Size(347, 53);
             this.lblTitle.TabIndex = 1;
             this.lblTitle.Text = "Thêm sản phẩm";
             // 
@@ -273,7 +275,7 @@
             // frmThemKhoHang
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(233)))), ((int)(((byte)(247)))));
             this.ClientSize = new System.Drawing.Size(802, 753);
             this.Controls.Add(this.btnThoat);
             this.Controls.Add(this.btnThem);

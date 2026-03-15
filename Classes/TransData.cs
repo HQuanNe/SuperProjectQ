@@ -33,6 +33,8 @@ namespace SuperProjectQ
             public static string GhiChu;
             public static string HinhAnh;
 
+            public static bool isDeleted = false;
+
 
         }
 
@@ -76,7 +78,7 @@ namespace SuperProjectQ
 
 
         }//Hàm kiểm tra ghi nợ quá hạn trả
-        public static void KiemTraVoucher() 
+        public static void KiemTraVoucher()
         {
             ConnectOpen();
 
@@ -127,14 +129,14 @@ namespace SuperProjectQ
             string sqlGetMaxID = $"SELECT TOP 1 {colName} FROM {tableName} ORDER BY {colName} DESC";
             cmd = new SqlCommand(sqlGetMaxID, kn.conn);
 
-            string id = cmd.ExecuteScalar().ToString().Replace(target, "");
+            string id = cmd.ExecuteScalar() != null ? cmd.ExecuteScalar().ToString().Replace(target, "") : "0";
             int tangMa = Convert.ToInt16(id) + 1;
             string newID = null;
 
-            if(target.Length == 3)
+            if (target.Length == 3 && target != "SPK" && target != "MPN")
             {
                 //Định dạng lại mã nếu <10 thì thêm 2 số 0, <100 thì thêm 1 số 0
-                if (tangMa < 10 && target != "SPK")
+                if (tangMa < 10)
                     newID = target + "0" + tangMa.ToString();
                 else
                     newID = target + tangMa.ToString();
@@ -171,7 +173,7 @@ namespace SuperProjectQ
             dt = kn.CreateTable(sqlSanPham);
             foreach (DataRow row in dt.Rows)
             {
-                double newSoLuong = 0; 
+                double newSoLuong = soLuong;
 
                 double soLuongTon = row["TonKho"] != DBNull.Value ? Convert.ToDouble(row["TonKho"]) : 0;
                 bool DonViTinh = row["DonViTinh"] != DBNull.Value && row["DonViTinh"].ToString() == "Kg" ? true : false;
@@ -179,7 +181,7 @@ namespace SuperProjectQ
                 if (Session.isCombo)
                 {
                     newSoLuong = soLuong * Convert.ToDouble(row["SoLuong"]);
-                    Console.WriteLine("SL da thay doi "+ newSoLuong);
+                    Console.WriteLine("SL da thay doi " + newSoLuong);
 
                     maSP = dt.Rows.Count > 0 ? row["MaSP_Menu"].ToString() : "";
                 } // Nếu là combo set lại tham số 
@@ -191,7 +193,7 @@ namespace SuperProjectQ
                 if (DonViTinh) newSoLuong = newSoLuong * dinhLuong / 1000; //Nếu đơn vị tính là Kg
                 Console.WriteLine($"Số lượng sau khi * với định lg/1000: {newSoLuong}");
 
-                if (soLuong > soLuongTon)
+                if ( !isPlus && newSoLuong > soLuongTon)
                 {
                     MessageBox.Show("Số lượng vượt quá tồn kho!");
                     return;
@@ -215,6 +217,14 @@ namespace SuperProjectQ
                 Session.isPlus = null; //Reset lại giá trị isPlus sau khi cập nhật kho
             }
         }
+        public static bool InspectStorage()
+        {
+            ConnectOpen();
+            dt = kn.CreateTable("SELECT TonKho FROM KhoHang WHERE TonKho < 1");
+            if(dt.Rows.Count > 0) { return false; }
+
+            return true;
+        }
         public static bool xuLyChuoi(string[] textBoxArray)
         {
             foreach (string textBox in textBoxArray)
@@ -223,11 +233,11 @@ namespace SuperProjectQ
             }
             return true;
         }
-        public static bool  XuLySo(string[] textBoxArray)
+        public static bool XuLySo(string[] textBoxArray)
         {
             foreach (string textBox in textBoxArray)
             {
-                if(!decimal.TryParse(textBox, out decimal value))
+                if (!decimal.TryParse(textBox.Replace(".", ""), out decimal value) || value < 0)
                 {
                     return false;
                 }
@@ -263,6 +273,7 @@ namespace SuperProjectQ
         public static void StandardDataGridView(DataGridView dgv)
         {
             dgv.EditMode = DataGridViewEditMode.EditProgrammatically;
+            dgv.AutoGenerateColumns = false;
             dgv.AllowUserToAddRows = false;
             dgv.AllowUserToDeleteRows = false;
             dgv.AllowUserToResizeColumns = false;
@@ -299,6 +310,7 @@ namespace SuperProjectQ
         public static string MaNV { get; set; }
         public static string TenNV { get; set; }
         public static string ChucVu { get; set; }
+        public static string Passwd { get; } = "admin";
         //Khách hàng
         public static string MaKH { get; set; }
         public static string SoDienThoai { get; set; }
@@ -333,4 +345,5 @@ namespace SuperProjectQ
         //Ảnh QR
         public static PictureBox picQRCode { get; set; }
     }
+
 }

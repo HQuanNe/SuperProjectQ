@@ -33,6 +33,7 @@
             this.flowLayoutPNVoucher = new System.Windows.Forms.FlowLayoutPanel();
             this.btnConfirm = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnClose = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -89,16 +90,32 @@
             this.panel1.Size = new System.Drawing.Size(802, 63);
             this.panel1.TabIndex = 4;
             // 
-            // frmVoucher
+            // btnClose
+            // 
+            this.btnClose.BackColor = System.Drawing.Color.Red;
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClose.ForeColor = System.Drawing.Color.White;
+            this.btnClose.Location = new System.Drawing.Point(762, -1);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(40, 40);
+            this.btnClose.TabIndex = 1;
+            this.btnClose.Text = "X";
+            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // frmVoucherKhachHang
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(802, 555);
+            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.flowLayoutPNVoucher);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "frmVoucher";
+            this.Name = "frmVoucherKhachHang";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmVoucher";
             this.Load += new System.EventHandler(this.frmVoucher_Load);
@@ -114,5 +131,6 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPNVoucher;
         private System.Windows.Forms.Button btnConfirm;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btnClose;
     }
 }
