@@ -25,9 +25,14 @@ namespace SuperProjectQ.AllForm.KhoHang
         {
             if(txtConfirm.Text.Trim() == Session.Passwd)
             {
-                Session.DuLieuKhoHang.isDeleted = true;
+                Session.isDeleted = true;
                 this.Close();   
             }
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

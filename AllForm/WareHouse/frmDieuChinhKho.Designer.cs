@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDieuChinhKho));
-            this.btnXoá = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.btnXacNhan = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -52,25 +52,25 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtTenSP = new System.Windows.Forms.TextBox();
             this.picImageSP = new System.Windows.Forms.PictureBox();
-            this.btnThoat = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picImageSP)).BeginInit();
             this.SuspendLayout();
             // 
-            // btnXoá
+            // btnDelete
             // 
-            this.btnXoá.BackColor = System.Drawing.Color.Red;
-            this.btnXoá.FlatAppearance.BorderSize = 0;
-            this.btnXoá.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnXoá.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnXoá.ForeColor = System.Drawing.Color.White;
-            this.btnXoá.Location = new System.Drawing.Point(429, 680);
-            this.btnXoá.Name = "btnXoá";
-            this.btnXoá.Size = new System.Drawing.Size(200, 60);
-            this.btnXoá.TabIndex = 7;
-            this.btnXoá.Text = "Xoá";
-            this.btnXoá.UseVisualStyleBackColor = false;
-            this.btnXoá.Click += new System.EventHandler(this.btnXoá_Click);
+            this.btnDelete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnDelete.FlatAppearance.BorderSize = 0;
+            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDelete.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDelete.ForeColor = System.Drawing.Color.White;
+            this.btnDelete.Location = new System.Drawing.Point(429, 680);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(200, 60);
+            this.btnDelete.TabIndex = 7;
+            this.btnDelete.Text = "Xoá";
+            this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnXacNhan
             // 
@@ -320,20 +320,20 @@
             this.picImageSP.TabIndex = 0;
             this.picImageSP.TabStop = false;
             // 
-            // btnThoat
+            // btnClose
             // 
-            this.btnThoat.BackColor = System.Drawing.Color.Firebrick;
-            this.btnThoat.FlatAppearance.BorderSize = 0;
-            this.btnThoat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnThoat.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnThoat.ForeColor = System.Drawing.Color.White;
-            this.btnThoat.Location = new System.Drawing.Point(688, 680);
-            this.btnThoat.Name = "btnThoat";
-            this.btnThoat.Size = new System.Drawing.Size(101, 60);
-            this.btnThoat.TabIndex = 8;
-            this.btnThoat.Text = "Thoát";
-            this.btnThoat.UseVisualStyleBackColor = false;
-            this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
+            this.btnClose.BackColor = System.Drawing.Color.Red;
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold);
+            this.btnClose.ForeColor = System.Drawing.Color.White;
+            this.btnClose.Location = new System.Drawing.Point(761, 0);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(40, 40);
+            this.btnClose.TabIndex = 8;
+            this.btnClose.Text = "X";
+            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // frmDieuChinhKho
             // 
@@ -341,8 +341,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(233)))), ((int)(((byte)(247)))));
             this.ClientSize = new System.Drawing.Size(802, 753);
-            this.Controls.Add(this.btnThoat);
-            this.Controls.Add(this.btnXoá);
+            this.Controls.Add(this.btnClose);
+            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnXacNhan);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.panel1);
@@ -361,7 +361,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnXoá;
+        private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnXacNhan;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Panel panel1;
@@ -379,11 +379,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtTenSP;
         private System.Windows.Forms.PictureBox picImageSP;
-        private System.Windows.Forms.Button btnThoat;
         private System.Windows.Forms.DateTimePicker dtNgayCapNhat;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox cmbTrangThai;
         private System.Windows.Forms.ComboBox cmbDanhMuc;
+        private System.Windows.Forms.Button btnClose;
     }
 }

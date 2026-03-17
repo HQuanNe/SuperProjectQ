@@ -1169,7 +1169,7 @@ namespace SuperProjectQ.AllForm.HoaDon.InHoaDon {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class KhachHangDataTable : global::System.Data.TypedTableBase<KhachHangRow> {
             
-            private global::System.Data.DataColumn columnDiscount;
+            private global::System.Data.DataColumn columnTrietKhau;
             
             private global::System.Data.DataColumn columnTenKH;
             
@@ -1208,9 +1208,9 @@ namespace SuperProjectQ.AllForm.HoaDon.InHoaDon {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn DiscountColumn {
+            public global::System.Data.DataColumn TrietKhauColumn {
                 get {
-                    return this.columnDiscount;
+                    return this.columnTrietKhau;
                 }
             }
             
@@ -1259,10 +1259,10 @@ namespace SuperProjectQ.AllForm.HoaDon.InHoaDon {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public KhachHangRow AddKhachHangRow(double Discount, string TenKH) {
+            public KhachHangRow AddKhachHangRow(double TrietKhau, string TenKH) {
                 KhachHangRow rowKhachHangRow = ((KhachHangRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        Discount,
+                        TrietKhau,
                         TenKH};
                 rowKhachHangRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowKhachHangRow);
@@ -1286,15 +1286,15 @@ namespace SuperProjectQ.AllForm.HoaDon.InHoaDon {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             internal void InitVars() {
-                this.columnDiscount = base.Columns["Discount"];
+                this.columnTrietKhau = base.Columns["TrietKhau"];
                 this.columnTenKH = base.Columns["TenKH"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             private void InitClass() {
-                this.columnDiscount = new global::System.Data.DataColumn("Discount", typeof(double), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDiscount);
+                this.columnTrietKhau = new global::System.Data.DataColumn("TrietKhau", typeof(double), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTrietKhau);
                 this.columnTenKH = new global::System.Data.DataColumn("TenKH", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTenKH);
             }
@@ -2141,17 +2141,17 @@ namespace SuperProjectQ.AllForm.HoaDon.InHoaDon {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public double Discount {
+            public double TrietKhau {
                 get {
                     try {
-                        return ((double)(this[this.tableKhachHang.DiscountColumn]));
+                        return ((double)(this[this.tableKhachHang.TrietKhauColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Discount\' in table \'KhachHang\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'TrietKhau\' in table \'KhachHang\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableKhachHang.DiscountColumn] = value;
+                    this[this.tableKhachHang.TrietKhauColumn] = value;
                 }
             }
             
@@ -2173,14 +2173,14 @@ namespace SuperProjectQ.AllForm.HoaDon.InHoaDon {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsDiscountNull() {
-                return this.IsNull(this.tableKhachHang.DiscountColumn);
+            public bool IsTrietKhauNull() {
+                return this.IsNull(this.tableKhachHang.TrietKhauColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetDiscountNull() {
-                this[this.tableKhachHang.DiscountColumn] = global::System.Convert.DBNull;
+            public void SetTrietKhauNull() {
+                this[this.tableKhachHang.TrietKhauColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

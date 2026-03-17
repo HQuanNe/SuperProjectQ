@@ -154,22 +154,40 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AllForm\KhoHang\frmDieuChinhKho.cs">
+    <Compile Include="AllForm\HoaDon\frmChiTietHD.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AllForm\KhoHang\frmDieuChinhKho.Designer.cs">
+    <Compile Include="AllForm\HoaDon\frmChiTietHD.Designer.cs">
+      <DependentUpon>frmChiTietHD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AllForm\Customers\frmAdjustCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\Customers\frmAdjustCustomer.Designer.cs">
+      <DependentUpon>frmAdjustCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AllForm\Customers\frmThemKhachHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\Customers\frmThemKhachHang.Designer.cs">
+      <DependentUpon>frmThemKhachHang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AllForm\WareHouse\frmDieuChinhKho.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\WareHouse\frmDieuChinhKho.Designer.cs">
       <DependentUpon>frmDieuChinhKho.cs</DependentUpon>
     </Compile>
-    <Compile Include="AllForm\KhoHang\frmThemKhoHang.cs">
+    <Compile Include="AllForm\WareHouse\frmThemKhoHang.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AllForm\KhoHang\frmThemKhoHang.Designer.cs">
+    <Compile Include="AllForm\WareHouse\frmThemKhoHang.Designer.cs">
       <DependentUpon>frmThemKhoHang.cs</DependentUpon>
     </Compile>
-    <Compile Include="AllForm\KhoHang\frmXacNhan.cs">
+    <Compile Include="AllForm\Other\frmXacNhan.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AllForm\KhoHang\frmXacNhan.Designer.cs">
+    <Compile Include="AllForm\Other\frmXacNhan.Designer.cs">
       <DependentUpon>frmXacNhan.cs</DependentUpon>
     </Compile>
     <Compile Include="AllForm\NhapKho\frmNhapHang.cs">
@@ -184,10 +202,10 @@
     <Compile Include="AllForm\Other\frmBieuDoDoanhThu.Designer.cs">
       <DependentUpon>frmBieuDoDoanhThu.cs</DependentUpon>
     </Compile>
-    <Compile Include="AllForm\KhoHang\frmKho.cs">
+    <Compile Include="AllForm\WareHouse\frmKho.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AllForm\KhoHang\frmKho.Designer.cs">
+    <Compile Include="AllForm\WareHouse\frmKho.Designer.cs">
       <DependentUpon>frmKho.cs</DependentUpon>
     </Compile>
     <Compile Include="AllForm\Other\frmSetting.cs">
@@ -216,10 +234,10 @@
     </Compile>
     <Compile Include="Classes\AIChatbotRepository.cs" />
     <Compile Include="Classes\ConnectData.cs" />
-    <Compile Include="AllForm\Other\frmKhachHang.cs">
+    <Compile Include="AllForm\Customers\frmKhachHang.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AllForm\Other\frmKhachHang.Designer.cs">
+    <Compile Include="AllForm\Customers\frmKhachHang.Designer.cs">
       <DependentUpon>frmKhachHang.cs</DependentUpon>
     </Compile>
     <Compile Include="AllForm\HoaDon\InHoaDon\DataSetInHoaDon.cs">
@@ -297,13 +315,22 @@
     </Compile>
     <Compile Include="Classes\SetParameters.cs" />
     <Compile Include="Classes\TransData.cs" />
-    <EmbeddedResource Include="AllForm\KhoHang\frmDieuChinhKho.resx">
+    <EmbeddedResource Include="AllForm\HoaDon\frmChiTietHD.resx">
+      <DependentUpon>frmChiTietHD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\Customers\frmAdjustCustomer.resx">
+      <DependentUpon>frmAdjustCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\Customers\frmThemKhachHang.resx">
+      <DependentUpon>frmThemKhachHang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\WareHouse\frmDieuChinhKho.resx">
       <DependentUpon>frmDieuChinhKho.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AllForm\KhoHang\frmThemKhoHang.resx">
+    <EmbeddedResource Include="AllForm\WareHouse\frmThemKhoHang.resx">
       <DependentUpon>frmThemKhoHang.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AllForm\KhoHang\frmXacNhan.resx">
+    <EmbeddedResource Include="AllForm\Other\frmXacNhan.resx">
       <DependentUpon>frmXacNhan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AllForm\Main-Login-Register\frmLogin.resx">
@@ -318,7 +345,7 @@
     <EmbeddedResource Include="AllForm\HoaDon\frmHoaDon.resx">
       <DependentUpon>frmHoaDon.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AllForm\Other\frmKhachHang.resx">
+    <EmbeddedResource Include="AllForm\Customers\frmKhachHang.resx">
       <DependentUpon>frmKhachHang.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AllForm\Other\frmNhanVien.resx">
@@ -327,7 +354,7 @@
     <EmbeddedResource Include="AllForm\Other\frmBieuDoDoanhThu.resx">
       <DependentUpon>frmBieuDoDoanhThu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AllForm\KhoHang\frmKho.resx">
+    <EmbeddedResource Include="AllForm\WareHouse\frmKho.resx">
       <DependentUpon>frmKho.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AllForm\Other\frmSetting.resx">

@@ -54,6 +54,7 @@ namespace SuperProjectQ.Classes
                 {"Dưới đây là danh sách loại phòng:", "SELECT * FROM LoaiPhong" },
                 {"Dưới đây là danh sách nhân viên:", "SELECT * FROM NhanVien" },
                 {"Dưới đây là danh sách khách hàng:", "SELECT * FROM KhachHang" },
+                {"Dưới đây là danh sách VIP:", "SELECT * FROM BangVIP" },
                 {"Dưới đây là danh sách sản phẩm:", "SELECT * FROM SanPham" },
                 {"Dưới đây là danh sách kho hàng (trạng thái true là đã thanh toán và ngược lại):", "SELECT * FROM KhoHang" },
             };
@@ -82,8 +83,7 @@ namespace SuperProjectQ.Classes
                             $"Địa chỉ: {row["DiaChi"].ToString()}" +
                             $"Số điện thoại: {row["SoDienThoai"].ToString()}" +
                             $"VIP: {row["VIP"].ToString()}" +
-                            $"Điểm tích luỹ: {row["DiemTichLuy"].ToString()}" +
-                            $"Triết khấu: {row["Discount"].ToString()}");
+                            $"Điểm tích luỹ: {row["DiemTichLuy"].ToString()}");
                     }
                     else if (dictTable[key].Contains("SanPham"))
                     {

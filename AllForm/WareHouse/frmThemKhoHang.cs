@@ -126,11 +126,6 @@ namespace SuperProjectQ.AllForm.KhoHang
             }
         }
 
-        private void btnThoat_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void txtDonGia_TextChanged(object sender, EventArgs e)
         {
             if (decimal.TryParse(txtDonGia.Text, out decimal value))
@@ -147,6 +142,11 @@ namespace SuperProjectQ.AllForm.KhoHang
                 txtTonKho.Text = value.ToString("#,##0");
                 txtTonKho.SelectionStart = txtTonKho.Text.Length;
             }
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

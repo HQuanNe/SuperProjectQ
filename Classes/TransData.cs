@@ -32,12 +32,18 @@ namespace SuperProjectQ
             public static int TrangThai;
             public static string GhiChu;
             public static string HinhAnh;
-
-            public static bool isDeleted = false;
-
-
+        }
+        public static class DuLieuKhachHang
+        {
+            public static string MaKH;
+            public static string TenKH;
+            public static string DiaChi;
+            public static string SoDienThoai;
+            public static string VIP;
+            public static double DiemTichLuy;
         }
 
+        public static bool isDeleted = false; //Biến kiểm tra khi xoá sản phẩm, khách hàng, nhân viên,...
         public static void ConnectOpen()
         {
             kn.ConnOpen();
@@ -196,7 +202,7 @@ namespace SuperProjectQ
                 if ( !isPlus && newSoLuong > soLuongTon)
                 {
                     MessageBox.Show("Số lượng vượt quá tồn kho!");
-                    return;
+                    break;
                 }
 
                 if (isPlus) { soLuongTon += newSoLuong; } //Nếu trả lại đồ thì cộng số lượng vào kho
@@ -244,7 +250,27 @@ namespace SuperProjectQ
             }
             return true;
         }
+        //public static void FocusDataByID(string id)
+        //{
+        //    if (string.IsNullOrEmpty(id)) return;
 
+        //    foreach (DataGridViewRow row in dgvKhachHang.Rows)
+        //    {
+        //        if (row.Cells["MaKH"].Value != null && row.Cells["MaKH"].Value.ToString() == id)
+        //        {
+        //            // Bỏ chọn các dòng cũ
+        //            dgvKhachHang.ClearSelection();
+        //            // Chọn dòng hiện tại
+        //            row.Selected = true;
+        //            // Đặt ô hiện tại để cái khung hình chữ nhật bao quanh dòng đó
+        //            dgvKhachHang.CurrentCell = row.Cells[0];
+        //            // Tự động cuộn tới dòng nếu nằm ở phía dưới
+        //            dgvKhachHang.FirstDisplayedScrollingRowIndex = row.Index;
+
+        //            return;
+        //        }
+        //    }
+        //}//Focus khi thêm hoặc sửa dữ liệu
         #region Giá, VAT, lãi suất hoá đơn, giá sau 22h,... trong frmThanhToan
         //Giá VAT, lãi suất hoá đơn, giá sau 22h
         #region Các thông số
@@ -312,7 +338,7 @@ namespace SuperProjectQ
         public static string ChucVu { get; set; }
         public static string Passwd { get; } = "admin";
         //Khách hàng
-        public static string MaKH { get; set; }
+        public static string MaKH { get; set; } = "KH000";
         public static string SoDienThoai { get; set; }
         public static int diemTichLuy { get; set; }
 
@@ -340,6 +366,7 @@ namespace SuperProjectQ
         public static string tenVoucher { get; set; } = "";//Tên voucher được chọn
         public static bool isUsedVoucher { get; set; } //Đã áp dụng voucher vào hoá đơn hay chưa
 
+        //Combo
         public static bool isCombo { get; set; } = false; //Kiểm tra xem sản phẩm thêm vào có phải combo hay không
 
         //Ảnh QR

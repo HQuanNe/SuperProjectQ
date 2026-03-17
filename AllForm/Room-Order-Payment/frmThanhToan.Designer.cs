@@ -32,9 +32,6 @@
             this.btnCash = new System.Windows.Forms.Button();
             this.btnQRCode = new System.Windows.Forms.Button();
             this.btnGhiNo = new System.Windows.Forms.Button();
-            this.picBoxCard = new System.Windows.Forms.PictureBox();
-            this.picBoxQRCode = new System.Windows.Forms.PictureBox();
-            this.picBoxCash = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -45,7 +42,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.plTTKH = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtVoucher = new System.Windows.Forms.TextBox();
             this.btnVoucher = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -94,9 +91,6 @@
             this.picQRCode = new System.Windows.Forms.PictureBox();
             this.btnKhachHang = new System.Windows.Forms.Button();
             this.btnDSGhiNo = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.picBoxCard)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBoxQRCode)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBoxCash)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.plGhiNo.SuspendLayout();
@@ -139,40 +133,14 @@
             this.btnGhiNo.TabIndex = 5;
             this.btnGhiNo.Text = "Ghi nợ";
             this.btnGhiNo.UseVisualStyleBackColor = true;
+            this.btnGhiNo.Visible = false;
             this.btnGhiNo.Click += new System.EventHandler(this.btnGhiNo_Click);
-            // 
-            // picBoxCard
-            // 
-            this.picBoxCard.Location = new System.Drawing.Point(853, 12);
-            this.picBoxCard.Name = "picBoxCard";
-            this.picBoxCard.Size = new System.Drawing.Size(90, 90);
-            this.picBoxCard.TabIndex = 4;
-            this.picBoxCard.TabStop = false;
-            // 
-            // picBoxQRCode
-            // 
-            this.picBoxQRCode.Location = new System.Drawing.Point(431, 12);
-            this.picBoxQRCode.Name = "picBoxQRCode";
-            this.picBoxQRCode.Size = new System.Drawing.Size(90, 70);
-            this.picBoxQRCode.TabIndex = 2;
-            this.picBoxQRCode.TabStop = false;
-            // 
-            // picBoxCash
-            // 
-            this.picBoxCash.Location = new System.Drawing.Point(7, 12);
-            this.picBoxCash.Name = "picBoxCash";
-            this.picBoxCash.Size = new System.Drawing.Size(90, 70);
-            this.picBoxCash.TabIndex = 0;
-            this.picBoxCash.TabStop = false;
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.panel1.Controls.Add(this.btnCash);
             this.panel1.Controls.Add(this.btnGhiNo);
-            this.panel1.Controls.Add(this.picBoxCash);
-            this.panel1.Controls.Add(this.picBoxCard);
-            this.panel1.Controls.Add(this.picBoxQRCode);
             this.panel1.Controls.Add(this.btnQRCode);
             this.panel1.Location = new System.Drawing.Point(12, 77);
             this.panel1.Name = "panel1";
@@ -278,7 +246,7 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.panel3.Controls.Add(this.textBox1);
+            this.panel3.Controls.Add(this.txtVoucher);
             this.panel3.Controls.Add(this.btnVoucher);
             this.panel3.Controls.Add(this.label6);
             this.panel3.Controls.Add(this.label7);
@@ -295,15 +263,15 @@
             this.panel3.Size = new System.Drawing.Size(403, 236);
             this.panel3.TabIndex = 32;
             // 
-            // textBox1
+            // txtVoucher
             // 
-            this.textBox1.Location = new System.Drawing.Point(97, 187);
-            this.textBox1.MinimumSize = new System.Drawing.Size(4, 30);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(192, 40);
-            this.textBox1.TabIndex = 31;
+            this.txtVoucher.Location = new System.Drawing.Point(97, 187);
+            this.txtVoucher.MinimumSize = new System.Drawing.Size(4, 30);
+            this.txtVoucher.Multiline = true;
+            this.txtVoucher.Name = "txtVoucher";
+            this.txtVoucher.ReadOnly = true;
+            this.txtVoucher.Size = new System.Drawing.Size(192, 40);
+            this.txtVoucher.TabIndex = 31;
             // 
             // btnVoucher
             // 
@@ -820,6 +788,7 @@
             this.btnDSGhiNo.TabIndex = 10;
             this.btnDSGhiNo.Text = "DS Ghi Nợ";
             this.btnDSGhiNo.UseVisualStyleBackColor = true;
+            this.btnDSGhiNo.Visible = false;
             // 
             // frmThanhToan
             // 
@@ -837,9 +806,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = " ";
             this.Load += new System.EventHandler(this.frmThanhToan_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.picBoxCard)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBoxQRCode)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBoxCash)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.plGhiNo.ResumeLayout(false);
@@ -859,13 +825,9 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.PictureBox picBoxCash;
         private System.Windows.Forms.Button btnCash;
-        private System.Windows.Forms.PictureBox picBoxQRCode;
         private System.Windows.Forms.Button btnQRCode;
         private System.Windows.Forms.Button btnGhiNo;
-        private System.Windows.Forms.PictureBox picBoxCard;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel2;
@@ -924,6 +886,6 @@
         private System.Windows.Forms.Button btnDSGhiNo;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button btnVoucher;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtVoucher;
     }
 }

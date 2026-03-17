@@ -85,7 +85,7 @@ namespace SuperProjectQ.AllForm.Other
 
             series.IsValueShownAsLabel = true;
             series.Font = new Font("Times New Roman", 14, FontStyle.Bold);
-            series.LabelForeColor = Color.Blue;
+            series.LabelForeColor = Color.DarkBlue;
             series.LabelFormat = "N0"; // Dùng định dạng kiểu 1,000
 
             //Đổ DataTable vào datasource Chart

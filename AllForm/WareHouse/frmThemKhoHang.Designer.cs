@@ -47,7 +47,7 @@
             this.picImageSP = new System.Windows.Forms.PictureBox();
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnThem = new System.Windows.Forms.Button();
-            this.btnThoat = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picImageSP)).BeginInit();
             this.SuspendLayout();
@@ -73,7 +73,7 @@
             this.panel1.Controls.Add(this.picImageSP);
             this.panel1.Location = new System.Drawing.Point(12, 69);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(775, 593);
+            this.panel1.Size = new System.Drawing.Size(775, 606);
             this.panel1.TabIndex = 0;
             // 
             // label7
@@ -249,35 +249,36 @@
             this.btnThem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnThem.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThem.ForeColor = System.Drawing.Color.White;
-            this.btnThem.Location = new System.Drawing.Point(138, 673);
+            this.btnThem.Location = new System.Drawing.Point(199, 681);
             this.btnThem.Name = "btnThem";
-            this.btnThem.Size = new System.Drawing.Size(200, 60);
+            this.btnThem.Size = new System.Drawing.Size(400, 60);
             this.btnThem.TabIndex = 2;
             this.btnThem.Text = "Thêm";
             this.btnThem.UseVisualStyleBackColor = false;
             this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
             // 
-            // btnThoat
+            // btnClose
             // 
-            this.btnThoat.BackColor = System.Drawing.Color.Red;
-            this.btnThoat.FlatAppearance.BorderSize = 0;
-            this.btnThoat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnThoat.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnThoat.ForeColor = System.Drawing.Color.White;
-            this.btnThoat.Location = new System.Drawing.Point(427, 673);
-            this.btnThoat.Name = "btnThoat";
-            this.btnThoat.Size = new System.Drawing.Size(200, 60);
-            this.btnThoat.TabIndex = 3;
-            this.btnThoat.Text = "Thoát";
-            this.btnThoat.UseVisualStyleBackColor = false;
-            this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
+            this.btnClose.BackColor = System.Drawing.Color.Red;
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold);
+            this.btnClose.ForeColor = System.Drawing.Color.White;
+            this.btnClose.Location = new System.Drawing.Point(760, 0);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(40, 40);
+            this.btnClose.TabIndex = 3;
+            this.btnClose.Text = "X";
+            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // frmThemKhoHang
             // 
+            this.AcceptButton = this.btnThem;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(233)))), ((int)(((byte)(247)))));
             this.ClientSize = new System.Drawing.Size(802, 753);
-            this.Controls.Add(this.btnThoat);
+            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnThem);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.panel1);
@@ -312,7 +313,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtDonGia;
         private System.Windows.Forms.Button btnThem;
-        private System.Windows.Forms.Button btnThoat;
+        private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtGhiChu;
     }

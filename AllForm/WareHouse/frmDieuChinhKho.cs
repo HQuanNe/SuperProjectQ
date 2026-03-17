@@ -102,11 +102,6 @@ namespace SuperProjectQ.AllForm.KhoHang
             cmbDanhMuc.SelectedValue = maDM;
         }
 
-        private void btnThoat_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void cmbTrangThai_SelectedIndexChanged(object sender, EventArgs e)
         {
             //MessageBox.Show(cmbTrangThai.SelectedIndex.ToString());
@@ -198,14 +193,14 @@ namespace SuperProjectQ.AllForm.KhoHang
             }
         }
 
-        private void btnXoá_Click(object sender, EventArgs e)
+        private void btnDelete_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Bạn có chắc chắn muốn xóa sản phẩm này không, không thể khôi phục?", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 frmXacNhan xacNhan = new frmXacNhan();
                 xacNhan.FormBorderStyle = FormBorderStyle.None;
                 xacNhan.ShowDialog();
-                if (Session.DuLieuKhoHang.isDeleted)
+                if (Session.isDeleted)
                 {
                     string sqlDelete = "DELETE FROM KhoHang WHERE MaSP_Kho = @MaSP";
                     cmd = new SqlCommand(sqlDelete, kn.conn);
@@ -231,12 +226,17 @@ namespace SuperProjectQ.AllForm.KhoHang
                             return;
                         }
                     }
-                    Session.DuLieuKhoHang.isDeleted = false;
+                    Session.isDeleted = false;
 
                     MessageBox.Show("Xóa sản phẩm thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
             }
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

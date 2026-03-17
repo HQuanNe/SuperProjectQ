@@ -34,11 +34,9 @@
             this.cmbDanhMuc = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cmbSoLuongSP = new System.Windows.Forms.ComboBox();
-            this.picSearch = new System.Windows.Forms.PictureBox();
             this.lblTimKiem = new System.Windows.Forms.Label();
             this.txtTimSP = new System.Windows.Forms.TextBox();
             this.btnThemSP = new System.Windows.Forms.Button();
-            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.dgvKho = new System.Windows.Forms.DataGridView();
             this.MaSP_Kho = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TenSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,12 +48,14 @@
             this.TrangThai = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HinhAnh = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GhiChu = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.ChiTiet = new System.Windows.Forms.DataGridViewImageColumn();
+            this.picSearch = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picSearch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKho)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picSearch)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -115,17 +115,6 @@
             this.cmbSoLuongSP.TabIndex = 4;
             this.cmbSoLuongSP.SelectedIndexChanged += new System.EventHandler(this.cmbSoLuongSP_SelectedIndexChanged);
             // 
-            // picSearch
-            // 
-            this.picSearch.BackColor = System.Drawing.Color.White;
-            this.picSearch.Enabled = false;
-            this.picSearch.Image = ((System.Drawing.Image)(resources.GetObject("picSearch.Image")));
-            this.picSearch.Location = new System.Drawing.Point(62, 30);
-            this.picSearch.Name = "picSearch";
-            this.picSearch.Size = new System.Drawing.Size(18, 18);
-            this.picSearch.TabIndex = 3;
-            this.picSearch.TabStop = false;
-            // 
             // lblTimKiem
             // 
             this.lblTimKiem.AutoSize = true;
@@ -165,15 +154,6 @@
             this.btnThemSP.Text = "Thêm sản phẩm";
             this.btnThemSP.UseVisualStyleBackColor = false;
             this.btnThemSP.Click += new System.EventHandler(this.btnThemSP_Click);
-            // 
-            // dataGridViewImageColumn1
-            // 
-            this.dataGridViewImageColumn1.FillWeight = 93.84087F;
-            this.dataGridViewImageColumn1.HeaderText = "Chi tiết";
-            this.dataGridViewImageColumn1.Image = ((System.Drawing.Image)(resources.GetObject("dataGridViewImageColumn1.Image")));
-            this.dataGridViewImageColumn1.MinimumWidth = 6;
-            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
-            this.dataGridViewImageColumn1.Width = 114;
             // 
             // dgvKho
             // 
@@ -282,6 +262,16 @@
             this.GhiChu.Name = "GhiChu";
             this.GhiChu.Width = 125;
             // 
+            // dataGridViewImageColumn1
+            // 
+            this.dataGridViewImageColumn1.DataPropertyName = "ChiTiet";
+            this.dataGridViewImageColumn1.FillWeight = 93.84087F;
+            this.dataGridViewImageColumn1.HeaderText = "Chi tiết";
+            this.dataGridViewImageColumn1.Image = ((System.Drawing.Image)(resources.GetObject("dataGridViewImageColumn1.Image")));
+            this.dataGridViewImageColumn1.MinimumWidth = 6;
+            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
+            this.dataGridViewImageColumn1.Width = 114;
+            // 
             // ChiTiet
             // 
             this.ChiTiet.DataPropertyName = "ChiTiet";
@@ -290,6 +280,17 @@
             this.ChiTiet.MinimumWidth = 6;
             this.ChiTiet.Name = "ChiTiet";
             this.ChiTiet.Width = 10;
+            // 
+            // picSearch
+            // 
+            this.picSearch.BackColor = System.Drawing.Color.White;
+            this.picSearch.Enabled = false;
+            this.picSearch.Image = ((System.Drawing.Image)(resources.GetObject("picSearch.Image")));
+            this.picSearch.Location = new System.Drawing.Point(62, 30);
+            this.picSearch.Name = "picSearch";
+            this.picSearch.Size = new System.Drawing.Size(18, 18);
+            this.picSearch.TabIndex = 3;
+            this.picSearch.TabStop = false;
             // 
             // frmKho
             // 
@@ -310,8 +311,8 @@
             this.panel1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picSearch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKho)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picSearch)).EndInit();
             this.ResumeLayout(false);
 
         }

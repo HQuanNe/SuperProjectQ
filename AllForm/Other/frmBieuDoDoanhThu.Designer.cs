@@ -32,7 +32,6 @@
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            this.chartDoanhThu = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnPopularProd = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -43,48 +42,17 @@
             this.radBtnQuy = new System.Windows.Forms.RadioButton();
             this.radBtnYEAR = new System.Windows.Forms.RadioButton();
             this.radBtnMONTH = new System.Windows.Forms.RadioButton();
-            ((System.ComponentModel.ISupportInitialize)(this.chartDoanhThu)).BeginInit();
+            this.chartDoanhThu = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.lblTotal = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartDoanhThu)).BeginInit();
             this.SuspendLayout();
-            // 
-            // chartDoanhThu
-            // 
-            this.chartDoanhThu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.chartDoanhThu.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.LeftRight;
-            this.chartDoanhThu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.chartDoanhThu.BorderSkin.BorderColor = System.Drawing.Color.Transparent;
-            this.chartDoanhThu.BorderSkin.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.DashDot;
-            this.chartDoanhThu.BorderSkin.BorderWidth = 0;
-            chartArea1.Area3DStyle.Enable3D = true;
-            chartArea1.Area3DStyle.Inclination = 15;
-            chartArea1.Area3DStyle.PointDepth = 80;
-            chartArea1.Area3DStyle.PointGapDepth = 80;
-            chartArea1.Area3DStyle.Rotation = 20;
-            chartArea1.AxisX.TitleFont = new System.Drawing.Font("Times New Roman", 8F);
-            chartArea1.Name = "ChartArea1";
-            this.chartDoanhThu.ChartAreas.Add(chartArea1);
-            legend1.LegendStyle = System.Windows.Forms.DataVisualization.Charting.LegendStyle.Row;
-            legend1.Name = "Legend1";
-            this.chartDoanhThu.Legends.Add(legend1);
-            this.chartDoanhThu.Location = new System.Drawing.Point(12, 111);
-            this.chartDoanhThu.Name = "chartDoanhThu";
-            this.chartDoanhThu.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Excel;
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartDoanhThu.Series.Add(series1);
-            this.chartDoanhThu.Size = new System.Drawing.Size(979, 600);
-            this.chartDoanhThu.TabIndex = 0;
-            this.chartDoanhThu.Text = "chart1";
-            title1.Font = new System.Drawing.Font("Times New Roman", 26F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            title1.Name = "TitleTenBieuDo";
-            title1.Text = "Bảng doanh thu";
-            this.chartDoanhThu.Titles.Add(title1);
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.panel1.Controls.Add(this.lblTotal);
             this.panel1.Controls.Add(this.btnPopularProd);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -96,6 +64,7 @@
             // 
             // btnPopularProd
             // 
+            this.btnPopularProd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPopularProd.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPopularProd.Location = new System.Drawing.Point(836, 27);
             this.btnPopularProd.Name = "btnPopularProd";
@@ -196,28 +165,58 @@
             this.radBtnMONTH.UseVisualStyleBackColor = true;
             this.radBtnMONTH.CheckedChanged += new System.EventHandler(this.radBtn_CheckedChanged);
             // 
+            // chartDoanhThu
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chartDoanhThu.ChartAreas.Add(chartArea1);
+            this.chartDoanhThu.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend1.Name = "Legend1";
+            this.chartDoanhThu.Legends.Add(legend1);
+            this.chartDoanhThu.Location = new System.Drawing.Point(0, 105);
+            this.chartDoanhThu.Name = "chartDoanhThu";
+            this.chartDoanhThu.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartDoanhThu.Series.Add(series1);
+            this.chartDoanhThu.Size = new System.Drawing.Size(1003, 618);
+            this.chartDoanhThu.TabIndex = 2;
+            this.chartDoanhThu.Text = "--";
+            title1.Font = new System.Drawing.Font("Times New Roman", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            title1.Name = "TitleTenBieuDo";
+            title1.Text = "Biểu đồ doanh thu";
+            this.chartDoanhThu.Titles.Add(title1);
+            // 
+            // lblTotal
+            // 
+            this.lblTotal.AutoSize = true;
+            this.lblTotal.Location = new System.Drawing.Point(485, 42);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(15, 16);
+            this.lblTotal.TabIndex = 5;
+            this.lblTotal.Text = "--";
+            // 
             // frmBieuDoDoanhThu
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1003, 723);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.chartDoanhThu);
+            this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "frmBieuDoDoanhThu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Biểu đồ";
             this.Load += new System.EventHandler(this.frmBieuDoDoanhThu_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.chartDoanhThu)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartDoanhThu)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartDoanhThu;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnLoadBieuDo;
         private System.Windows.Forms.RadioButton radBtnQuy;
@@ -228,5 +227,7 @@
         private System.Windows.Forms.ComboBox cmbQuy;
         private System.Windows.Forms.ComboBox cmbYear;
         private System.Windows.Forms.Button btnPopularProd;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartDoanhThu;
+        private System.Windows.Forms.Label lblTotal;
     }
 }

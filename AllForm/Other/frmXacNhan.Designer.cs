@@ -31,6 +31,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtConfirm = new System.Windows.Forms.TextBox();
             this.btnConfirm = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -38,7 +39,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(63, 13);
+            this.label1.Location = new System.Drawing.Point(16, 13);
             this.label1.MaximumSize = new System.Drawing.Size(600, 0);
             this.label1.Name = "label1";
             this.label1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -52,7 +53,7 @@
             // 
             this.txtConfirm.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtConfirm.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtConfirm.Location = new System.Drawing.Point(186, 91);
+            this.txtConfirm.Location = new System.Drawing.Point(139, 91);
             this.txtConfirm.Multiline = true;
             this.txtConfirm.Name = "txtConfirm";
             this.txtConfirm.PasswordChar = '*';
@@ -65,7 +66,7 @@
             this.btnConfirm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConfirm.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConfirm.ForeColor = System.Drawing.Color.White;
-            this.btnConfirm.Location = new System.Drawing.Point(231, 150);
+            this.btnConfirm.Location = new System.Drawing.Point(184, 150);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(110, 39);
             this.btnConfirm.TabIndex = 2;
@@ -73,12 +74,29 @@
             this.btnConfirm.UseVisualStyleBackColor = false;
             this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
+            // btnClose
+            // 
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.BackColor = System.Drawing.Color.Red;
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClose.ForeColor = System.Drawing.Color.White;
+            this.btnClose.Location = new System.Drawing.Point(461, 0);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(40, 40);
+            this.btnClose.TabIndex = 8;
+            this.btnClose.Text = "X";
+            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
             // frmXacNhan
             // 
             this.AcceptButton = this.btnConfirm;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.ClientSize = new System.Drawing.Size(542, 253);
+            this.ClientSize = new System.Drawing.Size(502, 253);
+            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.txtConfirm);
             this.Controls.Add(this.label1);
@@ -96,5 +114,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtConfirm;
         private System.Windows.Forms.Button btnConfirm;
+        private System.Windows.Forms.Button btnClose;
     }
 }

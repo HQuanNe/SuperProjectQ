@@ -58,7 +58,9 @@ namespace SuperProjectQ
                 $"LEFT JOIN Combo ON Combo.MaCombo = ct.MaSP AND ct.LoaiHang = 1" +
                 $"WHERE MaHD = {Session.maHD}";
             
-            string sqlTrietKhau = $"SELECT TenKH, Discount FROM KhachHang WHERE MaKH = '{Session.MaKH}'";
+            string sqlTrietKhau = $"SELECT kh.TenKH, BangVIP.TrietKhau FROM KhachHang AS kh " +
+                $"INNER JOIN BangVIP ON BangVIP.VIP = kh.VIP" +
+                $" WHERE MaKH = '{Session.MaKH}'";
 
             adapterHD = new SqlDataAdapter(sqlHD, kn.conn);
             adapterCTHD = new SqlDataAdapter(sqlCTHD, kn.conn);

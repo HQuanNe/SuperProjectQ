@@ -24,8 +24,8 @@
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
-        <Field Name="Discount">
-          <DataField>Discount</DataField>
+        <Field Name="TrietKhau">
+          <DataField>TrietKhau</DataField>
           <rd:TypeName>System.Double</rd:TypeName>
         </Field>
         <Field Name="TenKH">
@@ -35,7 +35,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>DataSetInHoaDon</rd:DataSetName>
-        <rd:SchemaPath>D:\Học_Tập\Programing_language\ADO-NET\Window-form\SuperProjectQ\AllForm\InHoaDon\DataSetInHoaDon.xsd</rd:SchemaPath>
+        <rd:SchemaPath>D:\Học_Tập\Programing_language\ADO-NET\Window-form\SuperProjectQ\AllForm\HoaDon\InHoaDon\DataSetInHoaDon.xsd</rd:SchemaPath>
         <rd:TableName>KhachHang</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
@@ -193,7 +193,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox30</rd:DefaultName>
-            <Top>7.09963cm</Top>
+            <Top>6.78213cm</Top>
             <Left>0.15595cm</Left>
             <Height>0.6cm</Height>
             <Width>1.93517cm</Width>
@@ -225,7 +225,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox30</rd:DefaultName>
-            <Top>7.57615cm</Top>
+            <Top>7.25513cm</Top>
             <Left>0.15595cm</Left>
             <Height>0.6cm</Height>
             <Width>1.93517cm</Width>
@@ -1415,7 +1415,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>VAT</rd:DefaultName>
-            <Top>9.10424cm</Top>
+            <Top>9.42174cm</Top>
             <Left>3.78838cm</Left>
             <Height>0.6cm</Height>
             <Width>3.71468cm</Width>
@@ -1438,7 +1438,7 @@
                 <TextRuns>
                   <TextRun>
                     <Value>="Triết khấu VIP (" &amp; 
-Format(Sum(Fields!Discount.Value, "DataSetKH") * 100, "0.##") &amp; "%):"</Value>
+Format(Sum(Fields!TrietKhau.Value, "DataSetKH"), "0.##") &amp; "%):"</Value>
                     <Style>
                       <FontFamily>Times New Roman</FontFamily>
                       <FontSize>8pt</FontSize>
