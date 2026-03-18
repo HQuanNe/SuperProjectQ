@@ -59,7 +59,7 @@ namespace SuperProjectQ.FrmMixed
         {
             try
             {
-                string sqlNhanVien = "SELECT *FROM NhanVien WHERE MaNV NOT LIKE '%QTV%'";
+                string sqlNhanVien = "SELECT * FROM NhanVien";
                 dgvNhanVien.DataSource = kn.CreateTable(sqlNhanVien);
             }
             catch (Exception ex)
@@ -100,18 +100,12 @@ namespace SuperProjectQ.FrmMixed
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            if (radSearchByID.Checked)
-            {
-                dgvNhanVien.DataSource = null;
-                string sqlSearchByID = $"SELECT *FROM NhanVien WHERE MaNV LIKE '%{txtSearch.Text.Trim()}%' AND MaNV NOT LIKE '%QTV%'";
-                dgvNhanVien.DataSource = kn.CreateTable(sqlSearchByID);
-            }
-            if (radSearchByName.Checked)
-            {
-                dgvNhanVien.DataSource = null;
-                string sqlSearchByID = $"SELECT *FROM NhanVien WHERE TenNV LIKE '%{txtSearch.Text.Trim()}%' AND MaNV NOT LIKE '%QTV%'";
-                dgvNhanVien.DataSource = kn.CreateTable(sqlSearchByID);
-            }
+            dgvNhanVien.DataSource = null;
+            string sqlSearchByID = $"SELECT * FROM NhanVien WHERE MaNV LIKE '%{txtSearch.Text.Trim()}%' OR " +
+                $"TenNV LIKE '%{txtSearch.Text.Trim()}%' OR " +
+                $"DiaChi LIKE '%{txtSearch.Text.Trim()}%' OR " +
+                $"SoDienThoai LIKE '%{txtSearch.Text.Trim()}%' ";
+            dgvNhanVien.DataSource = kn.CreateTable(sqlSearchByID);
         }
 
         private void btnAddStaff_Click(object sender, EventArgs e)

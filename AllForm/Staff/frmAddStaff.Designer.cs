@@ -31,7 +31,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAddStaff));
             this.lblTitle = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.txtBasicSalary = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.btnAddImage = new System.Windows.Forms.Button();
             this.txtChucVu = new System.Windows.Forms.TextBox();
+            this.picImageStaff = new System.Windows.Forms.PictureBox();
             this.dtpNgayLamViec = new System.Windows.Forms.DateTimePicker();
             this.txtSDT = new System.Windows.Forms.TextBox();
             this.txtDiaChi = new System.Windows.Forms.TextBox();
@@ -49,10 +53,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
-            this.btnAddImage = new System.Windows.Forms.Button();
-            this.picImageStaff = new System.Windows.Forms.PictureBox();
-            this.txtBasicSalary = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picImageStaff)).BeginInit();
             this.SuspendLayout();
@@ -96,13 +96,55 @@
             this.panel1.Size = new System.Drawing.Size(773, 423);
             this.panel1.TabIndex = 26;
             // 
+            // txtBasicSalary
+            // 
+            this.txtBasicSalary.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBasicSalary.Location = new System.Drawing.Point(161, 376);
+            this.txtBasicSalary.Name = "txtBasicSalary";
+            this.txtBasicSalary.Size = new System.Drawing.Size(237, 30);
+            this.txtBasicSalary.TabIndex = 32;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(25, 384);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(130, 22);
+            this.label9.TabIndex = 31;
+            this.label9.Text = "Lương cơ bản: ";
+            // 
+            // btnAddImage
+            // 
+            this.btnAddImage.BackColor = System.Drawing.Color.Transparent;
+            this.btnAddImage.FlatAppearance.BorderSize = 0;
+            this.btnAddImage.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.btnAddImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddImage.Image = ((System.Drawing.Image)(resources.GetObject("btnAddImage.Image")));
+            this.btnAddImage.Location = new System.Drawing.Point(710, 49);
+            this.btnAddImage.Name = "btnAddImage";
+            this.btnAddImage.Size = new System.Drawing.Size(35, 35);
+            this.btnAddImage.TabIndex = 30;
+            this.btnAddImage.UseVisualStyleBackColor = false;
+            this.btnAddImage.Click += new System.EventHandler(this.btnAddImage_Click);
+            // 
             // txtChucVu
             // 
             this.txtChucVu.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtChucVu.Location = new System.Drawing.Point(505, 12);
+            this.txtChucVu.Location = new System.Drawing.Point(511, 12);
             this.txtChucVu.Name = "txtChucVu";
-            this.txtChucVu.Size = new System.Drawing.Size(241, 30);
+            this.txtChucVu.Size = new System.Drawing.Size(235, 30);
             this.txtChucVu.TabIndex = 16;
+            // 
+            // picImageStaff
+            // 
+            this.picImageStaff.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picImageStaff.Location = new System.Drawing.Point(439, 48);
+            this.picImageStaff.Name = "picImageStaff";
+            this.picImageStaff.Size = new System.Drawing.Size(307, 358);
+            this.picImageStaff.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picImageStaff.TabIndex = 29;
+            this.picImageStaff.TabStop = false;
             // 
             // dtpNgayLamViec
             // 
@@ -134,9 +176,9 @@
             this.label8.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(423, 20);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(76, 22);
+            this.label8.Size = new System.Drawing.Size(82, 22);
             this.label8.TabIndex = 12;
-            this.label8.Text = "Chức vụ";
+            this.label8.Text = "Chức vụ:";
             // 
             // label7
             // 
@@ -272,48 +314,6 @@
             this.btnClose.Text = "X";
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
-            // btnAddImage
-            // 
-            this.btnAddImage.BackColor = System.Drawing.Color.Transparent;
-            this.btnAddImage.FlatAppearance.BorderSize = 0;
-            this.btnAddImage.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.btnAddImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddImage.Image = ((System.Drawing.Image)(resources.GetObject("btnAddImage.Image")));
-            this.btnAddImage.Location = new System.Drawing.Point(710, 49);
-            this.btnAddImage.Name = "btnAddImage";
-            this.btnAddImage.Size = new System.Drawing.Size(35, 35);
-            this.btnAddImage.TabIndex = 30;
-            this.btnAddImage.UseVisualStyleBackColor = false;
-            this.btnAddImage.Click += new System.EventHandler(this.btnAddImage_Click);
-            // 
-            // picImageStaff
-            // 
-            this.picImageStaff.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picImageStaff.Location = new System.Drawing.Point(439, 48);
-            this.picImageStaff.Name = "picImageStaff";
-            this.picImageStaff.Size = new System.Drawing.Size(307, 358);
-            this.picImageStaff.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picImageStaff.TabIndex = 29;
-            this.picImageStaff.TabStop = false;
-            // 
-            // txtBasicSalary
-            // 
-            this.txtBasicSalary.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBasicSalary.Location = new System.Drawing.Point(161, 376);
-            this.txtBasicSalary.Name = "txtBasicSalary";
-            this.txtBasicSalary.Size = new System.Drawing.Size(237, 30);
-            this.txtBasicSalary.TabIndex = 32;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(25, 384);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(130, 22);
-            this.label9.TabIndex = 31;
-            this.label9.Text = "Lương cơ bản: ";
             // 
             // frmAddStaff
             // 

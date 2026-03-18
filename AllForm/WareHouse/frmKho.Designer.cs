@@ -76,6 +76,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.cmbDanhMuc);
+            this.groupBox2.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(679, 9);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(213, 61);
@@ -97,6 +98,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.cmbSoLuongSP);
+            this.groupBox1.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(460, 9);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(213, 61);
@@ -158,11 +160,13 @@
             this.btnThemSP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnThemSP.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThemSP.ForeColor = System.Drawing.Color.White;
+            this.btnThemSP.Image = ((System.Drawing.Image)(resources.GetObject("btnThemSP.Image")));
             this.btnThemSP.Location = new System.Drawing.Point(1064, 14);
             this.btnThemSP.Name = "btnThemSP";
             this.btnThemSP.Size = new System.Drawing.Size(201, 50);
             this.btnThemSP.TabIndex = 0;
             this.btnThemSP.Text = "Thêm sản phẩm";
+            this.btnThemSP.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnThemSP.UseVisualStyleBackColor = false;
             this.btnThemSP.Click += new System.EventHandler(this.btnThemSP_Click);
             // 

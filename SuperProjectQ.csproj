@@ -172,6 +172,12 @@
     <Compile Include="AllForm\Customers\frmThemKhachHang.Designer.cs">
       <DependentUpon>frmThemKhachHang.cs</DependentUpon>
     </Compile>
+    <Compile Include="AllForm\Room\frmRoomDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\Room\frmRoomDetails.Designer.cs">
+      <DependentUpon>frmRoomDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="AllForm\Staff\frmAddStaff.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -238,10 +244,10 @@
     <Compile Include="AllForm\Other\frmVoucherKhachHang.Designer.cs">
       <DependentUpon>frmVoucherKhachHang.cs</DependentUpon>
     </Compile>
-    <Compile Include="AllForm\Room-Order-Payment\frmOrder.cs">
+    <Compile Include="AllForm\Order-Payment\frmOrder.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AllForm\Room-Order-Payment\frmOrder.Designer.cs">
+    <Compile Include="AllForm\Order-Payment\frmOrder.Designer.cs">
       <DependentUpon>frmOrder.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\AIChatbotRepository.cs" />
@@ -278,22 +284,22 @@
     <Compile Include="AllForm\HoaDon\frmHoaDon.Designer.cs">
       <DependentUpon>frmHoaDon.cs</DependentUpon>
     </Compile>
-    <Compile Include="AllForm\Other\frmNhanVien.cs">
+    <Compile Include="AllForm\Staff\frmNhanVien.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AllForm\Other\frmNhanVien.Designer.cs">
+    <Compile Include="AllForm\Staff\frmNhanVien.Designer.cs">
       <DependentUpon>frmNhanVien.cs</DependentUpon>
     </Compile>
-    <Compile Include="AllForm\Room-Order-Payment\frmPhong.cs">
+    <Compile Include="AllForm\Room\frmPhong.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AllForm\Room-Order-Payment\frmPhong.Designer.cs">
+    <Compile Include="AllForm\Room\frmPhong.Designer.cs">
       <DependentUpon>frmPhong.cs</DependentUpon>
     </Compile>
-    <Compile Include="AllForm\Room-Order-Payment\frmThanhToan.cs">
+    <Compile Include="AllForm\Order-Payment\frmThanhToan.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AllForm\Room-Order-Payment\frmThanhToan.Designer.cs">
+    <Compile Include="AllForm\Order-Payment\frmThanhToan.Designer.cs">
       <DependentUpon>frmThanhToan.cs</DependentUpon>
     </Compile>
     <Compile Include="AllForm\HoaDon\InHoaDon\frmPrintBill.cs">
@@ -336,6 +342,9 @@
     <EmbeddedResource Include="AllForm\Customers\frmThemKhachHang.resx">
       <DependentUpon>frmThemKhachHang.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\Room\frmRoomDetails.resx">
+      <DependentUpon>frmRoomDetails.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AllForm\Staff\frmAddStaff.resx">
       <DependentUpon>frmAddStaff.cs</DependentUpon>
     </EmbeddedResource>
@@ -366,7 +375,7 @@
     <EmbeddedResource Include="AllForm\Customers\frmKhachHang.resx">
       <DependentUpon>frmKhachHang.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AllForm\Other\frmNhanVien.resx">
+    <EmbeddedResource Include="AllForm\Staff\frmNhanVien.resx">
       <DependentUpon>frmNhanVien.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AllForm\Other\frmBieuDoDoanhThu.resx">
@@ -384,16 +393,16 @@
     <EmbeddedResource Include="AllForm\Other\frmVoucherKhachHang.resx">
       <DependentUpon>frmVoucherKhachHang.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AllForm\Room-Order-Payment\frmPhong.resx">
+    <EmbeddedResource Include="AllForm\Room\frmPhong.resx">
       <DependentUpon>frmPhong.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AllForm\Room-Order-Payment\frmThanhToan.resx">
+    <EmbeddedResource Include="AllForm\Order-Payment\frmThanhToan.resx">
       <DependentUpon>frmThanhToan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AllForm\HoaDon\InHoaDon\frmPrintBill.resx">
       <DependentUpon>frmPrintBill.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AllForm\Room-Order-Payment\frmOrder.resx">
+    <EmbeddedResource Include="AllForm\Order-Payment\frmOrder.resx">
       <DependentUpon>frmOrder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

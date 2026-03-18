@@ -31,8 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmNhanVien));
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnAddStaff = new System.Windows.Forms.Button();
-            this.radSearchByID = new System.Windows.Forms.RadioButton();
-            this.radSearchByName = new System.Windows.Forms.RadioButton();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.dgvNhanVien = new System.Windows.Forms.DataGridView();
             this.MaNV = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -45,17 +43,17 @@
             this.ChucVu = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LuongCoBan = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HinhAnh = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNhanVien)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.panel3.Controls.Add(this.groupBox1);
             this.panel3.Controls.Add(this.btnAddStaff);
-            this.panel3.Controls.Add(this.radSearchByID);
-            this.panel3.Controls.Add(this.radSearchByName);
-            this.panel3.Controls.Add(this.txtSearch);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
@@ -80,34 +78,10 @@
             this.btnAddStaff.UseVisualStyleBackColor = false;
             this.btnAddStaff.Click += new System.EventHandler(this.btnAddStaff_Click);
             // 
-            // radSearchByID
-            // 
-            this.radSearchByID.AutoSize = true;
-            this.radSearchByID.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radSearchByID.Location = new System.Drawing.Point(34, 14);
-            this.radSearchByID.Name = "radSearchByID";
-            this.radSearchByID.Size = new System.Drawing.Size(129, 26);
-            this.radSearchByID.TabIndex = 19;
-            this.radSearchByID.TabStop = true;
-            this.radSearchByID.Text = "Tìm theo mã";
-            this.radSearchByID.UseVisualStyleBackColor = true;
-            // 
-            // radSearchByName
-            // 
-            this.radSearchByName.AutoSize = true;
-            this.radSearchByName.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radSearchByName.Location = new System.Drawing.Point(34, 46);
-            this.radSearchByName.Name = "radSearchByName";
-            this.radSearchByName.Size = new System.Drawing.Size(129, 26);
-            this.radSearchByName.TabIndex = 18;
-            this.radSearchByName.TabStop = true;
-            this.radSearchByName.Text = "Tìm theo tên";
-            this.radSearchByName.UseVisualStyleBackColor = true;
-            // 
             // txtSearch
             // 
             this.txtSearch.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSearch.Location = new System.Drawing.Point(183, 27);
+            this.txtSearch.Location = new System.Drawing.Point(6, 26);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(283, 30);
             this.txtSearch.TabIndex = 17;
@@ -225,6 +199,17 @@
             this.HinhAnh.Name = "HinhAnh";
             this.HinhAnh.Width = 125;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.txtSearch);
+            this.groupBox1.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(48, 7);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(323, 67);
+            this.groupBox1.TabIndex = 25;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Tìm kiếm";
+            // 
             // frmNhanVien
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -241,16 +226,15 @@
             this.TransparencyKey = System.Drawing.SystemColors.Control;
             this.Load += new System.EventHandler(this.frmNhanVien_Load);
             this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNhanVien)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.RadioButton radSearchByID;
-        private System.Windows.Forms.RadioButton radSearchByName;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.DataGridView dgvNhanVien;
         private System.Windows.Forms.Button btnAddStaff;
@@ -264,5 +248,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ChucVu;
         private System.Windows.Forms.DataGridViewTextBoxColumn LuongCoBan;
         private System.Windows.Forms.DataGridViewTextBoxColumn HinhAnh;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
