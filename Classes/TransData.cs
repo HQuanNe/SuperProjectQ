@@ -20,7 +20,7 @@ namespace SuperProjectQ
         static DataTable dt = null;
         static SqlCommand cmd = null;
 
-        public static class DuLieuKhoHang
+        public static class WarehouseData
         {
             public static string MaSP;
             public static string TenSP;
@@ -33,7 +33,7 @@ namespace SuperProjectQ
             public static string GhiChu;
             public static string HinhAnh;
         }
-        public static class DuLieuKhachHang
+        public static class CustomerData
         {
             public static string MaKH;
             public static string TenKH;
@@ -41,6 +41,19 @@ namespace SuperProjectQ
             public static string SoDienThoai;
             public static string VIP;
             public static double DiemTichLuy;
+        }
+        public static class StaffData
+        {
+            public static string MaNV;
+            public static string TenNV;
+            public static string GioiTinh;
+            public static DateTime NamSinh;
+            public static string DiaChi;
+            public static string SoDienThoai;
+            public static DateTime NgayLamViec;
+            public static string ChucVu;
+            public static Decimal LuongCoBan;
+            public static string HinhAnh;
         }
 
         public static bool isDeleted = false; //Biến kiểm tra khi xoá sản phẩm, khách hàng, nhân viên,...
@@ -226,6 +239,7 @@ namespace SuperProjectQ
         public static bool InspectStorage()
         {
             ConnectOpen();
+            dt = new DataTable();
             dt = kn.CreateTable("SELECT TonKho FROM KhoHang WHERE TonKho < 1");
             if(dt.Rows.Count > 0) { return false; }
 

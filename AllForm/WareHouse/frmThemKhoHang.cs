@@ -67,7 +67,7 @@ namespace SuperProjectQ.AllForm.KhoHang
                 string fileName = "";
                 #region Xử lý ảnh
                 // 1. Kiểm tra xem đã chọn ảnh chưa
-                if (picImageSP.Tag == null || string.IsNullOrEmpty(picImageSP.Tag.ToString()))
+                if (string.IsNullOrEmpty(picImageSP.Tag.ToString()))
                 {
                     MessageBox.Show("Hãy chọn ảnh");
                     return;

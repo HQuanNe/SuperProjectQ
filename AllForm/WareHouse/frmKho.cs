@@ -85,16 +85,16 @@ namespace SuperProjectQ.AllForm.Other
         {
             if (e.RowIndex >= 0 && dgvKho.Columns[e.ColumnIndex].Name == "ChiTiet")
             {
-                Session.DuLieuKhoHang.MaSP = dgvKho.Rows[e.RowIndex].Cells[0].Value.ToString();
-                Session.DuLieuKhoHang.TenSP = dgvKho.Rows[e.RowIndex].Cells[1].Value.ToString();
-                Session.DuLieuKhoHang.DanhMuc = dgvKho.Rows[e.RowIndex].Cells[2].Value.ToString();
-                Session.DuLieuKhoHang.DonViTinh = dgvKho.Rows[e.RowIndex].Cells[3].Value.ToString();
-                Session.DuLieuKhoHang.TonKho = dgvKho.Rows[e.RowIndex].Cells[4].Value.ToString();
-                Session.DuLieuKhoHang.NgayCapNhat = Convert.ToDateTime(dgvKho.Rows[e.RowIndex].Cells[5].Value);
-                Session.DuLieuKhoHang.DonGiaNhap = Convert.ToDecimal(dgvKho.Rows[e.RowIndex].Cells[6].Value);
-                Session.DuLieuKhoHang.TrangThai = Convert.ToInt16(dgvKho.Rows[e.RowIndex].Cells[7].Value);
-                Session.DuLieuKhoHang.HinhAnh = dgvKho.Rows[e.RowIndex].Cells[8].Value.ToString();
-                Session.DuLieuKhoHang.GhiChu = dgvKho.Rows[e.RowIndex].Cells[9].Value.ToString();
+                Session.WarehouseData.MaSP = dgvKho.Rows[e.RowIndex].Cells[0].Value.ToString();
+                Session.WarehouseData.TenSP = dgvKho.Rows[e.RowIndex].Cells[1].Value.ToString();
+                Session.WarehouseData.DanhMuc = dgvKho.Rows[e.RowIndex].Cells[2].Value.ToString();
+                Session.WarehouseData.DonViTinh = dgvKho.Rows[e.RowIndex].Cells[3].Value.ToString();
+                Session.WarehouseData.TonKho = dgvKho.Rows[e.RowIndex].Cells[4].Value.ToString();
+                Session.WarehouseData.NgayCapNhat = Convert.ToDateTime(dgvKho.Rows[e.RowIndex].Cells[5].Value);
+                Session.WarehouseData.DonGiaNhap = Convert.ToDecimal(dgvKho.Rows[e.RowIndex].Cells[6].Value);
+                Session.WarehouseData.TrangThai = Convert.ToInt16(dgvKho.Rows[e.RowIndex].Cells[7].Value);
+                Session.WarehouseData.HinhAnh = dgvKho.Rows[e.RowIndex].Cells[8].Value.ToString();
+                Session.WarehouseData.GhiChu = dgvKho.Rows[e.RowIndex].Cells[9].Value.ToString();
 
 
                 frmDieuChinhKho dcKho = new frmDieuChinhKho();
@@ -115,16 +115,16 @@ namespace SuperProjectQ.AllForm.Other
         {
             if (e.RowIndex >= 0)
             {
-                Session.DuLieuKhoHang.MaSP = dgvKho.Rows[e.RowIndex].Cells[0].Value.ToString();
-                Session.DuLieuKhoHang.TenSP = dgvKho.Rows[e.RowIndex].Cells[1].Value.ToString();
-                Session.DuLieuKhoHang.DanhMuc = dgvKho.Rows[e.RowIndex].Cells[2].Value.ToString();
-                Session.DuLieuKhoHang.DonViTinh = dgvKho.Rows[e.RowIndex].Cells[3].Value.ToString();
-                Session.DuLieuKhoHang.TonKho = dgvKho.Rows[e.RowIndex].Cells[4].Value.ToString();
-                Session.DuLieuKhoHang.NgayCapNhat = Convert.ToDateTime(dgvKho.Rows[e.RowIndex].Cells[5].Value);
-                Session.DuLieuKhoHang.DonGiaNhap = Convert.ToDecimal(dgvKho.Rows[e.RowIndex].Cells[6].Value);
-                Session.DuLieuKhoHang.TrangThai = Convert.ToInt16(dgvKho.Rows[e.RowIndex].Cells[7].Value);
-                Session.DuLieuKhoHang.HinhAnh = dgvKho.Rows[e.RowIndex].Cells[8].Value.ToString();
-                Session.DuLieuKhoHang.GhiChu = dgvKho.Rows[e.RowIndex].Cells[9].Value.ToString();
+                Session.WarehouseData.MaSP = dgvKho.Rows[e.RowIndex].Cells[0].Value.ToString();
+                Session.WarehouseData.TenSP = dgvKho.Rows[e.RowIndex].Cells[1].Value.ToString();
+                Session.WarehouseData.DanhMuc = dgvKho.Rows[e.RowIndex].Cells[2].Value.ToString();
+                Session.WarehouseData.DonViTinh = dgvKho.Rows[e.RowIndex].Cells[3].Value.ToString();
+                Session.WarehouseData.TonKho = dgvKho.Rows[e.RowIndex].Cells[4].Value.ToString();
+                Session.WarehouseData.NgayCapNhat = Convert.ToDateTime(dgvKho.Rows[e.RowIndex].Cells[5].Value);
+                Session.WarehouseData.DonGiaNhap = Convert.ToDecimal(dgvKho.Rows[e.RowIndex].Cells[6].Value);
+                Session.WarehouseData.TrangThai = Convert.ToInt16(dgvKho.Rows[e.RowIndex].Cells[7].Value);
+                Session.WarehouseData.HinhAnh = dgvKho.Rows[e.RowIndex].Cells[8].Value.ToString();
+                Session.WarehouseData.GhiChu = dgvKho.Rows[e.RowIndex].Cells[9].Value.ToString();
 
                 frmDieuChinhKho dcKho = new frmDieuChinhKho();
                 dcKho.FormBorderStyle = FormBorderStyle.None;

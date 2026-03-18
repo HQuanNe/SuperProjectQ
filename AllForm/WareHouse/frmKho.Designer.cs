@@ -34,6 +34,7 @@
             this.cmbDanhMuc = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cmbSoLuongSP = new System.Windows.Forms.ComboBox();
+            this.picSearch = new System.Windows.Forms.PictureBox();
             this.lblTimKiem = new System.Windows.Forms.Label();
             this.txtTimSP = new System.Windows.Forms.TextBox();
             this.btnThemSP = new System.Windows.Forms.Button();
@@ -48,19 +49,18 @@
             this.TrangThai = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HinhAnh = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GhiChu = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.ChiTiet = new System.Windows.Forms.DataGridViewImageColumn();
-            this.picSearch = new System.Windows.Forms.PictureBox();
+            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvKho)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picSearch)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvKho)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.picSearch);
@@ -115,6 +115,17 @@
             this.cmbSoLuongSP.TabIndex = 4;
             this.cmbSoLuongSP.SelectedIndexChanged += new System.EventHandler(this.cmbSoLuongSP_SelectedIndexChanged);
             // 
+            // picSearch
+            // 
+            this.picSearch.BackColor = System.Drawing.Color.White;
+            this.picSearch.Enabled = false;
+            this.picSearch.Image = ((System.Drawing.Image)(resources.GetObject("picSearch.Image")));
+            this.picSearch.Location = new System.Drawing.Point(62, 30);
+            this.picSearch.Name = "picSearch";
+            this.picSearch.Size = new System.Drawing.Size(18, 18);
+            this.picSearch.TabIndex = 3;
+            this.picSearch.TabStop = false;
+            // 
             // lblTimKiem
             // 
             this.lblTimKiem.AutoSize = true;
@@ -157,6 +168,7 @@
             // 
             // dgvKho
             // 
+            this.dgvKho.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(233)))), ((int)(((byte)(247)))));
             this.dgvKho.ColumnHeadersHeight = 29;
             this.dgvKho.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.MaSP_Kho,
@@ -262,6 +274,15 @@
             this.GhiChu.Name = "GhiChu";
             this.GhiChu.Width = 125;
             // 
+            // ChiTiet
+            // 
+            this.ChiTiet.DataPropertyName = "ChiTiet";
+            this.ChiTiet.HeaderText = "Chi tiết";
+            this.ChiTiet.Image = ((System.Drawing.Image)(resources.GetObject("ChiTiet.Image")));
+            this.ChiTiet.MinimumWidth = 6;
+            this.ChiTiet.Name = "ChiTiet";
+            this.ChiTiet.Width = 10;
+            // 
             // dataGridViewImageColumn1
             // 
             this.dataGridViewImageColumn1.DataPropertyName = "ChiTiet";
@@ -272,29 +293,10 @@
             this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
             this.dataGridViewImageColumn1.Width = 114;
             // 
-            // ChiTiet
-            // 
-            this.ChiTiet.DataPropertyName = "ChiTiet";
-            this.ChiTiet.HeaderText = "Chi tiết";
-            this.ChiTiet.Image = ((System.Drawing.Image)(resources.GetObject("ChiTiet.Image")));
-            this.ChiTiet.MinimumWidth = 6;
-            this.ChiTiet.Name = "ChiTiet";
-            this.ChiTiet.Width = 10;
-            // 
-            // picSearch
-            // 
-            this.picSearch.BackColor = System.Drawing.Color.White;
-            this.picSearch.Enabled = false;
-            this.picSearch.Image = ((System.Drawing.Image)(resources.GetObject("picSearch.Image")));
-            this.picSearch.Location = new System.Drawing.Point(62, 30);
-            this.picSearch.Name = "picSearch";
-            this.picSearch.Size = new System.Drawing.Size(18, 18);
-            this.picSearch.TabIndex = 3;
-            this.picSearch.TabStop = false;
-            // 
             // frmKho
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(233)))), ((int)(((byte)(247)))));
             this.ClientSize = new System.Drawing.Size(1292, 753);
             this.Controls.Add(this.dgvKho);
             this.Controls.Add(this.panel1);
@@ -311,8 +313,8 @@
             this.panel1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvKho)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picSearch)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvKho)).EndInit();
             this.ResumeLayout(false);
 
         }

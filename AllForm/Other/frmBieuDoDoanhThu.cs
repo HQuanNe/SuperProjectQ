@@ -19,8 +19,10 @@ namespace SuperProjectQ.AllForm.Other
         }
         ConnectData kn = new ConnectData();
         DataTable dt = null;
+
         private void BieuDo_Load()
         {
+            decimal totalDoanhThu = 0;
             string title = "năm 2026", isQuarter = "NgayLap", note = "Ngày";
             int date = dtKhoangThoiGian.Value.Year;
 
@@ -73,6 +75,10 @@ namespace SuperProjectQ.AllForm.Other
 
             dt = new DataTable();
             dt = kn.CreateTable(sqlDoanhThu);
+            foreach (DataRow dr in dt.Rows)
+            {
+                totalDoanhThu += Convert.ToDecimal(dr["DoanhThu"]);
+            }
 
             //Xóa các dữ liệu cũ trên biểu đồ để làm sạch
             chartDoanhThu.Series.Clear();
@@ -97,7 +103,7 @@ namespace SuperProjectQ.AllForm.Other
             chartDoanhThu.ChartAreas["MainArea"].AxisX.Title = $"{note}";
             chartDoanhThu.ChartAreas["MainArea"].AxisY.Title = "Số tiền (VNĐ)";
 
-            //if()
+            lblTotal.Text = "Tổng doanh thu: " + totalDoanhThu.ToString("#,##0") + "đ";//Tổng doanh thu
 
             chartDoanhThu.Titles["TitleTenBieuDo"].Text = $"Biểu đồ doanh thu {title}";
         }

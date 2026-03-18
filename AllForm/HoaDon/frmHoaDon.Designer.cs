@@ -55,6 +55,8 @@
             this.dgvHoaDon.AllowUserToAddRows = false;
             this.dgvHoaDon.AllowUserToResizeColumns = false;
             this.dgvHoaDon.AllowUserToResizeRows = false;
+            this.dgvHoaDon.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvHoaDon.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(233)))), ((int)(((byte)(247)))));
             this.dgvHoaDon.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvHoaDon.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.MaHD,
@@ -87,144 +89,145 @@
             // MaHD
             // 
             this.MaHD.DataPropertyName = "MaHD";
+            this.MaHD.FillWeight = 73.14858F;
             this.MaHD.HeaderText = "Mã hoá đơn";
             this.MaHD.MinimumWidth = 6;
             this.MaHD.Name = "MaHD";
-            this.MaHD.Width = 40;
             // 
             // MaPhong
             // 
             this.MaPhong.DataPropertyName = "MaPhong";
+            this.MaPhong.FillWeight = 102.2937F;
             this.MaPhong.HeaderText = "Mã phòng";
             this.MaPhong.MinimumWidth = 6;
             this.MaPhong.Name = "MaPhong";
-            this.MaPhong.Width = 60;
             // 
             // MaKH
             // 
             this.MaKH.DataPropertyName = "MaKH";
+            this.MaKH.FillWeight = 102.2937F;
             this.MaKH.HeaderText = "Mã khách hàng";
             this.MaKH.MinimumWidth = 6;
             this.MaKH.Name = "MaKH";
-            this.MaKH.Width = 60;
             // 
             // MaNV
             // 
             this.MaNV.DataPropertyName = "MaNV";
+            this.MaNV.FillWeight = 102.2937F;
             this.MaNV.HeaderText = "Mã nhân viên";
             this.MaNV.MinimumWidth = 6;
             this.MaNV.Name = "MaNV";
-            this.MaNV.Width = 60;
             // 
             // GioVao
             // 
             this.GioVao.DataPropertyName = "GioVao";
+            this.GioVao.FillWeight = 102.2937F;
             this.GioVao.HeaderText = "Giờ vào";
             this.GioVao.MinimumWidth = 6;
             this.GioVao.Name = "GioVao";
-            this.GioVao.Width = 125;
             // 
             // GioRa
             // 
             this.GioRa.DataPropertyName = "GioRa";
+            this.GioRa.FillWeight = 102.2937F;
             this.GioRa.HeaderText = "Giờ ra";
             this.GioRa.MinimumWidth = 6;
             this.GioRa.Name = "GioRa";
-            this.GioRa.Width = 125;
             // 
             // TongSoPhut
             // 
             this.TongSoPhut.DataPropertyName = "TongSoPhut";
+            this.TongSoPhut.FillWeight = 102.2937F;
             this.TongSoPhut.HeaderText = "Tổng số phút";
             this.TongSoPhut.MinimumWidth = 6;
             this.TongSoPhut.Name = "TongSoPhut";
-            this.TongSoPhut.Width = 60;
             // 
             // TienPhong
             // 
             this.TienPhong.DataPropertyName = "TienPhong";
+            this.TienPhong.FillWeight = 102.2937F;
             this.TienPhong.HeaderText = "Tiền phòng";
             this.TienPhong.MinimumWidth = 6;
             this.TienPhong.Name = "TienPhong";
-            this.TienPhong.Width = 90;
             // 
             // TienDichVu
             // 
             this.TienDichVu.DataPropertyName = "TienDichVu";
+            this.TienDichVu.FillWeight = 102.2937F;
             this.TienDichVu.HeaderText = "Tiền dịch vụ";
             this.TienDichVu.MinimumWidth = 6;
             this.TienDichVu.Name = "TienDichVu";
-            this.TienDichVu.Width = 90;
             // 
             // TongTien
             // 
             this.TongTien.DataPropertyName = "TongTien";
+            this.TongTien.FillWeight = 102.2937F;
             this.TongTien.HeaderText = "Tổng tiền";
             this.TongTien.MinimumWidth = 6;
             this.TongTien.Name = "TongTien";
-            this.TongTien.Width = 90;
             // 
             // TrietKhauVIP
             // 
             this.TrietKhauVIP.DataPropertyName = "TrietKhauVIP";
+            this.TrietKhauVIP.FillWeight = 102.2937F;
             this.TrietKhauVIP.HeaderText = "Triết khấu VIP";
             this.TrietKhauVIP.MinimumWidth = 6;
             this.TrietKhauVIP.Name = "TrietKhauVIP";
-            this.TrietKhauVIP.Width = 90;
             // 
             // TrietKhauVoucher
             // 
             this.TrietKhauVoucher.DataPropertyName = "TrietKhauVoucher";
+            this.TrietKhauVoucher.FillWeight = 102.2937F;
             this.TrietKhauVoucher.HeaderText = "Triết khấu voucher";
             this.TrietKhauVoucher.MinimumWidth = 6;
             this.TrietKhauVoucher.Name = "TrietKhauVoucher";
-            this.TrietKhauVoucher.Width = 125;
             // 
             // VAT
             // 
             this.VAT.DataPropertyName = "VAT";
+            this.VAT.FillWeight = 102.2937F;
             this.VAT.HeaderText = "VAT";
             this.VAT.MinimumWidth = 6;
             this.VAT.Name = "VAT";
-            this.VAT.Width = 90;
             // 
             // TongThanhToan
             // 
             this.TongThanhToan.DataPropertyName = "TongThanhToan";
+            this.TongThanhToan.FillWeight = 102.2937F;
             this.TongThanhToan.HeaderText = "Tổng thanh toán";
             this.TongThanhToan.MinimumWidth = 6;
             this.TongThanhToan.Name = "TongThanhToan";
-            this.TongThanhToan.Width = 90;
             // 
             // PTTT
             // 
             this.PTTT.DataPropertyName = "PTTT";
+            this.PTTT.FillWeight = 140.1937F;
             this.PTTT.HeaderText = "PTTT";
             this.PTTT.MinimumWidth = 6;
             this.PTTT.Name = "PTTT";
-            this.PTTT.Width = 80;
             // 
             // TrangThai
             // 
             this.TrangThai.DataPropertyName = "TrangThai";
+            this.TrangThai.FillWeight = 54.54546F;
             this.TrangThai.HeaderText = "Trạng thái";
             this.TrangThai.MinimumWidth = 6;
             this.TrangThai.Name = "TrangThai";
             this.TrangThai.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.TrangThai.Width = 90;
             // 
             // GhiChu
             // 
             this.GhiChu.DataPropertyName = "GhiChu";
+            this.GhiChu.FillWeight = 102.2937F;
             this.GhiChu.HeaderText = "Ghi Chú";
             this.GhiChu.MinimumWidth = 6;
             this.GhiChu.Name = "GhiChu";
-            this.GhiChu.Width = 125;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 28F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label1.Location = new System.Drawing.Point(688, 3);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(206, 53);
@@ -234,6 +237,7 @@
             // frmHoaDon
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(233)))), ((int)(((byte)(247)))));
             this.ClientSize = new System.Drawing.Size(1582, 853);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgvHoaDon);

@@ -172,6 +172,18 @@
     <Compile Include="AllForm\Customers\frmThemKhachHang.Designer.cs">
       <DependentUpon>frmThemKhachHang.cs</DependentUpon>
     </Compile>
+    <Compile Include="AllForm\Staff\frmAddStaff.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\Staff\frmAddStaff.Designer.cs">
+      <DependentUpon>frmAddStaff.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AllForm\Staff\frmAdjustStaff.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\Staff\frmAdjustStaff.Designer.cs">
+      <DependentUpon>frmAdjustStaff.cs</DependentUpon>
+    </Compile>
     <Compile Include="AllForm\WareHouse\frmDieuChinhKho.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -323,6 +335,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AllForm\Customers\frmThemKhachHang.resx">
       <DependentUpon>frmThemKhachHang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\Staff\frmAddStaff.resx">
+      <DependentUpon>frmAddStaff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\Staff\frmAdjustStaff.resx">
+      <DependentUpon>frmAdjustStaff.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AllForm\WareHouse\frmDieuChinhKho.resx">
       <DependentUpon>frmDieuChinhKho.cs</DependentUpon>

@@ -52,11 +52,12 @@
             this.flowLayoutDSSanPham.AutoScroll = true;
             this.flowLayoutDSSanPham.AutoScrollMinSize = new System.Drawing.Size(0, 650);
             this.flowLayoutDSSanPham.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.flowLayoutDSSanPham.Dock = System.Windows.Forms.DockStyle.Right;
             this.flowLayoutDSSanPham.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.flowLayoutDSSanPham.Location = new System.Drawing.Point(300, 12);
+            this.flowLayoutDSSanPham.Location = new System.Drawing.Point(303, 0);
             this.flowLayoutDSSanPham.Name = "flowLayoutDSSanPham";
             this.flowLayoutDSSanPham.Padding = new System.Windows.Forms.Padding(5);
-            this.flowLayoutDSSanPham.Size = new System.Drawing.Size(1170, 719);
+            this.flowLayoutDSSanPham.Size = new System.Drawing.Size(1179, 733);
             this.flowLayoutDSSanPham.TabIndex = 0;
             // 
             // btnAll
@@ -305,7 +306,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoScroll = true;
             this.AutoScrollMinSize = new System.Drawing.Size(0, 700);
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(233)))), ((int)(((byte)(247)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(1482, 733);
             this.Controls.Add(this.flowLayoutPanel1);

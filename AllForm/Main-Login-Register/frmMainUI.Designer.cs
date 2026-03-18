@@ -139,8 +139,9 @@
             // 
             this.btnAIChatbot.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnAIChatbot.BackColor = System.Drawing.Color.Transparent;
-            this.btnAIChatbot.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.btnAIChatbot.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.btnAIChatbot.FlatAppearance.BorderSize = 0;
+            this.btnAIChatbot.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(180)))), ((int)(((byte)(243)))));
+            this.btnAIChatbot.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(237)))), ((int)(((byte)(253)))));
             this.btnAIChatbot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAIChatbot.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAIChatbot.Image = ((System.Drawing.Image)(resources.GetObject("btnAIChatbot.Image")));
@@ -157,8 +158,8 @@
             // 
             this.btnOpenNavBar.BackColor = System.Drawing.Color.Transparent;
             this.btnOpenNavBar.FlatAppearance.BorderSize = 0;
-            this.btnOpenNavBar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.btnOpenNavBar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.btnOpenNavBar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(180)))), ((int)(((byte)(243)))));
+            this.btnOpenNavBar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(237)))), ((int)(((byte)(253)))));
             this.btnOpenNavBar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOpenNavBar.Image = ((System.Drawing.Image)(resources.GetObject("btnOpenNavBar.Image")));
             this.btnOpenNavBar.Location = new System.Drawing.Point(5, 7);
@@ -205,7 +206,7 @@
             this.plControls.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.plControls.BackColor = System.Drawing.Color.IndianRed;
+            this.plControls.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(233)))), ((int)(((byte)(247)))));
             this.plControls.Location = new System.Drawing.Point(257, 45);
             this.plControls.MaximumSize = new System.Drawing.Size(2500, 1500);
             this.plControls.MinimumSize = new System.Drawing.Size(1225, 0);

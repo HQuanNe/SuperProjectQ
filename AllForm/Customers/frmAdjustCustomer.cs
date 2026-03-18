@@ -34,12 +34,12 @@ namespace SuperProjectQ.AllForm.KhachHang
             kn.ConnOpen();
 
             CmbVIP_Load();
-            txtMaKH.Text = Session.DuLieuKhachHang.MaKH;
-            txtTenKH.Text = Session.DuLieuKhachHang.TenKH;
-            txtDiaChi.Text = Session.DuLieuKhachHang.DiaChi;
-            txtSDT.Text = Session.DuLieuKhachHang.SoDienThoai;
-            txtDTL.Text = Session.DuLieuKhachHang.DiemTichLuy.ToString();
-            cmbVIP.SelectedValue = Session.DuLieuKhachHang.VIP;
+            txtMaKH.Text = Session.CustomerData.MaKH;
+            txtTenKH.Text = Session.CustomerData.TenKH;
+            txtDiaChi.Text = Session.CustomerData.DiaChi;
+            txtSDT.Text = Session.CustomerData.SoDienThoai;
+            txtDTL.Text = Session.CustomerData.DiemTichLuy.ToString();
+            cmbVIP.SelectedValue = Session.CustomerData.VIP;
         }
         private void btnDelete_Click(object sender, EventArgs e)
         {

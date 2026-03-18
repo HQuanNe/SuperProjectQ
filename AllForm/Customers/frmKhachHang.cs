@@ -71,12 +71,12 @@ namespace SuperProjectQ.FrmMixed
         {
             if (e.RowIndex < 0) return;
 
-            Session.DuLieuKhachHang.MaKH = dgvKhachHang.Rows[e.RowIndex].Cells[0].Value.ToString();
-            Session.DuLieuKhachHang.TenKH = dgvKhachHang.Rows[e.RowIndex].Cells[1].Value.ToString();
-            Session.DuLieuKhachHang.DiaChi = dgvKhachHang.Rows[e.RowIndex].Cells[2].Value.ToString();
-            Session.DuLieuKhachHang.SoDienThoai = dgvKhachHang.Rows[e.RowIndex].Cells[3].Value.ToString();
-            Session.DuLieuKhachHang.VIP = dgvKhachHang.Rows[e.RowIndex].Cells[4].Value.ToString();
-            Session.DuLieuKhachHang.DiemTichLuy = double.TryParse(dgvKhachHang.Rows[e.RowIndex].Cells[5].Value.ToString(), out double value) ? value : 0;
+            Session.CustomerData.MaKH = dgvKhachHang.Rows[e.RowIndex].Cells[0].Value.ToString();
+            Session.CustomerData.TenKH = dgvKhachHang.Rows[e.RowIndex].Cells[1].Value.ToString();
+            Session.CustomerData.DiaChi = dgvKhachHang.Rows[e.RowIndex].Cells[2].Value.ToString();
+            Session.CustomerData.SoDienThoai = dgvKhachHang.Rows[e.RowIndex].Cells[3].Value.ToString();
+            Session.CustomerData.VIP = dgvKhachHang.Rows[e.RowIndex].Cells[4].Value.ToString();
+            Session.CustomerData.DiemTichLuy = double.TryParse(dgvKhachHang.Rows[e.RowIndex].Cells[5].Value.ToString(), out double value) ? value : 0;
 
             frmAdjustCustomer adjustCustomer = new frmAdjustCustomer();
             adjustCustomer.FormBorderStyle = FormBorderStyle.None;
@@ -85,7 +85,7 @@ namespace SuperProjectQ.FrmMixed
             Customers_Load();
         }
 
-        private void btnThemKH_Click(object sender, EventArgs e)
+        private void btnAddCustomer_Click(object sender, EventArgs e)
         {
             frmThemKhachHang addCus = new frmThemKhachHang();
             addCus.FormBorderStyle = FormBorderStyle.None;

@@ -93,7 +93,7 @@ namespace SuperProjectQ.Frm_Main_Login_Register
 
             if (MNItemClicked != null) { MNItemClicked.BackColor = Color.White; MNItemClicked.ForeColor = Color.Black; }
             ;
-            MNItemClick.BackColor = Color.FromArgb(100, 121, 170);
+            MNItemClick.BackColor = Color.FromArgb(126, 180, 243);
             MNItemClick.ForeColor = Color.White;
             MNItemClicked = MNItemClick;
 

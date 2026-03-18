@@ -49,7 +49,7 @@
             // 
             // plInfo
             // 
-            this.plInfo.BackColor = System.Drawing.Color.SeaShell;
+            this.plInfo.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.plInfo.Controls.Add(this.cmbVIP);
             this.plInfo.Controls.Add(this.label6);
             this.plInfo.Controls.Add(this.txtDTL);

@@ -33,6 +33,7 @@
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblTotal = new System.Windows.Forms.Label();
             this.btnPopularProd = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cmbYear = new System.Windows.Forms.ComboBox();
@@ -43,7 +44,6 @@
             this.radBtnYEAR = new System.Windows.Forms.RadioButton();
             this.radBtnMONTH = new System.Windows.Forms.RadioButton();
             this.chartDoanhThu = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.lblTotal = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartDoanhThu)).BeginInit();
@@ -51,7 +51,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.panel1.Controls.Add(this.lblTotal);
             this.panel1.Controls.Add(this.btnPopularProd);
             this.panel1.Controls.Add(this.groupBox1);
@@ -61,6 +61,16 @@
             this.panel1.Size = new System.Drawing.Size(1003, 105);
             this.panel1.TabIndex = 1;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // lblTotal
+            // 
+            this.lblTotal.AutoSize = true;
+            this.lblTotal.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotal.Location = new System.Drawing.Point(427, 72);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(28, 25);
+            this.lblTotal.TabIndex = 5;
+            this.lblTotal.Text = "--";
             // 
             // btnPopularProd
             // 
@@ -186,15 +196,6 @@
             title1.Name = "TitleTenBieuDo";
             title1.Text = "Biểu đồ doanh thu";
             this.chartDoanhThu.Titles.Add(title1);
-            // 
-            // lblTotal
-            // 
-            this.lblTotal.AutoSize = true;
-            this.lblTotal.Location = new System.Drawing.Point(485, 42);
-            this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(15, 16);
-            this.lblTotal.TabIndex = 5;
-            this.lblTotal.Text = "--";
             // 
             // frmBieuDoDoanhThu
             // 
