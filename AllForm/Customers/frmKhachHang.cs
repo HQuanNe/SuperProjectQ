@@ -21,7 +21,6 @@ namespace SuperProjectQ.FrmMixed
         SqlCommand cmd = null;
         DataTable dt = null;
         SqlDataAdapter adapter = null;
-        bool flag; //Biến cờ
 
         private void Customers_Load()
         {

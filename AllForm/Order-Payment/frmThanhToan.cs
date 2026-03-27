@@ -19,7 +19,6 @@ namespace SuperProjectQ.FrmMixed
         public frmThanhToan()
         {
             InitializeComponent();
-            Session.SetParameters_Load();
         }
         ConnectData kn = new ConnectData();
         DataTable dt = null;
@@ -62,7 +61,7 @@ namespace SuperProjectQ.FrmMixed
             diemTichLuy = Convert.ToInt32(dt.Rows[0]["DiemTichLuy"]);
             VIP = dt.Rows[0]["VIP"].ToString();
 
-            diemTichLuy += Convert.ToInt32(Math.Round(Session.TongTien / (decimal)ti_le_quy_doi));
+            diemTichLuy += Convert.ToInt32(Math.Round(Session.BillData.TongTien / (decimal)ti_le_quy_doi));
 
             int flag = 0; //Cờ hiệu nếu if trên không thoả mãn 1 trong 5 phần tử của dict thì chạy cái if == 5
             if(Session.MaKH != "KH000")
@@ -103,8 +102,8 @@ namespace SuperProjectQ.FrmMixed
             const string nganHang = "MB";
             const string stk = "0382294559";
             const string tenTK = "NGUYEN DUC HONG QUAN";
-            string noiDung = $"PHONG {Session.maPhong} THANH TOAN";
-            double tienTT = Convert.ToDouble(Session.TongThanhToan);
+            string noiDung = $"PHONG {Session.RoomData.maPhong} THANH TOAN";
+            double tienTT = Convert.ToDouble(Session.BillData.TongThanhToan);
             // Tạo đường dẫn API
             try
             {
@@ -124,27 +123,18 @@ namespace SuperProjectQ.FrmMixed
         }//Load mã QR
         private void LoadLabel()//Hiển thị lên giao diện
         {
-            lblTienPhong.Text = Session.TongTienPhong.ToString("#,##0 VND");
-            lblTienDV.Text = Session.TongTienDV.ToString("#,##0 VND");
+            lblTienPhong.Text = Session.BillData.TongTienPhong.ToString("#,##0 VND");
+            lblTienDV.Text = Session.BillData.TongTienDV.ToString("#,##0 VND");
 
             if (isCustomer)
             {
-                lblTrietKhau.Text = Session.DiscountVIP.ToString("#,##0 VND");
-                lblTKVoucher.Text = Session.DiscountVoucher.ToString("#,##0 VND");
+                lblTrietKhau.Text = Session.BillData.DiscountVIP.ToString("#,##0 VND");
+                lblTKVoucher.Text = Session.BillData.DiscountVoucher.ToString("#,##0 VND");
             }
             else lblTrietKhau.Text = "";
 
-            lblTienThue.Text = Session.TienVAT.ToString("#,##0 VND");
-            lblTienThanhToan.Text = Session.TongThanhToan.ToString("#,##0 VND");
-        }
-        private decimal TinhTienPhongSau_22h(DateTime timeIn, decimal PricePerHour)
-        {
-            TimeSpan gioVao = timeIn.TimeOfDay;
-            if (gioVao >= new TimeSpan(22, 0, 0) || gioVao <= new TimeSpan(6, 0, 0))
-            {
-                PricePerHour +=  PricePerHour * ((decimal)Session.PriceAfter_22H / 100);
-            }
-            return PricePerHour;
+            lblTienThue.Text = Session.BillData.TienVAT.ToString("#,##0 VND");
+            lblTienThanhToan.Text = Session.BillData.TongThanhToan.ToString("#,##0 VND");
         }
         public void TongThanhToan()
         {
@@ -153,37 +143,37 @@ namespace SuperProjectQ.FrmMixed
                 kn.ConnOpen();
                 string sqlPhong = "SELECT Phong.MaPhong, Phong.TenPhong, LoaiPhong.GiaTheoGio, Phong.TrangThai, Phong.GioVao, Phong.MoTa " +
                     "FROM Phong " +
-                    $"INNER JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong WHERE MaPhong = '{Session.maPhong}'";
+                    $"INNER JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong WHERE MaPhong = '{Session.RoomData.maPhong}' AND Phong.TrangThai = 1";
                 dt = new DataTable();
                 dt = kn.CreateTable(sqlPhong);
                 if (dt.Rows.Count > 0)
                 {
                     decimal pricePerHour = Convert.ToDecimal(dt.Rows[0]["GiaTheoGio"]);
                     DateTime dateTimeIn = Convert.ToDateTime(dt.Rows[0]["GioVao"]); //Lấy giờ vào
-                    TimeSpan totalTime = Session.TimeOut - dateTimeIn; //Tổng thời gian sử dụng
+                    TimeSpan totalTime = Session.RoomData.TimeOut - dateTimeIn; //Tổng thời gian sử dụng
 
-                    double giaMoiPhut =  (double)TinhTienPhongSau_22h(dateTimeIn, pricePerHour) / 60; //Tính giá mỗi phút 
+                    decimal giaMoiPhut =  Session.TinhTienPhongSau_22h(dateTimeIn, pricePerHour) / 60; //Tính giá mỗi phút
 
                     double tongSoPhut = Math.Round(totalTime.TotalMinutes); //Làm tròn thời gian sử dụng (phút)
-                    decimal tongTienPhong = Convert.ToDecimal(Math.Round(tongSoPhut * giaMoiPhut / 1000) * 1000); //Tính tổng tiền phòng có làm tròn
-                    decimal tienDV = Session.TongTienDV; //Lấy tiền dịch vụ
+                    decimal tongTienPhong = Math.Round((decimal)tongSoPhut * giaMoiPhut / 1000) * 1000; //Tính tổng tiền phòng có làm tròn
+                    decimal tienDV = Session.BillData.TongTienDV; //Lấy tiền dịch vụ
 
 
                     decimal tongTien = tongTienPhong + tienDV;
                     decimal tienVAT = tongTien * ((decimal)Session.VAT / 100);
                     
                     //Gán biến chung
-                    Session.TongSoPhut = tongSoPhut;
-                    Session.TongTienPhong = tongTienPhong;
-                    Session.TongTien = tongTien;
-                    Session.DiscountVIP = trietKhauVIP;
-                    Session.TienVAT = tienVAT;
+                    Session.BillData.TongSoPhut = tongSoPhut;
+                    Session.BillData.TongTienPhong = tongTienPhong;
+                    Session.BillData.TongTien = tongTien;
+                    Session.BillData.DiscountVIP = trietKhauVIP;
+                    Session.BillData.TienVAT = tienVAT;
 
                     if (isCustomer)
                     {
-                        Session.TongThanhToan = tongTien - trietKhauVIP - Session.DiscountVoucher + tienVAT; 
+                        Session.BillData.TongThanhToan = tongTien - trietKhauVIP - Session.BillData.DiscountVoucher + tienVAT; 
                     }
-                    else Session.TongThanhToan = tongTien + tienVAT;
+                    else Session.BillData.TongThanhToan = tongTien + tienVAT;
                 }
                 LoadLabel();
             }
@@ -231,7 +221,7 @@ namespace SuperProjectQ.FrmMixed
                     cmd = new SqlCommand(sqlUpdateGhiNo, kn.conn);
                     cmd.Parameters.Clear();
                     cmd.Parameters.AddWithValue("@CCCD", txtCCCD.Text.Trim());
-                    cmd.Parameters.AddWithValue("@MHD", Session.maHD);
+                    cmd.Parameters.AddWithValue("@MHD", Session.RoomData.maHD);
                     cmd.Parameters.AddWithValue("@TSTC", txtTSTC.Text.Trim());
                     cmd.Parameters.AddWithValue("@NGN", ngayGhiNo);
                     cmd.Parameters.AddWithValue("@HTT", hanThanhToan);
@@ -241,7 +231,7 @@ namespace SuperProjectQ.FrmMixed
                     cmd.ExecuteNonQuery();
 
                     //Cập nhật trạng thái hoá đơn
-                    Session.TrangThaiHD = false;
+                    Session.BillData.TrangThaiHD = false;
                 }
                 catch (SqlException ex)
                 {
@@ -293,7 +283,7 @@ namespace SuperProjectQ.FrmMixed
                     lblDiscount.Text = $"Triết khấu VIP ({(Convert.ToDouble(dt.Rows[0]["TrietKhau"])).ToString()}%):";
 
                     //Xử lý giảm giá
-                    trietKhauVIP = Session.TongTien * (Convert.ToDecimal(dt.Rows[0]["TrietKhau"]) / 100);
+                    trietKhauVIP = Session.BillData.TongTien * (Convert.ToDecimal(dt.Rows[0]["TrietKhau"]) / 100);
 
                     //Gọi hàm
                     if (isCustomer)
@@ -326,14 +316,14 @@ namespace SuperProjectQ.FrmMixed
                     }
                 }; //Load khách hàng chưa tồn tại
 
-                lblTienThanhToan.Text = Session.TongThanhToan.ToString("#,##0 VND");
+                lblTienThanhToan.Text = Session.BillData.TongThanhToan.ToString("#,##0 VND");
 
                 if (PTTT == "Tiền mặt")
                 {
                     if(txtTienNhan.Text != "")
                     {
                         int tienNhan = Convert.ToInt32(txtTienNhan.Text.Replace(".", ""));
-                        txtTraLai.Text = (tienNhan - Session.TongThanhToan).ToString("#,##0");
+                        txtTraLai.Text = (tienNhan - Session.BillData.TongThanhToan).ToString("#,##0");
                     }
                 }
                 TongThanhToan();
@@ -364,9 +354,9 @@ namespace SuperProjectQ.FrmMixed
             DialogResult reply = MessageBox.Show("Xuất hoá đơn ?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (reply == DialogResult.Yes)
             {
-                Session.isPay = true;
-                Session.PTTT = PTTT;
-                Session.TrangThaiHD = true;
+                Session.BillData.isPay = true;
+                Session.BillData.PTTT = PTTT;
+                Session.BillData.TrangThaiHD = true;
 
                 //Khách hàng
                 TichDiemKH();
@@ -375,7 +365,7 @@ namespace SuperProjectQ.FrmMixed
                 if (!UpdateGhiNo()) return;
 
                 //Ghi log vào file
-                Session.Datalog("payment.txt", $"Mã NV: {Session.MaNV} Đã thực hiện thanh toán hoá đơn >> {Session.maHD} <<");
+                Session.Datalog("payment.txt", $"Mã NV: {Session.MaNV} Đã thực hiện thanh toán hoá đơn >> {Session.RoomData.maHD} <<");
 
                 this.Close();
                 await Task.Delay(100);
@@ -389,7 +379,7 @@ namespace SuperProjectQ.FrmMixed
             try
             {
                 kn.ConnOpen();
-                Session.DiscountVoucher = 0;
+                Session.BillData.DiscountVoucher = 0;
 
                 plQRCode.Hide();
                 plCash.Hide();
@@ -397,7 +387,7 @@ namespace SuperProjectQ.FrmMixed
                 plTTKH.Visible = false;
                 btnVoucher.Visible = isCustomer;
 
-                lblTienThanhToan.Text = Session.TongThanhToan.ToString("#,##0 VND");
+                lblTienThanhToan.Text = Session.BillData.TongThanhToan.ToString("#,##0 VND");
             }
             catch (SqlException ex)
             {
@@ -494,7 +484,7 @@ namespace SuperProjectQ.FrmMixed
         {
             if (txtTienNhan.Text.Contains(".")){
                 int tienNhan = Convert.ToInt32(txtTienNhan.Text.Replace(".", ""));
-                txtTraLai.Text = (tienNhan - Session.TongThanhToan).ToString("#,##0");
+                txtTraLai.Text = (tienNhan - Session.BillData.TongThanhToan).ToString("#,##0");
             }
             else
             {

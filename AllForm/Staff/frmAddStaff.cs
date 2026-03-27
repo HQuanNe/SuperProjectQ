@@ -46,6 +46,7 @@ namespace SuperProjectQ.AllForm.Staff
 
             cmbGioiTinh.Items.Add("Nam");
             cmbGioiTinh.Items.Add("Nữ");
+            cmbGioiTinh.SelectedItem = "Nam";
 
             txtMaNV.Text = AutoCreateID();
             txtMaNV.Enabled = false;
@@ -70,6 +71,13 @@ namespace SuperProjectQ.AllForm.Staff
                         MessageBox.Show("Hãy chọn ảnh!!!");
                         return;
                     }
+                    string[] txt = new string[]
+                    {
+                        txtBasicSalary.Text,
+                        txtSDT.Text,
+                    };
+                    if (!Session.XuLySo(txt))
+                    {MessageBox.Show("SĐT hoặc lương phải là chữ số!!!"); return; }
 
                     string sqlAdd = "INSERT INTO NhanVien(MaNV, TenNV, GioiTinh, NamSinh, DiaChi, SoDienThoai, NgayLamViec, ChucVu, LuongCoBan, HinhAnh) values (@MNV, @TNV, @GT, @NS, @DC, @SDT, @NLV, @CV, @LCB, @HA)";
                     cmd = new SqlCommand(sqlAdd, kn.conn);
@@ -125,6 +133,17 @@ namespace SuperProjectQ.AllForm.Staff
                 MessageBox.Show("frmAddStaff - Lỗi: \n" + ex.Message);
                 return;
             }
+        }
+
+        private void txtBasicSalary_TextChanged(object sender, EventArgs e)
+        {
+            txtBasicSalary.Text = Convert.ToDecimal(txtBasicSalary.Text.Replace(".", "")).ToString("#,##0");
+            txtBasicSalary.SelectionStart = txtBasicSalary.Text.Length;
+        }
+
+        private void txtSDT_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

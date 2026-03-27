@@ -127,11 +127,10 @@ namespace SuperProjectQ.AllForm.KhachHang
 
         private void txtSDT_TextChanged(object sender, EventArgs e)
         {
-            if (txtSDT.Text.Length > 10)
-            {
-                txtSDT.Text = txtSDT.Text.Remove(10, txtSDT.Text.Length - 10);
-                txtSDT.SelectionStart = txtSDT.Text.Length;
-            }
+            if (!Session.XuLySDT(txtSDT.Text)) return;
+
+            Session.CustomerData.SoDienThoai = txtSDT.Text;
+            txtSDT.SelectionStart = txtSDT.Text.Length;
         }
     }
 }

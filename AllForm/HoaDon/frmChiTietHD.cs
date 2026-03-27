@@ -25,7 +25,7 @@ namespace SuperProjectQ.AllForm.HoaDon
                 $"FROM ChiTietHD AS ct " +
                 $"LEFT JOIN SanPham ON SanPham.MaSP_Menu = ct.MaSP AND LoaiHang = 0 " +
                 $"LEFT JOIN  Combo ON Combo.MaCombo = ct.MaSP AND LoaiHang = 1 " +
-                $"WHERE ct.MaHD = {Session.maHD}");
+                $"WHERE ct.MaHD = {Session.RoomData.maHD}");
         }
         private void frmChiTietHD_Load(object sender, EventArgs e)
         {
@@ -33,7 +33,7 @@ namespace SuperProjectQ.AllForm.HoaDon
             {
                 kn.ConnOpen();
 
-                lblTitle.Text = $"Chi tiết hoá đơn số {Session.maHD}";
+                lblTitle.Text = $"Chi tiết hoá đơn số {Session.RoomData.maHD}";
                 Session.StandardDataGridView(dgvCTHD);
                 CTHD_Load();
             }

@@ -1,6 +1,10 @@
-﻿using Mscc.GenerativeAI.Types;
+﻿using Mscc.GenerativeAI; //Thư viện Google AI
+using Mscc.GenerativeAI.Types;
+using Newtonsoft.Json.Linq;
 using SuperProjectQ.AllForm;
 using SuperProjectQ.AllForm.Other;
+using SuperProjectQ.AllForm.Room;
+using SuperProjectQ.Classes;
 using SuperProjectQ.FrmMixed;
 using SuperProjectQ.Properties;
 using System;
@@ -10,17 +14,13 @@ using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+//Thư viện thời tiết
+using System.Net.Http;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
-
-using Mscc.GenerativeAI; //Thư viện Google AI
-using SuperProjectQ.Classes;
-
-//Thư viện thời tiết
-using System.Net.Http;
-using Newtonsoft.Json.Linq;
 
 namespace SuperProjectQ.Frm_Main_Login_Register
 {
@@ -30,8 +30,8 @@ namespace SuperProjectQ.Frm_Main_Login_Register
         {
             //System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12; //Hỗ trợ chạy AI cho phiên bản .NET Framework dươi 4.8
             InitializeComponent();
-
-            var root = new Content(AI.GetDataFromSQL() + "Tên mày là ParaD"); //Gán CSDL cho AI
+            Session.SetParameters_Load();
+            var root = new Content(AIRepo.GetDataFromSQL() + "Tên mày là ParaD"); //Gán CSDL cho AI
 
             model = AIchatBot.GenerativeModel(Model.Gemini25Flash, systemInstruction: root); //Lấy Model (Phiên bản Gemini 2.5Flash)
         }
@@ -40,22 +40,23 @@ namespace SuperProjectQ.Frm_Main_Login_Register
 
         ConnectData kn = new ConnectData();
         DataTable dt = null;
-        AIChatbotRepository AI = new AIChatbotRepository(); //Kho CSDL
+        AIChatbotRepository AIRepo = new AIChatbotRepository(); //Kho CSDL
         private ChatSession chatSession; //Phiên làm việc với AI
 
+        Session.FontStandard fontS = new Session.FontStandard();
         ToolStripMenuItem MNItemClicked = null; //MenuItem click trước đó
 
         string mainIDUser = Session.IDUser, mainTenNV = Session.TenNV;
 
         private void AddForm(Form form)
         {
+            Session.FreeUpMemoryPanel(plControls);
             plControls.Visible = true;
 
-            plControls.Controls.Clear();
             form.TopLevel = false;
             form.FormBorderStyle = FormBorderStyle.None;
             form.Dock = DockStyle.Fill;
-            form.SendToBack();
+            form.BringToFront();
             form.Show();
 
             plControls.Controls.Add(form);
@@ -93,8 +94,8 @@ namespace SuperProjectQ.Frm_Main_Login_Register
 
             if (MNItemClicked != null) { MNItemClicked.BackColor = Color.White; MNItemClicked.ForeColor = Color.Black; }
             ;
-            MNItemClick.BackColor = Color.FromArgb(126, 180, 243);
-            MNItemClick.ForeColor = Color.White;
+            MNItemClick.BackColor = Color.FromArgb(239, 246, 255);
+            MNItemClick.ForeColor = Color.FromArgb(37, 99, 235);
             MNItemClicked = MNItemClick;
 
             switch (MNItemClick.Name)
@@ -107,7 +108,8 @@ namespace SuperProjectQ.Frm_Main_Login_Register
                     AddForm(phong);
                     break;
                 case "MNMenuOrder":
-                    frmOrder menu = new frmOrder();
+                    frmMenu menu = new frmMenu();
+                    menu.plTop.Visible = false;
                     AddForm(menu);
                     break;
                 case "MNBill":
@@ -156,6 +158,12 @@ namespace SuperProjectQ.Frm_Main_Login_Register
         {
             kn.ConnOpen();
 
+            while (plControls.Controls.Count > 0)
+            {
+                Control ctrl = plControls.Controls[0];
+                plControls.Controls.RemoveAt(0);
+                ctrl.Dispose();
+            }
             switch (MaQH())
             {
                 case "QH001":
@@ -192,7 +200,7 @@ namespace SuperProjectQ.Frm_Main_Login_Register
 
             GetWeather();
 
-            var oldHistory = AI.GetHistory(); //Lấy dữ liệu cũ đã lưu trong SQL
+            var oldHistory = AIRepo.GetHistory(); //Lấy dữ liệu cũ đã lưu trong SQL
             chatSession = model.StartChat(oldHistory); //Gán data đó làm giá trị khởi đầu
 
 
@@ -225,7 +233,7 @@ namespace SuperProjectQ.Frm_Main_Login_Register
                 MinimumSize = new Size(200, 60),
 
                 Text = "Trợ lý ảo AI",
-                Font = new Font("Times New Roman", 26, FontStyle.Bold),
+                Font = fontS.timeNew26_Bold,
 
                 Location = new Point((plAIChatbot.Width - 200) / 2, 5)
             };
@@ -237,7 +245,7 @@ namespace SuperProjectQ.Frm_Main_Login_Register
                 ReadOnly = true,
                 HideSelection = true,
                 ForeColor = Color.Green,
-                Font = new Font("Times New Roman", 12, FontStyle.Regular),
+                Font = fontS.timeNew12_Regular,
 
                 Location = new Point((plAIChatbot.Width - 760) / 2, 60),
             };
@@ -248,7 +256,7 @@ namespace SuperProjectQ.Frm_Main_Login_Register
 
                 MinimumSize = new Size(0, 80),
                 Margin = new Padding(5),
-                Font = new Font("Times New Roman", 12, FontStyle.Regular),
+                Font = fontS.timeNew12_Regular,
 
                 Location = new Point((plAIChatbot.Width - rtxtChatHistory.Width) / 2, rtxtChatHistory.Height + 70)
             };
@@ -266,7 +274,7 @@ namespace SuperProjectQ.Frm_Main_Login_Register
                 MinimumSize = new Size(0, 80),
                 Margin = new Padding(5),
                 Text = "Gửi",
-                Font = new Font("Times New Roman", 12, FontStyle.Regular),
+                Font = fontS.timeNew12_Regular,
 
                 Location = new Point(txtRequest.Width + 20, rtxtChatHistory.Height + 70)
             };
@@ -277,7 +285,7 @@ namespace SuperProjectQ.Frm_Main_Login_Register
                 Text = "Lịch sử chat",
 
                 FlatStyle = FlatStyle.Flat,
-                Font = new Font("Times New Roman", 12, FontStyle.Regular),
+                Font = fontS.timeNew12_Regular,
 
                 Location = new Point(rtxtChatHistory.Width - 100, 10)
             };
@@ -297,7 +305,7 @@ namespace SuperProjectQ.Frm_Main_Login_Register
 
                 //async là hàm bất đồng bộ tránh việc Not Responding khi AI trả lời
                 string requestMessage = txtRequest.Text;  //Gửi đi câu hỏi
-                AI.SaveNewMessage("User", txtRequest.Text);
+                AIRepo.SaveNewMessage("User", txtRequest.Text);
 
                 if (string.IsNullOrEmpty(requestMessage)) return; //nếu Request rỗng
 
@@ -314,7 +322,7 @@ namespace SuperProjectQ.Frm_Main_Login_Register
                         return;
                     }//nếu null sẽ báo lỗi
 
-                    AI.SaveNewMessage("AI", respond.Text); //Lưu cầu trả lời của AI
+                    AIRepo.SaveNewMessage("AI", respond.Text); //Lưu cầu trả lời của AI
 
                     rtxtChatHistory.AppendText($"Trợ lý ParaD: {respond.Text}\n\n"); //Thêm câu trả lời
                 }
@@ -342,8 +350,17 @@ namespace SuperProjectQ.Frm_Main_Login_Register
         #endregion
         private void btnSetting_Click(object sender, EventArgs e)
         {
+            Session.FreeUpMemoryPanel(plControls);
             frmSetting setting = new frmSetting();
-            AddForm(setting);
+
+            setting.TopLevel = false;
+            setting.FormBorderStyle = FormBorderStyle.None;
+            setting.Location = new Point((plControls.Width-setting.Width)/2);
+
+            plControls.Visible = true;
+            plControls.Controls.Add(setting);
+
+            setting.Show();
         }
 
         private void btnLogOut_Click(object sender, EventArgs e)
@@ -361,6 +378,10 @@ namespace SuperProjectQ.Frm_Main_Login_Register
 
             if(lblClock.ForeColor == Color.FromArgb(17, 75, 95)) lblClock.ForeColor = Color.FromArgb(2, 128, 144);
             else lblClock.ForeColor = Color.FromArgb(17, 75, 95);
+
+            //Cụm câu lệnh giải phóng tài nguyên
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void btnOpenNavBar_Click(object sender, EventArgs e)

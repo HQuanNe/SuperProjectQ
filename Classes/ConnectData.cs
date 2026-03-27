@@ -41,8 +41,6 @@ namespace SuperProjectQ
                     adapter.Fill(dt);
                     return dt;
                 }
-
-
             }
             catch (SqlException ex)
             {

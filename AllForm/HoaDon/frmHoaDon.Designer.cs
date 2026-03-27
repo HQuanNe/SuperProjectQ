@@ -46,8 +46,10 @@
             this.PTTT = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TrangThai = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GhiChu = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblTitleHoaDon = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHoaDon)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvHoaDon
@@ -76,12 +78,14 @@
             this.PTTT,
             this.TrangThai,
             this.GhiChu});
-            this.dgvHoaDon.Location = new System.Drawing.Point(12, 59);
+            this.dgvHoaDon.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvHoaDon.Location = new System.Drawing.Point(0, 75);
+            this.dgvHoaDon.Margin = new System.Windows.Forms.Padding(0);
             this.dgvHoaDon.Name = "dgvHoaDon";
             this.dgvHoaDon.RowHeadersVisible = false;
             this.dgvHoaDon.RowHeadersWidth = 51;
             this.dgvHoaDon.RowTemplate.Height = 24;
-            this.dgvHoaDon.Size = new System.Drawing.Size(1558, 678);
+            this.dgvHoaDon.Size = new System.Drawing.Size(1582, 686);
             this.dgvHoaDon.TabIndex = 0;
             this.dgvHoaDon.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHoaDon_CellDoubleClick);
             this.dgvHoaDon.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvHoaDon_CellFormatting);
@@ -223,39 +227,51 @@
             this.GhiChu.MinimumWidth = 6;
             this.GhiChu.Name = "GhiChu";
             // 
-            // label1
+            // lblTitleHoaDon
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 28F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label1.Location = new System.Drawing.Point(688, 3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(206, 53);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Hoá Đơn";
+            this.lblTitleHoaDon.AutoSize = true;
+            this.lblTitleHoaDon.Font = new System.Drawing.Font("Tahoma", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitleHoaDon.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lblTitleHoaDon.Location = new System.Drawing.Point(678, 9);
+            this.lblTitleHoaDon.Name = "lblTitleHoaDon";
+            this.lblTitleHoaDon.Size = new System.Drawing.Size(227, 57);
+            this.lblTitleHoaDon.TabIndex = 1;
+            this.lblTitleHoaDon.Text = "Hoá Đơn";
+            this.lblTitleHoaDon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.lblTitleHoaDon);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1582, 75);
+            this.panel1.TabIndex = 2;
             // 
             // frmHoaDon
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(233)))), ((int)(((byte)(247)))));
-            this.ClientSize = new System.Drawing.Size(1582, 853);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(1582, 761);
             this.Controls.Add(this.dgvHoaDon);
+            this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "frmHoaDon";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmHoaDon";
             this.Load += new System.EventHandler(this.frmHoaDon_Load);
+            this.SizeChanged += new System.EventHandler(this.frmHoaDon_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dgvHoaDon)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.DataGridView dgvHoaDon;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblTitleHoaDon;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaHD;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaPhong;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaKH;
@@ -273,5 +289,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn PTTT;
         private System.Windows.Forms.DataGridViewTextBoxColumn TrangThai;
         private System.Windows.Forms.DataGridViewTextBoxColumn GhiChu;
+        private System.Windows.Forms.Panel panel1;
     }
 }

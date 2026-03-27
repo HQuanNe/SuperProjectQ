@@ -28,7 +28,7 @@ namespace SuperProjectQ.AllForm.Other
         Panel selectedPanel = null;
         Panel plInThePast = null;
 
-        frmOrder od = new frmOrder();
+        frmMenu od = new frmMenu();
 
         private void TinhTienGiamGia()
         {
@@ -49,25 +49,25 @@ namespace SuperProjectQ.AllForm.Other
                     //Nếu là true thì sẽ giảm theo %
                     if (Convert.ToBoolean(dt.Rows[0]["LoaiGiamGia"]))
                     {
-                        giamVoucher = Session.TongTien * giaTriGiam;
-                        Session.DiscountVoucher = giamVoucher;
+                        giamVoucher = Session.BillData.TongTien * giaTriGiam;
+                        Session.BillData.DiscountVoucher = giamVoucher;
 
-                        if (Session.DiscountVoucher > Convert.ToDecimal(dt.Rows[0]["GiamToiDa"]) && Convert.ToDecimal(dt.Rows[0]["GiamToiDa"]) > 0)
+                        if (Session.BillData.DiscountVoucher > Convert.ToDecimal(dt.Rows[0]["GiamToiDa"]) && Convert.ToDecimal(dt.Rows[0]["GiamToiDa"]) > 0)
                         {
-                            Session.DiscountVoucher = Convert.ToDecimal(dt.Rows[0]["GiamToiDa"]);
+                            Session.BillData.DiscountVoucher = Convert.ToDecimal(dt.Rows[0]["GiamToiDa"]);
                         }
                     }
                     //Giảm theo tiền
                     else
                     {
                         giamVoucher = giaTriGiam;
-                        Session.DiscountVoucher = giamVoucher;
+                        Session.BillData.DiscountVoucher = giamVoucher;
                     }
                 }
                 else
                 {
                     giamVoucher = 0;
-                    Session.DiscountVoucher = giamVoucher;
+                    Session.BillData.DiscountVoucher = giamVoucher;
                 }
             }
         } //tính tiền giảm giá của voucher
@@ -222,7 +222,7 @@ namespace SuperProjectQ.AllForm.Other
 
                     selectedPanel = plClicked;
 
-                    Console.WriteLine(Session.DiscountVoucher);
+                    Console.WriteLine(Session.BillData.DiscountVoucher);
                     plInThePast = plClicked;
                 };
 
@@ -230,7 +230,7 @@ namespace SuperProjectQ.AllForm.Other
                 plMoTaVoucher.Controls.Add(GTDonHangToiThieu);
                 plMoTaVoucher.Controls.Add(HanSuDung);
 
-                if (Session.TongTien < Convert.ToDecimal(row["GTDonHangToiThieu"]))
+                if (Session.BillData.TongTien < Convert.ToDecimal(row["GTDonHangToiThieu"]))
                 {
                     plVoucher.BackColor = Color.Gray;
                     plVoucher.Enabled = false;

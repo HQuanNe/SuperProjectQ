@@ -8,13 +8,14 @@ using System.Windows.Forms;
 
 namespace SuperProjectQ.AllForm
 {
-    public partial class frmOrder : Form
+    public partial class frmMenu : Form
     {
-        public frmOrder()
+        public frmMenu()
         {
             InitializeComponent();
             kn.ConnOpen();
         }
+        SetParameters parameters = new SetParameters();
         class Button_Plus_And_Minus
         {
             public Button btn = null;
@@ -43,17 +44,19 @@ namespace SuperProjectQ.AllForm
                 }
             }
         }
+
         ConnectData kn = new ConnectData();
+        Session.FontStandard fontS = new Session.FontStandard();
         DataTable dt = null;
         SqlCommand cmd = null;
 
         bool ComboInit = true; //Kiểm tra xem đã khởi tạo combo chưa
 
         public Button btnDSPhong = null; // Panel chứa danh sách phòng
-        Button btnPassClick = null; // Lưu button phòng đang được click
+        Button btnClicked = null; // Lưu button phòng đang được click
 
         Panel plItem = null; // Panel chứa từng sản phẩm
-        Button selectedRoomButton = null; // Lưu panel đang được click
+        string RoomID = Session.RoomData.maPhong; // Lưu mã phòng đang được click
 
         PictureBox pbItem = null; // Khai báo object PictureBox ảnh sản phẩm
         Label lblTenSanPham = null;  // Khai báo object Label tên sản phẩm
@@ -93,9 +96,9 @@ namespace SuperProjectQ.AllForm
 
                 plItem = new Panel() // Tạo panel cho mỗi sản phẩm
                 {
-                    Width = SetParameters.plSanPham_WIDTH,
-                    Height = SetParameters.plSanPham_HEIGHT,
-                    Margin = new Padding(2),
+                    Width = parameters.plSanPham_WIDTH,
+                    Height = parameters.plSanPham_HEIGHT,
+                    Margin = new Padding(8),
                     BackColor = Color.White,
                     BorderStyle = BorderStyle.FixedSingle,
 
@@ -130,8 +133,8 @@ namespace SuperProjectQ.AllForm
                 {
                     pbItem = new PictureBox() // Tạo PictureBox cho hình ảnh sản phẩm
                     {
-                        Width = SetParameters.pbSanPham_WIDTH,
-                        Height = SetParameters.pbSanPham_HEIGHT,
+                        Width = parameters.pbSanPham_WIDTH,
+                        Height = parameters.pbSanPham_HEIGHT,
                         SizeMode = PictureBoxSizeMode.Zoom,
                         Image = Image.FromFile(Application.StartupPath + $"\\Images\\{pathImage = pathImage + row[hinhAnh]}"),
                         Location = new Point(20, 10),
@@ -140,13 +143,13 @@ namespace SuperProjectQ.AllForm
 
                     lblTenSanPham = new Label() // Tạo Label cho tên sản phẩm
                     {
-                        Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point),
+                        Font = fontS.timeNew12_Bold,
                         Text = $"{row[tenHienThi].ToString()}",
                         ForeColor = Color.Black,
                         AutoSize = true,
 
-                        MinimumSize = new Size(SetParameters.pbSanPham_WIDTH, 0),
-                        MaximumSize = new Size(SetParameters.pbSanPham_WIDTH + 10, 0),
+                        MinimumSize = new Size(parameters.pbSanPham_WIDTH, 0),
+                        MaximumSize = new Size(parameters.pbSanPham_WIDTH + 10, 0),
 
                         Location = new Point(20, pbItem.Location.Y + pbItem.Height + 5),
                         TextAlign = ContentAlignment.MiddleCenter,
@@ -160,8 +163,8 @@ namespace SuperProjectQ.AllForm
                         Text = decGiaBan.ToString("#,##0") + "đ",
                         AutoSize = true,
 
-                        MinimumSize = new Size(SetParameters.pbSanPham_WIDTH, 0),
-                        MaximumSize = new Size(SetParameters.pbSanPham_WIDTH + 10, 0),
+                        MinimumSize = new Size(parameters.pbSanPham_WIDTH, 0),
+                        MaximumSize = new Size(parameters.pbSanPham_WIDTH + 10, 0),
                         TextAlign = ContentAlignment.MiddleCenter,
 
                         Location = new Point(20, (lblTenSanPham.Location.Y + lblTenSanPham.Height) + 45),
@@ -280,8 +283,6 @@ namespace SuperProjectQ.AllForm
         }
         private void Phong_Load()
         {
-            flowLayoutDSPhong.Controls.Clear();
-
             string sqlPhong = "SELECT * FROM Phong WHERE TrangThai = 1";
             dt = new DataTable();
             dt = kn.CreateTable(sqlPhong);
@@ -290,23 +291,23 @@ namespace SuperProjectQ.AllForm
             {
                 btnDSPhong = new Button() // Tạo FlowLayoutPanel chứa phòng
                 {
-                    Width = SetParameters.btnPhong_WIDTH,
-                    Height = SetParameters.btnPhong_HEIGHT,
+                    Width = parameters.btnPhong_WIDTH,
+                    Height = parameters.btnPhong_HEIGHT,
 
                     Name = row["MaPhong"].ToString(), // Lưu mã phòng vào Name của Button
 
-                    BackColor = Color.FromArgb(192, 255, 255),
+                    BackColor = Color.FromArgb(95, 76, 76),
                     FlatStyle = FlatStyle.Flat,
                     Font = new Font("Times New Roman", 11F, FontStyle.Bold, GraphicsUnit.Point),
-                    ForeColor = Color.Black,
+                    ForeColor = Color.White,
                     Text = row["TenPhong"].ToString(),
                     TextAlign = ContentAlignment.MiddleCenter,
 
                     FlatAppearance =
                     {
-                        MouseOverBackColor = Color.Cyan,
-                        MouseDownBackColor = Color.Blue,
-                        BorderSize = 0,
+                        MouseOverBackColor = Color.FromArgb(197,170,106),
+                        MouseDownBackColor = Color.FromArgb(76, 60, 60),
+                        BorderSize = 1,
                     }
                 };
                 flowLayoutDSPhong.Controls.Add(btnDSPhong);
@@ -321,14 +322,14 @@ namespace SuperProjectQ.AllForm
 
             double soLuongOrder = Convert.ToDouble(clickedButton.Parent.Controls[3].Text.Trim()); //Số lượng thêm vào hiện tại ở textbox
 
-            if (selectedRoomButton == null)
+            if (string.IsNullOrEmpty(RoomID))
             {
                 MessageBox.Show("Hãy chọn phòng");
                 return;
             }
             else
             {
-                if (MessageBox.Show($"Thêm sản phẩm này vào phòng {selectedRoomButton.Name}", "Thông báo", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show($"Thêm sản phẩm này vào phòng {RoomID}", "Thông báo", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     string sqlSanPham = $"SELECT SanPham.MaSP_Menu, SanPham.TenMatHang, KhoHang.DonViTinh, SanPham.GiaBan, SanPham.DinhLuong " +
                         $"FROM SanPham " +
@@ -349,7 +350,7 @@ namespace SuperProjectQ.AllForm
                     #region Lấy mã HĐ
                     cmd = new SqlCommand($"SELECT HoaDon.MaHD FROM HoaDon " +
                                         $"INNER JOIN Phong ON Phong.MaPhong = HoaDon.MaPhong " +
-                                        $"WHERE HoaDon.MaPhong = '{selectedRoomButton.Name}' AND Phong.TrangThai = 1 AND HoaDon.TrangThai = 0", kn.conn);
+                                        $"WHERE HoaDon.MaPhong = '{RoomID}' AND Phong.TrangThai = 1 AND HoaDon.TrangThai = 0", kn.conn);
                     int intMaHD = Convert.ToInt32(cmd.ExecuteScalar());
                     #endregion
 
@@ -424,7 +425,7 @@ namespace SuperProjectQ.AllForm
 
                     cmd = new SqlCommand($"SELECT TenMatHang FROM SanPham WHERE MaSP_Menu = '{clickedButton.Name}'", kn.conn);
                     string tenSP = (string)cmd.ExecuteScalar();
-                    cmd = new SqlCommand($"SELECT TenPhong FROM Phong WHERE MaPhong = '{selectedRoomButton.Name}'", kn.conn);
+                    cmd = new SqlCommand($"SELECT TenPhong FROM Phong WHERE MaPhong = '{RoomID}'", kn.conn);
                     string tenPhong = (string)cmd.ExecuteScalar();
 
                     Session.isCombo = false;
@@ -444,16 +445,16 @@ namespace SuperProjectQ.AllForm
         private void BtnDSPhong_Click(object sender, EventArgs e)
         {
 
-            if (btnPassClick != null) { btnPassClick.BackColor = Color.FromArgb(192, 255, 255); btnPassClick.ForeColor = Color.Black; };
+            if (btnClicked != null) { btnClicked.BackColor = Color.FromArgb(95, 76, 76); };
 
-            Button clickedButton = (Button)sender;
-            if (clickedButton != null)
+            Button clickButton = (Button)sender;
+            if (clickButton != null)
             {
-                clickedButton.BackColor = Color.Blue;
-                clickedButton.ForeColor = Color.White;
-                btnPassClick = clickedButton;
+                clickButton.BackColor = Color.FromArgb(197, 170, 106);
+                clickButton.ForeColor = Color.White;
+                btnClicked = clickButton;
 
-                selectedRoomButton = clickedButton;
+                RoomID = clickButton.Name;
             }
         }
         private void BtnPlus_Click(object sender, EventArgs e)
@@ -620,9 +621,9 @@ namespace SuperProjectQ.AllForm
 
         #endregion
 
-        private void frmOrder_FormClosed(object sender, FormClosedEventArgs e)
+        private void btnClose_Click(object sender, EventArgs e)
         {
-            flowLayoutDSPhong.Controls.Clear();
+            this.Close();
         }
     }
 }

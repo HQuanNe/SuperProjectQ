@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 
 namespace SuperProjectQ
 {
-    internal class SetParameters
+    public class SetParameters
     {
         private static ConnectData kn = new ConnectData();
         private static DataTable dt = null;
@@ -19,19 +19,19 @@ namespace SuperProjectQ
         }
         #region //Kích thước các panel,... phòng trong frmPhong
         //Kích thước các panel phòng trong frmPhong
-        public static int plDanhSachPhong_WIDTH = 173;
-        public static int plDanhSachPhong_HEIGHT = 153;
+        public static int plPhong_WIDTH = 200;
+        public static int plPhong_HEIGHT = 153;
         #endregion
 
         #region //Kích thước các panel, picturebox,... phòng trong frmOrder
-        public static int plSanPham_WIDTH = 280;
-        public static int plSanPham_HEIGHT = 300;
+        public int plSanPham_WIDTH = 280;
+        public int plSanPham_HEIGHT = 300;
         //
-        public static int pbSanPham_WIDTH = 250;
-        public static int pbSanPham_HEIGHT = 120;
+        public int pbSanPham_WIDTH = 250;
+        public int pbSanPham_HEIGHT = 120;
         //
-        public static int btnPhong_WIDTH = 60;
-        public static int btnPhong_HEIGHT = 50;
+        public int btnPhong_WIDTH = 60;
+        public int btnPhong_HEIGHT = 50;
         #endregion
 
     }

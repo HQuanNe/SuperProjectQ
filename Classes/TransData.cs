@@ -55,13 +55,103 @@ namespace SuperProjectQ
             public static Decimal LuongCoBan;
             public static string HinhAnh;
         }
+        public static class RoomData
+        {
+            public static int maHD { get; set; }
+            public static string maPhong = "";
+            public static string tenPhong = "";
+
+            public static int status { get; set; } //0 là đóng, 1 là đang dùng, 2 là đặt trc, 3 là huỷ đặt
+            public static DateTime TimeOut { get; set; } // Thời gian đóng phòng
+        }
+        public static class BillData
+        {
+            public static double TongSoPhut { get; set; } //Tổng số phút sử dụng phòng
+            public static decimal TongTien { get; set; } //Tiền phòng + dịch vụ
+            public static decimal TongTienDV { get; set; } // tiền dịch vụ
+            public static decimal TongTienPhong { get; set; }
+            public static decimal TienVAT { get; set; } //thuế GTGT 5%, 0.1 - 10% thuế GTGT
+            public static decimal DiscountVIP { get; set; } //Giảm giá theo VIP
+            public static decimal DiscountVoucher { get; set; } //Giảm giá theo VIP
+            public static decimal TongThanhToan { get; set; } // Tổng tiền - Ưu đãi + VAT
+            //public static decimal GhiChu { get; set; } //Ghi chú giảm giá
+            public static bool isPay { get; set; } // Nếu true là đã thanh toán và sẽ xuất hoá đơn
+            public static string PTTT { get; set; } //Phương thức thanh toán
+            public static bool TrangThaiHD { get; set; } // Trạng thái hoá đơn
+        }
+        public class FontStandard
+        {
+            public Font timeNew10_Regular = new Font("Times New Roman", 10F, FontStyle.Regular);
+
+            public Font timeNew12_Regular = new Font("Times New Roman", 12F, FontStyle.Regular);
+            public Font timeNew12_Bold = new Font("Times New Roman", 12F, FontStyle.Bold);
+
+            public Font tahoma12_Bold = new Font("Tahoma", 12, FontStyle.Bold);
+
+            public Font timeNew26_Bold = new Font("Times New Roman", 26, FontStyle.Bold);
+        }
 
         public static bool isDeleted = false; //Biến kiểm tra khi xoá sản phẩm, khách hàng, nhân viên,...
         public static void ConnectOpen()
         {
             kn.ConnOpen();
         }
+        public static void FreeUpMemoryForm(Form frm)
+        {
+            while (frm.Controls.Count > 0)
+            {
+                Control ctrl = frm.Controls[0];
+                frm.Controls.RemoveAt(0);
+                ctrl.Dispose();
 
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+            }
+        }
+        public static void UpdatePhoneNumberForRoom(string phoneNumber)
+        {
+            try
+            {
+                ConnectOpen();
+
+                string sqlUpdate = "UPDATE Phong SET SDT_KhachHang = @SDTKH WHERE MaPhong = @MP";
+                using (cmd = new SqlCommand(sqlUpdate, kn.conn))
+                {
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@SDTKH", phoneNumber);
+                    cmd.Parameters.AddWithValue("@MP", RoomData.maPhong);
+                    cmd.ExecuteNonQuery();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Session - UpdatePhoneNumberForRoom Lỗi: \n" + ex.Message);
+            }
+        }
+        public static void FreeUpMemoryPanel(Panel pl)
+        {
+            while (pl.Controls.Count > 0)
+            {
+                Control ctrl = pl.Controls[0];
+                pl.Controls.RemoveAt(0);
+                ctrl.Dispose();
+
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+            }
+        }
+        public static decimal TinhTienPhongSau_22h(DateTime timeIn, decimal PricePerHour)
+        {
+            //Console.WriteLine(PricePerHour.ToString());
+            TimeSpan gioVao = timeIn.TimeOfDay;
+            if (gioVao >= new TimeSpan(22, 0, 0) || gioVao <= new TimeSpan(6, 0, 0))
+            {
+                PricePerHour = PricePerHour + (PricePerHour * (Session.PriceAfter_22H / 100));
+                //Console.WriteLine(PricePerHour.ToString());
+            }
+            return PricePerHour;
+        }
         public static void Datalog(string fileTxtName, string content)
         {
             File.AppendAllText($"D:\\Học_Tập\\Programing_language\\ADO-NET\\DataLog\\{fileTxtName}", $"\n{DateTime.Now.ToString()}: {content}");
@@ -264,6 +354,25 @@ namespace SuperProjectQ
             }
             return true;
         }
+        public static bool XuLySDT(string phoneNumber)
+        {
+            if (phoneNumber.Length > 10)
+            {
+                MessageBox.Show("Số điện thoại phải bằng 10 chữ số");
+                return false;
+            }
+            if (phoneNumber.Length < 10)
+            {
+                MessageBox.Show("Số điện thoại phải bằng 10 chữ số");
+                return false;
+            }
+            if (!(int.TryParse(phoneNumber, out int value)))
+            {
+                MessageBox.Show("Số điện thoại phải là chữ số");
+                return false;
+            }
+            return true;
+        }
         //public static void FocusDataByID(string id)
         //{
         //    if (string.IsNullOrEmpty(id)) return;
@@ -290,7 +399,7 @@ namespace SuperProjectQ
         #region Các thông số
         public static double VAT;
         public static double laiSuat;
-        public static double PriceAfter_22H;
+        public static decimal PriceAfter_22H;
         public static double MinTonKho;
         public static double amountPerPointVIP; //Số tiền trên mỗi điểm VIP
         #endregion
@@ -303,7 +412,7 @@ namespace SuperProjectQ
 
             VAT = Convert.ToDouble(dt.Rows[0]["GiaTri"]); //Thuế giá trị gia tăng 10%
             laiSuat = Convert.ToDouble(dt.Rows[1]["GiaTri"]); //Lãi suất hoá đơn 2%/ngày khi quá hạn
-            PriceAfter_22H = Convert.ToDouble(dt.Rows[2]["GiaTri"]); //Giá sau 22h tăng 20%
+            PriceAfter_22H = Convert.ToDecimal(dt.Rows[2]["GiaTri"]); //Giá sau 22h tăng 20%
             MinTonKho = Convert.ToDouble(dt.Rows[3]["GiaTri"]); //Số lượng tồn kho tối thiểu
             MinTonKho = Convert.ToDouble(dt.Rows[3]["GiaTri"]); //Số lượng tồn kho tối thiểu
             amountPerPointVIP = Convert.ToDouble(dt.Rows[4]["GiaTri"]); //Số tiền trên mỗi điểm VIP
@@ -329,19 +438,21 @@ namespace SuperProjectQ
             dgv.ColumnHeadersHeight = 40;
 
             dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Times New Roman", 10, FontStyle.Bold);
+            dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(31, 47, 110);
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(137, 199, 218);
             dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgv.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.Lime;
+            dgv.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(82, 142, 194);
             //cells
             dgv.DefaultCellStyle.Font = new Font("Times New Roman", 9, FontStyle.Regular);
             dgv.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgv.CellBorderStyle = DataGridViewCellBorderStyle.None;
             dgv.RowTemplate.Height = 35;
 
-            dgv.DefaultCellStyle.BackColor = Color.FromArgb(240, 255, 240);
-            dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 255, 250);
+            dgv.DefaultCellStyle.BackColor = Color.FromArgb(200, 255, 212);
+            dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(224, 255, 255);
 
-            dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 255, 127);
-            dgv.DefaultCellStyle.SelectionForeColor = Color.Black;
+            dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(39, 98, 142);
+            dgv.DefaultCellStyle.SelectionForeColor = Color.White;
         } //DGV tiêu chuẩn
         public static Nullable<bool> isPlus { get; set; } //Biến tạm để xác định là cộng hay trừ số lượng trong kho, nếu true là cộng, false là trừ, null là chưa xác định
 
@@ -356,25 +467,6 @@ namespace SuperProjectQ
         public static string SoDienThoai { get; set; }
         public static int diemTichLuy { get; set; }
 
-        //Vận chuyển tiền, nội dung,...  sang thanh toán
-        public static int maHD { get; set; }
-        public static string maPhong = "";
-        public static DateTime TimeOut { get; set; } // Thời gian đóng phòng
-
-        #region Hoá đơn
-        public static double TongSoPhut { get; set; } //Tổng số phút sử dụng phòng
-        public static decimal TongTien { get; set; } //Tiền phòng + dịch vụ
-        public static decimal TongTienDV { get; set; } // tiền dịch vụ
-        public static decimal TongTienPhong { get; set; }
-        public static decimal TienVAT { get; set; } //thuế GTGT 5%, 0.1 - 10% thuế GTGT
-        public static decimal DiscountVIP { get; set; } //Giảm giá theo VIP
-        public static decimal DiscountVoucher { get; set; } //Giảm giá theo VIP
-        public static decimal TongThanhToan { get; set; } // Tổng tiền - Ưu đãi + VAT
-        public static decimal GhiChu { get; set; } //Ghi chú giảm giá
-        public static bool isPay { get; set; } // Nếu true là đã thanh toán và sẽ xuất hoá đơn
-        public static string PTTT { get; set; } //Phương thức thanh toán
-        public static bool TrangThaiHD { get; set; } // Trạng thái hoá đơn
-        #endregion
         //Voucher
         public static int STTVoucher { get; set; } //STT voucher được chọn để áp dụng vào hoá đơn
         public static string tenVoucher { get; set; } = "";//Tên voucher được chọn

@@ -24,7 +24,7 @@ namespace SuperProjectQ
         SqlDataAdapter adapterHD = null;
         SqlDataAdapter adapterCTHD = null;
         SqlDataAdapter adapterTrietKhau = null;
-        int maHD = Session.maHD;
+        int maHD = Session.RoomData.maHD;
         private void PrintBill_Load(object sender, EventArgs e)
         {
             PaperSize k80Size = new PaperSize("K80", 315, 800);
@@ -48,7 +48,7 @@ namespace SuperProjectQ
                 $"HoaDon.TienPhong, HoaDon.TienDichVu, HoaDon.TongTien, HoaDon.TrietKhauVIP, HoaDon.TrietKhauVoucher, HoaDon.VAT, HoaDon.TongThanhToan, HoaDon.PTTT, HoaDon.TrangThai " +
                 $"FROM HoaDon " +
                 $"INNER JOIN Phong ON Phong.MaPhong = HoaDon.MaPhong " +
-                $"INNER JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong WHERE MaHD = {Session.maHD}";
+                $"INNER JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong WHERE MaHD = {maHD}";
             
             string sqlCTHD = $"SELECT ct.MaHD, " +
                 $"COALESCE(Sanpham.TenMatHang, Combo.TenCombo) AS TenMatHang, " +
@@ -56,7 +56,7 @@ namespace SuperProjectQ
                 $"FROM ChiTietHD ct " +
                 $"LEFT JOIN SanPham ON SanPham.MaSP_Menu = ct.MaSP AND ct.LoaiHang = 0 " +
                 $"LEFT JOIN Combo ON Combo.MaCombo = ct.MaSP AND ct.LoaiHang = 1" +
-                $"WHERE MaHD = {Session.maHD}";
+                $"WHERE MaHD = {maHD}";
             
             string sqlTrietKhau = $"SELECT kh.TenKH, BangVIP.TrietKhau FROM KhachHang AS kh " +
                 $"INNER JOIN BangVIP ON BangVIP.VIP = kh.VIP" +

@@ -25,6 +25,7 @@ namespace SuperProjectQ.AllForm.Staff
 
         string rootImagePath = Application.StartupPath + "\\Images\\StaffImage\\";
         bool hasImage = false;
+        bool changeImage = false;
         private void frmAdjustStaff_Load(object sender, EventArgs e)
         {
             try
@@ -65,14 +66,16 @@ namespace SuperProjectQ.AllForm.Staff
                     if(picImageStaff.Image != null || !string.IsNullOrEmpty(Session.StaffData.HinhAnh))
                     {
                         hasImage = true;
+                        changeImage = true;
                         picImageStaff.Image.Dispose();
                         picImageStaff.Image = null;
                     }
+                    else hasImage = false;
+
                     picImageStaff.Image = Image.FromFile(ofd.FileName);
                     picImageStaff.Tag = ofd.FileName;
-
                 }
-                else hasImage = false;
+                else changeImage = false;
             }
         }
         private void btnClose_Click(object sender, EventArgs e)
@@ -161,15 +164,15 @@ namespace SuperProjectQ.AllForm.Staff
                         cmd.Parameters.AddWithValue("@NLV", dtpNgayLamViec.Value); ;
                         cmd.Parameters.AddWithValue("@CV", txtChucVu.Text.Trim());
                         cmd.Parameters.AddWithValue("@LCB", Convert.ToDecimal(txtBasicSalary.Text.Trim().Replace(".", "")));
-                        cmd.Parameters.AddWithValue("@HA", !string.IsNullOrEmpty(picImageStaff.Tag.ToString()) ? Path.GetFileName(picImageStaff.Tag.ToString()) : Session.StaffData.HinhAnh);
+                        cmd.Parameters.AddWithValue("@HA", !(picImageStaff.Tag == null) ? Path.GetFileName(picImageStaff.Tag.ToString()) : Session.StaffData.HinhAnh);
                         cmd.ExecuteNonQuery();
 
-                        if (hasImage)
+                        if (hasImage && changeImage)
                         {
                             File.Delete($"{rootImagePath}{Session.StaffData.HinhAnh}");
                             File.Copy(picImageStaff.Tag.ToString(), $"{rootImagePath}{Path.GetFileName(picImageStaff.Tag.ToString())}", false);
                         }
-                        else if (!hasImage) File.Copy(picImageStaff.Tag.ToString(), $"{rootImagePath}{Path.GetFileName(picImageStaff.Tag.ToString())}", false);
+                        else if (!hasImage && changeImage) File.Copy(picImageStaff.Tag.ToString(), $"{rootImagePath}{Path.GetFileName(picImageStaff.Tag.ToString())}", false);
 
                             MessageBox.Show($"Đã sửa nhân viên mã {txtMaNV.Text} tên: {txtTenNV.Text}");
                     }
@@ -191,5 +194,21 @@ namespace SuperProjectQ.AllForm.Staff
             }
         }
 
+        private void txtBasicSalary_TextChanged(object sender, EventArgs e)
+        {
+            txtBasicSalary.Text = decimal.TryParse(txtBasicSalary.Text.Replace(".", ""), out decimal value) ? value.ToString("#,##0") 
+                : txtBasicSalary.Text.Remove(txtBasicSalary.Text.Length - 1);
+            txtBasicSalary.SelectionStart = txtBasicSalary.Text.Length;
+        }
+
+        private void txtSDT_TextChanged(object sender, EventArgs e)
+        {
+            if (txtSDT.Text.Length > 10) txtSDT.Text = txtSDT.Text.Remove(10, 1);
+
+            txtSDT.Text = int.TryParse(txtSDT.Text, out int value) ? value.ToString() :
+                txtSDT.Text.Length <= 1 ? "" : txtSDT.Text.Remove(txtSDT.Text.Length - 1, 1);
+
+            txtSDT.SelectionStart = txtSDT.Text.Length;
+        }
     }
 }

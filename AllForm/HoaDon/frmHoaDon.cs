@@ -19,7 +19,6 @@ namespace SuperProjectQ.FrmMixed
             InitializeComponent();
         }
         ConnectData kn = new ConnectData();
-        DataTable dt = null;
         private void Load_DB()
         {
             string sqlHD = "SELECT * FROM HoaDon WHERE TrangThai = 1";
@@ -48,8 +47,8 @@ namespace SuperProjectQ.FrmMixed
         private void dgvHoaDon_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
-            Session.maHD = Convert.ToInt32(dgvHoaDon.Rows[e.RowIndex].Cells[0].Value);
-            Console.WriteLine(Session.maHD.ToString());
+            Session.RoomData.maHD = Convert.ToInt32(dgvHoaDon.Rows[e.RowIndex].Cells[0].Value);
+            Console.WriteLine(Session.RoomData.maHD.ToString());
 
             frmChiTietHD cthd = new frmChiTietHD();
             cthd.FormBorderStyle = FormBorderStyle.None;
@@ -66,6 +65,11 @@ namespace SuperProjectQ.FrmMixed
                     e.Value = (bool)e.Value ? "Đã thanh toán" : "Chưa thanh toán";
                 }
             }
+        }
+
+        private void frmHoaDon_SizeChanged(object sender, EventArgs e)
+        {
+            lblTitleHoaDon.Location = new Point((this.Width - lblTitleHoaDon.Width) / 2);
         }
     }
 }
