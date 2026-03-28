@@ -30,13 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPhong));
             this.plControl = new System.Windows.Forms.Panel();
-            this.btnThemPhong = new System.Windows.Forms.Button();
+            this.btnListRoom = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblBookingRoom = new System.Windows.Forms.Label();
             this.lblActiveRoom = new System.Windows.Forms.Label();
             this.lblEmptyRoom = new System.Windows.Forms.Label();
             this.flpRoom = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnListRoom = new System.Windows.Forms.Button();
             this.plControl.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -45,7 +44,6 @@
             // 
             this.plControl.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.plControl.Controls.Add(this.btnListRoom);
-            this.plControl.Controls.Add(this.btnThemPhong);
             this.plControl.Controls.Add(this.groupBox1);
             this.plControl.Dock = System.Windows.Forms.DockStyle.Top;
             this.plControl.Location = new System.Drawing.Point(30, 0);
@@ -53,23 +51,22 @@
             this.plControl.Size = new System.Drawing.Size(1422, 80);
             this.plControl.TabIndex = 20;
             // 
-            // btnThemPhong
+            // btnListRoom
             // 
-            this.btnThemPhong.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnThemPhong.BackColor = System.Drawing.Color.Lime;
-            this.btnThemPhong.FlatAppearance.BorderSize = 0;
-            this.btnThemPhong.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnThemPhong.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnThemPhong.ForeColor = System.Drawing.Color.White;
-            this.btnThemPhong.Image = ((System.Drawing.Image)(resources.GetObject("btnThemPhong.Image")));
-            this.btnThemPhong.Location = new System.Drawing.Point(1199, 15);
-            this.btnThemPhong.Name = "btnThemPhong";
-            this.btnThemPhong.Size = new System.Drawing.Size(201, 50);
-            this.btnThemPhong.TabIndex = 1;
-            this.btnThemPhong.Text = "Thêm phòng";
-            this.btnThemPhong.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnThemPhong.UseVisualStyleBackColor = false;
-            this.btnThemPhong.Click += new System.EventHandler(this.btnThemPhong_Click);
+            this.btnListRoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnListRoom.BackColor = System.Drawing.Color.Turquoise;
+            this.btnListRoom.FlatAppearance.BorderSize = 0;
+            this.btnListRoom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnListRoom.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnListRoom.ForeColor = System.Drawing.Color.White;
+            this.btnListRoom.Location = new System.Drawing.Point(992, 15);
+            this.btnListRoom.Name = "btnListRoom";
+            this.btnListRoom.Size = new System.Drawing.Size(201, 50);
+            this.btnListRoom.TabIndex = 2;
+            this.btnListRoom.Text = "Danh sách phòng";
+            this.btnListRoom.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnListRoom.UseVisualStyleBackColor = false;
+            this.btnListRoom.Click += new System.EventHandler(this.btnListRoom_Click);
             // 
             // groupBox1
             // 
@@ -137,23 +134,6 @@
             this.flpRoom.TabIndex = 8;
             this.flpRoom.SizeChanged += new System.EventHandler(this.flpRoom_SizeChanged);
             // 
-            // btnListRoom
-            // 
-            this.btnListRoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnListRoom.BackColor = System.Drawing.Color.Turquoise;
-            this.btnListRoom.FlatAppearance.BorderSize = 0;
-            this.btnListRoom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnListRoom.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnListRoom.ForeColor = System.Drawing.Color.White;
-            this.btnListRoom.Location = new System.Drawing.Point(992, 15);
-            this.btnListRoom.Name = "btnListRoom";
-            this.btnListRoom.Size = new System.Drawing.Size(201, 50);
-            this.btnListRoom.TabIndex = 2;
-            this.btnListRoom.Text = "Danh sách phòng";
-            this.btnListRoom.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnListRoom.UseVisualStyleBackColor = false;
-            this.btnListRoom.Click += new System.EventHandler(this.btnListRoom_Click);
-            // 
             // frmPhong
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -186,7 +166,6 @@
         private System.Windows.Forms.Label lblBookingRoom;
         private System.Windows.Forms.Label lblActiveRoom;
         private System.Windows.Forms.FlowLayoutPanel flpRoom;
-        private System.Windows.Forms.Button btnThemPhong;
         private System.Windows.Forms.Button btnListRoom;
     }
 }

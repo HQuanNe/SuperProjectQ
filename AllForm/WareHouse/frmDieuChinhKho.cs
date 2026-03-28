@@ -51,7 +51,7 @@ namespace SuperProjectQ.AllForm.KhoHang
         {
             try
             {
-                string sqlMaDM = $"SELECT MaDM FROM DanhMuc WHERE TenDM = N'{Session.WarehouseData.DanhMuc}'";
+                string sqlMaDM = $"SELECT MaDM FROM KhoHang WHERE MaSP_Kho = N'{Session.WarehouseData.MaSP}'";
                 cmd = new SqlCommand(sqlMaDM, kn.conn);
                 if(cmd.ExecuteScalar()== DBNull.Value || cmd.ExecuteScalar() == null) return;
 

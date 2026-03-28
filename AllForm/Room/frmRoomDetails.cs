@@ -36,7 +36,7 @@ namespace SuperProjectQ.AllForm.Room
 
         class Button_Plus_And_Minus
         {
-            public System.Windows.Forms.Button btn = null;
+            public Button btn = null;
 
             public void BtnPlus_ClickChange()
             {
@@ -309,6 +309,24 @@ namespace SuperProjectQ.AllForm.Room
 
             return Convert.ToDateTime(cmd.ExecuteScalar()).ToString("dd/MM/yyyy HH:mm:ss");
         }
+        private void LoadCustomerByPhoneNumber()
+        {
+            if (string.IsNullOrEmpty(txtSDT.Text)) return;
+            string sqlKH = $"SELECT TOP 1 KhachHang.TenKH, KhachHang.DiaChi FROM KhachHang " +
+                $"WHERE KhachHang.SoDienThoai = '{txtSDT.Text.Trim()}' " +
+                $"ORDER BY TenKH ASC";
+
+            using (dt = new DataTable())
+            {
+                dt = kn.CreateTable(sqlKH);
+
+                if (dt == null || dt.Rows.Count < 1) return;
+
+                lblTenKH.Text = dt.Rows[0]["TenKH"].ToString();
+                lblDiaChi.Text = dt.Rows[0]["DiaChi"].ToString();
+            }
+
+        }
         private void LoaiPhong_Load()
         {
             try
@@ -370,6 +388,8 @@ namespace SuperProjectQ.AllForm.Room
                 lblSubTotal.Text = "Tổng tiền sản phẩm: " +  Session.BillData.TongTienDV.ToString("#,##0") + "đ";
 
                 txtSDT.Text = Session.CustomerData.SoDienThoai;
+
+                LoadCustomerByPhoneNumber();
             }
             catch (Exception ex)
             {
@@ -420,6 +440,7 @@ namespace SuperProjectQ.AllForm.Room
 
             Session.CustomerData.SoDienThoai = txtSDT.Text;
             Session.UpdatePhoneNumberForRoom(txtSDT.Text);
+            LoadCustomerByPhoneNumber();
         }
     }
 }

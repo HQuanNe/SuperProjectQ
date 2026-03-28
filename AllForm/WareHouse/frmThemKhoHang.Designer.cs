@@ -239,13 +239,13 @@
             this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(47)))), ((int)(((byte)(110)))));
             this.lblTitle.Location = new System.Drawing.Point(213, 13);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(373, 53);
+            this.lblTitle.Size = new System.Drawing.Size(367, 52);
             this.lblTitle.TabIndex = 1;
             this.lblTitle.Text = "Thêm sản phẩm";
             // 
             // btnThem
             // 
-            this.btnThem.BackColor = System.Drawing.Color.Lime;
+            this.btnThem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(220)))), ((int)(((byte)(0)))));
             this.btnThem.FlatAppearance.BorderSize = 0;
             this.btnThem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnThem.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

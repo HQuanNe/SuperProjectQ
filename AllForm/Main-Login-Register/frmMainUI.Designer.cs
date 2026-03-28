@@ -244,7 +244,7 @@
             // MNHome
             // 
             this.MNHome.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MNHome.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            this.MNHome.ForeColor = System.Drawing.Color.Black;
             this.MNHome.Image = ((System.Drawing.Image)(resources.GetObject("MNHome.Image")));
             this.MNHome.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.MNHome.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -258,7 +258,7 @@
             // MNRoom
             // 
             this.MNRoom.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MNRoom.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            this.MNRoom.ForeColor = System.Drawing.Color.Black;
             this.MNRoom.Image = ((System.Drawing.Image)(resources.GetObject("MNRoom.Image")));
             this.MNRoom.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.MNRoom.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -272,7 +272,7 @@
             // MNMenuOrder
             // 
             this.MNMenuOrder.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MNMenuOrder.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            this.MNMenuOrder.ForeColor = System.Drawing.Color.Black;
             this.MNMenuOrder.Image = ((System.Drawing.Image)(resources.GetObject("MNMenuOrder.Image")));
             this.MNMenuOrder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.MNMenuOrder.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -286,7 +286,7 @@
             // MNBill
             // 
             this.MNBill.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MNBill.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            this.MNBill.ForeColor = System.Drawing.Color.Black;
             this.MNBill.Image = ((System.Drawing.Image)(resources.GetObject("MNBill.Image")));
             this.MNBill.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.MNBill.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -300,7 +300,7 @@
             // MNStaffs
             // 
             this.MNStaffs.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MNStaffs.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            this.MNStaffs.ForeColor = System.Drawing.Color.Black;
             this.MNStaffs.Image = ((System.Drawing.Image)(resources.GetObject("MNStaffs.Image")));
             this.MNStaffs.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.MNStaffs.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -314,7 +314,7 @@
             // MNCustomers
             // 
             this.MNCustomers.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MNCustomers.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            this.MNCustomers.ForeColor = System.Drawing.Color.Black;
             this.MNCustomers.Image = ((System.Drawing.Image)(resources.GetObject("MNCustomers.Image")));
             this.MNCustomers.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.MNCustomers.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -328,7 +328,7 @@
             // MNStorage
             // 
             this.MNStorage.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MNStorage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            this.MNStorage.ForeColor = System.Drawing.Color.Black;
             this.MNStorage.Image = ((System.Drawing.Image)(resources.GetObject("MNStorage.Image")));
             this.MNStorage.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.MNStorage.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -342,7 +342,7 @@
             // MNChart
             // 
             this.MNChart.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MNChart.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            this.MNChart.ForeColor = System.Drawing.Color.Black;
             this.MNChart.Image = ((System.Drawing.Image)(resources.GetObject("MNChart.Image")));
             this.MNChart.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.MNChart.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -359,7 +359,7 @@
             this.MNMore_SanPham,
             this.MNMore_Voucher});
             this.MNMore.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MNMore.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            this.MNMore.ForeColor = System.Drawing.Color.Black;
             this.MNMore.Image = ((System.Drawing.Image)(resources.GetObject("MNMore.Image")));
             this.MNMore.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.MNMore.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -375,7 +375,7 @@
             this.MNMore_SanPham.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MNMore_SanPham.Image = ((System.Drawing.Image)(resources.GetObject("MNMore_SanPham.Image")));
             this.MNMore_SanPham.Name = "MNMore_SanPham";
-            this.MNMore_SanPham.Size = new System.Drawing.Size(224, 30);
+            this.MNMore_SanPham.Size = new System.Drawing.Size(194, 30);
             this.MNMore_SanPham.Text = "Sản phẩm";
             // 
             // MNMore_Voucher
@@ -383,7 +383,7 @@
             this.MNMore_Voucher.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MNMore_Voucher.Image = ((System.Drawing.Image)(resources.GetObject("MNMore_Voucher.Image")));
             this.MNMore_Voucher.Name = "MNMore_Voucher";
-            this.MNMore_Voucher.Size = new System.Drawing.Size(224, 30);
+            this.MNMore_Voucher.Size = new System.Drawing.Size(194, 30);
             this.MNMore_Voucher.Text = "Voucher";
             this.MNMore_Voucher.Click += new System.EventHandler(this.AllMenu_Click);
             // 

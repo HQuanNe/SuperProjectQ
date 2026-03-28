@@ -1,4 +1,5 @@
 ﻿using Mscc.GenerativeAI;
+using SuperProjectQ.AllForm.KhoHang;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -96,6 +97,11 @@ namespace SuperProjectQ.AllForm.Staff
                 traloi = MessageBox.Show("Bạn có muốn xoá dữ liệu này không???", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (traloi == DialogResult.Yes)
                 {
+                    using (frmXacNhan xacNhan = new frmXacNhan())
+                    {
+                        xacNhan.FormBorderStyle = FormBorderStyle.None;
+                        xacNhan.ShowDialog();
+                    }
                     if (Session.isDeleted)
                     {
                         string sqlDel = "DELETE NhanVien Where MaNV = (@MNV)";

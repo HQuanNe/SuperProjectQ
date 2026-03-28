@@ -72,7 +72,7 @@ namespace SuperProjectQ.AllForm.Other
         }
         private void dgvKho_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (this.dgvKho.Columns[e.ColumnIndex].Name == "TrangThai" && e.Value != null)
+            if (dgvKho.Columns[e.ColumnIndex].Name == "TrangThai" && e.Value != null)
             {
                 if (e.Value is bool tinhTrang)
                 {

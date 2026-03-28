@@ -74,7 +74,7 @@
             // 
             // btnXacNhan
             // 
-            this.btnXacNhan.BackColor = System.Drawing.Color.Lime;
+            this.btnXacNhan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(220)))), ((int)(((byte)(0)))));
             this.btnXacNhan.FlatAppearance.BorderSize = 0;
             this.btnXacNhan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnXacNhan.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -337,8 +337,7 @@
             // 
             // frmDieuChinhKho
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(233)))), ((int)(((byte)(247)))));
             this.ClientSize = new System.Drawing.Size(802, 753);
             this.Controls.Add(this.btnClose);

@@ -46,7 +46,7 @@ namespace SuperProjectQ.AllForm.Room
             cmd = new SqlCommand(sqlPrice, kn.conn);
             pricePerHour = cmd.ExecuteScalar() != DBNull.Value ? Convert.ToDecimal(cmd.ExecuteScalar()) : 0;
 
-            txtGia1Gio.Text = pricePerHour.ToString();
+            txtGia1Gio.Text = pricePerHour.ToString("#,##0") + "đ";
         }
         private void frmAddRoom_Load(object sender, EventArgs e)
         {

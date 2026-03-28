@@ -45,7 +45,11 @@
             this.lblMaKH = new System.Windows.Forms.Label();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnConfirm = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.plInfo.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnClose
@@ -67,7 +71,7 @@
             // 
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Times New Roman", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(219, 15);
+            this.lblTitle.Location = new System.Drawing.Point(227, 6);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(349, 53);
             this.lblTitle.TabIndex = 24;
@@ -75,7 +79,7 @@
             // 
             // plInfo
             // 
-            this.plInfo.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.plInfo.BackColor = System.Drawing.Color.SeaShell;
             this.plInfo.Controls.Add(this.cmbVIP);
             this.plInfo.Controls.Add(this.label6);
             this.plInfo.Controls.Add(this.txtDTL);
@@ -88,9 +92,10 @@
             this.plInfo.Controls.Add(this.txtMaKH);
             this.plInfo.Controls.Add(this.label2);
             this.plInfo.Controls.Add(this.lblMaKH);
-            this.plInfo.Location = new System.Drawing.Point(6, 71);
+            this.plInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.plInfo.Location = new System.Drawing.Point(1, 66);
             this.plInfo.Name = "plInfo";
-            this.plInfo.Size = new System.Drawing.Size(775, 167);
+            this.plInfo.Size = new System.Drawing.Size(800, 152);
             this.plInfo.TabIndex = 23;
             // 
             // cmbVIP
@@ -216,7 +221,7 @@
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDelete.ForeColor = System.Drawing.Color.White;
-            this.btnDelete.Location = new System.Drawing.Point(438, 244);
+            this.btnDelete.Location = new System.Drawing.Point(422, 22);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(200, 60);
             this.btnDelete.TabIndex = 27;
@@ -226,12 +231,12 @@
             // 
             // btnConfirm
             // 
-            this.btnConfirm.BackColor = System.Drawing.Color.Lime;
+            this.btnConfirm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(220)))), ((int)(((byte)(0)))));
             this.btnConfirm.FlatAppearance.BorderSize = 0;
             this.btnConfirm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConfirm.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConfirm.ForeColor = System.Drawing.Color.White;
-            this.btnConfirm.Location = new System.Drawing.Point(149, 244);
+            this.btnConfirm.Location = new System.Drawing.Point(184, 22);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(200, 60);
             this.btnConfirm.TabIndex = 26;
@@ -239,24 +244,47 @@
             this.btnConfirm.UseVisualStyleBackColor = false;
             this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.lblTitle);
+            this.panel1.Controls.Add(this.btnClose);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(1, 1);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(800, 65);
+            this.panel1.TabIndex = 28;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.Controls.Add(this.btnDelete);
+            this.panel2.Controls.Add(this.btnConfirm);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Location = new System.Drawing.Point(1, 218);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(800, 94);
+            this.panel2.TabIndex = 29;
+            // 
             // frmAdjustCustomer
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(233)))), ((int)(((byte)(247)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(802, 313);
-            this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.btnConfirm);
-            this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.plInfo);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
             this.Name = "frmAdjustCustomer";
+            this.Padding = new System.Windows.Forms.Padding(1);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sửa khách hàng";
             this.Load += new System.EventHandler(this.frmAdjustCustomer_Load);
             this.plInfo.ResumeLayout(false);
             this.plInfo.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -279,5 +307,7 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnConfirm;
         private System.Windows.Forms.ComboBox cmbVIP;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace SuperProjectQ.AllForm.Room
 {
-    partial class frmAddRoom
+    partial class frmAdjustRoom
     {
         /// <summary>
         /// Required designer variable.
@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnThem = new System.Windows.Forms.Button();
-            this.lblTitle = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.txtGia1Gio = new System.Windows.Forms.TextBox();
@@ -41,40 +39,16 @@
             this.cmbLoaiPhong = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtTenPhong = new System.Windows.Forms.TextBox();
-            this.btnClose = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnConfirm = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnClose = new System.Windows.Forms.Button();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btnThem
-            // 
-            this.btnThem.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnThem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(220)))), ((int)(((byte)(0)))));
-            this.btnThem.FlatAppearance.BorderSize = 0;
-            this.btnThem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnThem.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnThem.ForeColor = System.Drawing.Color.White;
-            this.btnThem.Location = new System.Drawing.Point(191, 16);
-            this.btnThem.Name = "btnThem";
-            this.btnThem.Size = new System.Drawing.Size(241, 60);
-            this.btnThem.TabIndex = 5;
-            this.btnThem.Text = "Thêm";
-            this.btnThem.UseVisualStyleBackColor = false;
-            this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Tahoma", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(47)))), ((int)(((byte)(110)))));
-            this.lblTitle.Location = new System.Drawing.Point(166, 2);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(293, 52);
-            this.lblTitle.TabIndex = 4;
-            this.lblTitle.Text = "Thêm phòng";
             // 
             // panel1
             // 
@@ -90,10 +64,10 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.txtTenPhong);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(1, 62);
+            this.panel1.Location = new System.Drawing.Point(1, 77);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(623, 309);
-            this.panel1.TabIndex = 3;
+            this.panel1.Size = new System.Drawing.Size(623, 306);
+            this.panel1.TabIndex = 4;
             // 
             // label2
             // 
@@ -196,10 +170,51 @@
             this.txtTenPhong.Name = "txtTenPhong";
             this.txtTenPhong.Size = new System.Drawing.Size(188, 45);
             this.txtTenPhong.TabIndex = 1;
-            this.txtTenPhong.TextChanged += new System.EventHandler(this.txtTenPhong_TextChanged);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnDelete.FlatAppearance.BorderSize = 0;
+            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDelete.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDelete.ForeColor = System.Drawing.Color.White;
+            this.btnDelete.Location = new System.Drawing.Point(321, 6);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(200, 60);
+            this.btnDelete.TabIndex = 39;
+            this.btnDelete.Text = "Xoá";
+            this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // btnConfirm
+            // 
+            this.btnConfirm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(220)))), ((int)(((byte)(0)))));
+            this.btnConfirm.FlatAppearance.BorderSize = 0;
+            this.btnConfirm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConfirm.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfirm.ForeColor = System.Drawing.Color.White;
+            this.btnConfirm.Location = new System.Drawing.Point(89, 6);
+            this.btnConfirm.Name = "btnConfirm";
+            this.btnConfirm.Size = new System.Drawing.Size(200, 60);
+            this.btnConfirm.TabIndex = 38;
+            this.btnConfirm.Text = "Xác nhận";
+            this.btnConfirm.UseVisualStyleBackColor = false;
+            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.Controls.Add(this.btnClose);
+            this.panel2.Controls.Add(this.lblTitle);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(1, 1);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(623, 76);
+            this.panel2.TabIndex = 40;
             // 
             // btnClose
             // 
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.BackColor = System.Drawing.Color.Red;
             this.btnClose.FlatAppearance.BorderSize = 0;
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -208,33 +223,33 @@
             this.btnClose.Location = new System.Drawing.Point(583, 0);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(40, 40);
-            this.btnClose.TabIndex = 9;
+            this.btnClose.TabIndex = 23;
             this.btnClose.Text = "X";
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // panel2
+            // lblTitle
             // 
-            this.panel2.BackColor = System.Drawing.Color.White;
-            this.panel2.Controls.Add(this.lblTitle);
-            this.panel2.Controls.Add(this.btnClose);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(1, 1);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(623, 61);
-            this.panel2.TabIndex = 18;
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Times New Roman", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.Location = new System.Drawing.Point(193, 12);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(239, 53);
+            this.lblTitle.TabIndex = 4;
+            this.lblTitle.Text = "Sửa phòng";
             // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.White;
-            this.panel3.Controls.Add(this.btnThem);
+            this.panel3.Controls.Add(this.btnConfirm);
+            this.panel3.Controls.Add(this.btnDelete);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(1, 371);
+            this.panel3.Location = new System.Drawing.Point(1, 383);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(623, 88);
-            this.panel3.TabIndex = 19;
+            this.panel3.Size = new System.Drawing.Size(623, 76);
+            this.panel3.TabIndex = 41;
             // 
-            // frmAddRoom
+            // frmAdjustRoom
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -243,11 +258,11 @@
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Name = "frmAddRoom";
+            this.Name = "frmAdjustRoom";
             this.Padding = new System.Windows.Forms.Padding(1);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Thêm phòng mới";
-            this.Load += new System.EventHandler(this.frmAddRoom_Load);
+            this.Text = "frmAdjustRoom";
+            this.Load += new System.EventHandler(this.frmAdjustRoom_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -259,9 +274,9 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnThem;
-        private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtGia1Gio;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtGhiChu;
         private System.Windows.Forms.Label label4;
@@ -270,10 +285,11 @@
         private System.Windows.Forms.ComboBox cmbLoaiPhong;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtTenPhong;
-        private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtGia1Gio;
+        private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Button btnConfirm;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Panel panel3;
     }
 }

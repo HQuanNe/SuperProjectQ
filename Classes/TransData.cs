@@ -86,6 +86,7 @@ namespace SuperProjectQ
             public Font timeNew12_Regular = new Font("Times New Roman", 12F, FontStyle.Regular);
             public Font timeNew12_Bold = new Font("Times New Roman", 12F, FontStyle.Bold);
 
+            public Font tahoma9_Bold = new Font("Tahoma", 9, FontStyle.Bold);
             public Font tahoma12_Bold = new Font("Tahoma", 12, FontStyle.Bold);
 
             public Font timeNew26_Bold = new Font("Times New Roman", 26, FontStyle.Bold);
@@ -421,6 +422,8 @@ namespace SuperProjectQ
 
         public static void StandardDataGridView(DataGridView dgv)
         {
+            FontStandard fontS = new FontStandard();
+
             dgv.EditMode = DataGridViewEditMode.EditProgrammatically;
             dgv.AutoGenerateColumns = false;
             dgv.AllowUserToAddRows = false;
@@ -436,14 +439,15 @@ namespace SuperProjectQ
             dgv.EnableHeadersVisualStyles = false;// 1. Cho phép tùy biến Header
             dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgv.ColumnHeadersHeight = 40;
+            //dgv.BackgroundColor = Color.White;
 
-            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Times New Roman", 10, FontStyle.Bold);
+            dgv.ColumnHeadersDefaultCellStyle.Font = fontS.tahoma9_Bold;
             dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(31, 47, 110);
             dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(137, 199, 218);
             dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgv.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(82, 142, 194);
             //cells
-            dgv.DefaultCellStyle.Font = new Font("Times New Roman", 9, FontStyle.Regular);
+            dgv.DefaultCellStyle.Font = fontS.timeNew10_Regular;
             dgv.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgv.CellBorderStyle = DataGridViewCellBorderStyle.None;
             dgv.RowTemplate.Height = 35;

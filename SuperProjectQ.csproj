@@ -178,6 +178,18 @@
     <Compile Include="AllForm\Room\frmAddRoom.Designer.cs">
       <DependentUpon>frmAddRoom.cs</DependentUpon>
     </Compile>
+    <Compile Include="AllForm\Room\frmAdjustRoom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\Room\frmAdjustRoom.Designer.cs">
+      <DependentUpon>frmAdjustRoom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AllForm\Room\frmListRoom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\Room\frmListRoom.Designer.cs">
+      <DependentUpon>frmListRoom.cs</DependentUpon>
+    </Compile>
     <Compile Include="AllForm\Room\frmRoomDetails.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -357,11 +369,18 @@
     <EmbeddedResource Include="AllForm\Room\frmAddRoom.resx">
       <DependentUpon>frmAddRoom.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\Room\frmAdjustRoom.resx">
+      <DependentUpon>frmAdjustRoom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\Room\frmListRoom.resx">
+      <DependentUpon>frmListRoom.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AllForm\Room\frmRoomDetails.resx">
       <DependentUpon>frmRoomDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AllForm\Room\frmRoomOptions.resx">
       <DependentUpon>frmRoomOptions.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="AllForm\Staff\frmAddStaff.resx">
       <DependentUpon>frmAddStaff.cs</DependentUpon>

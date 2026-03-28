@@ -492,6 +492,8 @@ namespace SuperProjectQ.AllForm.Room
                     }
                 };
                 details.ShowDialog();
+
+                LoadPhong();
             }
 
             if (!isActive)
@@ -624,19 +626,14 @@ namespace SuperProjectQ.AllForm.Room
             }
         }
 
-        private void btnThemPhong_Click(object sender, EventArgs e)
-        {
-            using (frmAddRoom addRoom = new frmAddRoom())
-            {
-                addRoom.FormBorderStyle = FormBorderStyle.None;
-                addRoom.ShowDialog();
-                LoadPhong();
-            }
-        }
-
         private void btnListRoom_Click(object sender, EventArgs e)
         {
-
+            using (frmListRoom listRoom = new frmListRoom())
+            {
+                listRoom.FormBorderStyle = FormBorderStyle.None;
+                listRoom.ShowDialog();
+                LoadPhong();
+            }
         }
 
         private void btnOpenMenu_Click(object sender, EventArgs e)

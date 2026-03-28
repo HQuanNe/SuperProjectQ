@@ -53,8 +53,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picImageStaff)).BeginInit();
+            this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblTitle
@@ -62,7 +66,7 @@
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Times New Roman", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblTitle.Location = new System.Drawing.Point(224, 9);
+            this.lblTitle.Location = new System.Drawing.Point(225, 9);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(349, 53);
             this.lblTitle.TabIndex = 25;
@@ -91,9 +95,10 @@
             this.panel1.Controls.Add(this.txtMaNV);
             this.panel1.Controls.Add(this.cmbGioiTinh);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(12, 65);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(1, 72);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(773, 423);
+            this.panel1.Size = new System.Drawing.Size(797, 421);
             this.panel1.TabIndex = 26;
             // 
             // txtBasicSalary
@@ -293,7 +298,7 @@
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdd.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAdd.ForeColor = System.Drawing.Color.White;
-            this.btnAdd.Location = new System.Drawing.Point(248, 494);
+            this.btnAdd.Location = new System.Drawing.Point(248, 3);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(300, 60);
             this.btnAdd.TabIndex = 27;
@@ -309,7 +314,7 @@
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold);
             this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(759, 0);
+            this.btnClose.Location = new System.Drawing.Point(757, 0);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(40, 40);
             this.btnClose.TabIndex = 28;
@@ -317,25 +322,48 @@
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.Controls.Add(this.lblTitle);
+            this.panel2.Controls.Add(this.btnClose);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(1, 1);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(797, 71);
+            this.panel2.TabIndex = 29;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.White;
+            this.panel3.Controls.Add(this.btnAdd);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel3.Location = new System.Drawing.Point(1, 493);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(797, 72);
+            this.panel3.TabIndex = 30;
+            // 
             // frmAddStaff
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(233)))), ((int)(((byte)(247)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(799, 566);
-            this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.lblTitle);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "frmAddStaff";
+            this.Padding = new System.Windows.Forms.Padding(1);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmAddStaff";
             this.Load += new System.EventHandler(this.frmAddStaff_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picImageStaff)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -365,5 +393,7 @@
         private System.Windows.Forms.PictureBox picImageStaff;
         private System.Windows.Forms.TextBox txtBasicSalary;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel3;
     }
 }

@@ -54,8 +54,12 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnConfirm = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.picImageStaff)).BeginInit();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnClose
@@ -78,7 +82,7 @@
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Times New Roman", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblTitle.Location = new System.Drawing.Point(244, 11);
+            this.lblTitle.Location = new System.Drawing.Point(244, 4);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(310, 53);
             this.lblTitle.TabIndex = 32;
@@ -296,9 +300,10 @@
             this.panel1.Controls.Add(this.txtMaNV);
             this.panel1.Controls.Add(this.cmbGioiTinh);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(13, 67);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(1, 62);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(773, 423);
+            this.panel1.Size = new System.Drawing.Size(797, 433);
             this.panel1.TabIndex = 33;
             // 
             // btnConfirm
@@ -308,7 +313,7 @@
             this.btnConfirm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConfirm.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConfirm.ForeColor = System.Drawing.Color.White;
-            this.btnConfirm.Location = new System.Drawing.Point(143, 496);
+            this.btnConfirm.Location = new System.Drawing.Point(164, 6);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(200, 60);
             this.btnConfirm.TabIndex = 36;
@@ -323,7 +328,7 @@
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDelete.ForeColor = System.Drawing.Color.White;
-            this.btnDelete.Location = new System.Drawing.Point(432, 496);
+            this.btnDelete.Location = new System.Drawing.Point(434, 6);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(200, 60);
             this.btnDelete.TabIndex = 37;
@@ -331,25 +336,49 @@
             this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.Controls.Add(this.lblTitle);
+            this.panel2.Controls.Add(this.btnClose);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(1, 1);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(797, 61);
+            this.panel2.TabIndex = 38;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.White;
+            this.panel3.Controls.Add(this.btnDelete);
+            this.panel3.Controls.Add(this.btnConfirm);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel3.Location = new System.Drawing.Point(1, 495);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(797, 73);
+            this.panel3.TabIndex = 39;
+            // 
             // frmAdjustStaff
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(799, 569);
-            this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.lblTitle);
-            this.Controls.Add(this.btnClose);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "frmAdjustStaff";
+            this.Padding = new System.Windows.Forms.Padding(1);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmAdjustStaff";
             this.Load += new System.EventHandler(this.frmAdjustStaff_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picImageStaff)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -379,5 +408,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnConfirm;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel3;
     }
 }
