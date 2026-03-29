@@ -45,7 +45,7 @@
             this.btnNuocNgot = new System.Windows.Forms.Button();
             this.btnNuocKhoang = new System.Windows.Forms.Button();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblTitlePhong = new System.Windows.Forms.Label();
             this.plTop = new System.Windows.Forms.Panel();
             this.btnClose = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
@@ -321,7 +321,7 @@
             // flowLayoutPanel2
             // 
             this.flowLayoutPanel2.Controls.Add(this.flowLayoutPanel1);
-            this.flowLayoutPanel2.Controls.Add(this.label2);
+            this.flowLayoutPanel2.Controls.Add(this.lblTitlePhong);
             this.flowLayoutPanel2.Controls.Add(this.flowLayoutDSPhong);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(0, 40);
@@ -329,19 +329,19 @@
             this.flowLayoutPanel2.Size = new System.Drawing.Size(292, 693);
             this.flowLayoutPanel2.TabIndex = 0;
             // 
-            // label2
+            // lblTitlePhong
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label2.Location = new System.Drawing.Point(3, 497);
-            this.label2.MinimumSize = new System.Drawing.Size(258, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(258, 48);
-            this.label2.TabIndex = 12;
-            this.label2.Text = "Phòng";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblTitlePhong.AutoSize = true;
+            this.lblTitlePhong.BackColor = System.Drawing.Color.Transparent;
+            this.lblTitlePhong.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitlePhong.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lblTitlePhong.Location = new System.Drawing.Point(3, 497);
+            this.lblTitlePhong.MinimumSize = new System.Drawing.Size(258, 0);
+            this.lblTitlePhong.Name = "lblTitlePhong";
+            this.lblTitlePhong.Size = new System.Drawing.Size(258, 48);
+            this.lblTitlePhong.TabIndex = 12;
+            this.lblTitlePhong.Text = "Phòng";
+            this.lblTitlePhong.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // plTop
             // 
@@ -415,6 +415,6 @@
         public System.Windows.Forms.Panel plTop;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        public System.Windows.Forms.Label lblTitlePhong;
     }
 }

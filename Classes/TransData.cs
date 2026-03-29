@@ -35,7 +35,7 @@ namespace SuperProjectQ
         }
         public static class CustomerData
         {
-            public static string MaKH;
+            public static string MaKH = "KH000";
             public static string TenKH;
             public static string DiaChi;
             public static string SoDienThoai;
@@ -79,15 +79,25 @@ namespace SuperProjectQ
             public static string PTTT { get; set; } //Phương thức thanh toán
             public static bool TrangThaiHD { get; set; } // Trạng thái hoá đơn
         }
+        public static class ProductData
+        {
+            public static string MaSP_Menu { get; set; }
+            public static string MaSP_Kho { get; set; }
+        }
         public class FontStandard
         {
             public Font timeNew10_Regular = new Font("Times New Roman", 10F, FontStyle.Regular);
+            public Font timeNew10_Bold = new Font("Times New Roman", 10F, FontStyle.Bold);
 
             public Font timeNew12_Regular = new Font("Times New Roman", 12F, FontStyle.Regular);
             public Font timeNew12_Bold = new Font("Times New Roman", 12F, FontStyle.Bold);
 
             public Font tahoma9_Bold = new Font("Tahoma", 9, FontStyle.Bold);
             public Font tahoma12_Bold = new Font("Tahoma", 12, FontStyle.Bold);
+
+            public Font timeNew14_Bold = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point);
+
+            public Font timeNew18_Bold = new Font("Times New Roman", 18F, FontStyle.Bold);
 
             public Font timeNew26_Bold = new Font("Times New Roman", 26, FontStyle.Bold);
         }
@@ -301,6 +311,7 @@ namespace SuperProjectQ
                 double dinhLuong = row["DinhLuong"] != DBNull.Value ? Convert.ToDouble(row["DinhLuong"]) : 0;
 
                 if (DonViTinh) newSoLuong = newSoLuong * dinhLuong / 1000; //Nếu đơn vị tính là Kg
+                else newSoLuong = newSoLuong * dinhLuong;
                 Console.WriteLine($"Số lượng sau khi * với định lg/1000: {newSoLuong}");
 
                 if ( !isPlus && newSoLuong > soLuongTon)
@@ -403,6 +414,8 @@ namespace SuperProjectQ
         public static decimal PriceAfter_22H;
         public static double MinTonKho;
         public static double amountPerPointVIP; //Số tiền trên mỗi điểm VIP
+        public static string unit; //Số tiền trên mỗi điểm VIP
+        public static string DSLoaiBan; //Số tiền trên mỗi điểm VIP
         #endregion
         public static void SetParameters_Load()
         {
@@ -415,8 +428,9 @@ namespace SuperProjectQ
             laiSuat = Convert.ToDouble(dt.Rows[1]["GiaTri"]); //Lãi suất hoá đơn 2%/ngày khi quá hạn
             PriceAfter_22H = Convert.ToDecimal(dt.Rows[2]["GiaTri"]); //Giá sau 22h tăng 20%
             MinTonKho = Convert.ToDouble(dt.Rows[3]["GiaTri"]); //Số lượng tồn kho tối thiểu
-            MinTonKho = Convert.ToDouble(dt.Rows[3]["GiaTri"]); //Số lượng tồn kho tối thiểu
             amountPerPointVIP = Convert.ToDouble(dt.Rows[4]["GiaTri"]); //Số tiền trên mỗi điểm VIP
+            unit = dt.Rows[5]["GiaTri"].ToString(); //Danh sách đơn vị
+            DSLoaiBan = dt.Rows[6]["GiaTri"].ToString(); //Loại bán
         }
         #endregion
 
@@ -455,7 +469,7 @@ namespace SuperProjectQ
             dgv.DefaultCellStyle.BackColor = Color.FromArgb(200, 255, 212);
             dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(224, 255, 255);
 
-            dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(39, 98, 142);
+            dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(39, 98, 182);
             dgv.DefaultCellStyle.SelectionForeColor = Color.White;
         } //DGV tiêu chuẩn
         public static Nullable<bool> isPlus { get; set; } //Biến tạm để xác định là cộng hay trừ số lượng trong kho, nếu true là cộng, false là trừ, null là chưa xác định
@@ -466,10 +480,6 @@ namespace SuperProjectQ
         public static string TenNV { get; set; }
         public static string ChucVu { get; set; }
         public static string Passwd { get; } = "admin";
-        //Khách hàng
-        public static string MaKH { get; set; } = "KH000";
-        public static string SoDienThoai { get; set; }
-        public static int diemTichLuy { get; set; }
 
         //Voucher
         public static int STTVoucher { get; set; } //STT voucher được chọn để áp dụng vào hoá đơn

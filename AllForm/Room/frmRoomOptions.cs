@@ -63,18 +63,19 @@ namespace SuperProjectQ.AllForm.Room
         }
         private string GetPhoneNumber()
         {
-            kn.ConnOpen();
-
+            Console.WriteLine(Session.RoomData.maPhong);
             string sql = "SELECT SDT_KhachHang FROM Phong WHERE MaPhong = @MP";
             using (cmd = new SqlCommand(sql, kn.conn))
             {
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@MP", Session.RoomData.maPhong);
-                return cmd.ExecuteScalar().ToString();
+                return cmd.ExecuteScalar() != DBNull.Value ? cmd.ExecuteScalar().ToString() : "";
             }
         }
         private void frmRoomOptions_Load(object sender, EventArgs e)
         {
+            kn.ConnOpen();
+
             switch (Session.RoomData.status)
             {
                 case 0:

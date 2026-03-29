@@ -36,10 +36,10 @@ namespace SuperProjectQ.AllForm.Other
             {
                 string sqlLayVoucher = $"SELECT Voucher.GiaTriGiam, Voucher.LoaiGiamGia, Voucher.GiamToiDa FROM VoucherKhachHang \n" +
                     $"INNER JOIN VouCher ON Voucher.MaVoucher = VoucherKhachHang.MaVoucher " +
-                    $"WHERE VoucherKhachHang.TrangThai = 0 AND VoucherKhachHang.MaKH = '{Session.MaKH}' AND VoucherKhachHang.STT = {selectedPanel.Name}";
+                    $"WHERE VoucherKhachHang.TrangThai = 0 AND VoucherKhachHang.MaKH = '{Session.CustomerData.MaKH}' AND VoucherKhachHang.STT = {selectedPanel.Name}";
                 dt = kn.CreateTable(sqlLayVoucher);
 
-                Console.WriteLine(Session.MaKH + "\n" + selectedPanel.Name);
+                Console.WriteLine(Session.CustomerData.MaKH + "\n" + selectedPanel.Name);
 
                 if (dt.Rows.Count > 0)
                 {
@@ -77,7 +77,7 @@ namespace SuperProjectQ.AllForm.Other
             dt = kn.CreateTable( $"SELECT VoucherKhachHang.STT, Voucher.MaVoucher, VoucherKhachHang.MaKH, VoucherKhachHang.NgayHetHan, Voucher.TenVoucher, Voucher.GiaTriGiam, Voucher.LoaiGiamGia, Voucher.GiamToiDa, Voucher.GTDonHangToiThieu, Voucher.HinhAnh " +
                 $"FROM Voucher " +
                 $"INNER JOIN VoucherKhachHang ON Voucher.MaVoucher = VoucherKhachHang.MaVoucher " +
-                $"WHERE VoucherKhachHang.TrangThai = 0 AND VoucherKhachHang.MaKH = '{Session.MaKH}' ");
+                $"WHERE VoucherKhachHang.TrangThai = 0 AND VoucherKhachHang.MaKH = '{Session.CustomerData.MaKH}' ");
 
             if (dt.Rows.Count < 0 && dt.Rows != null) return;
             foreach (DataRow row in dt.Rows)

@@ -54,7 +54,7 @@ namespace SuperProjectQ.FrmMixed
                 {"VIP5", 12000}
             };
             //Lấy cột điểm tích luỹ
-            string sqlPointKH = $"SELECT DiemTichLuy, VIP FROM KhachHang WHERE MaKH = '{Session.MaKH}'";
+            string sqlPointKH = $"SELECT DiemTichLuy, VIP FROM KhachHang WHERE MaKH = '{Session.CustomerData.MaKH}'";
 
             dt = new DataTable();
             dt = kn.CreateTable(sqlPointKH);
@@ -64,7 +64,7 @@ namespace SuperProjectQ.FrmMixed
             diemTichLuy += Convert.ToInt32(Math.Round(Session.BillData.TongTien / (decimal)ti_le_quy_doi));
 
             int flag = 0; //Cờ hiệu nếu if trên không thoả mãn 1 trong 5 phần tử của dict thì chạy cái if == 5
-            if(Session.MaKH != "KH000")
+            if(Session.CustomerData.MaKH != "KH000" && Session.CustomerData.MaKH != "")
             {
                 foreach (string key in dsVIP.Keys)
                 {
@@ -91,7 +91,7 @@ namespace SuperProjectQ.FrmMixed
                         cmd.Parameters.Clear();
                     }
                 }
-                cmd.Parameters.AddWithValue("@MKH", Session.MaKH);
+                cmd.Parameters.AddWithValue("@MKH", Session.CustomerData.MaKH);
                 cmd.ExecuteNonQuery();
             }
         }//Tích điểm cho khách
@@ -141,7 +141,7 @@ namespace SuperProjectQ.FrmMixed
             try
             {
                 kn.ConnOpen();
-                string sqlPhong = "SELECT Phong.MaPhong, Phong.TenPhong, LoaiPhong.GiaTheoGio, Phong.TrangThai, Phong.GioVao, Phong.MoTa " +
+                string sqlPhong = "SELECT Phong.MaPhong, Phong.TenPhong, LoaiPhong.GiaTheoGio, Phong.TrangThai, Phong.GioVao, Phong.GhiChu " +
                     "FROM Phong " +
                     $"INNER JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong WHERE MaPhong = '{Session.RoomData.maPhong}' AND Phong.TrangThai = 1";
                 dt = new DataTable();
@@ -275,7 +275,7 @@ namespace SuperProjectQ.FrmMixed
                     isCustomer = true;
                     btnVoucher.Visible = isCustomer;
                     //Gán dữ liệu
-                    Session.MaKH = dt.Rows[0]["MaKH"].ToString();
+                    Session.CustomerData.MaKH = dt.Rows[0]["MaKH"].ToString();
                     lblTenKH.Text = dt.Rows[0]["TenKH"].ToString();
                     lblDiaChi.Text = dt.Rows[0]["DiaChi"].ToString();
                     lblVIP.Text = dt.Rows[0]["VIP"].ToString();
@@ -295,7 +295,7 @@ namespace SuperProjectQ.FrmMixed
                 {
                     isCustomer = false; //Khách hàng mới
 
-                    Session.SoDienThoai = txtSDT.Text;
+                    Session.CustomerData.SoDienThoai = txtSDT.Text;
                     lblTenKH.Text = noData;
                     lblDiaChi.Text = noData;
                     lblVIP.Text = noData;
@@ -360,7 +360,7 @@ namespace SuperProjectQ.FrmMixed
 
                 //Khách hàng
                 TichDiemKH();
-                Update_Voucher(Session.isUsedVoucher, Session.STTVoucher, Session.MaKH);
+                Update_Voucher(Session.isUsedVoucher, Session.STTVoucher, Session.CustomerData.MaKH);
                 //cập nhật ghi nợ nếu có
                 if (!UpdateGhiNo()) return;
 
@@ -388,6 +388,7 @@ namespace SuperProjectQ.FrmMixed
                 btnVoucher.Visible = isCustomer;
 
                 lblTienThanhToan.Text = Session.BillData.TongThanhToan.ToString("#,##0 VND");
+                txtSDT.Text = Session.CustomerData.SoDienThoai;
             }
             catch (SqlException ex)
             {

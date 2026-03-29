@@ -177,7 +177,7 @@
   <data name="MNHome.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAS
-        cwAAEnMBjCK5BwAAAMJJREFUWEftzUGqwlAQRNEMnQguzrEz15k1CO5Hu8FAEW5LmbQZvQsHPv6uvGk0
+        cQAAEnEB89x6jgAAAMJJREFUWEftzUGqwlAQRNEMnQguzrEz15k1CO5Hu8FAEW5LmbQZvQsHPv6uvGk0
         2tElvD7y70O7h+XxRf52SM+wfnyR//tb50CPkrxt7RbooW9y09Ij0AOO3G7uFOijW+S3fuoa6EN75Dft
         6AMd7GjcwY7GHexo3MGOxh3saNzBjsZqLtCtsqOxqqJbZUdjVUW3yo7GqopulR2NVRXdKjsaqyq6VXY0
         VlV0q+xorKroVtnRWFXRrbKjsaqiWzUarZqmN9BFgtIwSTJ0AAAAAElFTkSuQmCC
@@ -255,7 +255,7 @@
         lkr/tqmNbQpTm9rU1/efyrIv/wlwoDWuNOYAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="MNMore_SanPham.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="MNMore_Products.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAASxJREFUWEft
         171KA0EUhuGFVHYBG8HGMqVXYC3YWQkGbNLY2wrpRNLEC9BLELSzSWEnBFKk08LGUvASknckA5OzX9hx

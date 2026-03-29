@@ -366,8 +366,6 @@ namespace SuperProjectQ.AllForm.Room
             DialogResult reply = MessageBox.Show("Xác nhận qua bước thanh toán?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (reply == DialogResult.Yes)
             {
-                //Gán biến toàn chương trình
-                Session.RoomData.maPhong = RoomID;
                 frmThanhToan tt = new frmThanhToan();
                 tt.ShowDialog();
                 if (Session.BillData.isPay) this.Close();
@@ -401,6 +399,7 @@ namespace SuperProjectQ.AllForm.Room
 
             frmMenu menu = new frmMenu();
             menu.FormBorderStyle = FormBorderStyle.None;
+            menu.lblTitlePhong.Visible = false;
             menu.flowLayoutDSPhong.Visible = false;
             menu.WindowState = FormWindowState.Maximized;
 

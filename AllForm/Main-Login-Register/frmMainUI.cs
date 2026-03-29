@@ -3,6 +3,7 @@ using Mscc.GenerativeAI.Types;
 using Newtonsoft.Json.Linq;
 using SuperProjectQ.AllForm;
 using SuperProjectQ.AllForm.Other;
+using SuperProjectQ.AllForm.Productions;
 using SuperProjectQ.AllForm.Room;
 using SuperProjectQ.Classes;
 using SuperProjectQ.FrmMixed;
@@ -135,6 +136,10 @@ namespace SuperProjectQ.Frm_Main_Login_Register
                 case "MNMore_Voucher":
                     frmVoucher voucher = new frmVoucher();
                     AddForm(voucher);
+                    break;
+                case "MNMore_Products":
+                    frmProducts prod = new frmProducts();
+                    AddForm(prod);
                     break;
                 default:
                     return;

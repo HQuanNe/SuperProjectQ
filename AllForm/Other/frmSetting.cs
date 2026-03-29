@@ -21,6 +21,7 @@ namespace SuperProjectQ.AllForm.Other
         DataTable dt = null;
         SqlCommand cmd = null;
 
+        Session.FontStandard fontS = new Session.FontStandard();
         Button btn = null; //Biến lưu trữ button đã được click trước đó
 
         bool thongSoChanged = false; //Biến cờ để theo dõi xem có thay đổi thông số nào hay không
@@ -76,7 +77,7 @@ namespace SuperProjectQ.AllForm.Other
                     Width = 45, Height = 20,
 
                     Text = row["VIP"].ToString(),
-                    Font = new Font("Times New Roman", 12, FontStyle.Bold),
+                    Font = fontS.timeNew12_Bold,
 
                     Enabled = false,
                     Location = new Point(0, (plChiTietVIP.Height - 20)/2)
@@ -89,7 +90,7 @@ namespace SuperProjectQ.AllForm.Other
 
                     Enabled = false,
                     Text = row["DiemToiThieu"].ToString(),
-                    Font = new Font("Times New Roman", 10, FontStyle.Bold),
+                    Font = fontS.timeNew12_Bold,
                     
 
                     Location = new Point(tenVIP.Width, (plChiTietVIP.Height - 20) / 2)
@@ -101,7 +102,7 @@ namespace SuperProjectQ.AllForm.Other
                     Enabled = false,
 
                     Text = "| Giảm: " +  row["TrietKhau"].ToString() + "% tổng HĐ",
-                    Font = new Font("Times New Roman", 12, FontStyle.Bold),
+                    Font = fontS.timeNew12_Bold,
 
 
                     Location = new Point(tenVIP.Width + diemToiThieu.Width, (plChiTietVIP.Height - 20) / 2)
@@ -120,6 +121,12 @@ namespace SuperProjectQ.AllForm.Other
                     if(plTieuChuan != plClicked) plTieuChuan.BorderStyle = BorderStyle.FixedSingle;
                     
                     plClicked.BorderStyle = BorderStyle.Fixed3D;
+
+                    txtVIP.Text = plChiTietVIP.Controls[0].Text;
+                    txtMinimumPoint.Text = plChiTietVIP.Controls[1].Text;
+                    txtTrietKhau.Text = plChiTietVIP.Controls[2].Text.Replace("| Giảm: ", "").Replace("% tổng HĐ", "");
+
+
                     plTieuChuan = plClicked;
                 };
 
@@ -181,14 +188,6 @@ namespace SuperProjectQ.AllForm.Other
             }
 
             if(txt.Parent.Parent == plThongSo) thongSoChanged = true;
-        }
-        private void TxtDanhMuc_Changed(object sender, EventArgs e)
-        {
-            TextBox txt = (TextBox)sender;
-            if(txt.Parent.Parent.Parent ==  plGeneral)
-            {
-                generalChanged = true;
-            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)

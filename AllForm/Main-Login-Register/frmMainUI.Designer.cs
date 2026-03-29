@@ -51,7 +51,7 @@
             this.MNStorage = new System.Windows.Forms.ToolStripMenuItem();
             this.MNChart = new System.Windows.Forms.ToolStripMenuItem();
             this.MNMore = new System.Windows.Forms.ToolStripMenuItem();
-            this.MNMore_SanPham = new System.Windows.Forms.ToolStripMenuItem();
+            this.MNMore_Products = new System.Windows.Forms.ToolStripMenuItem();
             this.MNMore_Voucher = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSetting = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -356,7 +356,7 @@
             // MNMore
             // 
             this.MNMore.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MNMore_SanPham,
+            this.MNMore_Products,
             this.MNMore_Voucher});
             this.MNMore.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MNMore.ForeColor = System.Drawing.Color.Black;
@@ -370,20 +370,21 @@
             this.MNMore.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.MNMore.Click += new System.EventHandler(this.AllMenu_Click);
             // 
-            // MNMore_SanPham
+            // MNMore_Products
             // 
-            this.MNMore_SanPham.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MNMore_SanPham.Image = ((System.Drawing.Image)(resources.GetObject("MNMore_SanPham.Image")));
-            this.MNMore_SanPham.Name = "MNMore_SanPham";
-            this.MNMore_SanPham.Size = new System.Drawing.Size(194, 30);
-            this.MNMore_SanPham.Text = "Sản phẩm";
+            this.MNMore_Products.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MNMore_Products.Image = ((System.Drawing.Image)(resources.GetObject("MNMore_Products.Image")));
+            this.MNMore_Products.Name = "MNMore_Products";
+            this.MNMore_Products.Size = new System.Drawing.Size(224, 30);
+            this.MNMore_Products.Text = "Sản phẩm";
+            this.MNMore_Products.Click += new System.EventHandler(this.AllMenu_Click);
             // 
             // MNMore_Voucher
             // 
             this.MNMore_Voucher.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MNMore_Voucher.Image = ((System.Drawing.Image)(resources.GetObject("MNMore_Voucher.Image")));
             this.MNMore_Voucher.Name = "MNMore_Voucher";
-            this.MNMore_Voucher.Size = new System.Drawing.Size(194, 30);
+            this.MNMore_Voucher.Size = new System.Drawing.Size(224, 30);
             this.MNMore_Voucher.Text = "Voucher";
             this.MNMore_Voucher.Click += new System.EventHandler(this.AllMenu_Click);
             // 
@@ -486,7 +487,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel plNavBar;
         private System.Windows.Forms.ToolStripMenuItem MNChart;
-        private System.Windows.Forms.ToolStripMenuItem MNMore_SanPham;
+        private System.Windows.Forms.ToolStripMenuItem MNMore_Products;
         private System.Windows.Forms.Button btnAIChatbot;
         private System.Windows.Forms.ToolStripMenuItem MNMore_Voucher;
         private System.Windows.Forms.Label lblClock;

@@ -123,7 +123,7 @@
             // flpRoom
             // 
             this.flpRoom.AutoScroll = true;
-            this.flpRoom.AutoScrollMinSize = new System.Drawing.Size(0, 600);
+            this.flpRoom.AutoScrollMinSize = new System.Drawing.Size(800, 600);
             this.flpRoom.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(238)))), ((int)(((byte)(242)))));
             this.flpRoom.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flpRoom.Location = new System.Drawing.Point(30, 80);

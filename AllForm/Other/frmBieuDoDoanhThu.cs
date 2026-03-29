@@ -20,6 +20,7 @@ namespace SuperProjectQ.AllForm.Other
         ConnectData kn = new ConnectData();
         DataTable dt = null;
 
+        Session.FontStandard fontS = new Session.FontStandard();
         private void BieuDo_Load()
         {
             decimal totalDoanhThu = 0;
@@ -124,7 +125,7 @@ namespace SuperProjectQ.AllForm.Other
             chartDoanhThu.ChartAreas.Add(new ChartArea("PopularProducts"));
 
             Legend legend = new Legend();
-            legend.Font = new Font("Times New Roman", 12, FontStyle.Regular);
+            legend.Font = fontS.tahoma9_Bold;
 
             Series series = new Series("Sản phẩm bán chạy");
 
@@ -135,8 +136,8 @@ namespace SuperProjectQ.AllForm.Other
             }
 
             series.IsValueShownAsLabel = true;
-            series.Font = new Font("Times New Roman", 14, FontStyle.Regular);
-            series.LabelForeColor = Color.Blue;
+            series.Font = fontS.tahoma12_Bold;
+            series.LabelForeColor = Color.FromArgb(255, 178, 205);
             series.LabelFormat = "N0"; // Dùng định dạng kiểu 1,000
 
             //Đổ DataTable vào datasource Chart

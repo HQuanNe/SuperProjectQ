@@ -60,7 +60,7 @@ namespace SuperProjectQ.AllForm.KhachHang
             cmbVIP.SelectedValue = "VIP0";
             txtMaKH.Text = Session.AutoCreateID_String("MaKH", "KhachHang", "KH");
             txtMaKH.Enabled = false;
-            txtSDT.Text = Session.SoDienThoai;
+            txtSDT.Text = Session.CustomerData.SoDienThoai;
             txtDTL.Text = "0";
         }
 
@@ -103,7 +103,7 @@ namespace SuperProjectQ.AllForm.KhachHang
                         cmd.ExecuteNonQuery();
                         MessageBox.Show($"Đã thêm khách hàng mã {txtMaKH.Text} tên: {txtTenKH.Text}");
 
-                        Session.MaKH = txtMaKH.Text.Trim();
+                        Session.CustomerData.MaKH = txtMaKH.Text.Trim();
 
                         txtMaKH.Text = Session.AutoCreateID_String("MaKH", "KhachHang", "KH");//Load lại mã mới
 

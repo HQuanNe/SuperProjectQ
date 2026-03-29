@@ -78,7 +78,7 @@ namespace SuperProjectQ.AllForm
 
             if (isCombo)
             {
-                sqlSP = "SELECT DISTINCT Combo.MaCombo, Combo.TenCombo, Combo.MaDM, Combo.DonGia, combo.HinhAnh " +
+                sqlSP = "SELECT DISTINCT Combo.MaCombo, Combo.TenCombo, Combo.MaDM, Combo.DonGia, Combo.HinhAnh " +
                     "FROM Combo " +
                     "INNER JOIN ChiTietCombo ON Combo.MaCombo = ChiTietCombo.MaComBo " +
                     "INNER JOIN SanPham ON SanPham.MaSP_Menu = SanPham.MaSP_Menu";
@@ -158,8 +158,8 @@ namespace SuperProjectQ.AllForm
                     decimal decGiaBan = Convert.ToDecimal(row[giaBan]); // Lấy giá bán từ cơ sở dữ liệu
                     lblGiaBan = new Label()// Tạo Label cho giá bán
                     {
-                        Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point),
-                        ForeColor = Color.Red,
+                        Font = fontS.timeNew14_Bold,
+                        ForeColor = Color.FromArgb(235, 153, 42),
                         Text = decGiaBan.ToString("#,##0") + "đ",
                         AutoSize = true,
 
@@ -242,9 +242,9 @@ namespace SuperProjectQ.AllForm
 
                         Name = row[maSP].ToString(), // Lưu mã SP vào Name của Button
 
-                        Font = new Font("Times New Roman", 18F, FontStyle.Bold, GraphicsUnit.Point),
+                        Font = fontS.timeNew18_Bold,
                         ForeColor = Color.Black,
-                        BackColor = Color.FromArgb(192, 255, 255),
+                        BackColor = Color.FromArgb(192, 205, 235),
                         FlatStyle = FlatStyle.Flat,
                         Location = new Point((plItem.Width - 200) /2, (lblGiaBan.Location.Y + lblGiaBan.Height) + 75),
 
@@ -316,11 +316,11 @@ namespace SuperProjectQ.AllForm
         }
         private void BtnOrder_Click(object sender, EventArgs e)
         {
-            Button clickedButton = (Button)sender;
-            Console.WriteLine( "Mã SP đang trỏ: " + clickedButton.Name);
+            Button clickedButtonMaSP = (Button)sender;
+            Console.WriteLine( "Mã SP đang trỏ: " + clickedButtonMaSP.Name);
             bool isAdded = false;
 
-            double soLuongOrder = Convert.ToDouble(clickedButton.Parent.Controls[3].Text.Trim()); //Số lượng thêm vào hiện tại ở textbox
+            double soLuongOrder = Convert.ToDouble(clickedButtonMaSP.Parent.Controls[3].Text.Trim()); //Số lượng thêm vào hiện tại ở textbox
 
             if (string.IsNullOrEmpty(RoomID))
             {
@@ -334,13 +334,13 @@ namespace SuperProjectQ.AllForm
                     string sqlSanPham = $"SELECT SanPham.MaSP_Menu, SanPham.TenMatHang, KhoHang.DonViTinh, SanPham.GiaBan, SanPham.DinhLuong " +
                         $"FROM SanPham " +
                         $"INNER JOIN KhoHang ON KhoHang.MaSP_Kho = SanPham.MaSP_Kho " +
-                        $"WHERE SanPham.MaSP_Menu = '{clickedButton.Name}'";
+                        $"WHERE SanPham.MaSP_Menu = '{clickedButtonMaSP.Name}'";
 
-                    if (!(clickedButton.Name.Contains("SPM"))) //Nếu là phải combo set = true
+                    if (!(clickedButtonMaSP.Name.Contains("SPM"))) //Nếu là phải combo set = true
                     {
                         sqlSanPham = $"SELECT Combo.MaCombo, Combo.TenCombo, Combo.DonViTinh, Combo.DonGia " +
                         $"FROM Combo " +
-                        $"WHERE Combo.MaCombo = '{clickedButton.Name}'";
+                        $"WHERE Combo.MaCombo = '{clickedButtonMaSP.Name}'";
 
                         Session.isCombo = true;
                     }
@@ -421,9 +421,9 @@ namespace SuperProjectQ.AllForm
                 if (isAdded)
                 {
                     Console.WriteLine(soLuongOrder.ToString());
-                    Session.CapNhatKho(false, clickedButton.Name, soLuongOrder);
+                    Session.CapNhatKho(false, clickedButtonMaSP.Name, soLuongOrder);
 
-                    cmd = new SqlCommand($"SELECT TenMatHang FROM SanPham WHERE MaSP_Menu = '{clickedButton.Name}'", kn.conn);
+                    cmd = new SqlCommand($"SELECT TenMatHang FROM SanPham WHERE MaSP_Menu = '{clickedButtonMaSP.Name}'", kn.conn);
                     string tenSP = (string)cmd.ExecuteScalar();
                     cmd = new SqlCommand($"SELECT TenPhong FROM Phong WHERE MaPhong = '{RoomID}'", kn.conn);
                     string tenPhong = (string)cmd.ExecuteScalar();

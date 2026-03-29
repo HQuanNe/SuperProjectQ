@@ -41,6 +41,7 @@
             this.btnPayments = new System.Windows.Forms.Button();
             this.lblTotalAmount = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnConfirm = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.txtSDT = new System.Windows.Forms.TextBox();
@@ -51,7 +52,6 @@
             this.btnOpenMenu = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnConfirm = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -64,9 +64,9 @@
             this.panel1.Controls.Add(this.btnClose);
             this.panel1.Controls.Add(this.lblRoomName);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Location = new System.Drawing.Point(1, 1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1045, 93);
+            this.panel1.Size = new System.Drawing.Size(1043, 93);
             this.panel1.TabIndex = 1;
             // 
             // btnClose
@@ -77,7 +77,7 @@
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold);
             this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(1005, 0);
+            this.btnClose.Location = new System.Drawing.Point(1003, 0);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(40, 40);
             this.btnClose.TabIndex = 29;
@@ -102,9 +102,10 @@
             this.flplOrdered.AutoScroll = true;
             this.flplOrdered.AutoScrollMinSize = new System.Drawing.Size(0, 200);
             this.flplOrdered.BackColor = System.Drawing.Color.OldLace;
-            this.flplOrdered.Location = new System.Drawing.Point(0, 137);
+            this.flplOrdered.Dock = System.Windows.Forms.DockStyle.Left;
+            this.flplOrdered.Location = new System.Drawing.Point(1, 140);
             this.flplOrdered.Name = "flplOrdered";
-            this.flplOrdered.Size = new System.Drawing.Size(500, 516);
+            this.flplOrdered.Size = new System.Drawing.Size(500, 512);
             this.flplOrdered.TabIndex = 2;
             // 
             // panel2
@@ -120,9 +121,9 @@
             this.panel2.Controls.Add(this.lblTimeIn);
             this.panel2.Controls.Add(this.btnOpenMenu);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel2.Location = new System.Drawing.Point(499, 93);
+            this.panel2.Location = new System.Drawing.Point(498, 94);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(546, 560);
+            this.panel2.Size = new System.Drawing.Size(546, 558);
             this.panel2.TabIndex = 3;
             // 
             // lblSubTotal
@@ -182,7 +183,7 @@
             this.btnPayments.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPayments.ForeColor = System.Drawing.Color.White;
             this.btnPayments.Image = ((System.Drawing.Image)(resources.GetObject("btnPayments.Image")));
-            this.btnPayments.Location = new System.Drawing.Point(284, 490);
+            this.btnPayments.Location = new System.Drawing.Point(284, 488);
             this.btnPayments.Name = "btnPayments";
             this.btnPayments.Size = new System.Drawing.Size(250, 58);
             this.btnPayments.TabIndex = 6;
@@ -199,7 +200,7 @@
             this.lblTotalAmount.BackColor = System.Drawing.Color.Transparent;
             this.lblTotalAmount.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalAmount.ForeColor = System.Drawing.Color.SteelBlue;
-            this.lblTotalAmount.Location = new System.Drawing.Point(279, 448);
+            this.lblTotalAmount.Location = new System.Drawing.Point(279, 446);
             this.lblTotalAmount.Name = "lblTotalAmount";
             this.lblTotalAmount.Size = new System.Drawing.Size(84, 28);
             this.lblTotalAmount.TabIndex = 4;
@@ -221,6 +222,18 @@
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Khách hàng";
+            // 
+            // btnConfirm
+            // 
+            this.btnConfirm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(180)))), ((int)(((byte)(0)))));
+            this.btnConfirm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConfirm.Image = ((System.Drawing.Image)(resources.GetObject("btnConfirm.Image")));
+            this.btnConfirm.Location = new System.Drawing.Point(377, 22);
+            this.btnConfirm.Name = "btnConfirm";
+            this.btnConfirm.Size = new System.Drawing.Size(41, 30);
+            this.btnConfirm.TabIndex = 35;
+            this.btnConfirm.UseVisualStyleBackColor = false;
+            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
             // label7
             // 
@@ -313,10 +326,12 @@
             // 
             // panel3
             // 
+            this.panel3.BackColor = System.Drawing.Color.White;
             this.panel3.Controls.Add(this.label1);
-            this.panel3.Location = new System.Drawing.Point(0, 92);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(1, 94);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(500, 46);
+            this.panel3.Size = new System.Drawing.Size(497, 46);
             this.panel3.TabIndex = 0;
             // 
             // label1
@@ -326,36 +341,25 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Tahoma", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.SteelBlue;
-            this.label1.Location = new System.Drawing.Point(100, 3);
+            this.label1.Location = new System.Drawing.Point(98, 3);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(332, 40);
             this.label1.TabIndex = 3;
             this.label1.Text = "Sản phẩm đã order";
             // 
-            // btnConfirm
-            // 
-            this.btnConfirm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(180)))), ((int)(((byte)(0)))));
-            this.btnConfirm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConfirm.Image = ((System.Drawing.Image)(resources.GetObject("btnConfirm.Image")));
-            this.btnConfirm.Location = new System.Drawing.Point(377, 22);
-            this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Size = new System.Drawing.Size(41, 30);
-            this.btnConfirm.TabIndex = 35;
-            this.btnConfirm.UseVisualStyleBackColor = false;
-            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
-            // 
             // frmRoomDetails
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(67)))), ((int)(((byte)(67)))));
             this.ClientSize = new System.Drawing.Size(1045, 653);
+            this.Controls.Add(this.flplOrdered);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.flplOrdered);
             this.Controls.Add(this.panel1);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "frmRoomDetails";
+            this.Padding = new System.Windows.Forms.Padding(1);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Chi tiết phòng";
             this.Load += new System.EventHandler(this.frmRoomDetails_Load);

@@ -270,10 +270,10 @@
         private System.Windows.Forms.ComboBox cmbLoaiPhong;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtTenPhong;
-        private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtGia1Gio;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Button btnClose;
     }
 }

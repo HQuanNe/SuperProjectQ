@@ -60,7 +60,7 @@ namespace SuperProjectQ
             
             string sqlTrietKhau = $"SELECT kh.TenKH, BangVIP.TrietKhau FROM KhachHang AS kh " +
                 $"INNER JOIN BangVIP ON BangVIP.VIP = kh.VIP" +
-                $" WHERE MaKH = '{Session.MaKH}'";
+                $" WHERE MaKH = '{Session.CustomerData.MaKH}'";
 
             adapterHD = new SqlDataAdapter(sqlHD, kn.conn);
             adapterCTHD = new SqlDataAdapter(sqlCTHD, kn.conn);

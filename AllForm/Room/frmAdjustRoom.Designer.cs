@@ -232,11 +232,11 @@
             // 
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Times New Roman", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(193, 12);
+            this.lblTitle.Location = new System.Drawing.Point(123, 12);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(239, 53);
+            this.lblTitle.Size = new System.Drawing.Size(379, 53);
             this.lblTitle.TabIndex = 4;
-            this.lblTitle.Text = "Sửa phòng";
+            this.lblTitle.Text = "Điều chỉnh phòng";
             // 
             // panel3
             // 
@@ -261,7 +261,7 @@
             this.Name = "frmAdjustRoom";
             this.Padding = new System.Windows.Forms.Padding(1);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmAdjustRoom";
+            this.Text = "Điều chỉnh phòng";
             this.Load += new System.EventHandler(this.frmAdjustRoom_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

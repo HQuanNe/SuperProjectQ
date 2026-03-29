@@ -172,6 +172,30 @@
     <Compile Include="AllForm\Customers\frmThemKhachHang.Designer.cs">
       <DependentUpon>frmThemKhachHang.cs</DependentUpon>
     </Compile>
+    <Compile Include="AllForm\Productions\frmAddProducts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\Productions\frmAddProducts.Designer.cs">
+      <DependentUpon>frmAddProducts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AllForm\Productions\frmAddUnitAndLoaiBan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\Productions\frmAddUnitAndLoaiBan.Designer.cs">
+      <DependentUpon>frmAddUnitAndLoaiBan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AllForm\Productions\frmAdjustProducts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\Productions\frmAdjustProducts.Designer.cs">
+      <DependentUpon>frmAdjustProducts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AllForm\Productions\frmProducts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\Productions\frmProducts.Designer.cs">
+      <DependentUpon>frmProducts.cs</DependentUpon>
+    </Compile>
     <Compile Include="AllForm\Room\frmAddRoom.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -268,10 +292,10 @@
     <Compile Include="AllForm\Other\frmVoucherKhachHang.Designer.cs">
       <DependentUpon>frmVoucherKhachHang.cs</DependentUpon>
     </Compile>
-    <Compile Include="AllForm\Order-Payment\frmMenu.cs">
+    <Compile Include="AllForm\Productions\frmMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AllForm\Order-Payment\frmMenu.Designer.cs">
+    <Compile Include="AllForm\Productions\frmMenu.Designer.cs">
       <DependentUpon>frmMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\AIChatbotRepository.cs" />
@@ -366,6 +390,18 @@
     <EmbeddedResource Include="AllForm\Customers\frmThemKhachHang.resx">
       <DependentUpon>frmThemKhachHang.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\Productions\frmAddProducts.resx">
+      <DependentUpon>frmAddProducts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\Productions\frmAddUnitAndLoaiBan.resx">
+      <DependentUpon>frmAddUnitAndLoaiBan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\Productions\frmAdjustProducts.resx">
+      <DependentUpon>frmAdjustProducts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\Productions\frmProducts.resx">
+      <DependentUpon>frmProducts.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AllForm\Room\frmAddRoom.resx">
       <DependentUpon>frmAddRoom.cs</DependentUpon>
     </EmbeddedResource>
@@ -439,7 +475,7 @@
     <EmbeddedResource Include="AllForm\HoaDon\InHoaDon\frmPrintBill.resx">
       <DependentUpon>frmPrintBill.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AllForm\Order-Payment\frmMenu.resx">
+    <EmbeddedResource Include="AllForm\Productions\frmMenu.resx">
       <DependentUpon>frmMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

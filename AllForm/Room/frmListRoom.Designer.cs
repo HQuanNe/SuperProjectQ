@@ -210,7 +210,7 @@
             this.Name = "frmListRoom";
             this.Padding = new System.Windows.Forms.Padding(2);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmListRoom";
+            this.Text = "Danh sách phòng";
             this.Load += new System.EventHandler(this.frmListRoom_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvListRoom)).EndInit();
             this.panel1.ResumeLayout(false);

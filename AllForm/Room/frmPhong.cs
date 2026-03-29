@@ -173,19 +173,17 @@ namespace SuperProjectQ.AllForm.Room
                     "INNER JOIN Phong ON HoaDon.MaPhong = Phong.MaPhong WHERE Phong.TrangThai = 1 AND HoaDon.TrangThai = 0";
                 dt = new DataTable();
                 dt = kn.CreateTable(sqlCTHD);
+                data data = new data();
                 foreach (DataRow dr in dt.Rows)
                 {
                     if (plPhong.Name == dr["MaPhong"].ToString()) 
                     {
-                        data data = new data()
-                        {
-                            maHD = Convert.ToInt32(dr["MaHD"]),
-                            phoneNumber = row["SDT_KhachHang"].ToString(),
-                        };
-                        plPhong.Tag = data;
+                        data.maHD = Convert.ToInt32(dr["MaHD"]);
                         break; 
                     }
                 }
+                data.phoneNumber = row["SDT_KhachHang"].ToString();
+                plPhong.Tag = data;
             }
         } //Hiển thị phòng
         private void DoCoSan(int maHD)
@@ -370,7 +368,7 @@ namespace SuperProjectQ.AllForm.Room
                 using (cmd = new SqlCommand(sqlHD, kn.conn))
                 {
                     cmd.Parameters.Clear();
-                    cmd.Parameters.AddWithValue("@MKH", Session.MaKH);
+                    cmd.Parameters.AddWithValue("@MKH", Session.CustomerData.MaKH);
                     cmd.Parameters.AddWithValue("@GR", Session.RoomData.TimeOut);
                     cmd.Parameters.AddWithValue("@TSP", Session.BillData.TongSoPhut);
                     cmd.Parameters.AddWithValue("@TP", Session.BillData.TongTienPhong);
@@ -407,6 +405,8 @@ namespace SuperProjectQ.AllForm.Room
         } //Tính tiền DV
         private void AllPanels_Click(object sender, EventArgs e)
         {
+            maPhong = ""; //Mã phòng gán vào name của panel phòng
+            maHD = 0; //Mã hoá đơn gán vào tag của panel phòng
             //Xử lý panel đã click trong quá khứ
             if (selectedPanel != null) selectedPanel.BorderStyle = BorderStyle.FixedSingle;
 
@@ -452,17 +452,18 @@ namespace SuperProjectQ.AllForm.Room
                     continue;
                 }
             }
+            data data = (data)selectedPanel.Tag;
+
+            Session.CustomerData.SoDienThoai = data.phoneNumber;
             maPhong = selectedPanel.Name;
             Session.RoomData.maPhong = maPhong;
+            Console.WriteLine($"frmPhong - MaPhong: \n{maPhong} MaHD Phong: {maHD}");
             Session.RoomData.tenPhong = clickedPanel.Controls[0].Text.ToString();
 
             if (isActive)
             {
-                data data = (data)selectedPanel.Tag;
-
                 maHD = Convert.ToInt32(data.maHD);
                 Session.RoomData.maHD = maHD;
-                Session.CustomerData.SoDienThoai = data.phoneNumber;
 
                 TongTienDV(maHD);
 

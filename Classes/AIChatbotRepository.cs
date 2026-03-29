@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Data;
 using Mscc.GenerativeAI;
 using Mscc.GenerativeAI.Types;
+using System.Windows.Forms;
 
 namespace SuperProjectQ.Classes
 {
@@ -46,10 +47,12 @@ namespace SuperProjectQ.Classes
         } //Lấy ra hội thoại cũ
         public string GetDataFromSQL()
         {
-            kn.ConnOpen();
-            StringBuilder sb = new StringBuilder();
+            try
+            {
+                kn.ConnOpen();
+                StringBuilder sb = new StringBuilder();
 
-            Dictionary<string, string> dictTable = new Dictionary<string, string>()
+                Dictionary<string, string> dictTable = new Dictionary<string, string>()
             {
                 {"Dưới đây là danh sách loại phòng:", "SELECT * FROM LoaiPhong" },
                 {"Dưới đây là danh sách nhân viên:", "SELECT * FROM NhanVien" },
@@ -59,58 +62,65 @@ namespace SuperProjectQ.Classes
                 {"Dưới đây là danh sách kho hàng (trạng thái true là đã thanh toán và ngược lại):", "SELECT * FROM KhoHang" },
             };
 
-            foreach(string key in dictTable.Keys)
-            {
-                dt = new DataTable();
-                dt = kn.CreateTable(dictTable[key]);
-
-                if (dt.Rows.Count < 1) return null;
-                sb.AppendLine(key);
-                foreach(DataRow row in dt.Rows)
+                foreach (string key in dictTable.Keys)
                 {
-                    if (dictTable[key].Contains("LoaiPhong"))
-                    {
-                        sb.AppendLine($"- Tên loại: {row["TenLoaiPhong"].ToString()} {Convert.ToDecimal(row["GiaTheoGio"])}đ/giờ");
-                    }
-                    //else if (dictTable[key].Contains("NhanVien"))
-                    //{
-                    //    sb.AppendLine($"- Tên loại: {row["TenLoaiPhong"].ToString()} {Convert.ToDecimal(row["GiaTheoGio"])}đ/giờ");
-                    //}
-                    else if (dictTable[key].Contains("KhachHang"))
-                    {
-                        sb.AppendLine($"- MãKH: {row["MaKH"].ToString()} " +
-                            $"TênKH: {row["TenKH"].ToString()}" +
-                            $"Địa chỉ: {row["DiaChi"].ToString()}" +
-                            $"Số điện thoại: {row["SoDienThoai"].ToString()}" +
-                            $"VIP: {row["VIP"].ToString()}" +
-                            $"Điểm tích luỹ: {row["DiemTichLuy"].ToString()}");
-                    }
-                    else if (dictTable[key].Contains("SanPham"))
-                    {
-                        sb.AppendLine($"- Mã SP: {row["MaSP_Menu"].ToString()} " +
-                            $"Mã SP ở kho: {row["MaSP_Kho"].ToString()}" +
-                            $"Tên: {row["TenMatHang"].ToString()}" +
-                            $"Định lượng: {row["DinhLuong"].ToString()}" +
-                            $"Đơn vị định lượng: {row["DVTDinhLuong"].ToString()}" +
-                            $"Giá bán ra: {row["GiaBan"].ToString()}");
+                    dt = new DataTable();
+                    dt = kn.CreateTable(dictTable[key]);
 
-                    }
-                    else if (dictTable[key].Contains("KhoHang"))
+                    if (dt.Rows.Count < 1) return null;
+                    sb.AppendLine(key);
+                    foreach (DataRow row in dt.Rows)
                     {
-                        sb.AppendLine($"- Mã SP: {row["MaSP_Kho"].ToString()} " +
-                            $"Tên: {row["TenSP"].ToString()}" +
-                            $"Mã danh mục: {row["MaDM"].ToString()}" +
-                            $"Đơn vị tính: {row["DonViTinh"].ToString()}" +
-                            $"Tồn kho: {row["TonKho"].ToString()}" +
-                            $"Ngày cập nhật: {row["NgayCapNhat"].ToString()}" +
-                            $"Trạng thái: {row["TrangThai"].ToString()}" +
-                            $"Tên hình ảnh: {row["HinhAnh"].ToString()}" +
-                            $"Ghi chú: {row["GhiChu"].ToString()}");
+                        if (dictTable[key].Contains("LoaiPhong"))
+                        {
+                            sb.AppendLine($"- Tên loại: {row["TenLoaiPhong"].ToString()} {Convert.ToDecimal(row["GiaTheoGio"])}đ/giờ");
+                        }
+                        //else if (dictTable[key].Contains("NhanVien"))
+                        //{
+                        //    sb.AppendLine($"- Tên loại: {row["TenLoaiPhong"].ToString()} {Convert.ToDecimal(row["GiaTheoGio"])}đ/giờ");
+                        //}
+                        else if (dictTable[key].Contains("KhachHang"))
+                        {
+                            sb.AppendLine($"- MãKH: {row["MaKH"].ToString()} " +
+                                $"TênKH: {row["TenKH"].ToString()}" +
+                                $"Địa chỉ: {row["DiaChi"].ToString()}" +
+                                $"Số điện thoại: {row["SoDienThoai"].ToString()}" +
+                                $"VIP: {row["VIP"].ToString()}" +
+                                $"Điểm tích luỹ: {row["DiemTichLuy"].ToString()}");
+                        }
+                        else if (dictTable[key].Contains("SanPham"))
+                        {
+                            sb.AppendLine($"- Mã SP: {row["MaSP_Menu"].ToString()} " +
+                                $"Mã SP ở kho: {row["MaSP_Kho"].ToString()}" +
+                                $"Tên: {row["TenMatHang"].ToString()}" +
+                                $"Loại(False là hàng bán nguyên chiếc True là bán theo định lượng) : {row["LoaiBan"].ToString()}" +
+                                $"Định lượng: {row["DinhLuong"].ToString()}" +
+                                $"Đơn vị định lượng: {row["DonViTinh"].ToString()}" +
+                                $"Giá bán ra: {row["GiaBan"].ToString()}");
 
+                        }
+                        else if (dictTable[key].Contains("KhoHang"))
+                        {
+                            sb.AppendLine($"- Mã SP: {row["MaSP_Kho"].ToString()} " +
+                                $"Tên: {row["TenSP"].ToString()}" +
+                                $"Mã danh mục: {row["MaDM"].ToString()}" +
+                                $"Đơn vị tính: {row["DonViTinh"].ToString()}" +
+                                $"Tồn kho: {row["TonKho"].ToString()}" +
+                                $"Ngày cập nhật: {row["NgayCapNhat"].ToString()}" +
+                                $"Trạng thái: {row["TrangThai"].ToString()}" +
+                                $"Tên hình ảnh: {row["HinhAnh"].ToString()}" +
+                                $"Ghi chú: {row["GhiChu"].ToString()}");
+
+                        }
                     }
                 }
+                return sb.ToString();
             }
-            return sb.ToString();
+            catch (Exception ex)
+            {
+                MessageBox.Show("AIChatbotRepository - GetDataFromSQL() Lỗi:\n" + ex.Message);
+                return null;
+            }
         }
     }
 }
