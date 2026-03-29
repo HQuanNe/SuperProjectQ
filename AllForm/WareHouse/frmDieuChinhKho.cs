@@ -137,7 +137,7 @@ namespace SuperProjectQ.AllForm.KhoHang
                     cmd.ExecuteNonQuery();
 
                     if(hasImage) File.Copy(newPathImage, oldPathImage, true); //Lưu đè ảnh cũ
-                    else if(!hasImage) File.Copy(newPathImage, Application.StartupPath + $"\\Images\\{folderImage}\\{Path.GetFileName(newPathImage)}", false);
+                    //else if(!hasImage) File.Copy(newPathImage, Application.StartupPath + $"\\Images\\{folderImage}\\{Path.GetFileName(newPathImage)}", false);
 
                     MessageBox.Show("Cập nhật sản phẩm thành công!!!");
                     this.Close();

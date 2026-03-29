@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -314,12 +315,6 @@ namespace SuperProjectQ
                 else newSoLuong = newSoLuong * dinhLuong;
                 Console.WriteLine($"Số lượng sau khi * với định lg/1000: {newSoLuong}");
 
-                if ( !isPlus && newSoLuong > soLuongTon)
-                {
-                    MessageBox.Show("Số lượng vượt quá tồn kho!");
-                    break;
-                }
-
                 if (isPlus) { soLuongTon += newSoLuong; } //Nếu trả lại đồ thì cộng số lượng vào kho
                 else { soLuongTon -= newSoLuong; } //Nếu order đồ thì trừ số lượng trong kho
 
@@ -338,6 +333,59 @@ namespace SuperProjectQ
                 Session.isPlus = null; //Reset lại giá trị isPlus sau khi cập nhật kho
             }
         }
+        public static bool InspectInStock(string maSP_MenuOrMaCombo, double soLuong)
+        {
+            try
+            {
+                bool isInStock = false;
+                string sqlTonKho = $"SELECT KhoHang.TonKho, SanPham.DinhLuong, KhoHang.DonViTinh FROM Khohang " +
+                    $"INNER JOIN SanPham ON KhoHang.MaSP_Kho = SanPham.MaSP_Kho " +
+                    $"WHERE SanPham.MaSP_Menu = '{maSP_MenuOrMaCombo}'";
+
+                if (isCombo)
+                {
+                    string sqlCTCB = $"SELECT * FROM ChiTietCombo WHERE MaCombo = '{maSP_MenuOrMaCombo}'";
+                    using (dt = new DataTable())
+                    {
+                        dt = kn.CreateTable(sqlCTCB);
+
+                        foreach(DataRow maSP_Menu in dt.Rows)
+                        {
+                            sqlTonKho = $"SELECT KhoHang.TonKho, SanPham.DinhLuong, KhoHang.DonViTinh FROM Khohang " +
+                                $"INNER JOIN SanPham ON KhoHang.MaSP_Kho = SanPham.MaSP_Kho " +
+                                $"WHERE SanPham.MaSP_Menu = '{maSP_Menu}'";
+
+                            using (cmd = new SqlCommand(sqlTonKho, kn.conn))
+                            {
+                                double tonKho = cmd.ExecuteScalar() != DBNull.Value ? Convert.ToDouble(cmd.ExecuteScalar()) : 0;
+
+                                isInStock = soLuong > tonKho ? false : true;
+                            }
+                        }
+                    }
+                } // Nếu là combo thì kiểm tra từng món
+                else
+                {
+                    using (dt = new DataTable())
+                    {
+                        dt = kn.CreateTable(sqlTonKho);
+                        double tonKho = Convert.ToDouble(dt.Rows[0]["TonKho"].ToString());
+
+                        if (dt.Rows[0]["DonViTinh"].ToString() == "Kg") soLuong = soLuong * Convert.ToDouble(dt.Rows[0]["DinhLuong"]) / 1000;
+                        else soLuong = soLuong * Convert.ToDouble(dt.Rows[0]["DinhLuong"]);
+
+                        isInStock =
+                            soLuong > tonKho ? false : true;
+                    }
+                }
+                return isInStock;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("TransData - InspectInStock Lỗi:\n " + ex.Message);
+                return false;
+            }
+        }
         public static bool InspectStorage()
         {
             ConnectOpen();
@@ -346,7 +394,7 @@ namespace SuperProjectQ
             if(dt.Rows.Count > 0) { return false; }
 
             return true;
-        }
+        }//Kiểm tra tồn kho về 0 thì báo đỏ
         public static bool xuLyChuoi(string[] textBoxArray)
         {
             foreach (string textBox in textBoxArray)

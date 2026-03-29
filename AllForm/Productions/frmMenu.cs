@@ -366,6 +366,12 @@ namespace SuperProjectQ.AllForm
 
                     bool flag = true;
 
+                    if(!Session.InspectInStock(maSP, soLuongOrder))
+                    {
+                        MessageBox.Show("Số lượng order vượt quá số lượng tồn kho");
+                        return;
+                    }
+
                     //Lấy danh sách sản phẩm đã order trong phòng
                     DataTable dt2 = new DataTable();
                     dt2 = kn.CreateTable($"SELECT MaSP FROM ChiTietHD WHERE MaHD = '{intMaHD}'");

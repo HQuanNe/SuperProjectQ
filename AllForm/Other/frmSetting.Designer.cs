@@ -82,6 +82,10 @@
             this.label13 = new System.Windows.Forms.Label();
             this.plControls = new System.Windows.Forms.Panel();
             this.plVIP = new System.Windows.Forms.Panel();
+            this.panel13 = new System.Windows.Forms.Panel();
+            this.btnAddVIP = new System.Windows.Forms.Button();
+            this.btnAdjustVIP = new System.Windows.Forms.Button();
+            this.btnDeleteVIP = new System.Windows.Forms.Button();
             this.plBangVIP = new System.Windows.Forms.Panel();
             this.panel14 = new System.Windows.Forms.Panel();
             this.label21 = new System.Windows.Forms.Label();
@@ -92,13 +96,8 @@
             this.txtMinimumPoint = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
             this.panel16 = new System.Windows.Forms.Panel();
-            this.label25 = new System.Windows.Forms.Label();
             this.txtVIP = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
-            this.btnDeleteVIP = new System.Windows.Forms.Button();
-            this.panel13 = new System.Windows.Forms.Panel();
-            this.btnAdjustVIP = new System.Windows.Forms.Button();
-            this.btnAddVIP = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.plThongSo.SuspendLayout();
@@ -116,10 +115,10 @@
             this.panel10.SuspendLayout();
             this.plControls.SuspendLayout();
             this.plVIP.SuspendLayout();
+            this.panel13.SuspendLayout();
             this.panel14.SuspendLayout();
             this.panel15.SuspendLayout();
             this.panel16.SuspendLayout();
-            this.panel13.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -497,6 +496,44 @@
             resources.ApplyResources(this.plVIP, "plVIP");
             this.plVIP.Name = "plVIP";
             // 
+            // panel13
+            // 
+            this.panel13.Controls.Add(this.btnAddVIP);
+            this.panel13.Controls.Add(this.btnAdjustVIP);
+            this.panel13.Controls.Add(this.btnDeleteVIP);
+            resources.ApplyResources(this.panel13, "panel13");
+            this.panel13.Name = "panel13";
+            // 
+            // btnAddVIP
+            // 
+            this.btnAddVIP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnAddVIP.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(this.btnAddVIP, "btnAddVIP");
+            this.btnAddVIP.ForeColor = System.Drawing.Color.White;
+            this.btnAddVIP.Name = "btnAddVIP";
+            this.btnAddVIP.UseVisualStyleBackColor = false;
+            this.btnAddVIP.Click += new System.EventHandler(this.Add_And_Edit_Delete_VIP);
+            // 
+            // btnAdjustVIP
+            // 
+            this.btnAdjustVIP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(212)))));
+            this.btnAdjustVIP.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(this.btnAdjustVIP, "btnAdjustVIP");
+            this.btnAdjustVIP.ForeColor = System.Drawing.Color.White;
+            this.btnAdjustVIP.Name = "btnAdjustVIP";
+            this.btnAdjustVIP.UseVisualStyleBackColor = false;
+            this.btnAdjustVIP.Click += new System.EventHandler(this.Add_And_Edit_Delete_VIP);
+            // 
+            // btnDeleteVIP
+            // 
+            this.btnDeleteVIP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnDeleteVIP.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(this.btnDeleteVIP, "btnDeleteVIP");
+            this.btnDeleteVIP.ForeColor = System.Drawing.Color.White;
+            this.btnDeleteVIP.Name = "btnDeleteVIP";
+            this.btnDeleteVIP.UseVisualStyleBackColor = false;
+            this.btnDeleteVIP.Click += new System.EventHandler(this.Add_And_Edit_Delete_VIP);
+            // 
             // plBangVIP
             // 
             this.plBangVIP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(255)))), ((int)(((byte)(253)))));
@@ -522,6 +559,7 @@
             this.txtTrietKhau.BorderStyle = System.Windows.Forms.BorderStyle.None;
             resources.ApplyResources(this.txtTrietKhau, "txtTrietKhau");
             this.txtTrietKhau.Name = "txtTrietKhau";
+            this.txtTrietKhau.TextChanged += new System.EventHandler(this.TxtBangVIP_TextChanged);
             // 
             // label22
             // 
@@ -547,6 +585,7 @@
             this.txtMinimumPoint.BorderStyle = System.Windows.Forms.BorderStyle.None;
             resources.ApplyResources(this.txtMinimumPoint, "txtMinimumPoint");
             this.txtMinimumPoint.Name = "txtMinimumPoint";
+            this.txtMinimumPoint.TextChanged += new System.EventHandler(this.TxtBangVIP_TextChanged);
             // 
             // label24
             // 
@@ -555,16 +594,10 @@
             // 
             // panel16
             // 
-            this.panel16.Controls.Add(this.label25);
             this.panel16.Controls.Add(this.txtVIP);
             this.panel16.Controls.Add(this.label26);
             resources.ApplyResources(this.panel16, "panel16");
             this.panel16.Name = "panel16";
-            // 
-            // label25
-            // 
-            resources.ApplyResources(this.label25, "label25");
-            this.label25.Name = "label25";
             // 
             // txtVIP
             // 
@@ -577,41 +610,6 @@
             // 
             resources.ApplyResources(this.label26, "label26");
             this.label26.Name = "label26";
-            // 
-            // btnDeleteVIP
-            // 
-            this.btnDeleteVIP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btnDeleteVIP.FlatAppearance.BorderSize = 0;
-            resources.ApplyResources(this.btnDeleteVIP, "btnDeleteVIP");
-            this.btnDeleteVIP.ForeColor = System.Drawing.Color.White;
-            this.btnDeleteVIP.Name = "btnDeleteVIP";
-            this.btnDeleteVIP.UseVisualStyleBackColor = false;
-            // 
-            // panel13
-            // 
-            this.panel13.Controls.Add(this.btnAddVIP);
-            this.panel13.Controls.Add(this.btnAdjustVIP);
-            this.panel13.Controls.Add(this.btnDeleteVIP);
-            resources.ApplyResources(this.panel13, "panel13");
-            this.panel13.Name = "panel13";
-            // 
-            // btnAdjustVIP
-            // 
-            this.btnAdjustVIP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(212)))));
-            this.btnAdjustVIP.FlatAppearance.BorderSize = 0;
-            resources.ApplyResources(this.btnAdjustVIP, "btnAdjustVIP");
-            this.btnAdjustVIP.ForeColor = System.Drawing.Color.White;
-            this.btnAdjustVIP.Name = "btnAdjustVIP";
-            this.btnAdjustVIP.UseVisualStyleBackColor = false;
-            // 
-            // btnAddVIP
-            // 
-            this.btnAddVIP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.btnAddVIP.FlatAppearance.BorderSize = 0;
-            resources.ApplyResources(this.btnAddVIP, "btnAddVIP");
-            this.btnAddVIP.ForeColor = System.Drawing.Color.White;
-            this.btnAddVIP.Name = "btnAddVIP";
-            this.btnAddVIP.UseVisualStyleBackColor = false;
             // 
             // frmSetting
             // 
@@ -652,13 +650,13 @@
             this.panel10.PerformLayout();
             this.plControls.ResumeLayout(false);
             this.plVIP.ResumeLayout(false);
+            this.panel13.ResumeLayout(false);
             this.panel14.ResumeLayout(false);
             this.panel14.PerformLayout();
             this.panel15.ResumeLayout(false);
             this.panel15.PerformLayout();
             this.panel16.ResumeLayout(false);
             this.panel16.PerformLayout();
-            this.panel13.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -722,7 +720,6 @@
         private System.Windows.Forms.TextBox txtMinimumPoint;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Panel panel16;
-        private System.Windows.Forms.Label label25;
         private System.Windows.Forms.TextBox txtVIP;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Panel plBangVIP;

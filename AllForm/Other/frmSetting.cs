@@ -257,12 +257,116 @@ namespace SuperProjectQ.AllForm.Other
         }
         #endregion
 
+        #region Nút thêm, sửa, xoá bảng VIP
+        private void Add_And_Edit_Delete_VIP(object sender, EventArgs e)
+        {
+            try
+            {
+                Button btnClicked = (Button)sender;
+
+                switch (btnClicked.Name)
+                {
+                    case "btnAddVIP":
+                        if (string.IsNullOrEmpty(txtVIP.Text) || string.IsNullOrEmpty(txtMinimumPoint.Text) || string.IsNullOrEmpty(txtTrietKhau.Text))
+                        {
+                            MessageBox.Show("Vui lòng điền đầy đủ thông tin!");
+                            return;
+                        }
+                        if (MessageBox.Show("Bạn có chắc chắn muốn thêm VIP này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+                        cmd = new SqlCommand("INSERT INTO BangVIP (VIP, DiemToiThieu, TrietKhau) VALUES (@VIP, @DiemToiThieu, @TrietKhau)", kn.conn);
+                        cmd.Parameters.AddWithValue("@VIP", txtVIP.Text);
+                        cmd.Parameters.AddWithValue("@DiemToiThieu", int.Parse(txtMinimumPoint.Text));
+
+                        cmd.Parameters.AddWithValue("@TrietKhau", double.Parse(txtTrietKhau.Text));
+                        cmd.ExecuteNonQuery();
+
+                        BangVIP_Load();
+
+                        MessageBox.Show("Đã thêm VIP");
+                        break;
+                    case "btnEditVIP":
+                        if (string.IsNullOrEmpty(txtVIP.Text) || string.IsNullOrEmpty(txtMinimumPoint.Text) || string.IsNullOrEmpty(txtTrietKhau.Text))
+                        {
+                            MessageBox.Show("Vui lòng điền đầy đủ thông tin!");
+                            return;
+                        }
+                        if (MessageBox.Show("Bạn có chắc chắn muốn sửa VIP này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+
+                        cmd = new SqlCommand("UPDATE BangVIP SET DiemToiThieu = @DiemToiThieu, TrietKhau = @TrietKhau WHERE VIP = @VIP", kn.conn);
+                        cmd.Parameters.AddWithValue("@VIP", txtVIP.Text);
+                        cmd.Parameters.AddWithValue("@DiemToiThieu", int.Parse(txtMinimumPoint.Text));
+                        cmd.Parameters.AddWithValue("@TrietKhau", double.Parse(txtTrietKhau.Text));
+                        cmd.ExecuteNonQuery();
+
+                        BangVIP_Load();
+
+                        MessageBox.Show("Đã sửa VIP");
+
+                        break;
+                    case "btnDeleteVIP":
+                        if (string.IsNullOrEmpty(txtVIP.Text))
+                        {
+                            MessageBox.Show("Vui lòng chọn VIP cần xóa!");
+                            return;
+                        }
+
+                        if (MessageBox.Show("Bạn có chắc chắn xoá VIP này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+
+                        cmd = new SqlCommand("DELETE FROM BangVIP WHERE VIP = @VIP", kn.conn);
+                        cmd.Parameters.AddWithValue("@VIP", txtVIP.Text);
+                        cmd.ExecuteNonQuery();
+
+                        BangVIP_Load();
+
+                        MessageBox.Show("Đã xoá VIP");
+
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (SqlException ex)
+            {
+                switch (ex.Number)
+                {
+                    case 2628:
+                        MessageBox.Show("Lỗi: Tên VIP quá độ dài cho phép (VIP0 - 99)", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                    default:
+                        MessageBox.Show("Lỗi thao tác với VIP:\n" + ex.Number + " - " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
+                return;
+            }
+        } //Nút thêm, sửa, xoá bảng VIP
+
+        private void TxtBangVIP_TextChanged(object sender, EventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+            if (txt == txtTrietKhau)
+            {
+                if (!double.TryParse(txt.Text, out double value) || value < 0 || value > 100)
+                {
+                    txt.Text = "0";
+                }
+            }
+            else if (txt == txtMinimumPoint)
+            {
+                if (!int.TryParse(txt.Text, out int value) || value < 0)
+                {
+                    txt.Text = "0";
+                }
+            }
+            txt.SelectionStart = txt.Text.Length;
+        } //Giới hạn nhập liệu cho textbox của bảng VIP
+        #endregion
+
         private void cmbDanhMuc_SelectedValueChanged(object sender, EventArgs e)
         {
             if (cmbDanhMuc.SelectedValue == null) return;
             txtMaDM.Text = cmbDanhMuc.SelectedValue.ToString();
             txtTenDM.Text = cmbDanhMuc.Text.ToString();
-        }
+        } // Thay đổi hiển thị textbox khi chọn danh mục trong cmb
 
     }
 }
