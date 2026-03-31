@@ -85,6 +85,15 @@ namespace SuperProjectQ
             public static string MaSP_Menu { get; set; }
             public static string MaSP_Kho { get; set; }
         }
+        public static class ComboData
+        {
+            public static string MaCombo { get; set; }
+            public static string TenCombo { get; set; }
+        }
+        public static class PhieuNhapData
+        {
+            public static string MaPN { get; set; }
+        }
         public class FontStandard
         {
             public Font timeNew10_Regular = new Font("Times New Roman", 10F, FontStyle.Regular);
@@ -254,7 +263,7 @@ namespace SuperProjectQ
             int tangMa = Convert.ToInt16(id) + 1;
             string newID = null;
 
-            if (target.Length == 3 && target != "SPK" && target != "MPN")
+            if (target.Length == 3 && target != "SPK" && target != "SPM")
             {
                 //Định dạng lại mã nếu <10 thì thêm 2 số 0, <100 thì thêm 1 số 0
                 if (tangMa < 10)
@@ -524,14 +533,11 @@ namespace SuperProjectQ
 
         public static string IDUser { get; set; }
         public static string MaQH { get; set; }
-        public static string MaNV { get; set; }
-        public static string TenNV { get; set; }
-        public static string ChucVu { get; set; }
         public static string Passwd { get; } = "admin";
 
         //Voucher
         public static int STTVoucher { get; set; } //STT voucher được chọn để áp dụng vào hoá đơn
-        public static string tenVoucher { get; set; } = "";//Tên voucher được chọn
+        public static string tenVoucher { get; set; }//Tên voucher được chọn
         public static bool isUsedVoucher { get; set; } //Đã áp dụng voucher vào hoá đơn hay chưa
 
         //Combo

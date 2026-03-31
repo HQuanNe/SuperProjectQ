@@ -21,7 +21,7 @@ namespace SuperProjectQ.AllForm.NhapKho
         SqlCommand cmd;
         DataTable dt;
 
-        string maPN = Session.AutoCreateID_String("MaPN", "PhieuNhap", "MPN");
+        int maPN = Session.AutoCreateID_Interger("MaPN", "PhieuNhap");
         int maCTPN = 1;
         decimal tongThanhToan = 0;
 
@@ -47,7 +47,7 @@ namespace SuperProjectQ.AllForm.NhapKho
             Session.StandardDataGridView(dgvCTPN);
 
             txtMaPN.Enabled = false;
-            txtMaPN.Text = maPN;
+            txtMaPN.Text = maPN.ToString();
 
             CmbNhaCC_Load();
             CmbSanPham_Load();
@@ -145,6 +145,11 @@ namespace SuperProjectQ.AllForm.NhapKho
                 cmd.Parameters.AddWithValue("@TTT", tongThanhToan);
                 cmd.ExecuteNonQuery();
             }
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

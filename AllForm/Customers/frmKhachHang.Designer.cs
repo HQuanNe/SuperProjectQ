@@ -85,7 +85,7 @@
             this.txtSearch.Location = new System.Drawing.Point(6, 22);
             this.txtSearch.Multiline = true;
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(307, 45);
+            this.txtSearch.Size = new System.Drawing.Size(307, 35);
             this.txtSearch.TabIndex = 22;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 

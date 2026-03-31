@@ -365,7 +365,7 @@ namespace SuperProjectQ.FrmMixed
                 if (!UpdateGhiNo()) return;
 
                 //Ghi log vào file
-                Session.Datalog("payment.txt", $"Mã NV: {Session.MaNV} Đã thực hiện thanh toán hoá đơn >> {Session.RoomData.maHD} <<");
+                Session.Datalog("payment.txt", $"Mã NV: {Session.StaffData.MaNV} Đã thực hiện thanh toán hoá đơn >> {Session.RoomData.maHD} <<");
 
                 this.Close();
                 await Task.Delay(100);

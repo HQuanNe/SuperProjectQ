@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmNhapHang));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.btnClose = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnThem = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
@@ -64,7 +66,9 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.panel1.BackColor = System.Drawing.Color.SeaShell;
+            this.panel1.Controls.Add(this.lblTitle);
+            this.panel1.Controls.Add(this.btnClose);
             this.panel1.Controls.Add(this.btnSave);
             this.panel1.Controls.Add(this.btnThem);
             this.panel1.Controls.Add(this.groupBox6);
@@ -74,22 +78,49 @@
             this.panel1.Controls.Add(this.groupBox3);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Location = new System.Drawing.Point(2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1082, 194);
+            this.panel1.Size = new System.Drawing.Size(1078, 236);
             this.panel1.TabIndex = 0;
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Times New Roman", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.Location = new System.Drawing.Point(419, 13);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(245, 53);
+            this.lblTitle.TabIndex = 13;
+            this.lblTitle.Text = "Nhập hàng";
+            // 
+            // btnClose
+            // 
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.BackColor = System.Drawing.Color.Red;
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold);
+            this.btnClose.ForeColor = System.Drawing.Color.White;
+            this.btnClose.Location = new System.Drawing.Point(1038, 0);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(40, 40);
+            this.btnClose.TabIndex = 10;
+            this.btnClose.Text = "X";
+            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // btnSave
             // 
+            this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnSave.BackColor = System.Drawing.Color.Aqua;
             this.btnSave.FlatAppearance.BorderSize = 0;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.Color.White;
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
-            this.btnSave.Location = new System.Drawing.Point(831, 107);
+            this.btnSave.Location = new System.Drawing.Point(831, 163);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(140, 60);
+            this.btnSave.Size = new System.Drawing.Size(140, 50);
             this.btnSave.TabIndex = 5;
             this.btnSave.Text = "Lưu";
             this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -99,15 +130,16 @@
             // 
             // btnThem
             // 
+            this.btnThem.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnThem.BackColor = System.Drawing.Color.Lime;
             this.btnThem.FlatAppearance.BorderSize = 0;
             this.btnThem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnThem.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThem.ForeColor = System.Drawing.Color.White;
             this.btnThem.Image = ((System.Drawing.Image)(resources.GetObject("btnThem.Image")));
-            this.btnThem.Location = new System.Drawing.Point(675, 107);
+            this.btnThem.Location = new System.Drawing.Point(675, 163);
             this.btnThem.Name = "btnThem";
-            this.btnThem.Size = new System.Drawing.Size(140, 60);
+            this.btnThem.Size = new System.Drawing.Size(140, 50);
             this.btnThem.TabIndex = 4;
             this.btnThem.Text = "Thêm";
             this.btnThem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -116,9 +148,10 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.groupBox6.Controls.Add(this.cmbSanPham);
             this.groupBox6.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox6.Location = new System.Drawing.Point(571, 22);
+            this.groupBox6.Location = new System.Drawing.Point(571, 78);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(400, 71);
             this.groupBox6.TabIndex = 2;
@@ -129,9 +162,11 @@
             // 
             this.cmbSanPham.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cmbSanPham.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmbSanPham.DropDownHeight = 200;
             this.cmbSanPham.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbSanPham.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbSanPham.FormattingEnabled = true;
+            this.cmbSanPham.IntegralHeight = false;
             this.cmbSanPham.Location = new System.Drawing.Point(7, 21);
             this.cmbSanPham.Name = "cmbSanPham";
             this.cmbSanPham.Size = new System.Drawing.Size(387, 27);
@@ -139,9 +174,10 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.groupBox2.Controls.Add(this.txtSoLuong);
             this.groupBox2.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(12, 99);
+            this.groupBox2.Location = new System.Drawing.Point(12, 155);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(215, 71);
             this.groupBox2.TabIndex = 2;
@@ -160,9 +196,10 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.groupBox5.Controls.Add(this.cmbNCC);
             this.groupBox5.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox5.Location = new System.Drawing.Point(165, 22);
+            this.groupBox5.Location = new System.Drawing.Point(165, 78);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(400, 71);
             this.groupBox5.TabIndex = 2;
@@ -173,9 +210,11 @@
             // 
             this.cmbNCC.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cmbNCC.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmbNCC.DropDownHeight = 200;
             this.cmbNCC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbNCC.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbNCC.FormattingEnabled = true;
+            this.cmbNCC.IntegralHeight = false;
             this.cmbNCC.Location = new System.Drawing.Point(6, 21);
             this.cmbNCC.Name = "cmbNCC";
             this.cmbNCC.Size = new System.Drawing.Size(388, 27);
@@ -183,9 +222,10 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.groupBox4.Controls.Add(this.txtThanhTien);
             this.groupBox4.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.Location = new System.Drawing.Point(454, 99);
+            this.groupBox4.Location = new System.Drawing.Point(454, 155);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(215, 71);
             this.groupBox4.TabIndex = 3;
@@ -204,9 +244,10 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.groupBox3.Controls.Add(this.txtDonGia);
             this.groupBox3.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(233, 99);
+            this.groupBox3.Location = new System.Drawing.Point(233, 155);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(215, 71);
             this.groupBox3.TabIndex = 2;
@@ -225,9 +266,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.groupBox1.Controls.Add(this.txtMaPN);
             this.groupBox1.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(12, 22);
+            this.groupBox1.Location = new System.Drawing.Point(12, 78);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(147, 71);
             this.groupBox1.TabIndex = 0;
@@ -256,11 +298,12 @@
             this.SoLuong,
             this.DonGia,
             this.ThanhTien});
-            this.dgvCTPN.Location = new System.Drawing.Point(12, 200);
+            this.dgvCTPN.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvCTPN.Location = new System.Drawing.Point(2, 238);
             this.dgvCTPN.Name = "dgvCTPN";
             this.dgvCTPN.RowHeadersWidth = 51;
             this.dgvCTPN.RowTemplate.Height = 24;
-            this.dgvCTPN.Size = new System.Drawing.Size(1058, 536);
+            this.dgvCTPN.Size = new System.Drawing.Size(1078, 499);
             this.dgvCTPN.TabIndex = 1;
             // 
             // MaCTPN
@@ -322,16 +365,18 @@
             // frmNhapHang
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(233)))), ((int)(((byte)(247)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(1082, 739);
             this.Controls.Add(this.dgvCTPN);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "frmNhapHang";
+            this.Padding = new System.Windows.Forms.Padding(2);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Nhập hàng";
             this.Load += new System.EventHandler(this.frmCTPhieuNhap_Load);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -372,5 +417,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DonGia;
         private System.Windows.Forms.DataGridViewTextBoxColumn ThanhTien;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Label lblTitle;
     }
 }

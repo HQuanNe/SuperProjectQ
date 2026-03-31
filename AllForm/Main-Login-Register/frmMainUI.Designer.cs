@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMainUI));
             this.lblTitleXinChao = new System.Windows.Forms.Label();
             this.plInfo = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.picUser = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.lblWeather = new System.Windows.Forms.Label();
@@ -53,16 +55,19 @@
             this.MNMore = new System.Windows.Forms.ToolStripMenuItem();
             this.MNMore_Products = new System.Windows.Forms.ToolStripMenuItem();
             this.MNMore_Voucher = new System.Windows.Forms.ToolStripMenuItem();
+            this.MNMore__ = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSetting = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.picLogo = new System.Windows.Forms.PictureBox();
             this.plNavBar = new System.Windows.Forms.Panel();
             this.timerClock = new System.Windows.Forms.Timer(this.components);
             this.timerWeather = new System.Windows.Forms.Timer(this.components);
+            this.MNNhapKho = new System.Windows.Forms.ToolStripMenuItem();
             this.plInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picUser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.MNNavBar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.plNavBar.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,6 +86,8 @@
             // 
             this.plInfo.BackColor = System.Drawing.Color.White;
             this.plInfo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.plInfo.Controls.Add(this.label1);
+            this.plInfo.Controls.Add(this.picUser);
             this.plInfo.Controls.Add(this.pictureBox2);
             this.plInfo.Controls.Add(this.pictureBox3);
             this.plInfo.Controls.Add(this.lblWeather);
@@ -94,6 +101,28 @@
             this.plInfo.Name = "plInfo";
             this.plInfo.Size = new System.Drawing.Size(1482, 45);
             this.plInfo.TabIndex = 2;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.Red;
+            this.label1.Location = new System.Drawing.Point(614, 7);
+            this.label1.MaximumSize = new System.Drawing.Size(300, 0);
+            this.label1.MinimumSize = new System.Drawing.Size(200, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(300, 32);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "*Phần mềm vẫn trong giai đoạn phát phiển có thể gặp một số lỗi hoặc chưa đầy đủ c" +
+    "hức năng.";
+            // 
+            // picUser
+            // 
+            this.picUser.Location = new System.Drawing.Point(1186, 7);
+            this.picUser.Name = "picUser";
+            this.picUser.Size = new System.Drawing.Size(30, 30);
+            this.picUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picUser.TabIndex = 13;
+            this.picUser.TabStop = false;
             // 
             // pictureBox2
             // 
@@ -186,7 +215,7 @@
             this.btnLogOut.BackColor = System.Drawing.Color.Red;
             this.btnLogOut.FlatAppearance.BorderSize = 0;
             this.btnLogOut.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btnLogOut.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btnLogOut.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnLogOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogOut.Font = new System.Drawing.Font("Times New Roman", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogOut.ForeColor = System.Drawing.Color.White;
@@ -230,14 +259,15 @@
             this.MNStaffs,
             this.MNCustomers,
             this.MNStorage,
+            this.MNNhapKho,
             this.MNChart,
             this.MNMore});
             this.MNNavBar.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
-            this.MNNavBar.Location = new System.Drawing.Point(9, 77);
+            this.MNNavBar.Location = new System.Drawing.Point(9, 75);
             this.MNNavBar.MaximumSize = new System.Drawing.Size(300, 1000);
             this.MNNavBar.MinimumSize = new System.Drawing.Size(240, 0);
             this.MNNavBar.Name = "MNNavBar";
-            this.MNNavBar.Size = new System.Drawing.Size(240, 438);
+            this.MNNavBar.Size = new System.Drawing.Size(240, 486);
             this.MNNavBar.TabIndex = 10;
             this.MNNavBar.Text = "NavBar";
             // 
@@ -357,7 +387,8 @@
             // 
             this.MNMore.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MNMore_Products,
-            this.MNMore_Voucher});
+            this.MNMore_Voucher,
+            this.MNMore__});
             this.MNMore.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MNMore.ForeColor = System.Drawing.Color.Black;
             this.MNMore.Image = ((System.Drawing.Image)(resources.GetObject("MNMore.Image")));
@@ -388,13 +419,20 @@
             this.MNMore_Voucher.Text = "Voucher";
             this.MNMore_Voucher.Click += new System.EventHandler(this.AllMenu_Click);
             // 
+            // MNMore__
+            // 
+            this.MNMore__.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MNMore__.Name = "MNMore__";
+            this.MNMore__.Size = new System.Drawing.Size(224, 30);
+            this.MNMore__.Text = "--";
+            // 
             // btnSetting
             // 
             this.btnSetting.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnSetting.BackColor = System.Drawing.Color.DodgerBlue;
             this.btnSetting.FlatAppearance.BorderSize = 0;
             this.btnSetting.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.btnSetting.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.btnSetting.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(142)))), ((int)(((byte)(252)))));
             this.btnSetting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSetting.Font = new System.Drawing.Font("Times New Roman", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSetting.ForeColor = System.Drawing.Color.White;
@@ -409,20 +447,22 @@
             this.btnSetting.UseVisualStyleBackColor = false;
             this.btnSetting.Click += new System.EventHandler(this.btnSetting_Click);
             // 
-            // pictureBox1
+            // picLogo
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(80, 2);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(90, 68);
-            this.pictureBox1.TabIndex = 12;
-            this.pictureBox1.TabStop = false;
+            this.picLogo.Image = ((System.Drawing.Image)(resources.GetObject("picLogo.Image")));
+            this.picLogo.Location = new System.Drawing.Point(14, 3);
+            this.picLogo.Name = "picLogo";
+            this.picLogo.Size = new System.Drawing.Size(227, 70);
+            this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picLogo.TabIndex = 12;
+            this.picLogo.TabStop = false;
+            this.picLogo.Click += new System.EventHandler(this.picLogo_Click);
             // 
             // plNavBar
             // 
             this.plNavBar.Controls.Add(this.btnSetting);
             this.plNavBar.Controls.Add(this.btnLogOut);
-            this.plNavBar.Controls.Add(this.pictureBox1);
+            this.plNavBar.Controls.Add(this.picLogo);
             this.plNavBar.Controls.Add(this.MNNavBar);
             this.plNavBar.Dock = System.Windows.Forms.DockStyle.Left;
             this.plNavBar.Location = new System.Drawing.Point(0, 45);
@@ -434,6 +474,15 @@
             // 
             this.timerClock.Interval = 1000;
             this.timerClock.Tick += new System.EventHandler(this.timerClock_Tick);
+            // 
+            // MNNhapKho
+            // 
+            this.MNNhapKho.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MNNhapKho.Margin = new System.Windows.Forms.Padding(5);
+            this.MNNhapKho.Name = "MNNhapKho";
+            this.MNNhapKho.Size = new System.Drawing.Size(223, 38);
+            this.MNNhapKho.Text = "Nhập kho";
+            this.MNNhapKho.Click += new System.EventHandler(this.AllMenu_Click);
             // 
             // frmMainUI
             // 
@@ -456,11 +505,12 @@
             this.Load += new System.EventHandler(this.frmMainUI_Load);
             this.plInfo.ResumeLayout(false);
             this.plInfo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picUser)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.MNNavBar.ResumeLayout(false);
             this.MNNavBar.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.plNavBar.ResumeLayout(false);
             this.plNavBar.PerformLayout();
             this.ResumeLayout(false);
@@ -484,7 +534,7 @@
         private System.Windows.Forms.ToolStripMenuItem MNCustomers;
         private System.Windows.Forms.ToolStripMenuItem MNStorage;
         private System.Windows.Forms.Button btnSetting;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox picLogo;
         private System.Windows.Forms.Panel plNavBar;
         private System.Windows.Forms.ToolStripMenuItem MNChart;
         private System.Windows.Forms.ToolStripMenuItem MNMore_Products;
@@ -496,5 +546,9 @@
         private System.Windows.Forms.Timer timerWeather;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox picUser;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripMenuItem MNMore__;
+        private System.Windows.Forms.ToolStripMenuItem MNNhapKho;
     }
 }

@@ -154,6 +154,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AllForm\Combo\frmAdjustCombo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\Combo\frmAdjustCombo.Designer.cs">
+      <DependentUpon>frmAdjustCombo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AllForm\Combo\frmCombo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\Combo\frmCombo.Designer.cs">
+      <DependentUpon>frmCombo.cs</DependentUpon>
+    </Compile>
     <Compile Include="AllForm\HoaDon\frmChiTietHD.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -171,6 +183,18 @@
     </Compile>
     <Compile Include="AllForm\Customers\frmThemKhachHang.Designer.cs">
       <DependentUpon>frmThemKhachHang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AllForm\NhapKho\frmCTPhieuNhap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\NhapKho\frmCTPhieuNhap.Designer.cs">
+      <DependentUpon>frmCTPhieuNhap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AllForm\NhapKho\frmPhieuNhap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\NhapKho\frmPhieuNhap.Designer.cs">
+      <DependentUpon>frmPhieuNhap.cs</DependentUpon>
     </Compile>
     <Compile Include="AllForm\Productions\frmAddProducts.cs">
       <SubType>Form</SubType>
@@ -381,6 +405,12 @@
     </Compile>
     <Compile Include="Classes\SetParameters.cs" />
     <Compile Include="Classes\TransData.cs" />
+    <EmbeddedResource Include="AllForm\Combo\frmAdjustCombo.resx">
+      <DependentUpon>frmAdjustCombo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\Combo\frmCombo.resx">
+      <DependentUpon>frmCombo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AllForm\HoaDon\frmChiTietHD.resx">
       <DependentUpon>frmChiTietHD.cs</DependentUpon>
     </EmbeddedResource>
@@ -389,6 +419,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AllForm\Customers\frmThemKhachHang.resx">
       <DependentUpon>frmThemKhachHang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\NhapKho\frmCTPhieuNhap.resx">
+      <DependentUpon>frmCTPhieuNhap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\NhapKho\frmPhieuNhap.resx">
+      <DependentUpon>frmPhieuNhap.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AllForm\Productions\frmAddProducts.resx">
       <DependentUpon>frmAddProducts.cs</DependentUpon>

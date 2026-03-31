@@ -78,7 +78,7 @@ namespace SuperProjectQ
                     };
                     if (!Session.xuLyChuoi(textBox)) { MessageBox.Show("Tên đăng nhập hoặc mật khẩu không chính xác");  return;}
 
-                    string loginIDUser = null, loginMaNV = null, loginTenNV = null, loginChucVu = null;
+                    string loginIDUser = null, loginMaNV = null, loginTenNV = null, loginChucVu = null, hinhAnh = null;
                     string sqlLogin = $"SELECT * FROM Users WHERE UserName = '{txtUserName.Text.Trim()}' AND Password = '{txtPassword.Text.Trim()}'";
                     DataTable dt = new DataTable();
                     dt = kn.CreateTable(sqlLogin);
@@ -95,13 +95,15 @@ namespace SuperProjectQ
 
                         loginTenNV = dtTenNV.Rows[0]["TenNV"].ToString();
                         loginChucVu = dtTenNV.Rows[0]["ChucVu"].ToString();
+                        hinhAnh = dtTenNV.Rows[0]["HinhAnh"].ToString();
                     }
                     if (loginIDUser != null)
                     {
                         Session.IDUser = loginIDUser;
-                        Session.MaNV = loginMaNV;
-                        Session.TenNV = loginTenNV;
-                        Session.ChucVu = loginChucVu;
+                        Session.StaffData.MaNV = loginMaNV;
+                        Session.StaffData.TenNV = loginTenNV;
+                        Session.StaffData.ChucVu = loginChucVu;
+                        Session.StaffData.HinhAnh = hinhAnh;
 
                         isLoginSuccess = true;
                         SaveInfo_Checked();

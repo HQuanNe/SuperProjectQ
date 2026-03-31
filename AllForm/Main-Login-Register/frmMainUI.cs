@@ -2,6 +2,7 @@
 using Mscc.GenerativeAI.Types;
 using Newtonsoft.Json.Linq;
 using SuperProjectQ.AllForm;
+using SuperProjectQ.AllForm.NhapKho;
 using SuperProjectQ.AllForm.Other;
 using SuperProjectQ.AllForm.Productions;
 using SuperProjectQ.AllForm.Room;
@@ -15,8 +16,7 @@ using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-//Thư viện thời tiết
-using System.Net.Http;
+using System.Net.Http; //Thư viện thời tiết
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,7 +47,7 @@ namespace SuperProjectQ.Frm_Main_Login_Register
         Session.FontStandard fontS = new Session.FontStandard();
         ToolStripMenuItem MNItemClicked = null; //MenuItem click trước đó
 
-        string mainIDUser = Session.IDUser, mainTenNV = Session.TenNV;
+        string mainIDUser = Session.IDUser, mainTenNV = Session.StaffData.TenNV;
 
         private void AddForm(Form form)
         {
@@ -61,7 +61,7 @@ namespace SuperProjectQ.Frm_Main_Login_Register
             form.Show();
 
             plControls.Controls.Add(form);
-        }
+        } // Thêm form vào panel
         private async void GetWeather()
         {
             string apiKey = ConfigurationManager.AppSettings["WheatherAPIKey"];
@@ -88,7 +88,7 @@ namespace SuperProjectQ.Frm_Main_Login_Register
                     Console.WriteLine("Lỗi load thời tiết");
                 }
             };
-        }
+        } //Lấy thời tiết
         private void AllMenu_Click(object sender, EventArgs e)
         {
             ToolStripMenuItem MNItemClick = sender as ToolStripMenuItem;
@@ -129,6 +129,10 @@ namespace SuperProjectQ.Frm_Main_Login_Register
                     frmKho khoHang = new frmKho();
                     AddForm(khoHang);
                     break;
+                case "MNNhapKho":
+                    frmPhieuNhap pn = new frmPhieuNhap();
+                    AddForm(pn);
+                    break;
                 case "MNChart":
                     frmBieuDoDoanhThu chart = new frmBieuDoDoanhThu();
                     AddForm(chart);
@@ -144,12 +148,16 @@ namespace SuperProjectQ.Frm_Main_Login_Register
                 default:
                     return;
             }
-        }
+        } //Các nút điều hướng
 
         private string MaQH()
         {
             string mainTenQH = null;
-            string sqlQH = $"SELECT QuyenHan.MaQH, QuyenHan.TenQH, Users.IDUser\r\nFROM PhanQuyen\r\nINNER JOIN QuyenHan ON QuyenHan.MaQH = PhanQuyen.MaQH\r\nINNER JOIN Users ON Users.IDUser = PhanQuyen.IDUser\r\nWHERE PhanQuyen.IDUser = '{mainIDUser}'";
+            string sqlQH = $"SELECT QuyenHan.MaQH, QuyenHan.TenQH, Users.IDUser " +
+                $"FROM PhanQuyen " +
+                $"INNER JOIN QuyenHan ON QuyenHan.MaQH = PhanQuyen.MaQH " +
+                $"INNER JOIN Users ON Users.IDUser = PhanQuyen.IDUser " +
+                $"WHERE PhanQuyen.IDUser = '{mainIDUser}'";
             DataTable dtQH = new DataTable();
             dtQH = kn.CreateTable(sqlQH);
             foreach (DataRow rQH in dtQH.Rows)
@@ -157,8 +165,19 @@ namespace SuperProjectQ.Frm_Main_Login_Register
                 mainTenQH = rQH["MaQH"].ToString();
             }
             return mainTenQH;
-        }
+        } //Lấy mã quyền hạn 
 
+        private void ImageUser_Load()
+        {
+            try
+            {
+                picUser.Image = System.Drawing.Image.FromFile(Application.StartupPath + $"\\Images\\StaffImage\\{Session.StaffData.HinhAnh}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Lỗi load ảnh nhân viên\n" + ex.Message);
+            }
+        }
         private void frmMainUI_Load(object sender, EventArgs e)
         {
             kn.ConnOpen();
@@ -204,6 +223,7 @@ namespace SuperProjectQ.Frm_Main_Login_Register
             timerClock.Start();
 
             GetWeather();
+            ImageUser_Load();
 
             var oldHistory = AIRepo.GetHistory(); //Lấy dữ liệu cũ đã lưu trong SQL
             chatSession = model.StartChat(oldHistory); //Gán data đó làm giá trị khởi đầu
@@ -387,6 +407,11 @@ namespace SuperProjectQ.Frm_Main_Login_Register
             //Cụm câu lệnh giải phóng tài nguyên
             GC.Collect();
             GC.WaitForPendingFinalizers();
+        }
+
+        private void picLogo_Click(object sender, EventArgs e)
+        {
+            plControls.Visible = false;
         }
 
         private void btnOpenNavBar_Click(object sender, EventArgs e)
