@@ -51,17 +51,17 @@
             this.MNStaffs = new System.Windows.Forms.ToolStripMenuItem();
             this.MNCustomers = new System.Windows.Forms.ToolStripMenuItem();
             this.MNStorage = new System.Windows.Forms.ToolStripMenuItem();
+            this.MNNhapKho = new System.Windows.Forms.ToolStripMenuItem();
             this.MNChart = new System.Windows.Forms.ToolStripMenuItem();
             this.MNMore = new System.Windows.Forms.ToolStripMenuItem();
             this.MNMore_Products = new System.Windows.Forms.ToolStripMenuItem();
             this.MNMore_Voucher = new System.Windows.Forms.ToolStripMenuItem();
-            this.MNMore__ = new System.Windows.Forms.ToolStripMenuItem();
+            this.MNMore_Account = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSetting = new System.Windows.Forms.Button();
             this.picLogo = new System.Windows.Forms.PictureBox();
             this.plNavBar = new System.Windows.Forms.Panel();
             this.timerClock = new System.Windows.Forms.Timer(this.components);
             this.timerWeather = new System.Windows.Forms.Timer(this.components);
-            this.MNNhapKho = new System.Windows.Forms.ToolStripMenuItem();
             this.plInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picUser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -235,7 +235,7 @@
             this.plControls.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.plControls.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(233)))), ((int)(((byte)(247)))));
+            this.plControls.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(233)))), ((int)(((byte)(231)))));
             this.plControls.Location = new System.Drawing.Point(257, 45);
             this.plControls.MaximumSize = new System.Drawing.Size(2500, 1500);
             this.plControls.MinimumSize = new System.Drawing.Size(1225, 0);
@@ -369,6 +369,19 @@
             this.MNStorage.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.MNStorage.Click += new System.EventHandler(this.AllMenu_Click);
             // 
+            // MNNhapKho
+            // 
+            this.MNNhapKho.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MNNhapKho.Image = ((System.Drawing.Image)(resources.GetObject("MNNhapKho.Image")));
+            this.MNNhapKho.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.MNNhapKho.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.MNNhapKho.Name = "MNNhapKho";
+            this.MNNhapKho.Padding = new System.Windows.Forms.Padding(5);
+            this.MNNhapKho.Size = new System.Drawing.Size(233, 48);
+            this.MNNhapKho.Text = "Nhập kho";
+            this.MNNhapKho.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            this.MNNhapKho.Click += new System.EventHandler(this.AllMenu_Click);
+            // 
             // MNChart
             // 
             this.MNChart.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -388,7 +401,7 @@
             this.MNMore.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MNMore_Products,
             this.MNMore_Voucher,
-            this.MNMore__});
+            this.MNMore_Account});
             this.MNMore.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MNMore.ForeColor = System.Drawing.Color.Black;
             this.MNMore.Image = ((System.Drawing.Image)(resources.GetObject("MNMore.Image")));
@@ -406,7 +419,7 @@
             this.MNMore_Products.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MNMore_Products.Image = ((System.Drawing.Image)(resources.GetObject("MNMore_Products.Image")));
             this.MNMore_Products.Name = "MNMore_Products";
-            this.MNMore_Products.Size = new System.Drawing.Size(224, 30);
+            this.MNMore_Products.Size = new System.Drawing.Size(195, 30);
             this.MNMore_Products.Text = "Sản phẩm";
             this.MNMore_Products.Click += new System.EventHandler(this.AllMenu_Click);
             // 
@@ -415,16 +428,18 @@
             this.MNMore_Voucher.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MNMore_Voucher.Image = ((System.Drawing.Image)(resources.GetObject("MNMore_Voucher.Image")));
             this.MNMore_Voucher.Name = "MNMore_Voucher";
-            this.MNMore_Voucher.Size = new System.Drawing.Size(224, 30);
+            this.MNMore_Voucher.Size = new System.Drawing.Size(195, 30);
             this.MNMore_Voucher.Text = "Voucher";
             this.MNMore_Voucher.Click += new System.EventHandler(this.AllMenu_Click);
             // 
-            // MNMore__
+            // MNMore_Account
             // 
-            this.MNMore__.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MNMore__.Name = "MNMore__";
-            this.MNMore__.Size = new System.Drawing.Size(224, 30);
-            this.MNMore__.Text = "--";
+            this.MNMore_Account.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MNMore_Account.Image = ((System.Drawing.Image)(resources.GetObject("MNMore_Account.Image")));
+            this.MNMore_Account.Name = "MNMore_Account";
+            this.MNMore_Account.Size = new System.Drawing.Size(195, 30);
+            this.MNMore_Account.Text = "Tài khoản";
+            this.MNMore_Account.Click += new System.EventHandler(this.AllMenu_Click);
             // 
             // btnSetting
             // 
@@ -474,15 +489,6 @@
             // 
             this.timerClock.Interval = 1000;
             this.timerClock.Tick += new System.EventHandler(this.timerClock_Tick);
-            // 
-            // MNNhapKho
-            // 
-            this.MNNhapKho.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MNNhapKho.Margin = new System.Windows.Forms.Padding(5);
-            this.MNNhapKho.Name = "MNNhapKho";
-            this.MNNhapKho.Size = new System.Drawing.Size(223, 38);
-            this.MNNhapKho.Text = "Nhập kho";
-            this.MNNhapKho.Click += new System.EventHandler(this.AllMenu_Click);
             // 
             // frmMainUI
             // 
@@ -548,7 +554,7 @@
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox picUser;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ToolStripMenuItem MNMore__;
+        private System.Windows.Forms.ToolStripMenuItem MNMore_Account;
         private System.Windows.Forms.ToolStripMenuItem MNNhapKho;
     }
 }

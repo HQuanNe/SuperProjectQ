@@ -215,6 +215,7 @@ namespace SuperProjectQ.AllForm.Room
                 case 0:
                     timeIn = "NULL";
                     timeBooking = "NULL";
+                    cusPhoneNumber = "";
                     break;
                 case 1:
                     timeIn = "GETDATE()";
@@ -452,7 +453,7 @@ namespace SuperProjectQ.AllForm.Room
                     continue;
                 }
             }
-            data data = (data)selectedPanel.Tag;
+            data data = selectedPanel.Tag as data;
 
             Session.CustomerData.SoDienThoai = data.phoneNumber;
             maPhong = selectedPanel.Name;
@@ -493,8 +494,6 @@ namespace SuperProjectQ.AllForm.Room
                     }
                 };
                 details.ShowDialog();
-
-                LoadPhong();
             }
 
             if (!isActive)
@@ -556,6 +555,8 @@ namespace SuperProjectQ.AllForm.Room
                     return;
                 }
             }
+
+            LoadPhong();
             Info_Load();
         }
         private void Info_Load()

@@ -342,7 +342,7 @@ namespace SuperProjectQ.AllForm
                         $"FROM Combo " +
                         $"WHERE Combo.MaCombo = '{clickedButtonMaSP.Name}'";
 
-                        Session.isCombo = true;
+                        Session.ComboData.isCombo = true;
                     }
 
                     dt = new DataTable();
@@ -360,7 +360,7 @@ namespace SuperProjectQ.AllForm
                     string donViTinh = dt.Rows[0][2].ToString();
                     int donGia = Convert.ToInt32(dt.Rows[0][3].ToString());
 
-                    double dinhLuong = !Session.isCombo ? Convert.ToDouble(dt.Rows[0][4].ToString()) : 0;
+                    double dinhLuong = !Session.ComboData.isCombo ? Convert.ToDouble(dt.Rows[0][4].ToString()) : 0;
 
                     if (donViTinh == "Kg") donViTinh = "Đĩa";
 
@@ -395,7 +395,7 @@ namespace SuperProjectQ.AllForm
                         cmd.Parameters.AddWithValue("@MCTHD", Session.AutoCreateID_Interger("MaCTHD", "ChiTietHD"));
                         cmd.Parameters.AddWithValue("@MHD", intMaHD);
                         cmd.Parameters.AddWithValue("@MSP", maSP);
-                        cmd.Parameters.AddWithValue("LH", Session.isCombo);
+                        cmd.Parameters.AddWithValue("LH", Session.ComboData.isCombo);
                         cmd.Parameters.AddWithValue("@SL", soLuongOrder);
                         cmd.Parameters.AddWithValue("@DV", donViTinh);
                         cmd.Parameters.AddWithValue("@DG", donGia);
@@ -434,7 +434,7 @@ namespace SuperProjectQ.AllForm
                     cmd = new SqlCommand($"SELECT TenPhong FROM Phong WHERE MaPhong = '{RoomID}'", kn.conn);
                     string tenPhong = (string)cmd.ExecuteScalar();
 
-                    Session.isCombo = false;
+                    Session.ComboData.isCombo = false;
                     MessageBox.Show($"Đã thêm sản phẩm {tenSP} cho phòng {tenPhong}"); return;
                 }
             }

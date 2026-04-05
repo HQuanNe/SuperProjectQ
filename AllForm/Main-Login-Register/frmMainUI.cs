@@ -6,6 +6,7 @@ using SuperProjectQ.AllForm.NhapKho;
 using SuperProjectQ.AllForm.Other;
 using SuperProjectQ.AllForm.Productions;
 using SuperProjectQ.AllForm.Room;
+using SuperProjectQ.AllForm.Users;
 using SuperProjectQ.Classes;
 using SuperProjectQ.FrmMixed;
 using SuperProjectQ.Properties;
@@ -47,7 +48,7 @@ namespace SuperProjectQ.Frm_Main_Login_Register
         Session.FontStandard fontS = new Session.FontStandard();
         ToolStripMenuItem MNItemClicked = null; //MenuItem click trước đó
 
-        string mainIDUser = Session.IDUser, mainTenNV = Session.StaffData.TenNV;
+        string mainIDUser = Session.StaffData.IDUser, mainTenNV = Session.StaffData.TenNV;
 
         private void AddForm(Form form)
         {
@@ -94,7 +95,7 @@ namespace SuperProjectQ.Frm_Main_Login_Register
             ToolStripMenuItem MNItemClick = sender as ToolStripMenuItem;
 
             if (MNItemClicked != null) { MNItemClicked.BackColor = Color.White; MNItemClicked.ForeColor = Color.Black; }
-            ;
+
             MNItemClick.BackColor = Color.FromArgb(239, 246, 255);
             MNItemClick.ForeColor = Color.FromArgb(37, 99, 235);
             MNItemClicked = MNItemClick;
@@ -144,6 +145,13 @@ namespace SuperProjectQ.Frm_Main_Login_Register
                 case "MNMore_Products":
                     frmProducts prod = new frmProducts();
                     AddForm(prod);
+                    break;
+                case "MNMore_Account":
+                    Session.FreeUpMemoryPanel(plControls);
+                    frmUsers user = new frmUsers();
+
+                    user.FormBorderStyle = FormBorderStyle.None;
+                    user.ShowDialog();
                     break;
                 default:
                     return;
@@ -386,12 +394,12 @@ namespace SuperProjectQ.Frm_Main_Login_Register
             plControls.Controls.Add(setting);
 
             setting.Show();
-        }
+        } //Nút cài đặt
 
         private void btnLogOut_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
+        } //Nút đăng xuất
 
         private void timerClock_Tick(object sender, EventArgs e)
         {
@@ -401,7 +409,7 @@ namespace SuperProjectQ.Frm_Main_Login_Register
 
             if (!Session.InspectStorage()) MNStorage.BackColor = Color.Red;
 
-            if(lblClock.ForeColor == Color.FromArgb(17, 75, 95)) lblClock.ForeColor = Color.FromArgb(2, 128, 144);
+            if (lblClock.ForeColor == Color.FromArgb(17, 75, 95)) lblClock.ForeColor = Color.FromArgb(2, 128, 144);
             else lblClock.ForeColor = Color.FromArgb(17, 75, 95);
 
             //Cụm câu lệnh giải phóng tài nguyên

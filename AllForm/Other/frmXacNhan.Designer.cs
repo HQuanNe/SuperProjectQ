@@ -107,6 +107,7 @@
             // 
             // frmXacNhan
             // 
+            this.AcceptButton = this.btnConfirm;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.ClientSize = new System.Drawing.Size(481, 253);

@@ -20,9 +20,6 @@ namespace SuperProjectQ.FrmMixed
             InitializeComponent();
         }
         ConnectData kn = new ConnectData();
-        SqlCommand cmd = null;
-        DataTable dt = null;
-        bool flag = true;
         //private void Reset_Text()
         //{
         //    txtMaNV.Clear();
@@ -124,6 +121,7 @@ namespace SuperProjectQ.FrmMixed
             Session.StaffData.NamSinh = Convert.ToDateTime(dgvNhanVien.Rows[e.RowIndex].Cells["NamSinh"].Value);
             Session.StaffData.DiaChi = dgvNhanVien.Rows[e.RowIndex].Cells["DiaChi"].Value.ToString();
             Session.StaffData.SoDienThoai = dgvNhanVien.Rows[e.RowIndex].Cells["SoDienThoai"].Value.ToString();
+            Session.StaffData.Email = dgvNhanVien.Rows[e.RowIndex].Cells["Email"].Value.ToString();
             Session.StaffData.NgayLamViec = Convert.ToDateTime(dgvNhanVien.Rows[e.RowIndex].Cells["NgayLamViec"].Value);
             Session.StaffData.ChucVu = dgvNhanVien.Rows[e.RowIndex].Cells["ChucVu"].Value.ToString();
             Session.StaffData.LuongCoBan = Convert.ToDecimal(dgvNhanVien.Rows[e.RowIndex].Cells["LuongCoBan"].Value);

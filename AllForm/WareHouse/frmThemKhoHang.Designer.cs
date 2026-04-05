@@ -58,7 +58,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(243)))), ((int)(((byte)(194)))));
+            this.panel1.BackColor = System.Drawing.Color.SeaShell;
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.txtGhiChu);
             this.panel1.Controls.Add(this.label6);

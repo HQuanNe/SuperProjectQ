@@ -56,6 +56,8 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picImageStaff)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -165,7 +167,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(25, 212);
+            this.label5.Location = new System.Drawing.Point(25, 217);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(74, 22);
             this.label5.TabIndex = 9;
@@ -175,7 +177,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(25, 272);
+            this.label6.Location = new System.Drawing.Point(25, 267);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(120, 22);
             this.label6.TabIndex = 10;
@@ -185,7 +187,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(25, 331);
+            this.label7.Location = new System.Drawing.Point(25, 321);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(130, 22);
             this.label7.TabIndex = 11;
@@ -212,7 +214,7 @@
             // txtSDT
             // 
             this.txtSDT.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSDT.Location = new System.Drawing.Point(156, 264);
+            this.txtSDT.Location = new System.Drawing.Point(156, 259);
             this.txtSDT.Name = "txtSDT";
             this.txtSDT.Size = new System.Drawing.Size(241, 30);
             this.txtSDT.TabIndex = 14;
@@ -221,7 +223,7 @@
             // dtpNgayLamViec
             // 
             this.dtpNgayLamViec.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpNgayLamViec.Location = new System.Drawing.Point(161, 326);
+            this.dtpNgayLamViec.Location = new System.Drawing.Point(161, 316);
             this.dtpNgayLamViec.Name = "dtpNgayLamViec";
             this.dtpNgayLamViec.Size = new System.Drawing.Size(237, 27);
             this.dtpNgayLamViec.TabIndex = 15;
@@ -248,7 +250,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(25, 384);
+            this.label9.Location = new System.Drawing.Point(25, 435);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(130, 22);
             this.label9.TabIndex = 31;
@@ -257,7 +259,7 @@
             // txtBasicSalary
             // 
             this.txtBasicSalary.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBasicSalary.Location = new System.Drawing.Point(161, 376);
+            this.txtBasicSalary.Location = new System.Drawing.Point(161, 427);
             this.txtBasicSalary.Name = "txtBasicSalary";
             this.txtBasicSalary.Size = new System.Drawing.Size(237, 30);
             this.txtBasicSalary.TabIndex = 32;
@@ -280,6 +282,8 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.SeaShell;
+            this.panel1.Controls.Add(this.txtEmail);
+            this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.btnAdjustImage);
             this.panel1.Controls.Add(this.txtBasicSalary);
             this.panel1.Controls.Add(this.label9);
@@ -303,7 +307,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(1, 62);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(797, 433);
+            this.panel1.Size = new System.Drawing.Size(797, 483);
             this.panel1.TabIndex = 33;
             // 
             // btnConfirm
@@ -353,16 +357,34 @@
             this.panel3.Controls.Add(this.btnDelete);
             this.panel3.Controls.Add(this.btnConfirm);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(1, 495);
+            this.panel3.Location = new System.Drawing.Point(1, 545);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(797, 73);
             this.panel3.TabIndex = 39;
+            // 
+            // txtEmail
+            // 
+            this.txtEmail.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmail.Location = new System.Drawing.Point(161, 372);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(237, 30);
+            this.txtEmail.TabIndex = 36;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(25, 380);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(63, 22);
+            this.label10.TabIndex = 35;
+            this.label10.Text = "Email:";
             // 
             // frmAdjustStaff
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(799, 569);
+            this.ClientSize = new System.Drawing.Size(799, 619);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
@@ -410,5 +432,7 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.TextBox txtEmail;
+        private System.Windows.Forms.Label label10;
     }
 }

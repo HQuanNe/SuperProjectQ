@@ -40,6 +40,7 @@
             this.NamSinh = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DiaChi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SoDienThoai = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NgayLamViec = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ChucVu = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LuongCoBan = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -113,6 +114,7 @@
             this.NamSinh,
             this.DiaChi,
             this.SoDienThoai,
+            this.Email,
             this.NgayLamViec,
             this.ChucVu,
             this.LuongCoBan,
@@ -178,6 +180,14 @@
             this.SoDienThoai.Name = "SoDienThoai";
             this.SoDienThoai.Width = 70;
             // 
+            // Email
+            // 
+            this.Email.DataPropertyName = "Email";
+            this.Email.HeaderText = "Email";
+            this.Email.MinimumWidth = 6;
+            this.Email.Name = "Email";
+            this.Email.Width = 125;
+            // 
             // NgayLamViec
             // 
             this.NgayLamViec.DataPropertyName = "NgayLamViec";
@@ -238,16 +248,17 @@
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.DataGridView dgvNhanVien;
         private System.Windows.Forms.Button btnAddStaff;
+        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaNV;
         private System.Windows.Forms.DataGridViewTextBoxColumn TenNV;
         private System.Windows.Forms.DataGridViewTextBoxColumn GioiTinh;
         private System.Windows.Forms.DataGridViewTextBoxColumn NamSinh;
         private System.Windows.Forms.DataGridViewTextBoxColumn DiaChi;
         private System.Windows.Forms.DataGridViewTextBoxColumn SoDienThoai;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Email;
         private System.Windows.Forms.DataGridViewTextBoxColumn NgayLamViec;
         private System.Windows.Forms.DataGridViewTextBoxColumn ChucVu;
         private System.Windows.Forms.DataGridViewTextBoxColumn LuongCoBan;
         private System.Windows.Forms.DataGridViewTextBoxColumn HinhAnh;
-        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

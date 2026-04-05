@@ -4,6 +4,7 @@ using SuperProjectQ.AllForm.HoaDon;
 using SuperProjectQ.AllForm.KhoHang;
 using SuperProjectQ.AllForm.NhapKho;
 using SuperProjectQ.AllForm.Other;
+using SuperProjectQ.AllForm.Users;
 using SuperProjectQ.Frm_Main_Login_Register;
 using SuperProjectQ.FrmMixed;
 using System;

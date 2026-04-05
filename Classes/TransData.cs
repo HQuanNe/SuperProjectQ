@@ -1,15 +1,13 @@
-﻿using Microsoft.Extensions.Options;
+﻿
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
+using System.Net.Mail;
 using System.Windows.Forms;
+using System.IO;
+using static System.Net.WebRequestMethods;
 namespace SuperProjectQ
 {
     internal class TransData
@@ -51,10 +49,49 @@ namespace SuperProjectQ
             public static DateTime NamSinh;
             public static string DiaChi;
             public static string SoDienThoai;
+            public static string Email;
             public static DateTime NgayLamViec;
             public static string ChucVu;
             public static Decimal LuongCoBan;
             public static string HinhAnh;
+
+            public static string IDUser { get; set; }
+
+            public static void SendEmail(string toEmail, int OTP)
+            {
+                try
+                {
+                    var fromAddress = new MailAddress("KaraokeParadise3008@gmail.com", "Karaoke Paradise"); //email gưie
+                    var toAddress = new MailAddress(toEmail); //email nhận
+                    string appPassword = "sbgwremfxsupovrg"; //Google App Password
+                    string subject = "Mã xác thực đổi mật khẩu"; //Tiêu đề
+                    string body = $"Mã OTP của bạn là: {OTP} mã có hiệu lực trong vòng 5 phút, tuyệt đối không chia sẽ mã này với bất kì ai.";
+
+                    var smtp = new SmtpClient
+                    {
+                        Host = "smtp.gmail.com",
+                        Port = 587,
+                        EnableSsl = true,
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        UseDefaultCredentials = false,
+                        Credentials = new NetworkCredential(fromAddress.Address, appPassword)
+                    }; //Phương thức gửi
+
+                    using (var message = new MailMessage(fromAddress, toAddress))
+                    {
+                        message.Subject = subject;
+                        message.Body = body;
+                        smtp.Send(message);
+                    }//Gửi email
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("frmChangePasswd - SendEmail - Lỗi:\n" + ex.Message);
+                    return;
+                }
+            } //Hàm gửi mã OTP về Email
         }
         public static class RoomData
         {
@@ -89,6 +126,7 @@ namespace SuperProjectQ
         {
             public static string MaCombo { get; set; }
             public static string TenCombo { get; set; }
+            public static bool isCombo { get; set; } = false; //Kiểm tra xem sản phẩm thêm vào có phải combo hay không
         }
         public static class PhieuNhapData
         {
@@ -175,7 +213,7 @@ namespace SuperProjectQ
         }
         public static void Datalog(string fileTxtName, string content)
         {
-            File.AppendAllText($"D:\\Học_Tập\\Programing_language\\ADO-NET\\DataLog\\{fileTxtName}", $"\n{DateTime.Now.ToString()}: {content}");
+            System.IO.File.AppendAllText($"D:\\Học_Tập\\Programing_language\\ADO-NET\\DataLog\\{fileTxtName}", $"\n{DateTime.Now.ToString()}: {content}");
         } //Lưu log 
         public static void KiemTraGhiNo()
         {
@@ -291,7 +329,7 @@ namespace SuperProjectQ
             string sqlSanPham = $"SELECT KhoHang.TonKho, KhoHang.DonViTinh, SanPham.DinhLuong FROM Khohang " +
                 $"INNER JOIN SanPham ON KhoHang.MaSP_Kho = SanPham.MaSP_Kho " +
                 $"WHERE SanPham.MaSP_Menu = '{maSP}'";
-            if (Session.isCombo)
+            if (ComboData.isCombo)
             {
                 sqlSanPham = "SELECT SanPham.MaSP_Menu, KhoHang.TonKho, KhoHang.DonViTinh, SanPham.DinhLuong, ChiTietCombo.SoLuong " +
                     "FROM KhoHang " +
@@ -308,7 +346,7 @@ namespace SuperProjectQ
                 double soLuongTon = row["TonKho"] != DBNull.Value ? Convert.ToDouble(row["TonKho"]) : 0;
                 bool DonViTinh = row["DonViTinh"] != DBNull.Value && row["DonViTinh"].ToString() == "Kg" ? true : false;
 
-                if (Session.isCombo)
+                if (ComboData.isCombo)
                 {
                     newSoLuong = soLuong * Convert.ToDouble(row["SoLuong"]);
                     Console.WriteLine("SL da thay doi " + newSoLuong);
@@ -351,7 +389,7 @@ namespace SuperProjectQ
                     $"INNER JOIN SanPham ON KhoHang.MaSP_Kho = SanPham.MaSP_Kho " +
                     $"WHERE SanPham.MaSP_Menu = '{maSP_MenuOrMaCombo}'";
 
-                if (isCombo)
+                if (ComboData.isCombo)
                 {
                     string sqlCTCB = $"SELECT * FROM ChiTietCombo WHERE MaCombo = '{maSP_MenuOrMaCombo}'";
                     using (dt = new DataTable())
@@ -530,8 +568,6 @@ namespace SuperProjectQ
             dgv.DefaultCellStyle.SelectionForeColor = Color.White;
         } //DGV tiêu chuẩn
         public static Nullable<bool> isPlus { get; set; } //Biến tạm để xác định là cộng hay trừ số lượng trong kho, nếu true là cộng, false là trừ, null là chưa xác định
-
-        public static string IDUser { get; set; }
         public static string MaQH { get; set; }
         public static string Passwd { get; } = "admin";
 
@@ -539,9 +575,6 @@ namespace SuperProjectQ
         public static int STTVoucher { get; set; } //STT voucher được chọn để áp dụng vào hoá đơn
         public static string tenVoucher { get; set; }//Tên voucher được chọn
         public static bool isUsedVoucher { get; set; } //Đã áp dụng voucher vào hoá đơn hay chưa
-
-        //Combo
-        public static bool isCombo { get; set; } = false; //Kiểm tra xem sản phẩm thêm vào có phải combo hay không
 
         //Ảnh QR
         public static PictureBox picQRCode { get; set; }

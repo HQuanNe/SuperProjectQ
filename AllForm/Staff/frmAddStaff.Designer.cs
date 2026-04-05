@@ -55,6 +55,8 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picImageStaff)).BeginInit();
             this.panel2.SuspendLayout();
@@ -75,6 +77,8 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.SeaShell;
+            this.panel1.Controls.Add(this.txtEmail);
+            this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.txtBasicSalary);
             this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.btnAddImage);
@@ -98,13 +102,13 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(1, 72);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(797, 421);
+            this.panel1.Size = new System.Drawing.Size(797, 471);
             this.panel1.TabIndex = 26;
             // 
             // txtBasicSalary
             // 
             this.txtBasicSalary.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBasicSalary.Location = new System.Drawing.Point(161, 376);
+            this.txtBasicSalary.Location = new System.Drawing.Point(161, 427);
             this.txtBasicSalary.Name = "txtBasicSalary";
             this.txtBasicSalary.Size = new System.Drawing.Size(237, 30);
             this.txtBasicSalary.TabIndex = 32;
@@ -114,7 +118,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(25, 384);
+            this.label9.Location = new System.Drawing.Point(25, 435);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(130, 22);
             this.label9.TabIndex = 31;
@@ -338,16 +342,34 @@
             this.panel3.BackColor = System.Drawing.Color.White;
             this.panel3.Controls.Add(this.btnAdd);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(1, 493);
+            this.panel3.Location = new System.Drawing.Point(1, 543);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(797, 72);
             this.panel3.TabIndex = 30;
+            // 
+            // txtEmail
+            // 
+            this.txtEmail.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmail.Location = new System.Drawing.Point(161, 376);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(237, 30);
+            this.txtEmail.TabIndex = 34;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(25, 384);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(63, 22);
+            this.label10.TabIndex = 33;
+            this.label10.Text = "Email:";
             // 
             // frmAddStaff
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(799, 566);
+            this.ClientSize = new System.Drawing.Size(799, 616);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
@@ -395,5 +417,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.TextBox txtEmail;
+        private System.Windows.Forms.Label label10;
     }
 }

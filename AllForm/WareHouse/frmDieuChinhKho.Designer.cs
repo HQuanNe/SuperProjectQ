@@ -124,9 +124,9 @@
             this.panel1.Controls.Add(this.txtTenSP);
             this.panel1.Controls.Add(this.picImageSP);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 60);
+            this.panel1.Location = new System.Drawing.Point(2, 62);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(802, 614);
+            this.panel1.Size = new System.Drawing.Size(798, 610);
             this.panel1.TabIndex = 4;
             // 
             // cmbDanhMuc
@@ -341,34 +341,37 @@
             // 
             // panel2
             // 
+            this.panel2.BackColor = System.Drawing.Color.White;
             this.panel2.Controls.Add(this.lblTitle);
             this.panel2.Controls.Add(this.btnClose);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Location = new System.Drawing.Point(2, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(802, 60);
+            this.panel2.Size = new System.Drawing.Size(798, 60);
             this.panel2.TabIndex = 9;
             // 
             // panel3
             // 
+            this.panel3.BackColor = System.Drawing.Color.White;
             this.panel3.Controls.Add(this.btnDelete);
             this.panel3.Controls.Add(this.btnXacNhan);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 674);
+            this.panel3.Location = new System.Drawing.Point(2, 672);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(802, 79);
+            this.panel3.Size = new System.Drawing.Size(798, 79);
             this.panel3.TabIndex = 10;
             // 
             // frmDieuChinhKho
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(233)))), ((int)(((byte)(247)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(802, 753);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "frmDieuChinhKho";
+            this.Padding = new System.Windows.Forms.Padding(2);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Điều chỉnh kho";
             this.Load += new System.EventHandler(this.frmDieuChinhKho_Load);

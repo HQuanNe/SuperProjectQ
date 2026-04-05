@@ -99,7 +99,7 @@ namespace SuperProjectQ
                     }
                     if (loginIDUser != null)
                     {
-                        Session.IDUser = loginIDUser;
+                        Session.StaffData.IDUser = loginIDUser;
                         Session.StaffData.MaNV = loginMaNV;
                         Session.StaffData.TenNV = loginTenNV;
                         Session.StaffData.ChucVu = loginChucVu;

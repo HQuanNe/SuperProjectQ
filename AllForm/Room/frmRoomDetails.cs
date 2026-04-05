@@ -294,8 +294,8 @@ namespace SuperProjectQ.AllForm.Room
                 }
                 string maSP = thisBtn.Parent.Tag.ToString();
 
-                if (!(maSP.Contains("SPM"))) Session.isCombo = true;
-                else Session.isCombo = false;
+                if (!(maSP.Contains("SPM"))) Session.ComboData.isCombo = true;
+                else Session.ComboData.isCombo = false;
 
                 MessageBox.Show("SL thay doi" + soLuongThayDoi.ToString());
                 Session.CapNhatKho(!Session.isPlus.Value, maSP, soLuongThayDoi); //Cập nhật kho

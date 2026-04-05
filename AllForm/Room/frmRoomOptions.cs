@@ -31,6 +31,7 @@ namespace SuperProjectQ.AllForm.Room
             {
                 case "btnDatTruoc":
                     if (MessageBox.Show("Xác nhận đặt trước?", "Thông báo", MessageBoxButtons.OKCancel) != DialogResult.OK) return;
+                    if (!Session.XuLySDT(txtSDT.Text)) return;
                     Session.RoomData.status = 2;
                     hasCustomer = true;
                     break;
@@ -50,7 +51,6 @@ namespace SuperProjectQ.AllForm.Room
             
             if (hasCustomer)
             {
-                if (!(Session.XuLySDT(txtSDT.Text))) return;
                 Session.UpdatePhoneNumberForRoom(txtSDT.Text);
                 Session.CustomerData.SoDienThoai = txtSDT.Text;
             }

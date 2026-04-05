@@ -262,6 +262,30 @@
     <Compile Include="AllForm\Staff\frmAdjustStaff.Designer.cs">
       <DependentUpon>frmAdjustStaff.cs</DependentUpon>
     </Compile>
+    <Compile Include="AllForm\Users\frmAddUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\Users\frmAddUser.Designer.cs">
+      <DependentUpon>frmAddUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AllForm\Users\frmAdjustUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\Users\frmAdjustUser.Designer.cs">
+      <DependentUpon>frmAdjustUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AllForm\Users\frmChangePasswd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\Users\frmChangePasswd.Designer.cs">
+      <DependentUpon>frmChangePasswd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AllForm\Users\frmUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\Users\frmUsers.Designer.cs">
+      <DependentUpon>frmUsers.cs</DependentUpon>
+    </Compile>
     <Compile Include="AllForm\WareHouse\frmDieuChinhKho.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -323,7 +347,6 @@
       <DependentUpon>frmMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\AIChatbotRepository.cs" />
-    <Compile Include="Classes\ConnectData.cs" />
     <Compile Include="AllForm\Customers\frmKhachHang.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -460,6 +483,18 @@
     <EmbeddedResource Include="AllForm\Staff\frmAdjustStaff.resx">
       <DependentUpon>frmAdjustStaff.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\Users\frmAddUser.resx">
+      <DependentUpon>frmAddUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\Users\frmAdjustUser.resx">
+      <DependentUpon>frmAdjustUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\Users\frmChangePasswd.resx">
+      <DependentUpon>frmChangePasswd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\Users\frmUsers.resx">
+      <DependentUpon>frmUsers.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AllForm\WareHouse\frmDieuChinhKho.resx">
       <DependentUpon>frmDieuChinhKho.cs</DependentUpon>
     </EmbeddedResource>
@@ -570,6 +605,12 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
+      <Project>{ea767b92-9123-4c12-907e-7e68bfa867cb}</Project>
+      <Name>DataAccessLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

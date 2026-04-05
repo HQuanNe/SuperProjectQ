@@ -73,12 +73,10 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
-            this.label10 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.panel10 = new System.Windows.Forms.Panel();
-            this.label12 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtEmail = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.plControls = new System.Windows.Forms.Panel();
             this.plVIP = new System.Windows.Forms.Panel();
@@ -98,6 +96,7 @@
             this.panel16 = new System.Windows.Forms.Panel();
             this.txtVIP = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.plThongSo.SuspendLayout();
@@ -175,7 +174,9 @@
             // 
             this.plThongSo.BackColor = System.Drawing.Color.White;
             this.plThongSo.Controls.Add(this.panel12);
+            this.plThongSo.Controls.Add(this.panel8);
             this.plThongSo.Controls.Add(this.panel7);
+            this.plThongSo.Controls.Add(this.panel9);
             this.plThongSo.Controls.Add(this.panel6);
             this.plThongSo.Controls.Add(this.panel5);
             this.plThongSo.Controls.Add(this.panel3);
@@ -324,8 +325,6 @@
             // 
             this.plGeneral.BackColor = System.Drawing.Color.White;
             this.plGeneral.Controls.Add(this.groupBox1);
-            this.plGeneral.Controls.Add(this.panel8);
-            this.plGeneral.Controls.Add(this.panel9);
             this.plGeneral.Controls.Add(this.panel10);
             resources.ApplyResources(this.plGeneral, "plGeneral");
             this.plGeneral.Name = "plGeneral";
@@ -428,16 +427,11 @@
             // 
             // panel9
             // 
-            this.panel9.Controls.Add(this.label10);
+            this.panel9.Controls.Add(this.label12);
             this.panel9.Controls.Add(this.textBox2);
             this.panel9.Controls.Add(this.label11);
             resources.ApplyResources(this.panel9, "panel9");
             this.panel9.Name = "panel9";
-            // 
-            // label10
-            // 
-            resources.ApplyResources(this.label10, "label10");
-            this.label10.Name = "label10";
             // 
             // textBox2
             // 
@@ -453,23 +447,17 @@
             // 
             // panel10
             // 
-            this.panel10.Controls.Add(this.label12);
-            this.panel10.Controls.Add(this.textBox3);
+            this.panel10.Controls.Add(this.txtEmail);
             this.panel10.Controls.Add(this.label13);
             resources.ApplyResources(this.panel10, "panel10");
             this.panel10.Name = "panel10";
             // 
-            // label12
+            // txtEmail
             // 
-            resources.ApplyResources(this.label12, "label12");
-            this.label12.Name = "label12";
-            // 
-            // textBox3
-            // 
-            this.textBox3.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            resources.ApplyResources(this.textBox3, "textBox3");
-            this.textBox3.Name = "textBox3";
+            this.txtEmail.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtEmail.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            resources.ApplyResources(this.txtEmail, "txtEmail");
+            this.txtEmail.Name = "txtEmail";
             // 
             // label13
             // 
@@ -611,6 +599,11 @@
             resources.ApplyResources(this.label26, "label26");
             this.label26.Name = "label26";
             // 
+            // label12
+            // 
+            resources.ApplyResources(this.label12, "label12");
+            this.label12.Name = "label12";
+            // 
             // frmSetting
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -688,12 +681,10 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Panel panel9;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Panel panel10;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Panel plControls;
         private System.Windows.Forms.Panel panel7;
@@ -731,5 +722,6 @@
         private System.Windows.Forms.Panel panel13;
         private System.Windows.Forms.Button btnAddVIP;
         private System.Windows.Forms.Button btnAdjustVIP;
+        private System.Windows.Forms.Label label12;
     }
 }
