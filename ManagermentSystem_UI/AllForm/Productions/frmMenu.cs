@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Windows.Forms;
+using DataAccessLayer;
 
 namespace SuperProjectQ.AllForm
 {
@@ -336,7 +337,7 @@ namespace SuperProjectQ.AllForm
                         $"INNER JOIN KhoHang ON KhoHang.MaSP_Kho = SanPham.MaSP_Kho " +
                         $"WHERE SanPham.MaSP_Menu = '{clickedButtonMaSP.Name}'";
 
-                    if (!(clickedButtonMaSP.Name.Contains("SPM"))) //Nếu là phải combo set = true
+                    if (!(clickedButtonMaSP.Name.Contains("SPM"))) //Nếu là combo set = true
                     {
                         sqlSanPham = $"SELECT Combo.MaCombo, Combo.TenCombo, Combo.DonViTinh, Combo.DonGia " +
                         $"FROM Combo " +

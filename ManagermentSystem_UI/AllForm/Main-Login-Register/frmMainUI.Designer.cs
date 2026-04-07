@@ -490,6 +490,10 @@
             this.timerClock.Interval = 1000;
             this.timerClock.Tick += new System.EventHandler(this.timerClock_Tick);
             // 
+            // timerWeather
+            // 
+            this.timerWeather.Tick += new System.EventHandler(this.timerWeather_Tick);
+            // 
             // frmMainUI
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;

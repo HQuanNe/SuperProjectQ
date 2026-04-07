@@ -7,7 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 using DataAccessLayer;
 
-namespace SuperProjectQ
+namespace DataAccessLayer
 {
     public class SetParameters
     {

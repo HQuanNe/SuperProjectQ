@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-using SuperProjectQ.FrmMixed;
+using DataAccessLayer;
 
 namespace SuperProjectQ.AllForm.Other
 {

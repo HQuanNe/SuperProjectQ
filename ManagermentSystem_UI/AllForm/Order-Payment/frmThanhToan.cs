@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using System.Globalization;
 using System.Runtime.Remoting.Contexts;
 using SuperProjectQ.AllForm.Other;
+using DataAccessLayer;
 
 namespace SuperProjectQ.FrmMixed
 {

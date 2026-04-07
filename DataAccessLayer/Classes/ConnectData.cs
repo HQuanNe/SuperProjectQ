@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-namespace SuperProjectQ
+using System.Configuration;
+namespace DataAccessLayer
 {
     public class ConnectData
     {
-        string strconn = "Data Source=HQUAN\\SQLEXPRESS;Initial Catalog=QLKaraok;Integrated Security=True;";
+        //string strconn = "Data Source=HQUAN\\SQLEXPRESS;Initial Catalog=QLKaraok;Integrated Security=True;";
+        string strconn = ConfigurationManager.ConnectionStrings["Karaoke"].ConnectionString;
         public SqlConnection conn = null;
         public SqlDataAdapter adapter = null;
         DataTable dt = null;

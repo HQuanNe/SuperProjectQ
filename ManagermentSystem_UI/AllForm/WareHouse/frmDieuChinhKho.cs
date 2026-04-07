@@ -5,11 +5,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using DataAccessLayer;
 
 namespace SuperProjectQ.AllForm.KhoHang
 {

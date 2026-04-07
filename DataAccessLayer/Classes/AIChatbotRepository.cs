@@ -9,9 +9,9 @@ using Mscc.GenerativeAI;
 using Mscc.GenerativeAI.Types;
 using System.Windows.Forms;
 
-namespace SuperProjectQ.Classes
+namespace DataAccessLayer.Classes
 {
-    internal class AIChatbotRepository
+    public class AIChatbotRepository
     {
         ConnectData kn = new ConnectData();
         SqlCommand cmd = null;

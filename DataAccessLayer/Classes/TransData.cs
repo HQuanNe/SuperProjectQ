@@ -8,7 +8,7 @@ using System.Net.Mail;
 using System.Windows.Forms;
 using System.IO;
 using static System.Net.WebRequestMethods;
-namespace SuperProjectQ
+namespace DataAccessLayer
 {
     internal class TransData
     {
@@ -384,6 +384,7 @@ namespace SuperProjectQ
         {
             try
             {
+                ConnectOpen();
                 bool isInStock = false;
                 string sqlTonKho = $"SELECT KhoHang.TonKho, SanPham.DinhLuong, KhoHang.DonViTinh FROM Khohang " +
                     $"INNER JOIN SanPham ON KhoHang.MaSP_Kho = SanPham.MaSP_Kho " +

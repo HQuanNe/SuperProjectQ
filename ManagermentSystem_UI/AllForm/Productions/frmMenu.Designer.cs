@@ -48,6 +48,7 @@
             this.lblTitlePhong = new System.Windows.Forms.Label();
             this.plTop = new System.Windows.Forms.Panel();
             this.btnClose = new System.Windows.Forms.Button();
+            this.btnOrdered = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.plTop.SuspendLayout();
@@ -345,6 +346,7 @@
             // 
             // plTop
             // 
+            this.plTop.Controls.Add(this.btnOrdered);
             this.plTop.Controls.Add(this.btnClose);
             this.plTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.plTop.Location = new System.Drawing.Point(0, 0);
@@ -367,6 +369,21 @@
             this.btnClose.Text = "X";
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // btnOrdered
+            // 
+            this.btnOrdered.BackColor = System.Drawing.Color.LightGray;
+            this.btnOrdered.FlatAppearance.BorderSize = 0;
+            this.btnOrdered.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOrdered.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOrdered.ForeColor = System.Drawing.Color.White;
+            this.btnOrdered.Location = new System.Drawing.Point(3, 3);
+            this.btnOrdered.Margin = new System.Windows.Forms.Padding(3, 50, 3, 3);
+            this.btnOrdered.Name = "btnOrdered";
+            this.btnOrdered.Size = new System.Drawing.Size(240, 35);
+            this.btnOrdered.TabIndex = 15;
+            this.btnOrdered.Text = "Order";
+            this.btnOrdered.UseVisualStyleBackColor = false;
             // 
             // frmMenu
             // 
@@ -416,5 +433,6 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.Label lblTitlePhong;
+        private System.Windows.Forms.Button btnOrdered;
     }
 }

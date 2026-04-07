@@ -7,7 +7,6 @@ using SuperProjectQ.AllForm.Other;
 using SuperProjectQ.AllForm.Productions;
 using SuperProjectQ.AllForm.Room;
 using SuperProjectQ.AllForm.Users;
-using SuperProjectQ.Classes;
 using SuperProjectQ.FrmMixed;
 using SuperProjectQ.Properties;
 using System;
@@ -23,6 +22,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using DataAccessLayer;
+using DataAccessLayer.Classes;
 
 namespace SuperProjectQ.Frm_Main_Login_Register
 {
@@ -420,6 +421,11 @@ namespace SuperProjectQ.Frm_Main_Login_Register
         private void picLogo_Click(object sender, EventArgs e)
         {
             plControls.Visible = false;
+        }
+
+        private void timerWeather_Tick(object sender, EventArgs e)
+        {
+
         }
 
         private void btnOpenNavBar_Click(object sender, EventArgs e)
