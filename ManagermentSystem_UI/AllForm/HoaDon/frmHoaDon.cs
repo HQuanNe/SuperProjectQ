@@ -1,17 +1,10 @@
-﻿using SuperProjectQ.AllForm.HoaDon;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System;
 using System.Data.SqlClient;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using DataAccessLayer;
 
-namespace SuperProjectQ.FrmMixed
+namespace SuperProjectQ.AllForm.HoaDon
 {
     public partial class frmHoaDon : Form
     {
@@ -26,6 +19,7 @@ namespace SuperProjectQ.FrmMixed
             dgvHoaDon.DataSource = kn.CreateTable(sqlHD);
             dgvHoaDon.Columns["GioVao"].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm:ss";
             dgvHoaDon.Columns["GioRa"].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm:ss";
+
         }
 
         private void frmHoaDon_Load(object sender, EventArgs e)

@@ -23,10 +23,11 @@ namespace SuperProjectQ.AllForm.KhoHang
         string maDM = ""; //mã danh mụcz
         string folderImage = "";//folder ảnh
 
-        string oldPathImage = "";//Đường đãn cũ
-        string newPathImage = ""; //đườngn dẫn ảnh mới
+        string rootPath = "";//Đường dẫn gốc
+        string destPath = ""; //đườngn dẫn đến
 
-        bool hasImage; //Kiểm tra có ảnh k
+        bool hasImage = false; //Kiểm tra có ảnh k
+        bool changeImage = false; //Kiểm tra có thay đổi ảnh không
         private void CmbDanhMuc_Load()
         {
             string sqlMaDM = $"SELECT * FROM DanhMuc";
@@ -74,10 +75,15 @@ namespace SuperProjectQ.AllForm.KhoHang
                         break;
                 } //Kiểm tra danh mục sản phẩm để gán file ảnh đúng
 
-                if (string.IsNullOrEmpty(Session.WarehouseData.HinhAnh)) return;
+                if (string.IsNullOrEmpty(Session.WarehouseData.HinhAnh))
+                {
+                    hasImage = false;
+                    return;
+                }
 
-                oldPathImage = Application.StartupPath + $"\\Images\\{folderImage}\\{Session.WarehouseData.HinhAnh}";
-                picImageSP.Image = Image.FromFile(oldPathImage);
+                destPath = Application.StartupPath + $"\\Images\\{folderImage}\\{Session.WarehouseData.HinhAnh}";
+                picImageSP.Image = Image.FromFile(destPath);
+                hasImage = true;
             }
             catch (Exception ex)
             {
@@ -115,7 +121,12 @@ namespace SuperProjectQ.AllForm.KhoHang
                     txtDonGia.Text, txtTonKho.Text
 };
                     if (!Session.XuLySo(txtSo)) { MessageBox.Show("Đơn giá hoặc tồn kho phải là số!!!"); return; }
-
+                    if(File.Exists(Application.StartupPath + $"\\Images\\{folderImage}\\{Path.GetFileName(rootPath)}"))
+                    {
+                        MessageBox.Show("Ảnh đã tồn tại, vui lòng đổi tên ảnh hoặc chọn ảnh khác!!!");
+                        return;
+                    }
+                    ////////
                     string sqlUpdate = "UPDATE KHoHang SET " +
                         "TenSP = @TSP, MaDM = @MDM, DonViTinh = @DVT, TonKho = @TK, NgayCapNhat = @NCN, DonGiaNhap = @DGN, TrangThai = @TT, HinhAnh = @HA, GhiChu = @GC " +
                         "WHERE MaSP_Kho = @MSP";
@@ -125,16 +136,16 @@ namespace SuperProjectQ.AllForm.KhoHang
                     cmd.Parameters.AddWithValue("@MDM", cmbDanhMuc.SelectedValue.ToString());
                     cmd.Parameters.AddWithValue("@DVT", txtDVT.Text.Trim());
                     cmd.Parameters.AddWithValue("@TK", Convert.ToDouble(txtTonKho.Text.Trim()));
-                    cmd.Parameters.AddWithValue("@NCN", dtNgayCapNhat.Value);
+                    cmd.Parameters.AddWithValue("@NCN", DateTime.Now);
                     cmd.Parameters.AddWithValue("@DGN", Convert.ToDecimal(txtDonGia.Text.Trim().Replace(".","")));
                     cmd.Parameters.AddWithValue("@TT", Convert.ToBoolean(cmbTrangThai.SelectedIndex));
-                    cmd.Parameters.AddWithValue("@HA", string.IsNullOrEmpty(Session.WarehouseData.HinhAnh) ? Path.GetFileName(newPathImage) : Session.WarehouseData.HinhAnh);
+                    cmd.Parameters.AddWithValue("@HA", string.IsNullOrEmpty(Session.WarehouseData.HinhAnh) ? Path.GetFileName(rootPath) : Session.WarehouseData.HinhAnh);
                     cmd.Parameters.AddWithValue("@GC", txtGhiChu.Text);
                     cmd.Parameters.AddWithValue("@MSP", Session.WarehouseData.MaSP.ToString().Trim());
                     cmd.ExecuteNonQuery();
 
-                    if(hasImage) File.Copy(newPathImage, oldPathImage, true); //Lưu đè ảnh cũ
-                    //else if(!hasImage) File.Copy(newPathImage, Application.StartupPath + $"\\Images\\{folderImage}\\{Path.GetFileName(newPathImage)}", false);
+                    if(changeImage && hasImage) File.Copy(rootPath, destPath, true); //Lưu đè ảnh cũ
+                    else if(!hasImage && changeImage) File.Copy(rootPath, Application.StartupPath + $"\\Images\\{folderImage}\\{Path.GetFileName(rootPath)}", false);
 
                     MessageBox.Show("Cập nhật sản phẩm thành công!!!");
                     this.Close();
@@ -157,20 +168,24 @@ namespace SuperProjectQ.AllForm.KhoHang
                     ofd.Title = "Chọn ảnh sản phẩm";
                     if (ofd.ShowDialog() == DialogResult.OK)
                     {
-                        newPathImage = ofd.FileName;
+                        rootPath = ofd.FileName;
 
                         if (picImageSP.Image != null || !string.IsNullOrEmpty(Session.WarehouseData.HinhAnh)) //Nếu có ảnh thì clear
                         {
-                            hasImage = true;
+                            changeImage = true;
 
-                            picImageSP.Image.Dispose();
-                            picImageSP.Image = null;
+                            if (hasImage)
+                            {
+                                picImageSP.Image.Dispose();
+                                picImageSP.Image = null;
+                            }
                         }
                         else
                         {
-                            hasImage = false;
+                            changeImage = false;
                         }
-                        picImageSP.Image = Image.FromFile(newPathImage);
+
+                        picImageSP.Image = Image.FromFile(rootPath);
                     }
                     else return;
                 }
@@ -204,7 +219,7 @@ namespace SuperProjectQ.AllForm.KhoHang
                     cmd.Parameters.AddWithValue("@MaSP", Session.WarehouseData.MaSP);
                     cmd.ExecuteNonQuery();
 
-                    if (File.Exists(oldPathImage)) //File.Exists: kiểm tra tệp có tồn tại không
+                    if (File.Exists(destPath)) //File.Exists: kiểm tra tệp có tồn tại không
                     {
                         try
                         {
@@ -215,7 +230,7 @@ namespace SuperProjectQ.AllForm.KhoHang
                             GC.Collect();
                             GC.WaitForPendingFinalizers();
 
-                            File.Delete(oldPathImage); //Xoá ảnh
+                            File.Delete(destPath); //Xoá ảnh
                         }
                         catch (Exception ex)
                         {

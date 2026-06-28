@@ -1,4 +1,4 @@
-﻿namespace SuperProjectQ.FrmMixed
+﻿namespace SuperProjectQ.AllForm.Staff
 {
     partial class frmNhanVien
     {
@@ -42,7 +42,7 @@
             this.SoDienThoai = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NgayLamViec = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ChucVu = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MaChucVu = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LuongCoBan = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HinhAnh = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel3.SuspendLayout();
@@ -64,10 +64,10 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.txtSearch);
-            this.groupBox1.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(48, 7);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(323, 67);
+            this.groupBox1.Size = new System.Drawing.Size(300, 67);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tìm kiếm";
@@ -87,7 +87,7 @@
             this.btnAddStaff.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(220)))), ((int)(((byte)(0)))));
             this.btnAddStaff.FlatAppearance.BorderSize = 0;
             this.btnAddStaff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddStaff.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddStaff.Font = new System.Drawing.Font("Tahoma", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddStaff.ForeColor = System.Drawing.Color.White;
             this.btnAddStaff.Image = ((System.Drawing.Image)(resources.GetObject("btnAddStaff.Image")));
             this.btnAddStaff.Location = new System.Drawing.Point(666, 15);
@@ -116,7 +116,7 @@
             this.SoDienThoai,
             this.Email,
             this.NgayLamViec,
-            this.ChucVu,
+            this.MaChucVu,
             this.LuongCoBan,
             this.HinhAnh});
             this.dgvNhanVien.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -131,6 +131,7 @@
             this.dgvNhanVien.Size = new System.Drawing.Size(898, 558);
             this.dgvNhanVien.TabIndex = 0;
             this.dgvNhanVien.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvNhanVien_CellDoubleClick);
+            this.dgvNhanVien.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvNhanVien_CellFormatting);
             // 
             // MaNV
             // 
@@ -196,13 +197,13 @@
             this.NgayLamViec.Name = "NgayLamViec";
             this.NgayLamViec.Width = 80;
             // 
-            // ChucVu
+            // MaChucVu
             // 
-            this.ChucVu.DataPropertyName = "ChucVu";
-            this.ChucVu.HeaderText = "Chức vụ";
-            this.ChucVu.MinimumWidth = 6;
-            this.ChucVu.Name = "ChucVu";
-            this.ChucVu.Width = 70;
+            this.MaChucVu.DataPropertyName = "MaChucVu";
+            this.MaChucVu.HeaderText = "Chức vụ";
+            this.MaChucVu.MinimumWidth = 6;
+            this.MaChucVu.Name = "MaChucVu";
+            this.MaChucVu.Width = 70;
             // 
             // LuongCoBan
             // 
@@ -257,7 +258,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn SoDienThoai;
         private System.Windows.Forms.DataGridViewTextBoxColumn Email;
         private System.Windows.Forms.DataGridViewTextBoxColumn NgayLamViec;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ChucVu;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MaChucVu;
         private System.Windows.Forms.DataGridViewTextBoxColumn LuongCoBan;
         private System.Windows.Forms.DataGridViewTextBoxColumn HinhAnh;
     }

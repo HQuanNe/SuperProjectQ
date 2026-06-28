@@ -64,5 +64,60 @@ namespace SuperProjectQ.AllForm.NhapKho
                 PhieuNhap_Load();
             }
         }
+
+        private void dgvPhieuNhap_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (dgvPhieuNhap.Columns[e.ColumnIndex].Name == "Confirm" && !Convert.ToBoolean(dgvPhieuNhap.Rows[e.RowIndex].Cells[4].Value))
+                {
+                    if (MessageBox.Show("Xác nhận phiếu nhập?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        int maPN = Convert.ToInt32(dgvPhieuNhap.Rows[e.RowIndex].Cells[0].Value);
+
+                        dt = new DataTable();
+                        dt = kn.CreateTable($"SELECT * FROM CTPhieuNhap WHERE MaPN = {maPN}");
+
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            using (cmd = new SqlCommand())
+                            {
+                                cmd.Connection = kn.conn;
+                                cmd.CommandText = $"UPDATE KhoHang SET TonKho = KhoHang.TonKho + @SLN, KhoHang.DonGiaNhap = @DonGiaNhap, KhoHang.NgayCapNhat = GETDATE() " +
+                                    $"WHERE KhoHang.MaSP_Kho = '{row["MaSP_Kho"]}' ";
+                                cmd.Parameters.Clear();
+                                cmd.Parameters.AddWithValue("@SLN", row["SoLuong"]);
+                                cmd.Parameters.AddWithValue("@DonGiaNhap", row["DonGia"]);
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+                        using (cmd = new SqlCommand())
+                        {
+                            cmd.Connection = kn.conn;
+                            cmd.CommandText = $"UPDATE PhieuNhap SET TrangThai = 1 WHERE MaPN = {maPN}";
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        PhieuNhap_Load();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("frmPhieuNhap - dgvPhieuNhap_CellClick Lỗi: " + ex.Message);
+            }
+        }
+
+        private void dgvPhieuNhap_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgvPhieuNhap.Columns[e.ColumnIndex].Name == "TrangThai")
+            {
+                if (e.Value is bool tinhTrang)
+                {
+                    e.Value = tinhTrang ? "Đã xác nhận" : "Chưa xác nhận";
+                    e.FormattingApplied = true;
+                }
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using SuperProjectQ.AllForm.KhoHang;
+﻿using DataAccessLayer;
+using SuperProjectQ.AllForm.KhoHang;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DataAccessLayer;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace SuperProjectQ.AllForm.KhachHang
 {
@@ -41,6 +42,20 @@ namespace SuperProjectQ.AllForm.KhachHang
             txtSDT.Text = Session.CustomerData.SoDienThoai;
             txtDTL.Text = Session.CustomerData.DiemTichLuy.ToString();
             cmbVIP.SelectedValue = Session.CustomerData.VIP;
+
+            switch (Session.StaffData.QuyenHan)
+            {
+                case "QH001":
+                    break;
+                case "QH002":
+                    break;
+                case "QH005":
+                    btnDelete.Visible = false;
+                    btnConfirm.Location = new Point(panel2.Width/2 - btnConfirm.Width/2, btnConfirm.Location.Y);
+                    break;
+                default:
+                    break;
+            }
         }
         private void btnDelete_Click(object sender, EventArgs e)
         {
@@ -85,6 +100,7 @@ namespace SuperProjectQ.AllForm.KhachHang
                     MessageBox.Show("Tất cả các dữ liệu không được để trống!!!");
                     return;
                 }
+                if (!Session.XuLySDT(txtSDT.Text)) return;
                 else
                 {
                     DialogResult traloi;
@@ -130,8 +146,6 @@ namespace SuperProjectQ.AllForm.KhachHang
 
         private void txtSDT_TextChanged(object sender, EventArgs e)
         {
-            if (!Session.XuLySDT(txtSDT.Text)) return;
-
             Session.CustomerData.SoDienThoai = txtSDT.Text;
             txtSDT.SelectionStart = txtSDT.Text.Length;
         }

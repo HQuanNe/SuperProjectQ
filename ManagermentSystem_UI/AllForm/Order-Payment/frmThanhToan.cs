@@ -1,17 +1,14 @@
-﻿using System;
+﻿using DataAccessLayer;
+using SuperProjectQ.AllForm.KhachHang;
+using SuperProjectQ.AllForm.Other;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
-using System.Globalization;
-using System.Runtime.Remoting.Contexts;
-using SuperProjectQ.AllForm.Other;
-using DataAccessLayer;
 
 namespace SuperProjectQ.FrmMixed
 {
@@ -29,6 +26,7 @@ namespace SuperProjectQ.FrmMixed
         bool isCustomer = false; //Kiểm tra xem phải khách hàng quen ko
         decimal trietKhauVIP = 0; // Tiền đc giảm theo VIP
         bool isGhiNo = false; // True nếu ghi nợ
+        bool isUsedVoucherByCode = false; //True nếu đã điền mã phát hành voucher
 
         private int TienNhan()
         {
@@ -45,15 +43,10 @@ namespace SuperProjectQ.FrmMixed
             int diemTichLuy = 0;
             string VIP = null, sqlUpdateDiem = null;
             double discount = 0;
-            double ti_le_quy_doi = Session.amountPerPointVIP; //10k đc 1 điểm
-            Dictionary<string, int> dsVIP = new Dictionary<string, int>()
-            {
-                {"VIP1", 1000},
-                {"VIP2", 3000},
-                {"VIP3", 6000},
-                {"VIP4", 8000},
-                {"VIP5", 12000}
-            };
+            double ti_le_quy_doi = Convert.ToInt32(Session.dictThongSo[5]); //10k đc 1 điểm
+
+            DataTable dsVIP = new DataTable();
+            dsVIP = kn.CreateTable("SELECT VIP, DiemToiThieu FROM BangVIP");
             //Lấy cột điểm tích luỹ
             string sqlPointKH = $"SELECT DiemTichLuy, VIP FROM KhachHang WHERE MaKH = '{Session.CustomerData.MaKH}'";
 
@@ -67,12 +60,12 @@ namespace SuperProjectQ.FrmMixed
             int flag = 0; //Cờ hiệu nếu if trên không thoả mãn 1 trong 5 phần tử của dict thì chạy cái if == 5
             if(Session.CustomerData.MaKH != "KH000" && Session.CustomerData.MaKH != "")
             {
-                foreach (string key in dsVIP.Keys)
+                foreach (DataRow r in dsVIP.Rows)
                 {
                     //nếu vượt mức sẽ lên VIP tương ứng
-                    if (diemTichLuy >= dsVIP[key])
+                    if (diemTichLuy >= Convert.ToInt32(r["DiemToiThieu"]))
                     {
-                        if(Convert.ToInt16(VIP.Replace("VIP", "")) < Convert.ToInt16(key.Replace("VIP", ""))) VIP = key; //Nếu VIP hiện tại nhỏ hơn thì cập nhật lớn hơn thì bỏ
+                        if(Convert.ToInt16(VIP.Replace("VIP", "")) < Convert.ToInt16(r["VIP"].ToString().Replace("VIP", ""))) VIP = r["VIP"].ToString(); //Nếu VIP hiện tại nhỏ hơn thì cập nhật lớn hơn thì bỏ
 
                         sqlUpdateDiem = $"UPDATE KhachHang SET VIP = '{VIP}', DiemTichLuy = {diemTichLuy} WHERE MaKH = @MKH";
                         cmd = new SqlCommand(sqlUpdateDiem, kn.conn);
@@ -103,7 +96,7 @@ namespace SuperProjectQ.FrmMixed
             const string nganHang = "MB";
             const string stk = "0382294559";
             const string tenTK = "NGUYEN DUC HONG QUAN";
-            string noiDung = $"PHONG {Session.RoomData.maPhong} THANH TOAN";
+            string noiDung = $"{Session.RoomData.tenPhong} HOA DON {Session.BillData.maHD} THANH TOAN";
             double tienTT = Convert.ToDouble(Session.BillData.TongThanhToan);
             // Tạo đường dẫn API
             try
@@ -130,10 +123,9 @@ namespace SuperProjectQ.FrmMixed
             if (isCustomer)
             {
                 lblTrietKhau.Text = Session.BillData.DiscountVIP.ToString("#,##0 VND");
-                lblTKVoucher.Text = Session.BillData.DiscountVoucher.ToString("#,##0 VND");
             }
             else lblTrietKhau.Text = "";
-
+            lblTKVoucher.Text = Session.VoucherData.giamVoucher.ToString("#,##0 VND");
             lblTienThue.Text = Session.BillData.TienVAT.ToString("#,##0 VND");
             lblTienThanhToan.Text = Session.BillData.TongThanhToan.ToString("#,##0 VND");
         }
@@ -142,9 +134,11 @@ namespace SuperProjectQ.FrmMixed
             try
             {
                 kn.ConnOpen();
-                string sqlPhong = "SELECT Phong.MaPhong, Phong.TenPhong, LoaiPhong.GiaTheoGio, Phong.TrangThai, Phong.GioVao, Phong.GhiChu " +
+                string sqlPhong = "SELECT Phong.MaPhong, Phong.TenPhong, LoaiPhong.GiaTheoGio, Phong.TrangThai, HoaDon.MaHD, HoaDon.GioVao, Phong.GhiChu " +
                     "FROM Phong " +
-                    $"INNER JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong WHERE MaPhong = '{Session.RoomData.maPhong}' AND Phong.TrangThai = 1";
+                    $"INNER JOIN LoaiPhong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong " +
+                    $"INNER JOIN HoaDon ON Phong.MaPhong = HoaDon.MaPhong " +
+                    $"WHERE Phong.MaPhong = '{Session.RoomData.maPhong}' AND Phong.TrangThai = 1 AND HoaDon.TrangThai = 0";
                 dt = new DataTable();
                 dt = kn.CreateTable(sqlPhong);
                 if (dt.Rows.Count > 0)
@@ -161,9 +155,10 @@ namespace SuperProjectQ.FrmMixed
 
 
                     decimal tongTien = tongTienPhong + tienDV;
-                    decimal tienVAT = tongTien * ((decimal)Session.VAT / 100);
+                    decimal tienVAT = tongTien * ((decimal)Convert.ToDouble(Session.dictThongSo[1]) / 100);
                     
                     //Gán biến chung
+                    Session.BillData.maHD = Convert.ToInt32(dt.Rows[0]["MaHD"]);
                     Session.BillData.TongSoPhut = tongSoPhut;
                     Session.BillData.TongTienPhong = tongTienPhong;
                     Session.BillData.TongTien = tongTien;
@@ -172,9 +167,9 @@ namespace SuperProjectQ.FrmMixed
 
                     if (isCustomer)
                     {
-                        Session.BillData.TongThanhToan = tongTien - trietKhauVIP - Session.BillData.DiscountVoucher + tienVAT; 
+                        Session.BillData.TongThanhToan = tongTien - trietKhauVIP  + tienVAT - Session.VoucherData.giamVoucher; 
                     }
-                    else Session.BillData.TongThanhToan = tongTien + tienVAT;
+                    else Session.BillData.TongThanhToan = tongTien + tienVAT - Session.VoucherData.giamVoucher;
                 }
                 LoadLabel();
             }
@@ -262,6 +257,7 @@ namespace SuperProjectQ.FrmMixed
                     txtSDT.SelectionStart = txtSDT.Text.Length;
                     return;
                 }
+
                 string noData = "--";
 
                 string sqlKH = $"SELECT TOP 1 KhachHang.MaKH, KhachHang.TenKH, KhachHang.DiaChi, KhachHang.SoDienThoai, KhachHang.VIP, " +
@@ -274,6 +270,7 @@ namespace SuperProjectQ.FrmMixed
                 if (dt.Rows.Count > 0 && txtSDT.Text.Length == 10)
                 {
                     isCustomer = true;
+                    Session.CustomerData.isCustomer = isCustomer;
                     btnVoucher.Visible = isCustomer;
                     //Gán dữ liệu
                     Session.CustomerData.MaKH = dt.Rows[0]["MaKH"].ToString();
@@ -281,7 +278,7 @@ namespace SuperProjectQ.FrmMixed
                     lblDiaChi.Text = dt.Rows[0]["DiaChi"].ToString();
                     lblVIP.Text = dt.Rows[0]["VIP"].ToString();
                     lblDiemTichLuy.Text = dt.Rows[0]["DiemTichLuy"].ToString();
-                    lblDiscount.Text = $"Triết khấu VIP ({(Convert.ToDouble(dt.Rows[0]["TrietKhau"])).ToString()}%):";
+                    lblDiscount.Text = $"Triết khấu VIP ({Convert.ToDouble(dt.Rows[0]["TrietKhau"])}%):";
 
                     //Xử lý giảm giá
                     trietKhauVIP = Session.BillData.TongTien * (Convert.ToDecimal(dt.Rows[0]["TrietKhau"]) / 100);
@@ -361,7 +358,19 @@ namespace SuperProjectQ.FrmMixed
 
                 //Khách hàng
                 TichDiemKH();
-                Update_Voucher(Session.isUsedVoucher, Session.STTVoucher, Session.CustomerData.MaKH);
+                Update_Voucher(Session.VoucherData.isUsedVoucherKH, Session.VoucherData.STTVoucher, Session.CustomerData.MaKH);
+
+                //Trừ voucher nếu dùng
+                if (isUsedVoucherByCode)
+                {
+                    using (cmd = new SqlCommand())
+                    {
+                        cmd.Connection = kn.conn;
+                        cmd.CommandText = $"SELECT MaVoucher FROM Voucher WHERE MaPhatHanh = {txtVoucher.Text.Trim()}";
+                        string maVoucher = cmd.ExecuteScalar() != null ? cmd.ExecuteScalar().ToString() : "";
+                        Session.VoucherData.InspectQuantityVoucher(maVoucher);
+                    }
+                }
                 //cập nhật ghi nợ nếu có
                 if (!UpdateGhiNo()) return;
 
@@ -380,7 +389,7 @@ namespace SuperProjectQ.FrmMixed
             try
             {
                 kn.ConnOpen();
-                Session.BillData.DiscountVoucher = 0;
+                Session.VoucherData.giamVoucher = 0;
 
                 plQRCode.Hide();
                 plCash.Hide();
@@ -513,7 +522,7 @@ namespace SuperProjectQ.FrmMixed
             isGhiNo = true;
         }
 
-        private void btnVoucher_Click(object sender, EventArgs e)
+        public void btnVoucher_Click(object sender, EventArgs e)
         {
             frmVoucherKhachHang frmVoucher = new frmVoucherKhachHang();
             frmVoucher.FormBorderStyle = FormBorderStyle.None;
@@ -521,10 +530,46 @@ namespace SuperProjectQ.FrmMixed
             frmVoucher.FormClosed += (s, args) =>
             {
                 TongThanhToan();
-                txtVoucher.Text = Session.tenVoucher.ToString();
+                if (Session.VoucherData.isUsedVoucherKH)
+                {
+                    txtVoucher.ReadOnly = true;
+                    txtVoucher.Text = Session.VoucherData.tenVoucher.ToString();
+                }
             };
 
             frmVoucher.ShowDialog();
+        }
+
+        private void txtVoucher_TextChanged(object sender, EventArgs e)
+        {
+            if(txtVoucher.Text.Length == 10)
+            {
+                using (dt = new DataTable())
+                {
+                    dt = kn.CreateTable($"SELECT GTDonHangToiThieu, MaPhatHanh FROM Voucher WHERE MaPhatHanh = '{txtVoucher.Text.Trim()}'");
+                }
+                if (dt.Rows.Count > 0)
+                {
+                    if (Session.BillData.TongThanhToan < Convert.ToDecimal(dt.Rows[0]["GTDonHangToiThieu"]))
+                    {
+                        MessageBox.Show($"Đơn hàng phải có giá trị tối thiểu {Convert.ToDecimal(dt.Rows[0]["GTDonHangToiThieu"]):#,##0 VND} để áp dụng voucher này!!!");
+                        txtVoucher.Text = "";
+                        return;
+                    }
+                    isUsedVoucherByCode = true;
+                    btnVoucher.Enabled = false;
+                    Session.VoucherData.VCHMaPhatHanh = txtVoucher.Text;
+                    Session.VoucherData.TinhTienGiamGia(true);
+                    TongThanhToan();
+                }
+
+            }
+            else if(!Session.VoucherData.isUsedVoucherKH)
+            {
+                btnVoucher.Enabled = true;
+                Session.VoucherData.giamVoucher = 0;
+                TongThanhToan();
+            }
         }
     }
 }

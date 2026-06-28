@@ -78,31 +78,29 @@ namespace SuperProjectQ
                     };
                     if (!Session.xuLyChuoi(textBox)) { MessageBox.Show("Tên đăng nhập hoặc mật khẩu không chính xác");  return;}
 
-                    string loginIDUser = null, loginMaNV = null, loginTenNV = null, loginChucVu = null, hinhAnh = null;
+                    string loginIDUser = null, loginMaNV = null, loginTenNV = null, hinhAnh = null;
+                    int loginMaCV;
                     string sqlLogin = $"SELECT * FROM Users WHERE UserName = '{txtUserName.Text.Trim()}' AND Password = '{txtPassword.Text.Trim()}'";
                     DataTable dt = new DataTable();
                     dt = kn.CreateTable(sqlLogin);
 
-                    if (dt.Rows.Count < 0) return;
-                    foreach (DataRow rowIDUser in dt.Rows)
+                    if (dt.Rows.Count >0)
                     {
-                        loginIDUser = rowIDUser["IDUser"].ToString();
-                        loginMaNV = rowIDUser["MaNV"].ToString();
-                        //Lấy mã NV
+                        loginIDUser = dt.Rows[0]["IDUser"].ToString();
+                        loginMaNV = dt.Rows[0]["MaNV"].ToString();
+                        //Lấy chi tiết NV
                         string sqlTenNV = $"SELECT * FROM NhanVien WHERE MaNV = '{loginMaNV}'";
                         DataTable dtTenNV = new DataTable();
                         dtTenNV = kn.CreateTable(sqlTenNV);
 
                         loginTenNV = dtTenNV.Rows[0]["TenNV"].ToString();
-                        loginChucVu = dtTenNV.Rows[0]["ChucVu"].ToString();
+                        loginMaCV = Convert.ToInt32(dtTenNV.Rows[0]["MaChucVu"]);
                         hinhAnh = dtTenNV.Rows[0]["HinhAnh"].ToString();
-                    }
-                    if (loginIDUser != null)
-                    {
+
                         Session.StaffData.IDUser = loginIDUser;
                         Session.StaffData.MaNV = loginMaNV;
                         Session.StaffData.TenNV = loginTenNV;
-                        Session.StaffData.ChucVu = loginChucVu;
+                        Session.StaffData.ChucVu = loginMaCV;
                         Session.StaffData.HinhAnh = hinhAnh;
 
                         isLoginSuccess = true;
@@ -111,6 +109,7 @@ namespace SuperProjectQ
                         Session.Datalog("login.txt", $"ID: {loginIDUser} - MãNV: {loginMaNV} đã đăng nhập"); //Lưu log 
                         frmMainUI MainUI = new frmMainUI();
                         MainUI.ShowDialog();
+                        this.Close();
 
                         txtPassword.Clear();
                     }
@@ -129,6 +128,7 @@ namespace SuperProjectQ
                         MessageBox.Show("Tên đăng nhập hoặc mật khẩu không chính xác");
                         break;
                     default:
+                        MessageBox.Show(ex.Message);
                         break;
                 }
             }
@@ -156,6 +156,11 @@ namespace SuperProjectQ
         {
             btnExit.BackColor = Color.FromName("Transparent");
             btnExit.ForeColor = Color.Black;
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

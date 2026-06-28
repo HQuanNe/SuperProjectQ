@@ -84,7 +84,7 @@ namespace SuperProjectQ
             //Set tham so
             ReportParameter[] SetPara = new ReportParameter[]
             {
-                new ReportParameter("VAT", (Session.VAT).ToString()),
+                new ReportParameter("VAT", Session.dictThongSo[1]),
             };
             rpInHoaDon.LocalReport.SetParameters(SetPara);
 

@@ -49,7 +49,7 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.toolRegularPasswd = new System.Windows.Forms.ToolTip(this.components);
             this.timerSendBack = new System.Windows.Forms.Timer(this.components);
-            this.timerCookieOTP = new System.Windows.Forms.Timer(this.components);
+            this.timerOTPDuration = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -263,16 +263,17 @@
             this.toolRegularPasswd.InitialDelay = 100;
             this.toolRegularPasswd.IsBalloon = true;
             this.toolRegularPasswd.ReshowDelay = 100;
+            this.toolRegularPasswd.Popup += new System.Windows.Forms.PopupEventHandler(this.toolRegularPasswd_Popup);
             // 
             // timerSendBack
             // 
             this.timerSendBack.Interval = 1000;
             this.timerSendBack.Tick += new System.EventHandler(this.timerSendBack_Tick);
             // 
-            // timerCookieOTP
+            // timerOTPDuration
             // 
-            this.timerCookieOTP.Interval = 1000;
-            this.timerCookieOTP.Tick += new System.EventHandler(this.timerCookieOTP_Tick);
+            this.timerOTPDuration.Interval = 1000;
+            this.timerOTPDuration.Tick += new System.EventHandler(this.timerCookieOTP_Tick);
             // 
             // frmChangePasswd
             // 
@@ -319,6 +320,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtOTP;
         private System.Windows.Forms.Timer timerSendBack;
-        private System.Windows.Forms.Timer timerCookieOTP;
+        private System.Windows.Forms.Timer timerOTPDuration;
     }
 }

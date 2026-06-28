@@ -4,7 +4,9 @@ using SuperProjectQ.AllForm.HoaDon;
 using SuperProjectQ.AllForm.KhoHang;
 using SuperProjectQ.AllForm.NhapKho;
 using SuperProjectQ.AllForm.Other;
+using SuperProjectQ.AllForm.Productions;
 using SuperProjectQ.AllForm.Users;
+using SuperProjectQ.AllForm.Voucher;
 using SuperProjectQ.Frm_Main_Login_Register;
 using SuperProjectQ.FrmMixed;
 using System;
@@ -25,7 +27,7 @@ namespace SuperProjectQ
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmMainUI());
+            Application.Run (new frmLogin());
         }
     }
 }

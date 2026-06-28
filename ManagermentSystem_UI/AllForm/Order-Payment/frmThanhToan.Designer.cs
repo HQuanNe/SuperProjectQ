@@ -104,7 +104,7 @@
             // 
             // btnCash
             // 
-            this.btnCash.Font = new System.Drawing.Font("Times New Roman", 25.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCash.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCash.Location = new System.Drawing.Point(103, 12);
             this.btnCash.Name = "btnCash";
             this.btnCash.Size = new System.Drawing.Size(250, 70);
@@ -115,7 +115,7 @@
             // 
             // btnQRCode
             // 
-            this.btnQRCode.Font = new System.Drawing.Font("Times New Roman", 25.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnQRCode.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnQRCode.Location = new System.Drawing.Point(527, 12);
             this.btnQRCode.Name = "btnQRCode";
             this.btnQRCode.Size = new System.Drawing.Size(250, 70);
@@ -127,9 +127,9 @@
             // btnGhiNo
             // 
             this.btnGhiNo.Font = new System.Drawing.Font("Times New Roman", 25.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGhiNo.Location = new System.Drawing.Point(949, 12);
+            this.btnGhiNo.Location = new System.Drawing.Point(710, 12);
             this.btnGhiNo.Name = "btnGhiNo";
-            this.btnGhiNo.Size = new System.Drawing.Size(250, 70);
+            this.btnGhiNo.Size = new System.Drawing.Size(151, 59);
             this.btnGhiNo.TabIndex = 5;
             this.btnGhiNo.Text = "Ghi nợ";
             this.btnGhiNo.UseVisualStyleBackColor = true;
@@ -140,7 +140,6 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.panel1.Controls.Add(this.btnCash);
-            this.panel1.Controls.Add(this.btnGhiNo);
             this.panel1.Controls.Add(this.btnQRCode);
             this.panel1.Location = new System.Drawing.Point(12, 77);
             this.panel1.Name = "panel1";
@@ -150,10 +149,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 32F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Tahoma", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(12, 1);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(717, 62);
+            this.label1.Size = new System.Drawing.Size(738, 57);
             this.label1.TabIndex = 7;
             this.label1.Text = "Chọn phương thức thanh toán";
             // 
@@ -269,13 +268,13 @@
             this.txtVoucher.MinimumSize = new System.Drawing.Size(4, 30);
             this.txtVoucher.Multiline = true;
             this.txtVoucher.Name = "txtVoucher";
-            this.txtVoucher.ReadOnly = true;
             this.txtVoucher.Size = new System.Drawing.Size(192, 40);
             this.txtVoucher.TabIndex = 31;
+            this.txtVoucher.TextChanged += new System.EventHandler(this.txtVoucher_TextChanged);
             // 
             // btnVoucher
             // 
-            this.btnVoucher.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVoucher.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVoucher.Location = new System.Drawing.Point(295, 187);
             this.btnVoucher.Name = "btnVoucher";
             this.btnVoucher.Size = new System.Drawing.Size(90, 40);
@@ -516,7 +515,7 @@
             // 
             // btnConfirm
             // 
-            this.btnConfirm.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfirm.Font = new System.Drawing.Font("Tahoma", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConfirm.Location = new System.Drawing.Point(242, 576);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(165, 79);
@@ -770,10 +769,10 @@
             // 
             // btnKhachHang
             // 
-            this.btnKhachHang.Font = new System.Drawing.Font("Times New Roman", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnKhachHang.Location = new System.Drawing.Point(1062, 12);
+            this.btnKhachHang.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnKhachHang.Location = new System.Drawing.Point(1046, 12);
             this.btnKhachHang.Name = "btnKhachHang";
-            this.btnKhachHang.Size = new System.Drawing.Size(164, 59);
+            this.btnKhachHang.Size = new System.Drawing.Size(180, 59);
             this.btnKhachHang.TabIndex = 9;
             this.btnKhachHang.Text = "Khách hàng";
             this.btnKhachHang.UseVisualStyleBackColor = true;
@@ -782,7 +781,7 @@
             // btnDSGhiNo
             // 
             this.btnDSGhiNo.Font = new System.Drawing.Font("Times New Roman", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDSGhiNo.Location = new System.Drawing.Point(892, 12);
+            this.btnDSGhiNo.Location = new System.Drawing.Point(867, 12);
             this.btnDSGhiNo.Name = "btnDSGhiNo";
             this.btnDSGhiNo.Size = new System.Drawing.Size(164, 59);
             this.btnDSGhiNo.TabIndex = 10;
@@ -796,6 +795,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1232, 853);
             this.Controls.Add(this.btnDSGhiNo);
+            this.Controls.Add(this.btnGhiNo);
             this.Controls.Add(this.btnKhachHang);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.label1);

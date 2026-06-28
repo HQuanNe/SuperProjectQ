@@ -37,6 +37,7 @@ namespace SuperProjectQ.AllForm.Staff
                 txtMaNV.Enabled = false;
                 cmbGioiTinh.Items.Add("Nam");
                 cmbGioiTinh.Items.Add("Nữ");
+                CmbChucVu_Load();
 
                 txtMaNV.Text = Session.StaffData.MaNV;
                 txtTenNV.Text = Session.StaffData.TenNV;
@@ -45,15 +46,32 @@ namespace SuperProjectQ.AllForm.Staff
                 txtDiaChi.Text = Session.StaffData.DiaChi;
                 txtSDT.Text = Session.StaffData.SoDienThoai;
                 dtpNgayLamViec.Value = Session.StaffData.NgayLamViec;
-                txtChucVu.Text = Session.StaffData.ChucVu;
+                txtEmail.Text = Session.StaffData.Email;
                 txtBasicSalary.Text = Session.StaffData.LuongCoBan.ToString("#,##0");
 
-                if (!string.IsNullOrEmpty(Session.StaffData.HinhAnh)) picImageStaff.Image = Image.FromFile(Application.StartupPath + $"\\Images\\StaffImage\\{Session.StaffData.HinhAnh}");
+                if (!string.IsNullOrEmpty(Session.StaffData.HinhAnh)) picImageStaff.Image = Image.FromFile(rootImagePath + Session.StaffData.HinhAnh);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("frmAdjustStaff - Lỗi:\n" + ex.Message);
                 return;
+            }
+        }
+        private void CmbChucVu_Load()
+        {
+            try
+            {
+                string sqlChucVu = "SELECT MaCV, TenCV FROM ChucVu";
+                dt = kn.CreateTable(sqlChucVu);
+                cmbChucVu.DataSource = dt;
+                cmbChucVu.DisplayMember = "TenCV";
+                cmbChucVu.ValueMember = "MaCV";
+                cmbChucVu.SelectedValue = Session.StaffData.ChucVu;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("frmAdjustStaff - CmbChucVu_Load()\n\rLỗi: " + ex.Message);
+                this.Close();
             }
         }
         private void btnAdjustImage_Click(object sender, EventArgs e)
@@ -69,7 +87,7 @@ namespace SuperProjectQ.AllForm.Staff
                     {
                         hasImage = true;
                         changeImage = true;
-                        picImageStaff.Image.Dispose();
+                        if(picImageStaff.Image != null) picImageStaff.Image.Dispose();
                         picImageStaff.Image = null;
                     }
                     else hasImage = false;
@@ -147,9 +165,16 @@ namespace SuperProjectQ.AllForm.Staff
         {
             try
             {
-                if (txtMaNV.Text == "" || txtTenNV.Text == "" || cmbGioiTinh.Text == "" || txtDiaChi.Text == "" || txtSDT.Text == "" || txtChucVu.Text == "")
+                if (txtMaNV.Text == "" || txtTenNV.Text == "" || cmbGioiTinh.Text == "" || txtDiaChi.Text == "" || txtSDT.Text == "")
                 {
                     MessageBox.Show("Tất cả các dữ liệu không được để trống!!!");
+                    return;
+                }
+                if (File.Exists(rootImagePath + Session.StaffData.HinhAnh) && changeImage)
+                {
+                    MessageBox.Show("Ảnh nhân viên đã được sở hữu bởi nhân viên khác \n" +
+                        "Vui lòng chọn ảnh khác hoặc đổi tên ảnh");
+                    return;
                 }
                 else
                 {
@@ -159,7 +184,7 @@ namespace SuperProjectQ.AllForm.Staff
                     {
                         string sqlEdit = "" +
                             "UPDATE  NhanVien SET TenNV = (@TNV), GioiTinh = @GT, NamSinh = (@NS)," +
-                            "DiaChi = (@DC), SoDienThoai = (@SDT), NgayLamViec = @NLV, ChucVu = @CV, LuongCoBan = @LCB, HinhAnh = @HA WHERE MaNV = (@MNV)";
+                            "DiaChi = (@DC), SoDienThoai = (@SDT), NgayLamViec = @NLV, MaChucVu = @MCV, LuongCoBan = @LCB, HinhAnh = @HA WHERE MaNV = (@MNV)";
                         cmd = new SqlCommand(sqlEdit, kn.conn);
                         cmd.Parameters.Clear();
                         cmd.Parameters.AddWithValue("@MNV", txtMaNV.Text);
@@ -169,9 +194,9 @@ namespace SuperProjectQ.AllForm.Staff
                         cmd.Parameters.AddWithValue("@DC", txtDiaChi.Text.Trim());
                         cmd.Parameters.AddWithValue("@SDT", txtSDT.Text.Trim());
                         cmd.Parameters.AddWithValue("@NLV", dtpNgayLamViec.Value); ;
-                        cmd.Parameters.AddWithValue("@CV", txtChucVu.Text.Trim());
+                        cmd.Parameters.AddWithValue("@MCV", Convert.ToInt16(cmbChucVu.SelectedValue));
                         cmd.Parameters.AddWithValue("@LCB", Convert.ToDecimal(txtBasicSalary.Text.Trim().Replace(".", "")));
-                        cmd.Parameters.AddWithValue("@HA", !(picImageStaff.Tag == null) ? Path.GetFileName(picImageStaff.Tag.ToString()) : Session.StaffData.HinhAnh);
+                        cmd.Parameters.AddWithValue("@HA", changeImage ? Path.GetFileName(picImageStaff.Tag.ToString()) : Session.StaffData.HinhAnh);
                         cmd.ExecuteNonQuery();
 
                         if (hasImage && changeImage)
@@ -183,10 +208,6 @@ namespace SuperProjectQ.AllForm.Staff
 
                             MessageBox.Show($"Đã sửa nhân viên mã {txtMaNV.Text} tên: {txtTenNV.Text}");
                     }
-                    else
-                    {
-                        return;
-                    }
                 }
             }
             catch (SqlException ex)
@@ -197,7 +218,7 @@ namespace SuperProjectQ.AllForm.Staff
                         MessageBox.Show("Mã nhân viên bị trùng, vui lòng điền lại!!!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
                 }
-                MessageBox.Show("Lỗi: " + ex.Number + " " + ex.Message);
+                MessageBox.Show("frmAdjustStaff - btnConfirmClick \nLỗi: " + ex.Number + " " + ex.Message);
             }
         }
 
@@ -212,7 +233,7 @@ namespace SuperProjectQ.AllForm.Staff
         {
             if (txtSDT.Text.Length > 10) txtSDT.Text = txtSDT.Text.Remove(10, 1);
 
-            txtSDT.Text = int.TryParse(txtSDT.Text, out int value) ? value.ToString() :
+            txtSDT.Text = int.TryParse(txtSDT.Text, out int value) ? txtSDT.Text:
                 txtSDT.Text.Length <= 1 ? "" : txtSDT.Text.Remove(txtSDT.Text.Length - 1, 1);
 
             txtSDT.SelectionStart = txtSDT.Text.Length;

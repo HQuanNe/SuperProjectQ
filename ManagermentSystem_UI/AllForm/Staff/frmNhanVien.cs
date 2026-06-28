@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DataAccessLayer;
 
-namespace SuperProjectQ.FrmMixed
+namespace SuperProjectQ.AllForm.Staff
 {
     public partial class frmNhanVien : Form
     {
@@ -124,7 +124,7 @@ namespace SuperProjectQ.FrmMixed
             Session.StaffData.SoDienThoai = dgvNhanVien.Rows[e.RowIndex].Cells["SoDienThoai"].Value.ToString();
             Session.StaffData.Email = dgvNhanVien.Rows[e.RowIndex].Cells["Email"].Value.ToString();
             Session.StaffData.NgayLamViec = Convert.ToDateTime(dgvNhanVien.Rows[e.RowIndex].Cells["NgayLamViec"].Value);
-            Session.StaffData.ChucVu = dgvNhanVien.Rows[e.RowIndex].Cells["ChucVu"].Value.ToString();
+            Session.StaffData.ChucVu = Convert.ToInt16(dgvNhanVien.Rows[e.RowIndex].Cells["MaChucVu"].Value);
             Session.StaffData.LuongCoBan = Convert.ToDecimal(dgvNhanVien.Rows[e.RowIndex].Cells["LuongCoBan"].Value);
             Session.StaffData.HinhAnh = dgvNhanVien.Rows[e.RowIndex].Cells["HinhAnh"].Value.ToString();
 
@@ -133,6 +133,24 @@ namespace SuperProjectQ.FrmMixed
             adjustStaff.ShowDialog();
 
             Staff_Load();
+        }
+
+        private void dgvNhanVien_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgvNhanVien.Columns[e.ColumnIndex].Name == "MaChucVu" && e.Value != null)
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = kn.conn;
+                    cmd.CommandText = $"SELECT TenCV FROM ChucVu WHERE MaCV = {e.Value}";
+                    cmd.ExecuteScalar();
+                    if (cmd.ExecuteScalar()!= null)
+                    {
+                        e.Value = cmd.ExecuteScalar().ToString();
+                        e.FormattingApplied = true;
+                    }
+                }
+            }
         }
     }
 }

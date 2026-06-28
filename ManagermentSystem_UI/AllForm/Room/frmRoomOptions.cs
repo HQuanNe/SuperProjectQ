@@ -65,12 +65,12 @@ namespace SuperProjectQ.AllForm.Room
         private string GetPhoneNumber()
         {
             Console.WriteLine(Session.RoomData.maPhong);
-            string sql = "SELECT SDT_KhachHang FROM Phong WHERE MaPhong = @MP";
+            string sql = "SELECT SDT_KhachHang FROM Booking WHERE MaPhong = @MP AND TrangThai = 0";
             using (cmd = new SqlCommand(sql, kn.conn))
             {
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@MP", Session.RoomData.maPhong);
-                return cmd.ExecuteScalar() != DBNull.Value ? cmd.ExecuteScalar().ToString() : "";
+                return cmd.ExecuteScalar() != DBNull.Value && cmd.ExecuteScalar() != null ? cmd.ExecuteScalar().ToString() : "";
             }
         }
         private void frmRoomOptions_Load(object sender, EventArgs e)

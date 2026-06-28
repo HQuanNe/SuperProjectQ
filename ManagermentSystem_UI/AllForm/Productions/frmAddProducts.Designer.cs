@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAddProducts));
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
@@ -49,8 +48,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnThem = new System.Windows.Forms.Button();
-            this.btnAddLoaiBan = new System.Windows.Forms.Button();
-            this.btnAddUnit = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -70,10 +67,10 @@
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Times New Roman", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(318, 14);
+            this.lblTitle.Font = new System.Drawing.Font("Tahoma", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.Location = new System.Drawing.Point(305, 16);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(347, 53);
+            this.lblTitle.Size = new System.Drawing.Size(367, 52);
             this.lblTitle.TabIndex = 12;
             this.lblTitle.Text = "Thêm sản phẩm";
             // 
@@ -96,8 +93,6 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.SeaShell;
-            this.panel2.Controls.Add(this.btnAddLoaiBan);
-            this.panel2.Controls.Add(this.btnAddUnit);
             this.panel2.Controls.Add(this.txtGhiChu);
             this.panel2.Controls.Add(this.txtGiaBan);
             this.panel2.Controls.Add(this.label6);
@@ -150,6 +145,7 @@
             // 
             // cmbUnit
             // 
+            this.cmbUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbUnit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbUnit.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbUnit.FormattingEnabled = true;
@@ -183,6 +179,7 @@
             this.cmbProdInStorage.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cmbProdInStorage.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbProdInStorage.DropDownHeight = 300;
+            this.cmbProdInStorage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbProdInStorage.DropDownWidth = 400;
             this.cmbProdInStorage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbProdInStorage.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -245,6 +242,7 @@
             // 
             // cmbLoaiBan
             // 
+            this.cmbLoaiBan.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbLoaiBan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbLoaiBan.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbLoaiBan.FormattingEnabled = true;
@@ -281,45 +279,13 @@
             this.btnThem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnThem.Font = new System.Drawing.Font("Tahoma", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThem.ForeColor = System.Drawing.Color.White;
-            this.btnThem.Location = new System.Drawing.Point(369, 16);
+            this.btnThem.Location = new System.Drawing.Point(311, 16);
             this.btnThem.Name = "btnThem";
-            this.btnThem.Size = new System.Drawing.Size(241, 60);
+            this.btnThem.Size = new System.Drawing.Size(360, 60);
             this.btnThem.TabIndex = 5;
             this.btnThem.Text = "Thêm";
             this.btnThem.UseVisualStyleBackColor = false;
             this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
-            // 
-            // btnAddLoaiBan
-            // 
-            this.btnAddLoaiBan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddLoaiBan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(232)))), ((int)(((byte)(192)))));
-            this.btnAddLoaiBan.FlatAppearance.BorderSize = 0;
-            this.btnAddLoaiBan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddLoaiBan.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold);
-            this.btnAddLoaiBan.ForeColor = System.Drawing.Color.White;
-            this.btnAddLoaiBan.Image = ((System.Drawing.Image)(resources.GetObject("btnAddLoaiBan.Image")));
-            this.btnAddLoaiBan.Location = new System.Drawing.Point(930, 48);
-            this.btnAddLoaiBan.Name = "btnAddLoaiBan";
-            this.btnAddLoaiBan.Size = new System.Drawing.Size(25, 25);
-            this.btnAddLoaiBan.TabIndex = 25;
-            this.btnAddLoaiBan.UseVisualStyleBackColor = false;
-            this.btnAddLoaiBan.Click += new System.EventHandler(this.btnAddLoaiBan_Click);
-            // 
-            // btnAddUnit
-            // 
-            this.btnAddUnit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddUnit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(232)))), ((int)(((byte)(192)))));
-            this.btnAddUnit.FlatAppearance.BorderSize = 0;
-            this.btnAddUnit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddUnit.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold);
-            this.btnAddUnit.ForeColor = System.Drawing.Color.White;
-            this.btnAddUnit.Image = ((System.Drawing.Image)(resources.GetObject("btnAddUnit.Image")));
-            this.btnAddUnit.Location = new System.Drawing.Point(536, 170);
-            this.btnAddUnit.Name = "btnAddUnit";
-            this.btnAddUnit.Size = new System.Drawing.Size(25, 25);
-            this.btnAddUnit.TabIndex = 13;
-            this.btnAddUnit.UseVisualStyleBackColor = false;
-            this.btnAddUnit.Click += new System.EventHandler(this.btnAddUnit_Click);
             // 
             // frmAddProducts
             // 
@@ -366,7 +332,5 @@
         private System.Windows.Forms.TextBox txtGiaBan;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtGhiChu;
-        private System.Windows.Forms.Button btnAddUnit;
-        private System.Windows.Forms.Button btnAddLoaiBan;
     }
 }

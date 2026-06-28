@@ -1,16 +1,11 @@
-﻿using SuperProjectQ.AllForm;
+﻿using DataAccessLayer;
 using SuperProjectQ.FrmMixed;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using DataAccessLayer;
 
 namespace SuperProjectQ.AllForm.Room
 {
@@ -300,6 +295,7 @@ namespace SuperProjectQ.AllForm.Room
                 MessageBox.Show("SL thay doi" + soLuongThayDoi.ToString());
                 Session.CapNhatKho(!Session.isPlus.Value, maSP, soLuongThayDoi); //Cập nhật kho
 
+                flplOrdered.Controls.Clear();
                 Load_Ordered(maHD);
             }
         }
@@ -332,9 +328,10 @@ namespace SuperProjectQ.AllForm.Room
             try
             {
                 dt = new DataTable();
-                dt = kn.CreateTable("SELECT Phong.GioVao, LoaiPhong.TenLoaiPhong, LoaiPhong.GiaTheoGio " +
+                dt = kn.CreateTable("SELECT HoaDon.GioVao, LoaiPhong.TenLoaiPhong, LoaiPhong.GiaTheoGio " +
                     "FROM LoaiPhong " +
                     $"INNER JOIN Phong ON Phong.MaLoaiPhong = LoaiPhong.MaLoaiPhong AND Phong.MaPhong = '{Session.RoomData.maPhong}' " +
+                    $"INNER JOIN HoaDon ON HoaDon.MaPhong = Phong.MaPhong AND HoaDon.TrangThai = 0 " +
                     $"WHERE Phong.TrangThai = 1");
 
                 lblLoaiPhong.Text = "Loại phòng: " + dt.Rows[0]["TenLoaiPhong"].ToString();
@@ -385,7 +382,7 @@ namespace SuperProjectQ.AllForm.Room
                 lblRoomName.Text = Session.RoomData.tenPhong + $" - Hoá đơn số: {Session.RoomData.maHD}";
                 lblSubTotal.Text = "Tổng tiền sản phẩm: " +  Session.BillData.TongTienDV.ToString("#,##0") + "đ";
 
-                txtSDT.Text = Session.CustomerData.SoDienThoai;
+                txtSDT.Text = Session.RoomData.GetPhoneNumber(Session.RoomData.maPhong);
 
                 LoadCustomerByPhoneNumber();
             }
@@ -397,16 +394,28 @@ namespace SuperProjectQ.AllForm.Room
         private void btnOpenMenu_Click(object sender, EventArgs e)
         {
 
-            frmMenu menu = new frmMenu();
-            menu.FormBorderStyle = FormBorderStyle.None;
-            menu.lblTitlePhong.Visible = false;
-            menu.flowLayoutDSPhong.Visible = false;
-            menu.WindowState = FormWindowState.Maximized;
+            using (frmMenu menu = new frmMenu())
+            {
+                menu.FormBorderStyle = FormBorderStyle.None;
+                menu.btnOrdered.Visible = false;
+                menu.lblTitlePhong.Visible = false;
+                menu.flowLayoutDSPhong.Visible = false;
+                menu.WindowState = FormWindowState.Maximized;
+                menu.btnClicked = new Button() { Name = Session.RoomData.maPhong };
 
-            menu.ShowDialog();
+                menu.ShowDialog();
+
+            }
 
             flplOrdered.Controls.Clear();
             Load_Ordered(Session.RoomData.maHD);
+            CurrentTotal();
+
+            lblTimeIn.Text = $"Giờ vào: {TimeIn_Load()}";
+            lblRoomName.Text = Session.RoomData.tenPhong + $" - Hoá đơn số: {Session.RoomData.maHD}";
+            lblSubTotal.Text = "Tổng tiền sản phẩm: " + Session.BillData.TongTienDV.ToString("#,##0") + "đ";
+
+            txtSDT.Text = Session.RoomData.GetPhoneNumber(Session.RoomData.maPhong);
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -418,6 +427,7 @@ namespace SuperProjectQ.AllForm.Room
         {
             DateTime dateTimeOut = Convert.ToDateTime(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")); // Tính giờ ra
             Session.RoomData.TimeOut = dateTimeOut;
+            Session.CustomerData.SoDienThoai = txtSDT.Text;
 
             ConfirmPayment(Session.RoomData.maPhong);
         }
@@ -440,6 +450,19 @@ namespace SuperProjectQ.AllForm.Room
             Session.CustomerData.SoDienThoai = txtSDT.Text;
             Session.UpdatePhoneNumberForRoom(txtSDT.Text);
             LoadCustomerByPhoneNumber();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Tên của Project B (tên file .exe nhưng không có đuôi .exe)
+            string processName = "E_Menu";
+
+            Process[] processes = Process.GetProcessesByName(processName);
+
+            foreach (Process p in processes)
+            {
+                p.Kill(); // Gửi lệnh đóng cửa sổ chính
+            }
         }
     }
 }

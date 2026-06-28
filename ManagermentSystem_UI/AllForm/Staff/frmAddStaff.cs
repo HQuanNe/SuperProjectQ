@@ -41,10 +41,26 @@ namespace SuperProjectQ.AllForm.Staff
                 newID = target + tangMa.ToString();
             return newID;
         }
+        private void CmbChucVu_Load()
+        {
+            try
+            {
+                string sqlChucVu = "SELECT MaCV, TenCV FROM ChucVu";
+                dt = kn.CreateTable(sqlChucVu);
+                cmbChucVu.DataSource = dt;
+                cmbChucVu.DisplayMember = "TenCV";
+                cmbChucVu.ValueMember = "MaCV";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("frmAdjustStaff - CmbChucVu_Load()\n\rLỗi: " + ex.Message);
+                this.Close();
+            }
+        }
         private void frmAddStaff_Load(object sender, EventArgs e)
         {
             kn.ConnOpen();
-
+            CmbChucVu_Load();
             cmbGioiTinh.Items.Add("Nam");
             cmbGioiTinh.Items.Add("Nữ");
             cmbGioiTinh.SelectedItem = "Nam";
@@ -58,7 +74,7 @@ namespace SuperProjectQ.AllForm.Staff
             try
             {
                 //Ghi của thêm
-                if (txtMaNV.Text == "" || txtTenNV.Text == "" || cmbGioiTinh.Text == "" || txtDiaChi.Text == "" || txtSDT.Text == "" || txtChucVu.Text == "")
+                if (txtMaNV.Text == "" || txtTenNV.Text == "" || cmbGioiTinh.Text == "" || txtDiaChi.Text == "" || txtSDT.Text == "")
                 {
                     MessageBox.Show("Tất cả các dữ liệu không được để trống!!!");
                     return;
@@ -72,6 +88,12 @@ namespace SuperProjectQ.AllForm.Staff
                         MessageBox.Show("Hãy chọn ảnh!!!");
                         return;
                     }
+                    if (File.Exists(Application.StartupPath + $"\\Images\\StaffImage\\{Path.GetFileName(picImageStaff.Tag.ToString())}"))
+                    {
+                        MessageBox.Show("Ảnh nhân viên đã được sở hữu bởi nhân viên khác \n" +
+                        "Vui lòng chọn ảnh khác hoặc đổi tên ảnh");
+                        return;
+                    }
                     string[] txt = new string[]
                     {
                         txtBasicSalary.Text,
@@ -80,7 +102,7 @@ namespace SuperProjectQ.AllForm.Staff
                     if (!Session.XuLySo(txt))
                     {MessageBox.Show("SĐT hoặc lương phải là chữ số!!!"); return; }
 
-                    string sqlAdd = "INSERT INTO NhanVien(MaNV, TenNV, GioiTinh, NamSinh, DiaChi, SoDienThoai, NgayLamViec, ChucVu, LuongCoBan, HinhAnh) values (@MNV, @TNV, @GT, @NS, @DC, @SDT, @NLV, @CV, @LCB, @HA)";
+                    string sqlAdd = "INSERT INTO NhanVien(MaNV, TenNV, GioiTinh, NamSinh, DiaChi, SoDienThoai, NgayLamViec, MaChucVu, LuongCoBan, HinhAnh) values (@MNV, @TNV, @GT, @NS, @DC, @SDT, @NLV, @MCV, @LCB, @HA)";
                     cmd = new SqlCommand(sqlAdd, kn.conn);
                     cmd.Parameters.Clear();
                     cmd.Parameters.AddWithValue("@MNV", AutoCreateID());
@@ -90,7 +112,7 @@ namespace SuperProjectQ.AllForm.Staff
                     cmd.Parameters.AddWithValue("@DC", txtDiaChi.Text.Trim());
                     cmd.Parameters.AddWithValue("@SDT", txtSDT.Text.Trim());
                     cmd.Parameters.AddWithValue("@NLV", dtpNgayLamViec.Value);
-                    cmd.Parameters.AddWithValue("@CV", txtChucVu.Text.Trim());
+                    cmd.Parameters.AddWithValue("@MCV", cmbChucVu.SelectedValue);
                     cmd.Parameters.AddWithValue("@LCB", txtBasicSalary.Text.Trim());
                     cmd.Parameters.AddWithValue("@HA", Path.GetFileName(picImageStaff.Tag.ToString()));
                     cmd.ExecuteNonQuery();
@@ -138,6 +160,7 @@ namespace SuperProjectQ.AllForm.Staff
 
         private void txtBasicSalary_TextChanged(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(txtBasicSalary.Text) && int.TryParse(txtBasicSalary.Text.Replace(".", ""), out int salary)) return;
             txtBasicSalary.Text = Convert.ToDecimal(txtBasicSalary.Text.Replace(".", "")).ToString("#,##0");
             txtBasicSalary.SelectionStart = txtBasicSalary.Text.Length;
         }

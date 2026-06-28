@@ -155,6 +155,7 @@
             this.txtFloor.Name = "txtFloor";
             this.txtFloor.Size = new System.Drawing.Size(153, 45);
             this.txtFloor.TabIndex = 8;
+            this.txtFloor.TextChanged += new System.EventHandler(this.txtFloor_TextChanged);
             // 
             // label3
             // 

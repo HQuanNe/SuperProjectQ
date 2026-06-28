@@ -7,23 +7,19 @@ using SuperProjectQ.AllForm.Other;
 using SuperProjectQ.AllForm.Productions;
 using SuperProjectQ.AllForm.Room;
 using SuperProjectQ.AllForm.Users;
-using SuperProjectQ.FrmMixed;
-using SuperProjectQ.Properties;
+using SuperProjectQ.AllForm.HoaDon;
+using SuperProjectQ.AllForm.Staff;
+using SuperProjectQ.AllForm.KhachHang;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Net.Http; //Thư viện thời tiết
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 using DataAccessLayer;
 using DataAccessLayer.Classes;
+using System.Data.SqlClient;
+using SuperProjectQ.AllForm.WareHouse;
 
 namespace SuperProjectQ.Frm_Main_Login_Register
 {
@@ -33,10 +29,13 @@ namespace SuperProjectQ.Frm_Main_Login_Register
         {
             //System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12; //Hỗ trợ chạy AI cho phiên bản .NET Framework dươi 4.8
             InitializeComponent();
-            Session.SetParameters_Load();
+            Session.SetParameters_Load(); //Load thông số lên phần mềm
             var root = new Content(AIRepo.GetDataFromSQL() + "Tên mày là ParaD"); //Gán CSDL cho AI
 
             model = AIchatBot.GenerativeModel(Model.Gemini25Flash, systemInstruction: root); //Lấy Model (Phiên bản Gemini 2.5Flash)
+
+            var oldHistory = AIRepo.GetHistory(); //Lấy dữ liệu cũ đã lưu trong SQL
+            chatSession = model.StartChat(oldHistory); //Gán data đó làm giá trị khởi đầu
         }
         private GoogleAI AIchatBot = new GoogleAI(ConfigurationManager.AppSettings["GeminiAPIKey"]); // Tạo đôi tượng kết nối với Google AI bằng API Key
         private GenerativeModel model; //Khởi tạo Model
@@ -64,10 +63,10 @@ namespace SuperProjectQ.Frm_Main_Login_Register
 
             plControls.Controls.Add(form);
         } // Thêm form vào panel
-        private async void GetWeather()
+        public async void GetWeather()
         {
             string apiKey = ConfigurationManager.AppSettings["WheatherAPIKey"];
-            string cityName = "Hanoi";
+            string cityName = Session.dictThongSo[12].ToString();
             string weatherURL = $"https://api.openweathermap.org/data/2.5/weather?q={cityName}&appid={apiKey}&units=metric&lang=vi";
 
             using (HttpClient client = new HttpClient())
@@ -79,7 +78,7 @@ namespace SuperProjectQ.Frm_Main_Login_Register
                     JObject jsonData = JObject.Parse(respond);
 
                     cityName = jsonData["name"].ToString();
-                    string temp = jsonData["main"]["temp"].ToString();
+                    string temp = Convert.ToInt16(jsonData["main"]["temp"]).ToString();
                     string description = jsonData["weather"][0]["description"].ToString();
                     string iconCode = jsonData["weather"][0]["icon"].ToString();
 
@@ -112,7 +111,7 @@ namespace SuperProjectQ.Frm_Main_Login_Register
                     break;
                 case "MNMenuOrder":
                     frmMenu menu = new frmMenu();
-                    menu.plTop.Visible = false;
+                    menu.btnClose.Visible = false;
                     AddForm(menu);
                     break;
                 case "MNBill":
@@ -131,13 +130,36 @@ namespace SuperProjectQ.Frm_Main_Login_Register
                     frmKho khoHang = new frmKho();
                     AddForm(khoHang);
                     break;
-                case "MNNhapKho":
+                case "MNMore_NhapKho":
                     frmPhieuNhap pn = new frmPhieuNhap();
                     AddForm(pn);
                     break;
                 case "MNChart":
                     frmBieuDoDoanhThu chart = new frmBieuDoDoanhThu();
                     AddForm(chart);
+                    break;
+                case "MNKiemKe":
+                    switch (MaQH())
+                    {
+                        case "QH001":
+                        case "QH002":
+                            using (frmDSachPhieuKK dsPhieuKK = new frmDSachPhieuKK())
+                            {
+                                dsPhieuKK.FormBorderStyle = FormBorderStyle.None;
+                                dsPhieuKK.ShowDialog();
+                            }
+                            break;
+                        case "QH004":
+                        case "QH005":
+                            using (frmPhieuKiemKe kiemKe = new frmPhieuKiemKe())
+                            {
+                                kiemKe.FormBorderStyle = FormBorderStyle.None;
+                                kiemKe.ShowDialog();
+                            }
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 case "MNMore_Voucher":
                     frmVoucher voucher = new frmVoucher();
@@ -154,6 +176,13 @@ namespace SuperProjectQ.Frm_Main_Login_Register
                     user.FormBorderStyle = FormBorderStyle.None;
                     user.ShowDialog();
                     break;
+                case "MNMore_History":
+                    using (frmHistory history = new frmHistory())
+                    {
+                        history.FormBorderStyle = FormBorderStyle.None;
+                        history.ShowDialog();
+                    }
+                    break;
                 default:
                     return;
             }
@@ -169,10 +198,8 @@ namespace SuperProjectQ.Frm_Main_Login_Register
                 $"WHERE PhanQuyen.IDUser = '{mainIDUser}'";
             DataTable dtQH = new DataTable();
             dtQH = kn.CreateTable(sqlQH);
-            foreach (DataRow rQH in dtQH.Rows)
-            {
-                mainTenQH = rQH["MaQH"].ToString();
-            }
+            mainTenQH = dtQH.Rows.Count > 0 ? dtQH.Rows[0]["MaQH"].ToString() : "";
+            Session.StaffData.QuyenHan = mainTenQH;
             return mainTenQH;
         } //Lấy mã quyền hạn 
 
@@ -180,13 +207,27 @@ namespace SuperProjectQ.Frm_Main_Login_Register
         {
             try
             {
-                picUser.Image = System.Drawing.Image.FromFile(Application.StartupPath + $"\\Images\\StaffImage\\{Session.StaffData.HinhAnh}");
+                picUser.Image = string.IsNullOrEmpty(Session.StaffData.HinhAnh) ? 
+                    System.Drawing.Image.FromFile(Application.StartupPath + $"\\Images\\StaffImage\\VoDanh.png") :
+                    System.Drawing.Image.FromFile(Application.StartupPath + $"\\Images\\StaffImage\\{Session.StaffData.HinhAnh}");
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Lỗi load ảnh nhân viên\n" + ex.Message);
             }
-        }
+        } //Load anh nhanVien
+        private void ChucVu_Load()
+        {
+            using (SqlCommand cmd = new SqlCommand())
+            {
+                cmd.Connection = kn.conn;
+                cmd.CommandText = $"SELECT TenCV FROM ChucVu WHERE MaCV = {Session.StaffData.ChucVu}";
+
+                lblChucVu.Text = cmd.ExecuteScalar() != null || cmd.ExecuteScalar() != DBNull.Value ? 
+                    cmd.ExecuteScalar().ToString() : "";
+                lblChucVu.Location = new Point(plInfo.Width/2 - lblChucVu.Width/2, lblChucVu.Location.Y);
+            }
+        } //Load chức vụ nhân viên
         private void frmMainUI_Load(object sender, EventArgs e)
         {
             kn.ConnOpen();
@@ -202,18 +243,13 @@ namespace SuperProjectQ.Frm_Main_Login_Register
                 case "QH001":
                     break;
                 case "QH002":
-                    MNStaffs.Visible = false;
-                    MNStorage.Visible = false;
-                    MNMore.Visible = false;
-                    MNChart.Visible = false;
-                    btnSetting.Visible = false;
                     break;
                 case "QH004":
                     MNStaffs.Visible = false;
                     MNStorage.Visible = false;
                     MNMore.Visible = false;
                     MNChart.Visible = false;
-                    btnSetting.Visible = false;
+                    btnSetting.Visible = false; 
                     break;
                 case "QH005":
                     MNStaffs.Visible = false;
@@ -230,16 +266,14 @@ namespace SuperProjectQ.Frm_Main_Login_Register
 
             plControls.Visible = false;
             timerClock.Start();
+            timerSoundEffect.Start();
 
             GetWeather();
             ImageUser_Load();
-
-            var oldHistory = AIRepo.GetHistory(); //Lấy dữ liệu cũ đã lưu trong SQL
-            chatSession = model.StartChat(oldHistory); //Gán data đó làm giá trị khởi đầu
-
+            ChucVu_Load();
 
             Session.KiemTraGhiNo(); // Kiểm tra ghi nợ khi mở form Main
-            Session.KiemTraVoucher(); //Kiểm tra voucher khi mở form Main
+            Session.VoucherData.KiemTraVoucher(); //Kiểm tra voucher khi mở form Main
         }
 
         #region AI Chatbot
@@ -336,12 +370,11 @@ namespace SuperProjectQ.Frm_Main_Login_Register
 
             btnSendRequest.Click += async (sender, e) =>
             {
+                if (string.IsNullOrEmpty(txtRequest.Text)) return; //nếu Request rỗng
 
                 //async là hàm bất đồng bộ tránh việc Not Responding khi AI trả lời
                 string requestMessage = txtRequest.Text;  //Gửi đi câu hỏi
-                AIRepo.SaveNewMessage("User", txtRequest.Text);
-
-                if (string.IsNullOrEmpty(requestMessage)) return; //nếu Request rỗng
+                AIRepo.SaveNewMessage("AIChatbotHistory", "User", txtRequest.Text);
 
                 rtxtChatHistory.AppendText($"User: {requestMessage}\n\n");
                 txtRequest.Clear();
@@ -356,7 +389,7 @@ namespace SuperProjectQ.Frm_Main_Login_Register
                         return;
                     }//nếu null sẽ báo lỗi
 
-                    AIRepo.SaveNewMessage("AI", respond.Text); //Lưu cầu trả lời của AI
+                    AIRepo.SaveNewMessage("AIChatbotHistory", "AI", respond.Text); //Lưu cầu trả lời của AI
 
                     rtxtChatHistory.AppendText($"Trợ lý ParaD: {respond.Text}\n\n"); //Thêm câu trả lời
                 }
@@ -399,19 +432,64 @@ namespace SuperProjectQ.Frm_Main_Login_Register
 
         private void btnLogOut_Click(object sender, EventArgs e)
         {
+            if (MessageBox.Show("Đóng ứng dụng?", "Thông báo", MessageBoxButtons.OKCancel) != DialogResult.OK) return;
             this.Close();
         } //Nút đăng xuất
 
         private void timerClock_Tick(object sender, EventArgs e)
         {
             DateTime currDatetime = DateTime.Now;
+            lblDate.Text = currDatetime.ToString("dd/MM/yyyy");
             lblClock.Text = currDatetime.ToString("HH:mm");
 
+            if (!Session.InspectStorage())
+            {
+                if (MNStorage.BackColor == Color.White)
+                {
+                    MNStorage.BackColor = Color.Red;
+                }
+                else
+                {
+                    MNStorage.BackColor = Color.White;
+                }
+            }
+            else            
+            {
+                MNStorage.BackColor = Color.White;
+            }
 
-            if (!Session.InspectStorage()) MNStorage.BackColor = Color.Red;
 
             if (lblClock.ForeColor == Color.FromArgb(17, 75, 95)) lblClock.ForeColor = Color.FromArgb(2, 128, 144);
             else lblClock.ForeColor = Color.FromArgb(17, 75, 95);
+
+            //Kiểm tra bảng order từ khách
+            try
+            {
+                using (dt = new DataTable())
+                {
+                    dt = kn.CreateTable("SELECT * FROM Orders");
+                    if (dt.Rows.Count > 0)
+                    {
+                        if (MNMenuOrder.BackColor == Color.White)
+                        {
+                            MNMenuOrder.BackColor = Color.Red;
+                        }
+                        else
+                        {
+                            MNMenuOrder.BackColor = Color.White;
+                        }
+                    }
+                    else
+                    {
+                        MNMenuOrder.BackColor = Color.White;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("frmMainUI - timerClock_Tick Lỗi:\n" + ex.Message);
+                return;
+            }
 
             //Cụm câu lệnh giải phóng tài nguyên
             GC.Collect();
@@ -426,6 +504,23 @@ namespace SuperProjectQ.Frm_Main_Login_Register
         private void timerWeather_Tick(object sender, EventArgs e)
         {
 
+        }
+
+        private void timerSoundEffect_Tick(object sender, EventArgs e)
+        {
+            using (dt = new DataTable())
+            {
+                dt = kn.CreateTable("SELECT * FROM Orders");
+                if (dt.Rows.Count > 0)
+                {
+                    DataAccessLayer.Classes.Media.Sound_NewOrder();
+                }
+            }
+        }
+
+        private void frmMainUI_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Session.Datalog("login.txt", $"ID: {Session.StaffData.IDUser} - MãNV: {Session.StaffData.MaNV} đã đăng xuất");
         }
 
         private void btnOpenNavBar_Click(object sender, EventArgs e)

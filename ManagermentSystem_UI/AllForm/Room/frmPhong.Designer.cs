@@ -57,7 +57,7 @@
             this.btnListRoom.BackColor = System.Drawing.Color.Turquoise;
             this.btnListRoom.FlatAppearance.BorderSize = 0;
             this.btnListRoom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnListRoom.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnListRoom.Font = new System.Drawing.Font("Tahoma", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnListRoom.ForeColor = System.Drawing.Color.White;
             this.btnListRoom.Location = new System.Drawing.Point(992, 15);
             this.btnListRoom.Name = "btnListRoom";
@@ -85,6 +85,7 @@
             // 
             this.lblBookingRoom.AutoSize = true;
             this.lblBookingRoom.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(180)))), ((int)(((byte)(255)))));
+            this.lblBookingRoom.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblBookingRoom.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBookingRoom.ForeColor = System.Drawing.Color.White;
             this.lblBookingRoom.Location = new System.Drawing.Point(420, 22);
@@ -93,11 +94,13 @@
             this.lblBookingRoom.Size = new System.Drawing.Size(158, 36);
             this.lblBookingRoom.TabIndex = 26;
             this.lblBookingRoom.Text = "phòng đã đặt trước:";
+            this.lblBookingRoom.Click += new System.EventHandler(this.lblStatus_Click);
             // 
             // lblActiveRoom
             // 
             this.lblActiveRoom.AutoSize = true;
             this.lblActiveRoom.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblActiveRoom.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblActiveRoom.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblActiveRoom.ForeColor = System.Drawing.Color.White;
             this.lblActiveRoom.Location = new System.Drawing.Point(183, 22);
@@ -106,11 +109,13 @@
             this.lblActiveRoom.Size = new System.Drawing.Size(176, 36);
             this.lblActiveRoom.TabIndex = 25;
             this.lblActiveRoom.Text = "phòng đang vận hành: ";
+            this.lblActiveRoom.Click += new System.EventHandler(this.lblStatus_Click);
             // 
             // lblEmptyRoom
             // 
             this.lblEmptyRoom.AutoSize = true;
             this.lblEmptyRoom.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(180)))), ((int)(((byte)(0)))));
+            this.lblEmptyRoom.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblEmptyRoom.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEmptyRoom.ForeColor = System.Drawing.Color.White;
             this.lblEmptyRoom.Location = new System.Drawing.Point(6, 22);
@@ -119,6 +124,7 @@
             this.lblEmptyRoom.Size = new System.Drawing.Size(116, 36);
             this.lblEmptyRoom.TabIndex = 0;
             this.lblEmptyRoom.Text = "phòng trống: ";
+            this.lblEmptyRoom.Click += new System.EventHandler(this.lblStatus_Click);
             // 
             // flpRoom
             // 

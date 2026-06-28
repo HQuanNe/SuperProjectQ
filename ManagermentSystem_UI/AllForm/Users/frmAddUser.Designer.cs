@@ -31,6 +31,9 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAddUser));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblVisiblePasswd = new System.Windows.Forms.Label();
+            this.cmbQuyenHan = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.btnSendBack = new System.Windows.Forms.Button();
             this.cmbOwner = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -49,11 +52,10 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
-            this.cmbQuyenHan = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.lblVisiblePasswd = new System.Windows.Forms.Label();
             this.timerWaitTime = new System.Windows.Forms.Timer(this.components);
             this.timerExpired = new System.Windows.Forms.Timer(this.components);
+            this.label7 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -62,6 +64,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.SeaShell;
+            this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.lblVisiblePasswd);
             this.panel1.Controls.Add(this.cmbQuyenHan);
             this.panel1.Controls.Add(this.label3);
@@ -83,6 +86,41 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(648, 303);
             this.panel1.TabIndex = 14;
+            // 
+            // lblVisiblePasswd
+            // 
+            this.lblVisiblePasswd.AutoSize = true;
+            this.lblVisiblePasswd.BackColor = System.Drawing.Color.White;
+            this.lblVisiblePasswd.Image = ((System.Drawing.Image)(resources.GetObject("lblVisiblePasswd.Image")));
+            this.lblVisiblePasswd.Location = new System.Drawing.Point(250, 119);
+            this.lblVisiblePasswd.MinimumSize = new System.Drawing.Size(30, 30);
+            this.lblVisiblePasswd.Name = "lblVisiblePasswd";
+            this.lblVisiblePasswd.Size = new System.Drawing.Size(30, 30);
+            this.lblVisiblePasswd.TabIndex = 40;
+            this.lblVisiblePasswd.Text = "  ";
+            this.lblVisiblePasswd.Click += new System.EventHandler(this.lblVisiblePasswd_Click);
+            // 
+            // cmbQuyenHan
+            // 
+            this.cmbQuyenHan.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmbQuyenHan.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.cmbQuyenHan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbQuyenHan.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbQuyenHan.FormattingEnabled = true;
+            this.cmbQuyenHan.Location = new System.Drawing.Point(312, 195);
+            this.cmbQuyenHan.Name = "cmbQuyenHan";
+            this.cmbQuyenHan.Size = new System.Drawing.Size(318, 34);
+            this.cmbQuyenHan.TabIndex = 38;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(307, 165);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(120, 26);
+            this.label3.TabIndex = 37;
+            this.label3.Text = "Quyền hạn:";
             // 
             // btnSendBack
             // 
@@ -284,41 +322,6 @@
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // cmbQuyenHan
-            // 
-            this.cmbQuyenHan.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cmbQuyenHan.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.cmbQuyenHan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmbQuyenHan.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbQuyenHan.FormattingEnabled = true;
-            this.cmbQuyenHan.Location = new System.Drawing.Point(312, 195);
-            this.cmbQuyenHan.Name = "cmbQuyenHan";
-            this.cmbQuyenHan.Size = new System.Drawing.Size(318, 34);
-            this.cmbQuyenHan.TabIndex = 38;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(307, 165);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(120, 26);
-            this.label3.TabIndex = 37;
-            this.label3.Text = "Quyền hạn:";
-            // 
-            // lblVisiblePasswd
-            // 
-            this.lblVisiblePasswd.AutoSize = true;
-            this.lblVisiblePasswd.BackColor = System.Drawing.Color.White;
-            this.lblVisiblePasswd.Image = ((System.Drawing.Image)(resources.GetObject("lblVisiblePasswd.Image")));
-            this.lblVisiblePasswd.Location = new System.Drawing.Point(250, 119);
-            this.lblVisiblePasswd.MinimumSize = new System.Drawing.Size(30, 30);
-            this.lblVisiblePasswd.Name = "lblVisiblePasswd";
-            this.lblVisiblePasswd.Size = new System.Drawing.Size(30, 30);
-            this.lblVisiblePasswd.TabIndex = 40;
-            this.lblVisiblePasswd.Text = "  ";
-            this.lblVisiblePasswd.Click += new System.EventHandler(this.lblVisiblePasswd_Click);
-            // 
             // timerWaitTime
             // 
             this.timerWaitTime.Interval = 1000;
@@ -328,6 +331,18 @@
             // 
             this.timerExpired.Interval = 1000;
             this.timerExpired.Tick += new System.EventHandler(this.timerExpired_Tick);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.Blue;
+            this.label7.Location = new System.Drawing.Point(148, 98);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(132, 16);
+            this.label7.TabIndex = 29;
+            this.label7.Text = "quy định về mật khẩu";
+            this.toolTip1.SetToolTip(this.label7, "Mật khẩu chỉ được chứa các ký tự (a-z), (A-Z), (0-9)");
             // 
             // frmAddUser
             // 
@@ -379,5 +394,7 @@
         private System.Windows.Forms.Label lblVisiblePasswd;
         private System.Windows.Forms.Timer timerWaitTime;
         private System.Windows.Forms.Timer timerExpired;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

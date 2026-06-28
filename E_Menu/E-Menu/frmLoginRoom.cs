@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using DataAccessLayer;
 using E_Menu.Classes;
@@ -75,13 +76,11 @@ namespace E_Menu.E_Menu
                     MessageBox.Show("Phòng chưa vận hành hoặc đã được đặt trước!!!");
                     return;
                 }
-                using (frmMenu menu = new frmMenu())
+                using (frmEMenu menu = new frmEMenu())
                 {
-                    this.Close();
                     TransData.RoomID = GetRoomID();
                     menu.ShowDialog();
                 }
-
             }
             catch (Exception ex)
             {

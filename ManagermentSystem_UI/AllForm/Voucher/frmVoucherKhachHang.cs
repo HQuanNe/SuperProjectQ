@@ -23,54 +23,13 @@ namespace SuperProjectQ.AllForm.Other
 
         string giaTriGiam = "";
         string giaTriGiamToiDa = "";
-        decimal giamVoucher = 0; // Tiền giảm voucher
+
 
         Panel selectedPanel = null;
         Panel plInThePast = null;
 
         frmMenu od = new frmMenu();
 
-        private void TinhTienGiamGia()
-        {
-            if (selectedPanel != null)
-            {
-                string sqlLayVoucher = $"SELECT Voucher.GiaTriGiam, Voucher.LoaiGiamGia, Voucher.GiamToiDa FROM VoucherKhachHang \n" +
-                    $"INNER JOIN VouCher ON Voucher.MaVoucher = VoucherKhachHang.MaVoucher " +
-                    $"WHERE VoucherKhachHang.TrangThai = 0 AND VoucherKhachHang.MaKH = '{Session.CustomerData.MaKH}' AND VoucherKhachHang.STT = {selectedPanel.Name}";
-                dt = kn.CreateTable(sqlLayVoucher);
-
-                Console.WriteLine(Session.CustomerData.MaKH + "\n" + selectedPanel.Name);
-
-                if (dt.Rows.Count > 0)
-                {
-
-                    decimal giaTriGiam = Convert.ToDecimal(dt.Rows[0]["GiaTriGiam"]);
-
-                    //Nếu là true thì sẽ giảm theo %
-                    if (Convert.ToBoolean(dt.Rows[0]["LoaiGiamGia"]))
-                    {
-                        giamVoucher = Session.BillData.TongTien * giaTriGiam;
-                        Session.BillData.DiscountVoucher = giamVoucher;
-
-                        if (Session.BillData.DiscountVoucher > Convert.ToDecimal(dt.Rows[0]["GiamToiDa"]) && Convert.ToDecimal(dt.Rows[0]["GiamToiDa"]) > 0)
-                        {
-                            Session.BillData.DiscountVoucher = Convert.ToDecimal(dt.Rows[0]["GiamToiDa"]);
-                        }
-                    }
-                    //Giảm theo tiền
-                    else
-                    {
-                        giamVoucher = giaTriGiam;
-                        Session.BillData.DiscountVoucher = giamVoucher;
-                    }
-                }
-                else
-                {
-                    giamVoucher = 0;
-                    Session.BillData.DiscountVoucher = giamVoucher;
-                }
-            }
-        } //tính tiền giảm giá của voucher
         private void Voucher_Load()
         {
             dt = new DataTable();
@@ -222,7 +181,7 @@ namespace SuperProjectQ.AllForm.Other
 
                     selectedPanel = plClicked;
 
-                    Console.WriteLine(Session.BillData.DiscountVoucher);
+                    Console.WriteLine(Session.VoucherData.giamVoucher);
                     plInThePast = plClicked;
                 };
 
@@ -247,12 +206,17 @@ namespace SuperProjectQ.AllForm.Other
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
+            if(selectedPanel == null)
+            {
+                MessageBox.Show("Chưa chọn voucher nào!!!");
+                return;
+            }
             if(MessageBox.Show("Chọn voucher này?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes && selectedPanel != null)
             {
-                TinhTienGiamGia();
-                Session.STTVoucher = Convert.ToInt32(selectedPanel.Name); // Lưu STT voucher được chọn
-                Session.isUsedVoucher = true; // Đánh dấu đã sử dụng voucher
-                Session.tenVoucher = selectedPanel.Controls[1].Text;
+                Session.VoucherData.TinhTienGiamGia(false, Convert.ToInt32(selectedPanel.Name));
+                Session.VoucherData.STTVoucher = Convert.ToInt32(selectedPanel.Name); // Lưu STT voucher được chọn
+                Session.VoucherData.isUsedVoucherKH = true; // Đánh dấu đã sử dụng voucher
+                Session.VoucherData.tenVoucher = selectedPanel.Controls[1].Text;
                 this.Close();
             }
         }

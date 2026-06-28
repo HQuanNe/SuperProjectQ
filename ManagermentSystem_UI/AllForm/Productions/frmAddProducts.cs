@@ -21,8 +21,6 @@ namespace SuperProjectQ.AllForm.Productions
 
         ConnectData kn = new ConnectData();
         SqlCommand cmd;
-        DataTable dt;
-
 
         private void CmbProdInStorage()
         {
@@ -33,21 +31,15 @@ namespace SuperProjectQ.AllForm.Productions
         }//Load sản phẩm đang ở trong kho
         private void CmbLoaiBan_Load()
         {
-            string[] arrLoaiBan = Session.DSLoaiBan.Split(',');
-            foreach (string loaiBan in arrLoaiBan)
-            {
-                cmbLoaiBan.Items.Add(loaiBan);
-            }
-            cmbLoaiBan.SelectedIndex = 0;
+            cmbLoaiBan.DataSource = kn.CreateTable("SELECT MaLoaiBan, TenLoai FROM LoaiBan");
+            cmbLoaiBan.DisplayMember = "TenLoai";
+            cmbLoaiBan.ValueMember = "MaLoaiBan";
         }
         private void CmbUnit_Load()
         {
-            string[] arrUnit = Session.unit.Split(',');
-            foreach (string unit in arrUnit)
-            {
-                cmbUnit.Items.Add(unit);
-            }
-            cmbUnit.SelectedIndex = 0;
+            cmbUnit.DataSource = kn.CreateTable("SELECT MaDVT, TenDVT FROM DVTSanPham");
+            cmbUnit.DisplayMember = "TenDVT";
+            cmbUnit.ValueMember = "MaDVT";
         }
         private void frmAddProducts_Load(object sender, EventArgs e)
         {
@@ -77,9 +69,9 @@ namespace SuperProjectQ.AllForm.Productions
                     cmd.Parameters.AddWithValue("@MSPM", Session.AutoCreateID_String("MaSP_Menu", "SanPham", "SPM"));
                     cmd.Parameters.AddWithValue("@MSPK", cmbProdInStorage.SelectedValue);
                     cmd.Parameters.AddWithValue("@TMH", txtTenMatHang.Text.Trim());
-                    cmd.Parameters.AddWithValue("@LB", cmbLoaiBan.SelectedIndex);
+                    cmd.Parameters.AddWithValue("@LB", cmbLoaiBan.SelectedValue);
                     cmd.Parameters.AddWithValue("DL", Convert.ToInt32(txtDinhLuongOrSoLuong.Text.Trim()));
-                    cmd.Parameters.AddWithValue("DVT", cmbUnit.SelectedItem.ToString());
+                    cmd.Parameters.AddWithValue("DVT", cmbUnit.SelectedValue);
                     cmd.Parameters.AddWithValue("GB", Convert.ToDecimal(txtGiaBan.Text.Trim().Replace(".", "")));
                     cmd.Parameters.AddWithValue("GC", txtGhiChu.Text.Trim());
                     cmd.ExecuteNonQuery();
@@ -98,24 +90,6 @@ namespace SuperProjectQ.AllForm.Productions
         private void cmbUnit_SelectedIndexChanged(object sender, EventArgs e)
         {
             MessageBox.Show(cmbUnit.SelectedItem.ToString());
-        }
-
-        private void btnAddUnit_Click(object sender, EventArgs e)
-        {
-            using (frmAddUnitAndLoaiBan unitNLoaiBan = new frmAddUnitAndLoaiBan())
-            {
-                unitNLoaiBan.tabCtrlMain.SelectedIndex = 0;
-                unitNLoaiBan.ShowDialog();
-            }
-        }
-
-        private void btnAddLoaiBan_Click(object sender, EventArgs e)
-        {
-            using (frmAddUnitAndLoaiBan unitNLoaiBan = new frmAddUnitAndLoaiBan())
-            {
-                unitNLoaiBan.tabCtrlMain.SelectedIndex = 1;
-                unitNLoaiBan.ShowDialog();
-            }
         }
     }
 }

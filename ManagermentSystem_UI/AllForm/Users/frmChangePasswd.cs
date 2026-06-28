@@ -27,7 +27,7 @@ namespace SuperProjectQ.AllForm.Users
         Random rd = new Random();
         bool isValidOTP = false;
         string oldPasswd;
-        int waitTime = 60, cdTime, OTP;
+        int waitTime = Convert.ToInt32(Session.dictThongSo[9]), cdTime, OTP;
 
         private void LoadPasswd()
         {
@@ -76,7 +76,7 @@ namespace SuperProjectQ.AllForm.Users
 
             Session.StaffData.SendEmail(Session.StaffData.Email, OTP);
             timerSendBack.Start();
-            timerCookieOTP.Start();
+            timerOTPDuration.Start();
             btnSendBack.Enabled = false;
         } //Click để nhận email
 
@@ -144,13 +144,18 @@ namespace SuperProjectQ.AllForm.Users
             }
         }
 
+        private void toolRegularPasswd_Popup(object sender, PopupEventArgs e)
+        {
+
+        }
+
         private void timerCookieOTP_Tick(object sender, EventArgs e)
         {
             cdTime++;
-            if(cdTime == 1 * 60)
+            if(cdTime == Convert.ToInt32(Session.dictThongSo[10]) * 60)
             {
                 OTP = int.MinValue;
-                timerCookieOTP.Stop();
+                timerOTPDuration.Stop();
                 Console.WriteLine("Mã OTP đã hết hạn");
             }
         }

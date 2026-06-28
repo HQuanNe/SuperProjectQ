@@ -39,18 +39,18 @@
             this.txtTimSP = new System.Windows.Forms.TextBox();
             this.btnThemSP = new System.Windows.Forms.Button();
             this.dgvKho = new System.Windows.Forms.DataGridView();
-            this.MaSP_Kho = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TenSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TenDM = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DonViTinh = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TonKho = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NgayCapNhat = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DonGiaNhap = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TrangThai = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.HinhAnh = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GhiChu = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ChiTiet = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ChiTiet = new System.Windows.Forms.DataGridViewImageColumn();
+            this.GhiChu = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HinhAnh = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TrangThai = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DonGiaNhap = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NgayCapNhat = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TonKho = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DonViTinh = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TenDM = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TenSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MaSP_Kho = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -158,12 +158,12 @@
             this.btnThemSP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(220)))), ((int)(((byte)(0)))));
             this.btnThemSP.FlatAppearance.BorderSize = 0;
             this.btnThemSP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnThemSP.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThemSP.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThemSP.ForeColor = System.Drawing.Color.White;
             this.btnThemSP.Image = ((System.Drawing.Image)(resources.GetObject("btnThemSP.Image")));
-            this.btnThemSP.Location = new System.Drawing.Point(1064, 14);
+            this.btnThemSP.Location = new System.Drawing.Point(1049, 14);
             this.btnThemSP.Name = "btnThemSP";
-            this.btnThemSP.Size = new System.Drawing.Size(201, 50);
+            this.btnThemSP.Size = new System.Drawing.Size(220, 50);
             this.btnThemSP.TabIndex = 0;
             this.btnThemSP.Text = "Thêm sản phẩm";
             this.btnThemSP.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -198,85 +198,15 @@
             this.dgvKho.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvKho_CellDoubleClick);
             this.dgvKho.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvKho_CellFormatting);
             // 
-            // MaSP_Kho
+            // dataGridViewImageColumn1
             // 
-            this.MaSP_Kho.DataPropertyName = "MaSP_Kho";
-            this.MaSP_Kho.HeaderText = "Mã sản phẩm";
-            this.MaSP_Kho.MinimumWidth = 6;
-            this.MaSP_Kho.Name = "MaSP_Kho";
-            this.MaSP_Kho.Width = 125;
-            // 
-            // TenSP
-            // 
-            this.TenSP.DataPropertyName = "TenSP";
-            this.TenSP.HeaderText = "Tên sản phẩm";
-            this.TenSP.MinimumWidth = 6;
-            this.TenSP.Name = "TenSP";
-            this.TenSP.Width = 125;
-            // 
-            // TenDM
-            // 
-            this.TenDM.DataPropertyName = "TenDM";
-            this.TenDM.HeaderText = "Danh mục";
-            this.TenDM.MinimumWidth = 6;
-            this.TenDM.Name = "TenDM";
-            this.TenDM.Width = 125;
-            // 
-            // DonViTinh
-            // 
-            this.DonViTinh.DataPropertyName = "DonViTinh";
-            this.DonViTinh.HeaderText = "Đơn vị tính";
-            this.DonViTinh.MinimumWidth = 6;
-            this.DonViTinh.Name = "DonViTinh";
-            this.DonViTinh.Width = 125;
-            // 
-            // TonKho
-            // 
-            this.TonKho.DataPropertyName = "TonKho";
-            this.TonKho.HeaderText = "Tồn kho";
-            this.TonKho.MinimumWidth = 6;
-            this.TonKho.Name = "TonKho";
-            this.TonKho.Width = 125;
-            // 
-            // NgayCapNhat
-            // 
-            this.NgayCapNhat.DataPropertyName = "NgayCapNhat";
-            this.NgayCapNhat.HeaderText = "Cập nhật lần cuối";
-            this.NgayCapNhat.MinimumWidth = 6;
-            this.NgayCapNhat.Name = "NgayCapNhat";
-            this.NgayCapNhat.Width = 125;
-            // 
-            // DonGiaNhap
-            // 
-            this.DonGiaNhap.DataPropertyName = "DonGiaNhap";
-            this.DonGiaNhap.HeaderText = "Giá nhập";
-            this.DonGiaNhap.MinimumWidth = 6;
-            this.DonGiaNhap.Name = "DonGiaNhap";
-            this.DonGiaNhap.Width = 125;
-            // 
-            // TrangThai
-            // 
-            this.TrangThai.DataPropertyName = "TrangThai";
-            this.TrangThai.HeaderText = "Trạng thái";
-            this.TrangThai.MinimumWidth = 6;
-            this.TrangThai.Name = "TrangThai";
-            this.TrangThai.Width = 125;
-            // 
-            // HinhAnh
-            // 
-            this.HinhAnh.DataPropertyName = "HinhAnh";
-            this.HinhAnh.HeaderText = "Tên ảnh";
-            this.HinhAnh.MinimumWidth = 6;
-            this.HinhAnh.Name = "HinhAnh";
-            this.HinhAnh.Width = 125;
-            // 
-            // GhiChu
-            // 
-            this.GhiChu.DataPropertyName = "GhiChu";
-            this.GhiChu.HeaderText = "Ghi chú";
-            this.GhiChu.MinimumWidth = 6;
-            this.GhiChu.Name = "GhiChu";
-            this.GhiChu.Width = 125;
+            this.dataGridViewImageColumn1.DataPropertyName = "ChiTiet";
+            this.dataGridViewImageColumn1.FillWeight = 93.84087F;
+            this.dataGridViewImageColumn1.HeaderText = "Chi tiết";
+            this.dataGridViewImageColumn1.Image = ((System.Drawing.Image)(resources.GetObject("dataGridViewImageColumn1.Image")));
+            this.dataGridViewImageColumn1.MinimumWidth = 6;
+            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
+            this.dataGridViewImageColumn1.Width = 114;
             // 
             // ChiTiet
             // 
@@ -287,15 +217,85 @@
             this.ChiTiet.Name = "ChiTiet";
             this.ChiTiet.Width = 6;
             // 
-            // dataGridViewImageColumn1
+            // GhiChu
             // 
-            this.dataGridViewImageColumn1.DataPropertyName = "ChiTiet";
-            this.dataGridViewImageColumn1.FillWeight = 93.84087F;
-            this.dataGridViewImageColumn1.HeaderText = "Chi tiết";
-            this.dataGridViewImageColumn1.Image = ((System.Drawing.Image)(resources.GetObject("dataGridViewImageColumn1.Image")));
-            this.dataGridViewImageColumn1.MinimumWidth = 6;
-            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
-            this.dataGridViewImageColumn1.Width = 114;
+            this.GhiChu.DataPropertyName = "GhiChu";
+            this.GhiChu.HeaderText = "Ghi chú";
+            this.GhiChu.MinimumWidth = 6;
+            this.GhiChu.Name = "GhiChu";
+            this.GhiChu.Width = 125;
+            // 
+            // HinhAnh
+            // 
+            this.HinhAnh.DataPropertyName = "HinhAnh";
+            this.HinhAnh.HeaderText = "Tên ảnh";
+            this.HinhAnh.MinimumWidth = 6;
+            this.HinhAnh.Name = "HinhAnh";
+            this.HinhAnh.Width = 125;
+            // 
+            // TrangThai
+            // 
+            this.TrangThai.DataPropertyName = "TrangThai";
+            this.TrangThai.HeaderText = "Trạng thái";
+            this.TrangThai.MinimumWidth = 6;
+            this.TrangThai.Name = "TrangThai";
+            this.TrangThai.Width = 125;
+            // 
+            // DonGiaNhap
+            // 
+            this.DonGiaNhap.DataPropertyName = "DonGiaNhap";
+            this.DonGiaNhap.HeaderText = "Giá nhập";
+            this.DonGiaNhap.MinimumWidth = 6;
+            this.DonGiaNhap.Name = "DonGiaNhap";
+            this.DonGiaNhap.Width = 125;
+            // 
+            // NgayCapNhat
+            // 
+            this.NgayCapNhat.DataPropertyName = "NgayCapNhat";
+            this.NgayCapNhat.HeaderText = "Cập nhật lần cuối";
+            this.NgayCapNhat.MinimumWidth = 6;
+            this.NgayCapNhat.Name = "NgayCapNhat";
+            this.NgayCapNhat.Width = 125;
+            // 
+            // TonKho
+            // 
+            this.TonKho.DataPropertyName = "TonKho";
+            this.TonKho.HeaderText = "Tồn kho";
+            this.TonKho.MinimumWidth = 6;
+            this.TonKho.Name = "TonKho";
+            this.TonKho.Width = 125;
+            // 
+            // DonViTinh
+            // 
+            this.DonViTinh.DataPropertyName = "DonViTinh";
+            this.DonViTinh.HeaderText = "Đơn vị tính";
+            this.DonViTinh.MinimumWidth = 6;
+            this.DonViTinh.Name = "DonViTinh";
+            this.DonViTinh.Width = 125;
+            // 
+            // TenDM
+            // 
+            this.TenDM.DataPropertyName = "TenDM";
+            this.TenDM.HeaderText = "Danh mục";
+            this.TenDM.MinimumWidth = 6;
+            this.TenDM.Name = "TenDM";
+            this.TenDM.Width = 125;
+            // 
+            // TenSP
+            // 
+            this.TenSP.DataPropertyName = "TenSP";
+            this.TenSP.HeaderText = "Tên sản phẩm";
+            this.TenSP.MinimumWidth = 6;
+            this.TenSP.Name = "TenSP";
+            this.TenSP.Width = 125;
+            // 
+            // MaSP_Kho
+            // 
+            this.MaSP_Kho.DataPropertyName = "MaSP_Kho";
+            this.MaSP_Kho.HeaderText = "Mã sản phẩm";
+            this.MaSP_Kho.MinimumWidth = 6;
+            this.MaSP_Kho.Name = "MaSP_Kho";
+            this.MaSP_Kho.Width = 125;
             // 
             // frmKho
             // 

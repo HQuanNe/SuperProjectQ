@@ -23,7 +23,7 @@ namespace SuperProjectQ.AllForm.NhapKho
         DataTable dt;
 
         int maPN = Session.AutoCreateID_Interger("MaPN", "PhieuNhap");
-        int maCTPN = 1;
+        int maCTPN = Session.AutoCreateID_Interger("MaCTPN", "CTPhieuNhap");
         decimal tongThanhToan = 0;
 
         private void CmbNhaCC_Load()
@@ -65,25 +65,42 @@ namespace SuperProjectQ.AllForm.NhapKho
             {
                 if(MessageBox.Show("Xác nhận thêm sản phẩm này?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                 {
-                    int index = dgvCTPN.Rows.Add(); //tạo dòng
-
+                    int count = 0;
                     string[] textBox = new string[]
                     {
-                txtSoLuong.Text,
-                txtDonGia.Text,
-                txtThanhTien.Text,
+                        txtSoLuong.Text,
+                        txtDonGia.Text,
+                        txtThanhTien.Text,
                     };
 
-                    if (!Session.XuLySo(textBox)) { MessageBox.Show("Số lượng, Đơn giá, Thành tiền phải là số"); return; }
-                    dgvCTPN.Rows[index].Cells["MaCTPN"].Value = maCTPN;
-                    dgvCTPN.Rows[index].Cells["MaPN"].Value = maPN;
-                    dgvCTPN.Rows[index].Cells["MaNCC"].Value = cmbNCC.SelectedValue;
-                    dgvCTPN.Rows[index].Cells["MaSP_Kho"].Value = cmbSanPham.SelectedValue;
-                    dgvCTPN.Rows[index].Cells["SoLuong"].Value = txtSoLuong.Text.Trim();
-                    dgvCTPN.Rows[index].Cells["DonGia"].Value = txtDonGia.Text.Trim();
-                    dgvCTPN.Rows[index].Cells["ThanhTien"].Value = txtThanhTien.Text.Trim();
+                    if (!Session.XuLySo(textBox)) { MessageBox.Show("Số lượng, Đơn giá, Thành tiền phải là số"); return; }//Kiem tra dinh dang
 
-                    maCTPN++;
+                    foreach (DataGridViewRow r in dgvCTPN.Rows)
+                    {
+                        if (r.Cells["MaSP_Kho"].Value.ToString() == cmbSanPham.SelectedValue.ToString())
+                        {
+                            r.Cells["SoLuong"].Value = (Convert.ToDouble(r.Cells["SoLuong"].Value) +
+                                Convert.ToDouble(txtSoLuong.Text.Trim())).ToString();
+                            r.Cells["DonGia"].Value = Convert.ToDouble(txtDonGia.Text.Trim().Replace(".", ""));
+                            r.Cells["ThanhTien"].Value = Convert.ToDouble(txtDonGia.Text.Trim().Replace(".", "")) * Convert.ToDouble(r.Cells["SoLuong"].Value);
+                        }
+                        else
+                        {
+                            count++;
+                        }
+                    }
+                    if(count == dgvCTPN.Rows.Count)
+                    {
+                        int index = dgvCTPN.Rows.Add(); //tạo dòng
+                        dgvCTPN.Rows[index].Cells["MaCTPN"].Value = maCTPN;
+                        dgvCTPN.Rows[index].Cells["MaPN"].Value = maPN;
+                        dgvCTPN.Rows[index].Cells["MaNCC"].Value = cmbNCC.SelectedValue;
+                        dgvCTPN.Rows[index].Cells["MaSP_Kho"].Value = cmbSanPham.SelectedValue;
+                        dgvCTPN.Rows[index].Cells["SoLuong"].Value = txtSoLuong.Text.Trim();
+                        dgvCTPN.Rows[index].Cells["DonGia"].Value = txtDonGia.Text.Trim();
+                        dgvCTPN.Rows[index].Cells["ThanhTien"].Value = txtThanhTien.Text.Trim();
+                        maCTPN++;
+                    }
                 }
             }
         }
@@ -107,11 +124,15 @@ namespace SuperProjectQ.AllForm.NhapKho
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if(MessageBox.Show("Lưu phiếu nhập?, không thể hoàn tác", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            if (MessageBox.Show("Lưu phiếu nhập?, không thể hoàn tác", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
+                if (dgvCTPN.Rows.Count < 1)
+                {
+                    MessageBox.Show("Phiếu nhập phải có ít nhất 1 sản phẩm"); return;
+                }
                 string sqlCTPN = "";
 
-                string sqlPN = "INSERT INTO PhieuNhap(MaPN, MaNV, NgayNhap, TrangThai) VALUES (@MPN, @MNV, GETDATE(), 1)";
+                string sqlPN = "INSERT INTO PhieuNhap(MaPN, MaNV, NgayNhap, TongThanhToan, TrangThai) VALUES (@MPN, @MNV, GETDATE(), 0, 0)";
                 cmd = new SqlCommand(sqlPN, kn.conn);
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@MPN", maPN);
@@ -119,18 +140,18 @@ namespace SuperProjectQ.AllForm.NhapKho
                 cmd.ExecuteNonQuery();
 
                 //Lưu CTPN
-                for(int i = 0; i < dgvCTPN.Rows.Count; i++)
+                for (int i = 0; i < dgvCTPN.Rows.Count; i++)
                 {
                     DataGridViewRow row = dgvCTPN.Rows[i];
 
                     sqlCTPN = "INSERT INTO CTPhieuNhap(MaCTPN, MaPN, MaNCC, MaSP_Kho, SoLuong, DonGia, ThanhTien) " +
                         "VALUES (@MCTPN, @MPN, @MNCC, @MSPK, @SL, @DG, @TT)";
-                    cmd = new SqlCommand(sqlCTPN, kn.conn); 
+                    cmd = new SqlCommand(sqlCTPN, kn.conn);
                     cmd.Parameters.Clear();
                     cmd.Parameters.AddWithValue("@MCTPN", Convert.ToInt32(row.Cells["MaCTPN"].Value));
                     cmd.Parameters.AddWithValue("@MPN", row.Cells["MaPN"].Value?.ToString());
                     cmd.Parameters.AddWithValue("@MNCC", row.Cells["MaNCC"].Value.ToString());
-                    cmd.Parameters.AddWithValue("@MSPK",row.Cells["MaSP_Kho"].Value).ToString();
+                    cmd.Parameters.AddWithValue("@MSPK", row.Cells["MaSP_Kho"].Value).ToString();
                     cmd.Parameters.AddWithValue("@SL", Convert.ToDouble(row.Cells["SoLuong"].Value.ToString().Replace(".", "")));
                     cmd.Parameters.AddWithValue("@DG", Convert.ToDecimal(row.Cells["DonGia"].Value.ToString().Replace(".", "")));
                     cmd.Parameters.AddWithValue("@TT", Convert.ToDecimal(row.Cells["ThanhTien"].Value.ToString().Replace(".", "")));
@@ -145,6 +166,9 @@ namespace SuperProjectQ.AllForm.NhapKho
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@TTT", tongThanhToan);
                 cmd.ExecuteNonQuery();
+
+                MessageBox.Show("Lưu phiếu nhập thành công");
+                this.Close();
             }
         }
 

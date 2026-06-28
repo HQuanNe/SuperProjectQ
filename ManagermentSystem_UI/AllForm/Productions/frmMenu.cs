@@ -6,6 +6,8 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Windows.Forms;
 using DataAccessLayer;
+using DataAccessLayer.Classes;
+using SuperProjectQ.AllForm.Productions;
 
 namespace SuperProjectQ.AllForm
 {
@@ -54,7 +56,7 @@ namespace SuperProjectQ.AllForm
         bool ComboInit = true; //Kiểm tra xem đã khởi tạo combo chưa
 
         public Button btnDSPhong = null; // Panel chứa danh sách phòng
-        Button btnClicked = null; // Lưu button phòng đang được click
+        public Button btnClicked = null; // Lưu button phòng đang được click
 
         Panel plItem = null; // Panel chứa từng sản phẩm
         string RoomID = Session.RoomData.maPhong; // Lưu mã phòng đang được click
@@ -75,7 +77,7 @@ namespace SuperProjectQ.AllForm
 
             string sqlSP = "SELECT SanPham.MaSP_Menu, SanPham.TenMatHang, SanPham.GiaBan, KhoHang.HinhAnh, KhoHang.MaDM " +
                            $"FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP_Kho = KhoHang.MaSP_Kho " +
-                           $"WHERE KhoHang.MaDM LIKE '%{tag_1}%' AND KhoHang.TonKho >= {Session.MinTonKho} ORDER BY SanPham.TenMatHang";
+                           $"WHERE KhoHang.MaDM LIKE '%{tag_1}%' AND KhoHang.TonKho >= {Convert.ToInt32(Session.dictThongSo[4])} AND KhoHang.TrangThai = 1 ORDER BY SanPham.TenMatHang";
 
             if (isCombo)
             {
@@ -243,17 +245,15 @@ namespace SuperProjectQ.AllForm
 
                         Name = row[maSP].ToString(), // Lưu mã SP vào Name của Button
 
-                        Font = fontS.timeNew18_Bold,
-                        ForeColor = Color.Black,
-                        BackColor = Color.FromArgb(192, 205, 235),
+                        Font = fontS.tahoma12_Bold,
+                        ForeColor = Color.White,
+                        BackColor = ColorTranslator.FromHtml("#7a6f63"),
                         FlatStyle = FlatStyle.Flat,
                         Location = new Point((plItem.Width - 200) /2, (lblGiaBan.Location.Y + lblGiaBan.Height) + 75),
 
 
                         FlatAppearance =
                         {
-                            MouseOverBackColor = Color.Cyan,
-                            MouseDownBackColor = Color.Blue,
                             BorderSize = 0,
                         },
 
@@ -323,7 +323,7 @@ namespace SuperProjectQ.AllForm
 
             double soLuongOrder = Convert.ToDouble(clickedButtonMaSP.Parent.Controls[3].Text.Trim()); //Số lượng thêm vào hiện tại ở textbox
 
-            if (string.IsNullOrEmpty(RoomID))
+            if (string.IsNullOrEmpty(RoomID) || btnClicked == null)
             {
                 MessageBox.Show("Hãy chọn phòng");
                 return;
@@ -445,6 +445,7 @@ namespace SuperProjectQ.AllForm
             ItemPanel_SanPham_Load();
             Phong_Load();
 
+            timerGeneral.Start();
             //Ẩn các nút con của nút cha ở thanh điều hướng
             HideBtnFoodChildren();
             HideBtnDrinkChildren();
@@ -452,7 +453,7 @@ namespace SuperProjectQ.AllForm
         private void BtnDSPhong_Click(object sender, EventArgs e)
         {
 
-            if (btnClicked != null) { btnClicked.BackColor = Color.FromArgb(95, 76, 76); };
+            if (btnClicked != null) { btnClicked.BackColor = Color.FromArgb(95, 76, 76); }
 
             Button clickButton = (Button)sender;
             if (clickButton != null)
@@ -631,6 +632,42 @@ namespace SuperProjectQ.AllForm
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnOrdered_Click(object sender, EventArgs e)
+        {
+            using (frmOrder frm = new frmOrder())
+            {
+                frm.FormBorderStyle = FormBorderStyle.None;
+                frm.ShowDialog();
+            }
+        }
+
+        private void timerGeneral_Tick(object sender, EventArgs e)
+        {
+            if (!Session.ProductData.isChecked)
+            {
+                using (dt = new DataTable())
+                {
+                    dt = kn.CreateTable("SELECT * FROM Orders");
+                    if (dt.Rows.Count > 0)
+                    {
+                        if (btnOrdered.BackColor == Color.FromArgb(216, 195, 165))
+                        {
+                            btnOrdered.BackColor = Color.Red;
+                        }
+                        else
+                        {
+                            btnOrdered.BackColor = Color.FromArgb(216, 195, 165);
+                        }
+
+                    }
+                    else
+                    {
+                        btnOrdered.BackColor = Color.FromArgb(216, 195, 165);
+                    }
+                }
+            }
         }
     }
 }

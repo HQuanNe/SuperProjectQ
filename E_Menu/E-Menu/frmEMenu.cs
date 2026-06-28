@@ -1,21 +1,39 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using Mscc.GenerativeAI;
+using Mscc.GenerativeAI.Types;
 using System.Drawing;
 using System.Linq;
-using System.Net.NetworkInformation;
 using System.Windows.Forms;
 using DataAccessLayer;
 using E_Menu.Classes;
+using System.Configuration;
 namespace E_Menu
 {
-    public partial class frmMenu : Form
+    public partial class frmEMenu : Form
     {
-        public frmMenu()
+        public frmEMenu()
         {
             InitializeComponent();
-            kn.ConnOpen();
+            Session.SetParameters_Load();
+            //AI
+            var root = new Content(AIRepo.GetProdFromSQL() +
+                "Ở đây là mày đang giao tiếp với khách hàng, " +
+                "hãy tỏ thái độ lịch sự trả lời chi tiết những yêu cầu của khách hàng. Xưng em với họ" +
+                "và tên mày là ParaD. " +
+                "Khi mày tư vấn sản phầm thì không được nêu giá ra chỉ tư vấn hợp lý theo nhu cầu.");
+            model = chatbotAI.GenerativeModel(Model.Gemini25Flash, systemInstruction: root);
+
+            chatSession = model.StartChat(); //Bắt đầu phiên chát
         }
+
+        private GoogleAI chatbotAI = new GoogleAI(ConfigurationManager.AppSettings["GeminiAPIKey"]);
+        private GenerativeModel model;
+        private ChatSession chatSession;
+
+        AIChatbotRepository AIRepo = new AIChatbotRepository();
+
         SetParameters parameters = new SetParameters();
         class Button_Plus_And_Minus
         {
@@ -52,12 +70,10 @@ namespace E_Menu
         SqlCommand cmd = null;
 
         bool ComboInit = true; //Kiểm tra xem đã khởi tạo combo chưa
-        string RoomID = "MP001";
-        public Button btnDSPhong = null; // Panel chứa danh sách phòng
-        Button btnClicked = null; // Lưu button phòng đang được click
+        bool isActive = true; //Kiểm tra phòng đang hoạt động ko
+        string roomID, roomName, maSP, folderImage;
 
         Panel plItem = null; // Panel chứa từng sản phẩm
-
         PictureBox pbItem = null; // Khai báo object PictureBox ảnh sản phẩm
         Label lblTenSanPham = null;  // Khai báo object Label tên sản phẩm
         Label lblGiaBan = null; // Khai báo object Label giá bán
@@ -74,7 +90,7 @@ namespace E_Menu
 
             string sqlSP = "SELECT SanPham.MaSP_Menu, SanPham.TenMatHang, SanPham.GiaBan, KhoHang.HinhAnh, KhoHang.MaDM " +
                            $"FROM SanPham INNER JOIN KhoHang ON SanPham.MaSP_Kho = KhoHang.MaSP_Kho " +
-                           $"WHERE KhoHang.MaDM LIKE '%{tag_1}%' AND KhoHang.TonKho >= {Session.MinTonKho} ORDER BY SanPham.TenMatHang";
+                           $"WHERE KhoHang.MaDM LIKE '%{tag_1}%' AND KhoHang.TonKho >= {Session.dictThongSo[4]} AND KhoHang.TrangThai = 1 ORDER BY SanPham.TenMatHang";
 
             if (isCombo)
             {
@@ -98,7 +114,7 @@ namespace E_Menu
                 {
                     Width = parameters.plSanPham_WIDTH,
                     Height = parameters.plSanPham_HEIGHT,
-                    Margin = new Padding(8),
+                    Margin = new Padding(4),
                     BackColor = Color.White,
                     BorderStyle = BorderStyle.FixedSingle,
 
@@ -136,7 +152,7 @@ namespace E_Menu
                         Width = parameters.pbSanPham_WIDTH,
                         Height = parameters.pbSanPham_HEIGHT,
                         SizeMode = PictureBoxSizeMode.Zoom,
-                        Image = Image.FromFile(Application.StartupPath + $"\\Images\\{pathImage = pathImage + row[hinhAnh]}"),
+                        Image = System.Drawing.Image.FromFile(Application.StartupPath + $"\\Images\\{pathImage = pathImage + row[hinhAnh]}"),
                         Location = new Point(20, 10),
                         //BackColor = Color.Red,
                     };
@@ -243,16 +259,16 @@ namespace E_Menu
                         Name = row[maSP].ToString(), // Lưu mã SP vào Name của Button
 
                         Font = fontS.timeNew18_Bold,
-                        ForeColor = Color.Black,
-                        BackColor = Color.FromArgb(192, 205, 235),
+                        ForeColor = Color.White,
+                        BackColor = Color.FromArgb(122, 111, 99),
                         FlatStyle = FlatStyle.Flat,
                         Location = new Point((plItem.Width - 200) /2, (lblGiaBan.Location.Y + lblGiaBan.Height) + 75),
 
 
                         FlatAppearance =
                         {
-                            MouseOverBackColor = Color.Cyan,
-                            MouseDownBackColor = Color.Blue,
+                            MouseOverBackColor = Color.FromArgb(62,58,52),
+                            MouseDownBackColor = Color.FromArgb(62,58,52),
                             BorderSize = 0,
                         },
 
@@ -286,11 +302,12 @@ namespace E_Menu
             try
             {
                 string tenPhong;
-                using (cmd = new SqlCommand($"SELECT TenPhong FROM Phong WHERE MaPhong = '{TransData.RoomID}'", kn.conn))
+                using (cmd = new SqlCommand($"SELECT TenPhong FROM Phong WHERE MaPhong = '{roomID}'", kn.conn))
                 {
                     tenPhong = cmd.ExecuteScalar() != null && cmd.ExecuteScalar() != DBNull.Value ? cmd.ExecuteScalar().ToString() : null;
                 }
                 lblTitlePhong.Text += " " + tenPhong;
+                roomName = tenPhong;
             }
             catch (Exception ex)
             {
@@ -300,128 +317,111 @@ namespace E_Menu
         }
         private void BtnOrder_Click(object sender, EventArgs e)
         {
-            Button clickedButtonMaSP = (Button)sender;
-            Console.WriteLine( "Mã SP đang trỏ: " + clickedButtonMaSP.Name);
-            bool isAdded = false;
-
-            double soLuongOrder = Convert.ToDouble(clickedButtonMaSP.Parent.Controls[3].Text.Trim()); //Số lượng thêm vào hiện tại ở textbox
-
-            string sqlSanPham = $"SELECT SanPham.MaSP_Menu, SanPham.TenMatHang, KhoHang.DonViTinh, SanPham.GiaBan, SanPham.DinhLuong " +
-                $"FROM SanPham " +
-                $"INNER JOIN KhoHang ON KhoHang.MaSP_Kho = SanPham.MaSP_Kho " +
-                $"WHERE SanPham.MaSP_Menu = '{clickedButtonMaSP.Name}'";
-
-            if (!(clickedButtonMaSP.Name.Contains("SPM"))) //Nếu là phải combo set = true
+            try
             {
-                sqlSanPham = $"SELECT Combo.MaCombo, Combo.TenCombo, Combo.DonViTinh, Combo.DonGia " +
-                $"FROM Combo " +
-                $"WHERE Combo.MaCombo = '{clickedButtonMaSP.Name}'";
-
-                Session.ComboData.isCombo = true;
-            }
-
-            dt = new DataTable();
-            dt = kn.CreateTable(sqlSanPham);
-            #region Lấy mã HĐ
-            cmd = new SqlCommand($"SELECT HoaDon.MaHD FROM HoaDon " +
-                                $"INNER JOIN Phong ON Phong.MaPhong = HoaDon.MaPhong " +
-                                $"WHERE HoaDon.MaPhong = '{RoomID}' AND Phong.TrangThai = 1 AND HoaDon.TrangThai = 0", kn.conn);
-            int intMaHD = Convert.ToInt32(cmd.ExecuteScalar());
-            #endregion
-
-            string maSP = dt.Rows[0][0].ToString();
-            string tenSP = dt.Rows[0][1].ToString();
-
-            string donViTinh = dt.Rows[0][2].ToString();
-            int donGia = Convert.ToInt32(dt.Rows[0][3].ToString());
-
-            double dinhLuong = !Session.ComboData.isCombo ? Convert.ToDouble(dt.Rows[0][4].ToString()) : 0;
-
-            if (donViTinh == "Kg") donViTinh = "Đĩa";
-
-            bool flag = true;
-
-            if(!Session.InspectInStock(maSP, soLuongOrder))
-            {
-                MessageBox.Show("Số lượng order vượt quá số lượng tồn kho");
-                return;
-            }
-
-            //Lấy danh sách sản phẩm đã order trong phòng
-            DataTable dt2 = new DataTable();
-            dt2 = kn.CreateTable($"SELECT MaSP FROM ChiTietHD WHERE MaHD = '{intMaHD}'");
-
-            //kiểm tra xem sản phẩm có trong bảng đã order chưa
-            foreach(DataRow row in dt2.Rows)
-            {
-                if (dt2.Rows.Count > 0 && row["MaSP"].ToString() != null && row["MaSP"].ToString() == maSP)
+                if(!isActive) 
                 {
-                    flag = false;
-                    break;
+                    MessageBox.Show("Phòng chưa được kích hoạt, vui lòng liên hệ nhân viên để được hỗ trợ");
+                    return;
+                }
+                if (MessageBox.Show("Thêm sản phẩm này?", "Thông báo", MessageBoxButtons.OKCancel) != DialogResult.OK) return;
+
+                Button clickedButtonMaSP = (Button)sender;
+                Console.WriteLine("Mã SP đang trỏ: " + clickedButtonMaSP.Name);
+                bool isAdded = false;
+
+                double soLuongOrder = Convert.ToDouble(clickedButtonMaSP.Parent.Controls[3].Text.Trim()); //Số lượng thêm vào hiện tại ở textbox
+
+                if (!(clickedButtonMaSP.Name.Contains("SPM"))) //Nếu là phải combo set = true
+                {
+                    Session.ComboData.isCombo = true;
+                }
+
+                maSP = clickedButtonMaSP.Name;
+
+                bool flag = true;
+
+                if (!Session.InspectInStock(maSP, soLuongOrder))
+                {
+                    MessageBox.Show("Số lượng order vượt quá số lượng tồn kho");
+                    return;
+                }
+
+                //Lấy danh sách order của phòng
+                DataTable dt2 = new DataTable();
+                dt2 = kn.CreateTable($"SELECT MaSP FROM Orders WHERE MaPhong = '{roomID}'");
+
+                //kiểm tra xem sản phẩm có trong bảng đã order chưa
+                foreach (DataRow row in dt2.Rows)
+                {
+                    if (dt2.Rows.Count > 0 && row["MaSP"].ToString() != null && row["MaSP"].ToString() == maSP)
+                    {
+                        flag = false;
+                        break;
+                    }
+                }
+                //Nếu chaưa có thì thêm mới
+                if (flag)
+                {
+                    string sqlAdd = "INSERT INTO Orders (STT, MaPhong, MaSP, SoLuong, OrderAt) " +
+                        "VALUES (@STT, @MP, @MSP, @SL, GETDATE())";
+                    cmd = new SqlCommand(sqlAdd, kn.conn);
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@STT", Session.AutoCreateID_Interger("STT", "Orders"));
+                    cmd.Parameters.AddWithValue("@MP", roomID);
+                    cmd.Parameters.AddWithValue("@MSP", maSP);
+                    cmd.Parameters.AddWithValue("@SL", soLuongOrder);
+                    cmd.ExecuteNonQuery();
+
+                    isAdded = true;
+                }
+                //Nếu có rồi thì cập nhật số lượng lên 1
+                if (!flag)
+                {
+                    cmd = new SqlCommand($"SELECT SoLuong FROM Orders WHERE MaSP = '{maSP}' AND MaPhong = '{roomID}' ", kn.conn);
+                    double soLuongMoi = soLuongOrder + Convert.ToDouble(cmd.ExecuteScalar());
+
+                    string sqlUpdate = "UPDATE Orders SET SoLuong = @SL WHERE MaPhong = @MP AND MaSP = @MSP";
+                    cmd = new SqlCommand(sqlUpdate, kn.conn);
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@MP", roomID);
+                    cmd.Parameters.AddWithValue("@MSP", maSP);
+                    cmd.Parameters.AddWithValue("@SL", soLuongMoi);
+                    cmd.ExecuteNonQuery();
+
+                    isAdded = true;
+                }
+                if (isAdded)
+                {
+                    Console.WriteLine(soLuongOrder.ToString());
+                    Session.ComboData.isCombo = false;
+
+                    MessageBox.Show($"Đã thêm sản phẩm"); return;
                 }
             }
-            //Nếu chaưa có thì thêm mới
-            if (flag)
+            catch (Exception ex)
             {
-                string sqlAdd = "INSERT INTO ChiTietHD (MaCTHD, MaHD, MaSP, LoaiHang, SoLuong, DonViTinh, DonGia, ThanhTien) " +
-                    "VALUES (@MCTHD, @MHD, @MSP, @LH, @SL, @DV, @DG, @TT)";
-                cmd = new SqlCommand(sqlAdd, kn.conn);
-                cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("@MCTHD", Session.AutoCreateID_Interger("MaCTHD", "ChiTietHD"));
-                cmd.Parameters.AddWithValue("@MHD", intMaHD);
-                cmd.Parameters.AddWithValue("@MSP", maSP);
-                cmd.Parameters.AddWithValue("LH", Session.ComboData.isCombo);
-                cmd.Parameters.AddWithValue("@SL", soLuongOrder);
-                cmd.Parameters.AddWithValue("@DV", donViTinh);
-                cmd.Parameters.AddWithValue("@DG", donGia);
-                cmd.Parameters.AddWithValue("@TT", soLuongOrder * donGia);
-                cmd.ExecuteNonQuery();
-
-                isAdded = true;
+                MessageBox.Show("frmMenu - BtnOrder_Click Lỗi:\n" +ex.Message);
+                return;
             }
-            //Nếu có rồi thì cập nhật số lượng lên 1
-            if (!flag)
-            {
-                cmd = new SqlCommand($"SELECT SoLuong FROM ChiTietHD WHERE MaSP = '{maSP}' AND MaHD = {intMaHD} ", kn.conn);
-
-                double soLuongDaCo = soLuongOrder + Convert.ToDouble(cmd.ExecuteScalar());
-                decimal thanhTien = Convert.ToDecimal(soLuongDaCo * donGia);
-
-                string sqlUpdate = "UPDATE ChiTietHD SET SoLuong = @SL, ThanhTien = @TT WHERE MaHD = @MHD AND MaSP = @MSP";
-                cmd = new SqlCommand(sqlUpdate, kn.conn);
-                cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("@MHD", intMaHD);
-                cmd.Parameters.AddWithValue("@MSP", maSP);
-                cmd.Parameters.AddWithValue("@SL", soLuongDaCo);
-                cmd.Parameters.AddWithValue("@TT", thanhTien);
-                cmd.ExecuteNonQuery();
-
-                isAdded = true; 
-            }
-        if (isAdded)
-        {
-            Console.WriteLine(soLuongOrder.ToString());
-            Session.CapNhatKho(false, clickedButtonMaSP.Name, soLuongOrder);
-
-            cmd = new SqlCommand($"SELECT TenMatHang FROM SanPham WHERE MaSP_Menu = '{clickedButtonMaSP.Name}'", kn.conn);
-            tenSP = (string)cmd.ExecuteScalar();
-            cmd = new SqlCommand($"SELECT TenPhong FROM Phong WHERE MaPhong = '{RoomID}'", kn.conn);
-            string tenPhong = (string)cmd.ExecuteScalar();
-
-            Session.ComboData.isCombo = false;
-            MessageBox.Show($"Đã thêm sản phẩm {tenSP} cho phòng {tenPhong}"); return;
-        }
         }
         private void frmOrder_Load(object sender, EventArgs e)
         {
+            kn.ConnOpen();
             ItemPanel_SanPham_Load();
+            roomID = TransData.RoomID;
 
             //Ẩn các nút con của nút cha ở thanh điều hướng
             HideBtnFoodChildren();
             HideBtnDrinkChildren();
 
+            Console.WriteLine(roomID);
+
+            timerRefresh.Start();
+
             //Hiển thị phòng theo mã
             GetRoomNameForRoomID();
+
         }
         private void BtnPlus_Click(object sender, EventArgs e)
         {
@@ -594,21 +594,183 @@ namespace E_Menu
 
         private void timerRefresh_Tick(object sender, EventArgs e)
         {
+            if(GetBillID() <=0) isActive = false;
+            else isActive = true;
 
+            Load_Ordered(GetBillID());
         }
 
+        private void btnAIChatbot_Click(object sender, EventArgs e)
+        {
+            plAIChatbot.Visible = !plAIChatbot.Visible;
+        }
+
+        private async void btnSendRequest_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string request = txtRequest.Text.Trim();
+                if (string.IsNullOrEmpty(request)) return; //nếu Request rỗng
+
+                AIRepo.SaveNewMessage("AIChatbotHistory_Customers", roomID, txtRequest.Text); //Lưu câu hỏi
+                rtxtChatHistory.AppendText($"{roomID}: {request}\n\n");
+                txtRequest.Clear();
+
+                var respond = await chatSession.SendMessage(request); //Gửi câu hỏi và nhận phản hồi từ AI
+
+                if (respond == null || respond.Text == null)
+                {
+                    MessageBox.Show("Lỗi");
+                    return;
+                }//nếu null sẽ báo lỗi
+
+                AIRepo.SaveNewMessage("AIChatbotHistory_Customers", "AI", respond.Text); //Lưu cầu trả lời của AI
+
+                rtxtChatHistory.AppendText($"Trợ lý ParaD: {respond.Text}\n\n"); //Thêm câu trả lời
+            }
+            catch (GeminiApiException ex)
+            {
+                MessageBox.Show("frmEMenu - btnSendRequest_Click Lỗi:\n" + ex.Message);
+                return;
+            }
+        }
+
+        private int GetBillID()
+        {
+            try
+            {
+                using (cmd = new SqlCommand())
+                {
+                    cmd.Connection = kn.conn;
+                    cmd.CommandText = $"SELECT MaHD FROM HoaDon " +
+                        "INNER JOIN Phong ON Phong.MaPhong = HoaDon.MaPhong " +
+                        $"WHERE HoaDon.MaPhong = '{roomID}' AND Phong.TrangThai = 1 AND HoaDon.TrangThai = 0";
+
+                }
+                return cmd.ExecuteScalar() != null && cmd.ExecuteScalar() != DBNull.Value ? Convert.ToInt32(cmd.ExecuteScalar().ToString()) : 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("frmEMenu - GetBillID() Lỗi:\n" +ex.Message);
+                return 0;
+            }
+        }
+        private void Load_Ordered(int MaHD)
+        {
+            try
+            {
+                Session.FreeUpMemoryFlowPanel(flplOrdered);//Clear trước khi load lại
+
+                DataTable dt = new DataTable();
+                dt = kn.CreateTable($"SELECT ChiTietHD.MaHD, ChiTietHD.MaSP, " +
+                    $"COALESCE(SanPham.TenMatHang, Combo.TenCombo) AS TenMatHang, " +
+                    $"ChiTietHD.SoLuong, ChiTietHD.DonViTinh, SanPham.DinhLuong, " +
+                    $"COALESCE(KhoHang.HinhAnh, Combo.HinhAnh) AS HinhAnh, KhoHang.MaDM " +
+                    $"FROM ChiTietHD " +
+                    $"LEFT JOIN SanPham ON ChiTietHD.MaSP = SanPham.MaSP_Menu AND ChiTietHD.LoaiHang = 0 " +
+                    $"LEFT JOIN Combo ON ChiTietHD.MaSP = Combo.MaCombo AND ChiTietHD.LoaiHang =  1 " +
+                    $"INNER JOIN KhoHang ON SanPham.MaSP_Kho = KhoHang.MaSP_Kho " +
+                    $"WHERE ChiTietHD.MaHD = {MaHD} ");
+
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        switch (row["MaDM"])
+                        {
+                            case "MDM01":
+                            case "MDM03":
+                            case "MDM05":
+                            case "MDM06":
+                                folderImage = "FoodImage\\";
+                                break;
+                            case "MDM02":
+                            case "MDM07":
+                            case "MDM08":
+                                folderImage = "DrinkImage\\";
+                                break;
+                            case "MDM04":
+                                folderImage = "OtherImage\\";
+                                break;
+                            default:
+                                folderImage = "ComboImage\\";
+                                break;
+                        } //Kiểm tra danh mục sản phẩm để gán file ảnh đúng
+
+                        Panel plItem = new Panel()
+                        {
+                            Width = flplOrdered.Width - 20,
+                            Height = 60,
+
+                            BackColor = Color.FromArgb(244, 233, 216),
+
+                            Font = fontS.timeNew10_Regular,
+                            Margin = new Padding(2),
+                            Tag = row["MaSP"].ToString(),
+                        };
+                        PictureBox pbProdImage = new PictureBox()
+                        {
+                            Width = 40,
+                            Height = 40,
+                            Image = System.Drawing.Image.FromFile(Application.StartupPath + $"\\Images\\{folderImage}\\{row["HinhAnh"]}"),
+                            SizeMode = PictureBoxSizeMode.Zoom,
+
+                            Location = new Point(5, (plItem.Height - 40) / 2),
+                        };
+                        Label lblTenSP = new Label()
+                        {
+                            Text = row["TenMatHang"].ToString(),
+                            MaximumSize = new Size(200, 0),
+                            Height = 80,
+
+                            Location = new Point(50, (plItem.Height) / 2 - 14),
+                            AutoSize = true,
+                        };
+
+                        //Tính số lượng nếu loại sản phẩm là Kg
+                        int soLuong = 0;
+                        if (row["DonViTinh"].ToString() == "Kg")
+                        {
+                            double dinhLuong = Convert.ToDouble(row["DinhLuong"]);
+                            soLuong = Convert.ToInt32(Convert.ToDouble(row["SoLuong"]) * 1000 / dinhLuong);
+                        }
+                        else
+                        {
+                            soLuong = Convert.ToInt32(row["SoLuong"]);
+                        }
+                        txtSoLuong = new TextBox()
+                        {
+                            Text = soLuong.ToString(),
+                            Width = 30,
+                            Height = 30,
+
+                            ReadOnly = true,
+                            TextAlign = HorizontalAlignment.Center,
+                            Location = new Point(lblTenSanPham.Width + 20, plItem.Height / 2 - 12),
+                            AutoSize = true,
+                        };
+
+                        plItem.Controls.Add(lblTenSP);
+                        plItem.Controls.Add(txtSoLuong);
+                        plItem.Controls.Add(pbProdImage);
+                        flplOrdered.Controls.Add(plItem);
+
+                        Session.isPlus = null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("frmDetails - LoadOrdered Lỗi:\n" + ex.Message);
+            }
+        } //Load sản phẩm đã order của phòng
         private void btnOrdered_Click(object sender, EventArgs e)
         {
-            Panel plOrdered = new Panel()
-            {
-                Width = this.Width/2, 
-                Height = this.Height,
-                BackColor = Color.Red,
-                Location = new Point(0, 0),
-            };
-            plOrdered.BringToFront();
-            flowLayoutDSSanPham.Controls.Clear();
-            flowLayoutDSSanPham.Controls.Add(plOrdered);
+            flplOrdered.Visible = !flplOrdered.Visible;
+            Load_Ordered(GetBillID());
+
+            flplOrdered.BringToFront();
+            this.Controls.Add(flplOrdered);
         }
     }
 }

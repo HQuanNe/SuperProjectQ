@@ -4,9 +4,8 @@ using System.Data;
 
 using System.Windows.Forms;
 using System.Data.SqlClient;
-using SuperProjectQ.AllForm.KhachHang;
 using DataAccessLayer;
-namespace SuperProjectQ.FrmMixed
+namespace SuperProjectQ.AllForm.KhachHang
 {
     public partial class frmKhachHang : Form
     {
@@ -65,7 +64,7 @@ namespace SuperProjectQ.FrmMixed
 
         private void dgvKhachHang_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return;
+            if (e.RowIndex < 0 || Session.StaffData.QuyenHan != "QH001") return;
 
             Session.CustomerData.MaKH = dgvKhachHang.Rows[e.RowIndex].Cells[0].Value.ToString();
             Session.CustomerData.TenKH = dgvKhachHang.Rows[e.RowIndex].Cells[1].Value.ToString();

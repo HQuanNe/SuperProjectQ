@@ -35,7 +35,7 @@ namespace SuperProjectQ.AllForm.Other
             dgvKho.DataSource = dt;
             foreach (DataGridViewRow row in dgvKho.Rows)
             {
-                if (Convert.ToDouble(row.Cells["TonKho"].Value) < Session.MinTonKho)
+                if (Convert.ToDouble(row.Cells["TonKho"].Value) < Convert.ToDouble(Session.dictThongSo[4]))
                 {
                     row.DefaultCellStyle.BackColor = Color.Yellow;
                 }
@@ -49,7 +49,7 @@ namespace SuperProjectQ.AllForm.Other
         }
         private void CmbSoLuongSP_Load()
         {
-            cmbSoLuongSP.Items.Add($"Số lượng dưới {Session.MinTonKho}");
+            cmbSoLuongSP.Items.Add($"Số lượng dưới {Session.dictThongSo[4]}");
             cmbSoLuongSP.Items.Add("Đã hết");
         }
         private void CmbDanhMuc_Load()
@@ -110,6 +110,7 @@ namespace SuperProjectQ.AllForm.Other
 
             addSP.FormBorderStyle = FormBorderStyle.None;
             addSP.ShowDialog();
+            Kho_Load();
         }
 
         private void dgvKho_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -130,6 +131,7 @@ namespace SuperProjectQ.AllForm.Other
                 frmDieuChinhKho dcKho = new frmDieuChinhKho();
                 dcKho.FormBorderStyle = FormBorderStyle.None;
                 dcKho.ShowDialog();
+                Kho_Load();
             }
         }
 

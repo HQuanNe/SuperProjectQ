@@ -31,18 +31,15 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmListRoom));
             this.btnClose = new System.Windows.Forms.Button();
             this.dgvListRoom = new System.Windows.Forms.DataGridView();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnThemPhong = new System.Windows.Forms.Button();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.MaPhong = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TenPhong = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TenLoaiPhong = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tang = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TrangThai = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GioVao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GioDatTruoc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SDT_KhachHang = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GhiChu = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnThemPhong = new System.Windows.Forms.Button();
-            this.lblTitle = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListRoom)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -73,9 +70,6 @@
             this.TenLoaiPhong,
             this.Tang,
             this.TrangThai,
-            this.GioVao,
-            this.GioDatTruoc,
-            this.SDT_KhachHang,
             this.GhiChu});
             this.dgvListRoom.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvListRoom.Location = new System.Drawing.Point(2, 82);
@@ -86,6 +80,46 @@
             this.dgvListRoom.TabIndex = 10;
             this.dgvListRoom.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListRoom_CellDoubleClick);
             this.dgvListRoom.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvListRoom_CellFormatting);
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.btnThemPhong);
+            this.panel1.Controls.Add(this.lblTitle);
+            this.panel1.Controls.Add(this.btnClose);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(2, 2);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1278, 80);
+            this.panel1.TabIndex = 11;
+            // 
+            // btnThemPhong
+            // 
+            this.btnThemPhong.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnThemPhong.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(220)))), ((int)(((byte)(0)))));
+            this.btnThemPhong.FlatAppearance.BorderSize = 0;
+            this.btnThemPhong.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnThemPhong.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThemPhong.ForeColor = System.Drawing.Color.White;
+            this.btnThemPhong.Image = ((System.Drawing.Image)(resources.GetObject("btnThemPhong.Image")));
+            this.btnThemPhong.Location = new System.Drawing.Point(951, 18);
+            this.btnThemPhong.Name = "btnThemPhong";
+            this.btnThemPhong.Size = new System.Drawing.Size(200, 45);
+            this.btnThemPhong.TabIndex = 13;
+            this.btnThemPhong.Text = "Thêm phòng";
+            this.btnThemPhong.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnThemPhong.UseVisualStyleBackColor = false;
+            this.btnThemPhong.Click += new System.EventHandler(this.btnThemPhong_Click);
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Tahoma", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.Location = new System.Drawing.Point(425, 14);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(433, 57);
+            this.lblTitle.TabIndex = 12;
+            this.lblTitle.Text = "Danh sách phòng";
             // 
             // MaPhong
             // 
@@ -127,30 +161,6 @@
             this.TrangThai.Name = "TrangThai";
             this.TrangThai.Width = 125;
             // 
-            // GioVao
-            // 
-            this.GioVao.DataPropertyName = "GioVao";
-            this.GioVao.HeaderText = "Giờ vào";
-            this.GioVao.MinimumWidth = 6;
-            this.GioVao.Name = "GioVao";
-            this.GioVao.Width = 125;
-            // 
-            // GioDatTruoc
-            // 
-            this.GioDatTruoc.DataPropertyName = "GioDatTruoc";
-            this.GioDatTruoc.HeaderText = "Giờ đặt trước";
-            this.GioDatTruoc.MinimumWidth = 6;
-            this.GioDatTruoc.Name = "GioDatTruoc";
-            this.GioDatTruoc.Width = 125;
-            // 
-            // SDT_KhachHang
-            // 
-            this.SDT_KhachHang.DataPropertyName = "SDT_KhachHang";
-            this.SDT_KhachHang.HeaderText = "SĐT khách hàng";
-            this.SDT_KhachHang.MinimumWidth = 6;
-            this.SDT_KhachHang.Name = "SDT_KhachHang";
-            this.SDT_KhachHang.Width = 125;
-            // 
             // GhiChu
             // 
             this.GhiChu.DataPropertyName = "GhiChu";
@@ -158,46 +168,6 @@
             this.GhiChu.MinimumWidth = 6;
             this.GhiChu.Name = "GhiChu";
             this.GhiChu.Width = 125;
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Controls.Add(this.btnThemPhong);
-            this.panel1.Controls.Add(this.lblTitle);
-            this.panel1.Controls.Add(this.btnClose);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(2, 2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1278, 80);
-            this.panel1.TabIndex = 11;
-            // 
-            // btnThemPhong
-            // 
-            this.btnThemPhong.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnThemPhong.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(220)))), ((int)(((byte)(0)))));
-            this.btnThemPhong.FlatAppearance.BorderSize = 0;
-            this.btnThemPhong.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnThemPhong.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnThemPhong.ForeColor = System.Drawing.Color.White;
-            this.btnThemPhong.Image = ((System.Drawing.Image)(resources.GetObject("btnThemPhong.Image")));
-            this.btnThemPhong.Location = new System.Drawing.Point(951, 18);
-            this.btnThemPhong.Name = "btnThemPhong";
-            this.btnThemPhong.Size = new System.Drawing.Size(200, 45);
-            this.btnThemPhong.TabIndex = 13;
-            this.btnThemPhong.Text = "Thêm phòng";
-            this.btnThemPhong.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnThemPhong.UseVisualStyleBackColor = false;
-            this.btnThemPhong.Click += new System.EventHandler(this.btnThemPhong_Click);
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Times New Roman", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(455, 14);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(372, 53);
-            this.lblTitle.TabIndex = 12;
-            this.lblTitle.Text = "Danh sách phòng";
             // 
             // frmListRoom
             // 
@@ -225,15 +195,12 @@
         private System.Windows.Forms.DataGridView dgvListRoom;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Button btnThemPhong;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaPhong;
         private System.Windows.Forms.DataGridViewTextBoxColumn TenPhong;
         private System.Windows.Forms.DataGridViewTextBoxColumn TenLoaiPhong;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tang;
         private System.Windows.Forms.DataGridViewTextBoxColumn TrangThai;
-        private System.Windows.Forms.DataGridViewTextBoxColumn GioVao;
-        private System.Windows.Forms.DataGridViewTextBoxColumn GioDatTruoc;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SDT_KhachHang;
         private System.Windows.Forms.DataGridViewTextBoxColumn GhiChu;
-        private System.Windows.Forms.Button btnThemPhong;
     }
 }

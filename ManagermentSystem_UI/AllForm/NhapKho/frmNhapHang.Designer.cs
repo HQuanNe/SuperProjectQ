@@ -115,7 +115,7 @@
             this.btnSave.BackColor = System.Drawing.Color.Aqua;
             this.btnSave.FlatAppearance.BorderSize = 0;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSave.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSave.Font = new System.Drawing.Font("Tahoma", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.Color.White;
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
             this.btnSave.Location = new System.Drawing.Point(831, 163);
@@ -134,7 +134,7 @@
             this.btnThem.BackColor = System.Drawing.Color.Lime;
             this.btnThem.FlatAppearance.BorderSize = 0;
             this.btnThem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnThem.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThem.Font = new System.Drawing.Font("Tahoma", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThem.ForeColor = System.Drawing.Color.White;
             this.btnThem.Image = ((System.Drawing.Image)(resources.GetObject("btnThem.Image")));
             this.btnThem.Location = new System.Drawing.Point(675, 163);
@@ -163,6 +163,7 @@
             this.cmbSanPham.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cmbSanPham.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbSanPham.DropDownHeight = 200;
+            this.cmbSanPham.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSanPham.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbSanPham.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbSanPham.FormattingEnabled = true;
@@ -211,6 +212,7 @@
             this.cmbNCC.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cmbNCC.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbNCC.DropDownHeight = 200;
+            this.cmbNCC.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbNCC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbNCC.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbNCC.FormattingEnabled = true;
@@ -288,6 +290,9 @@
             // dgvCTPN
             // 
             this.dgvCTPN.AllowUserToAddRows = false;
+            this.dgvCTPN.AllowUserToDeleteRows = false;
+            this.dgvCTPN.AllowUserToResizeColumns = false;
+            this.dgvCTPN.AllowUserToResizeRows = false;
             this.dgvCTPN.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(233)))), ((int)(((byte)(247)))));
             this.dgvCTPN.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCTPN.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {

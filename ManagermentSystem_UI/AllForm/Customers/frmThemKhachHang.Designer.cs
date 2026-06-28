@@ -67,13 +67,14 @@
             this.plInfo.Controls.Add(this.label2);
             this.plInfo.Controls.Add(this.lblMaKH);
             this.plInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.plInfo.Location = new System.Drawing.Point(1, 74);
+            this.plInfo.Location = new System.Drawing.Point(2, 75);
             this.plInfo.Name = "plInfo";
-            this.plInfo.Size = new System.Drawing.Size(747, 183);
+            this.plInfo.Size = new System.Drawing.Size(745, 181);
             this.plInfo.TabIndex = 2;
             // 
             // cmbVIP
             // 
+            this.cmbVIP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbVIP.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbVIP.FormattingEnabled = true;
             this.cmbVIP.Location = new System.Drawing.Point(526, 122);
@@ -190,10 +191,11 @@
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Times New Roman", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(180, 11);
+            this.lblTitle.Font = new System.Drawing.Font("Tahoma", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(47)))), ((int)(((byte)(110)))));
+            this.lblTitle.Location = new System.Drawing.Point(152, 11);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(388, 53);
+            this.lblTitle.Size = new System.Drawing.Size(444, 57);
             this.lblTitle.TabIndex = 3;
             this.lblTitle.Text = "Thêm khách hàng";
             // 
@@ -220,7 +222,7 @@
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold);
             this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(707, 0);
+            this.btnClose.Location = new System.Drawing.Point(705, 0);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(40, 40);
             this.btnClose.TabIndex = 22;
@@ -233,9 +235,9 @@
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.Controls.Add(this.btnThem);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(1, 257);
+            this.panel1.Location = new System.Drawing.Point(2, 256);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(747, 75);
+            this.panel1.Size = new System.Drawing.Size(745, 75);
             this.panel1.TabIndex = 23;
             // 
             // panel2
@@ -244,9 +246,9 @@
             this.panel2.Controls.Add(this.lblTitle);
             this.panel2.Controls.Add(this.btnClose);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(1, 1);
+            this.panel2.Location = new System.Drawing.Point(2, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(747, 73);
+            this.panel2.Size = new System.Drawing.Size(745, 73);
             this.panel2.TabIndex = 20;
             // 
             // frmThemKhachHang
@@ -259,7 +261,7 @@
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "frmThemKhachHang";
-            this.Padding = new System.Windows.Forms.Padding(1);
+            this.Padding = new System.Windows.Forms.Padding(2);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Thêm khách hàng";
             this.Load += new System.EventHandler(this.frmThemKhachHang_Load);

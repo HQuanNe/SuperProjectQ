@@ -31,10 +31,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAddStaff));
             this.lblTitle = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.txtBasicSalary = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.btnAddImage = new System.Windows.Forms.Button();
-            this.txtChucVu = new System.Windows.Forms.TextBox();
             this.picImageStaff = new System.Windows.Forms.PictureBox();
             this.dtpNgayLamViec = new System.Windows.Forms.DateTimePicker();
             this.txtSDT = new System.Windows.Forms.TextBox();
@@ -55,8 +56,7 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.txtEmail = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
+            this.cmbChucVu = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picImageStaff)).BeginInit();
             this.panel2.SuspendLayout();
@@ -66,23 +66,23 @@
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Times New Roman", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.Font = new System.Drawing.Font("Tahoma", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblTitle.Location = new System.Drawing.Point(225, 9);
+            this.lblTitle.Location = new System.Drawing.Point(198, 9);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(349, 53);
+            this.lblTitle.Size = new System.Drawing.Size(402, 57);
             this.lblTitle.TabIndex = 25;
             this.lblTitle.Text = "Thêm nhân viên";
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.SeaShell;
+            this.panel1.Controls.Add(this.cmbChucVu);
             this.panel1.Controls.Add(this.txtEmail);
             this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.txtBasicSalary);
             this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.btnAddImage);
-            this.panel1.Controls.Add(this.txtChucVu);
             this.panel1.Controls.Add(this.picImageStaff);
             this.panel1.Controls.Add(this.dtpNgayLamViec);
             this.panel1.Controls.Add(this.txtSDT);
@@ -104,6 +104,24 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(797, 471);
             this.panel1.TabIndex = 26;
+            // 
+            // txtEmail
+            // 
+            this.txtEmail.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmail.Location = new System.Drawing.Point(161, 376);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(237, 30);
+            this.txtEmail.TabIndex = 34;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(25, 384);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(63, 22);
+            this.label10.TabIndex = 33;
+            this.label10.Text = "Email:";
             // 
             // txtBasicSalary
             // 
@@ -137,14 +155,6 @@
             this.btnAddImage.TabIndex = 30;
             this.btnAddImage.UseVisualStyleBackColor = false;
             this.btnAddImage.Click += new System.EventHandler(this.btnAddImage_Click);
-            // 
-            // txtChucVu
-            // 
-            this.txtChucVu.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtChucVu.Location = new System.Drawing.Point(511, 12);
-            this.txtChucVu.Name = "txtChucVu";
-            this.txtChucVu.Size = new System.Drawing.Size(235, 30);
-            this.txtChucVu.TabIndex = 16;
             // 
             // picImageStaff
             // 
@@ -185,7 +195,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(423, 20);
+            this.label8.Location = new System.Drawing.Point(437, 20);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(82, 22);
             this.label8.TabIndex = 12;
@@ -277,6 +287,7 @@
             // 
             // cmbGioiTinh
             // 
+            this.cmbGioiTinh.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbGioiTinh.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbGioiTinh.FormattingEnabled = true;
             this.cmbGioiTinh.Location = new System.Drawing.Point(157, 108);
@@ -300,9 +311,9 @@
             this.btnAdd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(220)))), ((int)(((byte)(0)))));
             this.btnAdd.FlatAppearance.BorderSize = 0;
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAdd.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAdd.Font = new System.Drawing.Font("Tahoma", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAdd.ForeColor = System.Drawing.Color.White;
-            this.btnAdd.Location = new System.Drawing.Point(248, 3);
+            this.btnAdd.Location = new System.Drawing.Point(249, 3);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(300, 60);
             this.btnAdd.TabIndex = 27;
@@ -347,23 +358,16 @@
             this.panel3.Size = new System.Drawing.Size(797, 72);
             this.panel3.TabIndex = 30;
             // 
-            // txtEmail
+            // cmbChucVu
             // 
-            this.txtEmail.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmail.Location = new System.Drawing.Point(161, 376);
-            this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(237, 30);
-            this.txtEmail.TabIndex = 34;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(25, 384);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(63, 22);
-            this.label10.TabIndex = 33;
-            this.label10.Text = "Email:";
+            this.cmbChucVu.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbChucVu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbChucVu.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbChucVu.FormattingEnabled = true;
+            this.cmbChucVu.Location = new System.Drawing.Point(525, 17);
+            this.cmbChucVu.Name = "cmbChucVu";
+            this.cmbChucVu.Size = new System.Drawing.Size(212, 28);
+            this.cmbChucVu.TabIndex = 38;
             // 
             // frmAddStaff
             // 
@@ -393,7 +397,6 @@
 
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TextBox txtChucVu;
         private System.Windows.Forms.DateTimePicker dtpNgayLamViec;
         private System.Windows.Forms.TextBox txtSDT;
         private System.Windows.Forms.TextBox txtDiaChi;
@@ -419,5 +422,6 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox cmbChucVu;
     }
 }

@@ -47,17 +47,17 @@
             this.txtSDT = new System.Windows.Forms.TextBox();
             this.dtpNgayLamViec = new System.Windows.Forms.DateTimePicker();
             this.picImageStaff = new System.Windows.Forms.PictureBox();
-            this.txtChucVu = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.txtBasicSalary = new System.Windows.Forms.TextBox();
             this.btnAdjustImage = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.btnConfirm = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.txtEmail = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
+            this.cmbChucVu = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.picImageStaff)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -82,11 +82,11 @@
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Times New Roman", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.Font = new System.Drawing.Font("Tahoma", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblTitle.Location = new System.Drawing.Point(244, 4);
+            this.lblTitle.Location = new System.Drawing.Point(218, 3);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(310, 53);
+            this.lblTitle.Size = new System.Drawing.Size(362, 57);
             this.lblTitle.TabIndex = 32;
             this.lblTitle.Text = "Sửa nhân viên";
             // 
@@ -102,6 +102,7 @@
             // 
             // cmbGioiTinh
             // 
+            this.cmbGioiTinh.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbGioiTinh.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbGioiTinh.FormattingEnabled = true;
             this.cmbGioiTinh.Location = new System.Drawing.Point(157, 108);
@@ -238,14 +239,6 @@
             this.picImageStaff.TabIndex = 29;
             this.picImageStaff.TabStop = false;
             // 
-            // txtChucVu
-            // 
-            this.txtChucVu.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtChucVu.Location = new System.Drawing.Point(518, 12);
-            this.txtChucVu.Name = "txtChucVu";
-            this.txtChucVu.Size = new System.Drawing.Size(228, 30);
-            this.txtChucVu.TabIndex = 16;
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -282,12 +275,12 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.SeaShell;
+            this.panel1.Controls.Add(this.cmbChucVu);
             this.panel1.Controls.Add(this.txtEmail);
             this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.btnAdjustImage);
             this.panel1.Controls.Add(this.txtBasicSalary);
             this.panel1.Controls.Add(this.label9);
-            this.panel1.Controls.Add(this.txtChucVu);
             this.panel1.Controls.Add(this.picImageStaff);
             this.panel1.Controls.Add(this.dtpNgayLamViec);
             this.panel1.Controls.Add(this.txtSDT);
@@ -310,12 +303,30 @@
             this.panel1.Size = new System.Drawing.Size(797, 483);
             this.panel1.TabIndex = 33;
             // 
+            // txtEmail
+            // 
+            this.txtEmail.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmail.Location = new System.Drawing.Point(161, 372);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(237, 30);
+            this.txtEmail.TabIndex = 36;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(25, 380);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(63, 22);
+            this.label10.TabIndex = 35;
+            this.label10.Text = "Email:";
+            // 
             // btnConfirm
             // 
             this.btnConfirm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(220)))), ((int)(((byte)(0)))));
             this.btnConfirm.FlatAppearance.BorderSize = 0;
             this.btnConfirm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConfirm.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfirm.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConfirm.ForeColor = System.Drawing.Color.White;
             this.btnConfirm.Location = new System.Drawing.Point(164, 6);
             this.btnConfirm.Name = "btnConfirm";
@@ -330,7 +341,7 @@
             this.btnDelete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnDelete.FlatAppearance.BorderSize = 0;
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDelete.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDelete.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDelete.ForeColor = System.Drawing.Color.White;
             this.btnDelete.Location = new System.Drawing.Point(434, 6);
             this.btnDelete.Name = "btnDelete";
@@ -362,23 +373,16 @@
             this.panel3.Size = new System.Drawing.Size(797, 73);
             this.panel3.TabIndex = 39;
             // 
-            // txtEmail
+            // cmbChucVu
             // 
-            this.txtEmail.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmail.Location = new System.Drawing.Point(161, 372);
-            this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(237, 30);
-            this.txtEmail.TabIndex = 36;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(25, 380);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(63, 22);
-            this.label10.TabIndex = 35;
-            this.label10.Text = "Email:";
+            this.cmbChucVu.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbChucVu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbChucVu.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbChucVu.FormattingEnabled = true;
+            this.cmbChucVu.Location = new System.Drawing.Point(534, 17);
+            this.cmbChucVu.Name = "cmbChucVu";
+            this.cmbChucVu.Size = new System.Drawing.Size(212, 28);
+            this.cmbChucVu.TabIndex = 37;
             // 
             // frmAdjustStaff
             // 
@@ -423,7 +427,6 @@
         private System.Windows.Forms.TextBox txtSDT;
         private System.Windows.Forms.DateTimePicker dtpNgayLamViec;
         private System.Windows.Forms.PictureBox picImageStaff;
-        private System.Windows.Forms.TextBox txtChucVu;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtBasicSalary;
         private System.Windows.Forms.Button btnAdjustImage;
@@ -434,5 +437,6 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox cmbChucVu;
     }
 }

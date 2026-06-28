@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMenu));
             this.flowLayoutDSSanPham = new System.Windows.Forms.FlowLayoutPanel();
             this.btnAll = new System.Windows.Forms.Button();
@@ -47,8 +48,9 @@
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.lblTitlePhong = new System.Windows.Forms.Label();
             this.plTop = new System.Windows.Forms.Panel();
-            this.btnClose = new System.Windows.Forms.Button();
             this.btnOrdered = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
+            this.timerGeneral = new System.Windows.Forms.Timer(this.components);
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.plTop.SuspendLayout();
@@ -69,7 +71,7 @@
             // 
             // btnAll
             // 
-            this.btnAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(76)))), ((int)(((byte)(76)))));
+            this.btnAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(122)))), ((int)(((byte)(111)))), ((int)(((byte)(99)))));
             this.btnAll.FlatAppearance.BorderSize = 0;
             this.btnAll.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.btnAll.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
@@ -88,7 +90,7 @@
             // 
             // btnCombo
             // 
-            this.btnCombo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(76)))), ((int)(((byte)(76)))));
+            this.btnCombo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(122)))), ((int)(((byte)(111)))), ((int)(((byte)(99)))));
             this.btnCombo.FlatAppearance.BorderSize = 0;
             this.btnCombo.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.btnCombo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
@@ -106,7 +108,7 @@
             // 
             // btnOther
             // 
-            this.btnOther.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(76)))), ((int)(((byte)(76)))));
+            this.btnOther.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(122)))), ((int)(((byte)(111)))), ((int)(((byte)(99)))));
             this.btnOther.FlatAppearance.BorderSize = 0;
             this.btnOther.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.btnOther.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
@@ -124,7 +126,7 @@
             // 
             // btnDrink
             // 
-            this.btnDrink.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(76)))), ((int)(((byte)(76)))));
+            this.btnDrink.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(122)))), ((int)(((byte)(111)))), ((int)(((byte)(99)))));
             this.btnDrink.FlatAppearance.BorderSize = 0;
             this.btnDrink.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.btnDrink.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
@@ -143,7 +145,7 @@
             // 
             // btnFood
             // 
-            this.btnFood.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(76)))), ((int)(((byte)(76)))));
+            this.btnFood.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(122)))), ((int)(((byte)(111)))), ((int)(((byte)(99)))));
             this.btnFood.FlatAppearance.BorderSize = 0;
             this.btnFood.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.btnFood.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
@@ -207,7 +209,7 @@
             // 
             // btnDoKho
             // 
-            this.btnDoKho.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(76)))), ((int)(((byte)(76)))));
+            this.btnDoKho.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(122)))), ((int)(((byte)(111)))), ((int)(((byte)(99)))));
             this.btnDoKho.FlatAppearance.BorderSize = 0;
             this.btnDoKho.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.btnDoKho.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
@@ -226,7 +228,7 @@
             // 
             // btnSnack
             // 
-            this.btnSnack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(76)))), ((int)(((byte)(76)))));
+            this.btnSnack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(122)))), ((int)(((byte)(111)))), ((int)(((byte)(99)))));
             this.btnSnack.FlatAppearance.BorderSize = 0;
             this.btnSnack.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.btnSnack.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
@@ -245,7 +247,7 @@
             // 
             // btnHoaQua
             // 
-            this.btnHoaQua.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(76)))), ((int)(((byte)(76)))));
+            this.btnHoaQua.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(122)))), ((int)(((byte)(111)))), ((int)(((byte)(99)))));
             this.btnHoaQua.FlatAppearance.BorderSize = 0;
             this.btnHoaQua.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.btnHoaQua.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
@@ -264,7 +266,7 @@
             // 
             // btnRuou
             // 
-            this.btnRuou.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(76)))), ((int)(((byte)(76)))));
+            this.btnRuou.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(122)))), ((int)(((byte)(111)))), ((int)(((byte)(99)))));
             this.btnRuou.FlatAppearance.BorderSize = 0;
             this.btnRuou.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.btnRuou.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
@@ -283,7 +285,7 @@
             // 
             // btnNuocNgot
             // 
-            this.btnNuocNgot.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(76)))), ((int)(((byte)(76)))));
+            this.btnNuocNgot.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(122)))), ((int)(((byte)(111)))), ((int)(((byte)(99)))));
             this.btnNuocNgot.FlatAppearance.BorderSize = 0;
             this.btnNuocNgot.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.btnNuocNgot.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
@@ -302,7 +304,7 @@
             // 
             // btnNuocKhoang
             // 
-            this.btnNuocKhoang.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(76)))), ((int)(((byte)(76)))));
+            this.btnNuocKhoang.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(122)))), ((int)(((byte)(111)))), ((int)(((byte)(99)))));
             this.btnNuocKhoang.FlatAppearance.BorderSize = 0;
             this.btnNuocKhoang.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.btnNuocKhoang.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
@@ -354,6 +356,22 @@
             this.plTop.Size = new System.Drawing.Size(1482, 40);
             this.plTop.TabIndex = 0;
             // 
+            // btnOrdered
+            // 
+            this.btnOrdered.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(195)))), ((int)(((byte)(165)))));
+            this.btnOrdered.FlatAppearance.BorderSize = 0;
+            this.btnOrdered.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOrdered.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOrdered.ForeColor = System.Drawing.Color.White;
+            this.btnOrdered.Location = new System.Drawing.Point(3, 3);
+            this.btnOrdered.Margin = new System.Windows.Forms.Padding(3, 50, 3, 3);
+            this.btnOrdered.Name = "btnOrdered";
+            this.btnOrdered.Size = new System.Drawing.Size(138, 35);
+            this.btnOrdered.TabIndex = 15;
+            this.btnOrdered.Text = "Order";
+            this.btnOrdered.UseVisualStyleBackColor = false;
+            this.btnOrdered.Click += new System.EventHandler(this.btnOrdered_Click);
+            // 
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -370,20 +388,10 @@
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // btnOrdered
+            // timerGeneral
             // 
-            this.btnOrdered.BackColor = System.Drawing.Color.LightGray;
-            this.btnOrdered.FlatAppearance.BorderSize = 0;
-            this.btnOrdered.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOrdered.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOrdered.ForeColor = System.Drawing.Color.White;
-            this.btnOrdered.Location = new System.Drawing.Point(3, 3);
-            this.btnOrdered.Margin = new System.Windows.Forms.Padding(3, 50, 3, 3);
-            this.btnOrdered.Name = "btnOrdered";
-            this.btnOrdered.Size = new System.Drawing.Size(240, 35);
-            this.btnOrdered.TabIndex = 15;
-            this.btnOrdered.Text = "Order";
-            this.btnOrdered.UseVisualStyleBackColor = false;
+            this.timerGeneral.Interval = 1000;
+            this.timerGeneral.Tick += new System.EventHandler(this.timerGeneral_Tick);
             // 
             // frmMenu
             // 
@@ -430,9 +438,10 @@
         public System.Windows.Forms.FlowLayoutPanel flowLayoutDSPhong;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         public System.Windows.Forms.Panel plTop;
-        private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.Label lblTitlePhong;
-        private System.Windows.Forms.Button btnOrdered;
+        public System.Windows.Forms.Button btnClose;
+        public System.Windows.Forms.Button btnOrdered;
+        private System.Windows.Forms.Timer timerGeneral;
     }
 }

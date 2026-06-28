@@ -8,6 +8,7 @@ using System.Net.Mail;
 using System.Windows.Forms;
 using System.IO;
 using static System.Net.WebRequestMethods;
+using System.Collections.Generic;
 namespace DataAccessLayer
 {
     internal class TransData
@@ -18,7 +19,114 @@ namespace DataAccessLayer
         static ConnectData kn = new ConnectData();
         static DataTable dt = null;
         static SqlCommand cmd = null;
+        public static Dictionary<int, string> dictThongSo = new Dictionary<int, string>();
+        public static class VoucherData
+        {
+            //Voucher
+            public static int STTVoucher { get; set; } //STT voucher được chọn để áp dụng vào hoá đơn
+            public static string maVoucher { get; set; } = "";//Mã voucher được chọn
+            public static string tenVoucher { get; set; } = "";//Tên voucher được chọn
+            public static string HinhAnh { get; set; } = "";
+            public static bool isUsedVoucherKH { get; set; } //Đã áp dụng voucher vào hoá đơn hay chưa
+            public static string VCHMaPhatHanh { get; set; }
+            public static decimal giamVoucher = 0; // Tiền giảm voucher
+            public static void TinhTienGiamGia(bool freeVoucher, int stt = -99)
+            {
+                string sqlLayVoucher = $"SELECT Voucher.GiaTriGiam, Voucher.LoaiGiamGia, Voucher.GiamToiDa FROM Voucher WHERE Voucher.MaPhatHanh = '{VCHMaPhatHanh}'";
+                if (CustomerData.isCustomer && !freeVoucher)
+                {
+                    sqlLayVoucher = $"SELECT Voucher.GiaTriGiam, Voucher.LoaiGiamGia, Voucher.GiamToiDa FROM VoucherKhachHang \n" +
+                    $"INNER JOIN VouCher ON Voucher.MaVoucher = VoucherKhachHang.MaVoucher " +
+                    $"WHERE VoucherKhachHang.TrangThai = 0 AND VoucherKhachHang.MaKH = '{CustomerData.MaKH}' AND VoucherKhachHang.STT = {stt}";
+                }
+                dt = kn.CreateTable(sqlLayVoucher);
 
+                if (dt.Rows.Count > 0)
+                {
+
+                    decimal giaTriGiam = Convert.ToDecimal(dt.Rows[0]["GiaTriGiam"]);
+
+                    //Nếu là true thì sẽ giảm theo %
+                    if (Convert.ToBoolean(dt.Rows[0]["LoaiGiamGia"]))
+                    {
+                        giamVoucher = BillData.TongTien * giaTriGiam;
+
+                        if (giamVoucher > Convert.ToDecimal(dt.Rows[0]["GiamToiDa"]) && Convert.ToDecimal(dt.Rows[0]["GiamToiDa"]) > 0)
+                        {
+                            giamVoucher = Convert.ToDecimal(dt.Rows[0]["GiamToiDa"]);
+                        }
+                    }
+                    //Giảm theo tiền
+                    else
+                    {
+                        giamVoucher = giaTriGiam;
+                    }
+                }
+                else
+                {
+                    giamVoucher = 0;
+                }
+            } //tính tiền giảm giá của voucher
+            public static void KiemTraVoucher()
+            {
+                ConnectOpen();
+
+                DateTime ngayHetHan = Convert.ToDateTime("01/01/2020");
+                DateTime today = DateTime.Today;
+                int trangThai = 2; //Trạng thái hết hạn
+                int STT = 0;
+
+                string sqlVoucherCheck = "SELECT STT, NgayHetHan FROM VoucherKhachHang";
+                dt = new DataTable();
+                dt = kn.CreateTable(sqlVoucherCheck);
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    if (row["NgayHetHan"] != null && row["NgayHetHan"] != DBNull.Value)
+                    {
+                        ngayHetHan = Convert.ToDateTime(row["NgayHetHan"]);
+                        STT = Convert.ToInt32(row["STT"]);
+                    }
+
+                    if (DateTime.Now > ngayHetHan)
+
+                    {
+                        string updateTrangThai = $"UPDATE VoucherKhachHang SET TrangThai = {trangThai} WHERE STT = {STT}";
+                        cmd = new SqlCommand(updateTrangThai, kn.conn);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            } // Hàm kiểm tra voucher hết hạn
+            public static bool InspectQuantityVoucher(string maVoucher)
+            {
+                ConnectOpen();
+                int soLuong = 0;
+                string sqlCheck = $"SELECT SoLuongPhatHanh FROM Voucher WHERE MaVoucher = '{maVoucher}'";
+                dt = new DataTable();
+                dt = kn.CreateTable(sqlCheck);
+                if (dt.Rows.Count > 0)
+                {
+                    soLuong = Convert.ToInt32(dt.Rows[0]["SoLuongPhatHanh"]);
+                    if (soLuong - 1 > 0)
+                    { 
+                        string sqlUpdate = $"UPDATE Voucher SET SoLuongPhatHanh = SoLuongPhatHanh - 1 WHERE MaVoucher = '{maVoucher}'";
+                        cmd = new SqlCommand(sqlUpdate, kn.conn);
+                        int c =cmd.ExecuteNonQuery();
+                        return c==1;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Voucher đã hết số lượng, vui lòng chọn voucher khác!");
+                        return false;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Voucher không tồn tại, vui lòng chọn voucher khác!");
+                    return false;
+                }
+            } //Hàm kiểm tra voucher còn hàng hay không 
+        }
         public static class WarehouseData
         {
             public static string MaSP;
@@ -40,6 +148,8 @@ namespace DataAccessLayer
             public static string SoDienThoai;
             public static string VIP;
             public static double DiemTichLuy;
+
+            public static bool isCustomer { get; set; }
         }
         public static class StaffData
         {
@@ -51,21 +161,42 @@ namespace DataAccessLayer
             public static string SoDienThoai;
             public static string Email;
             public static DateTime NgayLamViec;
-            public static string ChucVu;
+            public static int ChucVu;
             public static Decimal LuongCoBan;
             public static string HinhAnh;
+            public static string QuyenHan;
 
             public static string IDUser { get; set; }
 
+            public static string GetMaNVFromIDU()
+            {
+                try
+                {
+                    using (cmd = new SqlCommand())
+                    {
+                        cmd.Connection = kn.conn;
+                        cmd.CommandText = "SELECT MaNV FROM Users WHERE IDUser = @IDU";
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.AddWithValue("@IDU", Session.StaffData.IDUser);
+                        object result = cmd.ExecuteScalar();
+                        return result != null ? result.ToString() : string.Empty;
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("frmPhieuKiemKe - GetMaNV() \nLỗi: " + ex.Message);
+                    return string.Empty;
+                }
+            }
             public static void SendEmail(string toEmail, int OTP)
             {
                 try
                 {
-                    var fromAddress = new MailAddress("KaraokeParadise3008@gmail.com", "Karaoke Paradise"); //email gưie
+                    var fromAddress = new MailAddress(dictThongSo[8] ?? "KaraokeParadise3008@gmail.com", "Karaoke Paradise"); //email gưie
                     var toAddress = new MailAddress(toEmail); //email nhận
                     string appPassword = "sbgwremfxsupovrg"; //Google App Password
                     string subject = "Mã xác thực đổi mật khẩu"; //Tiêu đề
-                    string body = $"Mã OTP của bạn là: {OTP} mã có hiệu lực trong vòng 5 phút, tuyệt đối không chia sẽ mã này với bất kì ai.";
+                    string body = $"Mã OTP của bạn là: {OTP} mã có hiệu lực trong vòng {dictThongSo[10]} phút, tuyệt đối không chia sẽ mã này với bất kì ai.";
 
                     var smtp = new SmtpClient
                     {
@@ -101,16 +232,39 @@ namespace DataAccessLayer
 
             public static int status { get; set; } //0 là đóng, 1 là đang dùng, 2 là đặt trc, 3 là huỷ đặt
             public static DateTime TimeOut { get; set; } // Thời gian đóng phòng
+            public static string GetPhoneNumber(string maPhong)
+            {
+                using (cmd = new SqlCommand())
+                {
+                    cmd.Connection = kn.conn;
+                    cmd.CommandText = "SELECT SDT_KhachHang FROM Booking WHERE MaPhong = @MaPhong AND TrangThai = 1";
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@MaPhong", maPhong);
+                    object result = cmd.ExecuteScalar();
+                    return result != null ? result.ToString() : string.Empty;
+                }
+            }
+            public static void UpdateBookingStatus(string maPhong)
+            {
+                using (cmd = new SqlCommand())
+                {
+                    cmd.Connection = kn.conn;
+                    cmd.CommandText = "UPDATE Booking SET TrangThai = 3 WHERE MaPhong = @MaPhong AND TrangThai = 1";
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@MaPhong", maPhong);
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
         public static class BillData
         {
+            public static int maHD { get; set; }
             public static double TongSoPhut { get; set; } //Tổng số phút sử dụng phòng
             public static decimal TongTien { get; set; } //Tiền phòng + dịch vụ
             public static decimal TongTienDV { get; set; } // tiền dịch vụ
             public static decimal TongTienPhong { get; set; }
             public static decimal TienVAT { get; set; } //thuế GTGT 5%, 0.1 - 10% thuế GTGT
             public static decimal DiscountVIP { get; set; } //Giảm giá theo VIP
-            public static decimal DiscountVoucher { get; set; } //Giảm giá theo VIP
             public static decimal TongThanhToan { get; set; } // Tổng tiền - Ưu đãi + VAT
             //public static decimal GhiChu { get; set; } //Ghi chú giảm giá
             public static bool isPay { get; set; } // Nếu true là đã thanh toán và sẽ xuất hoá đơn
@@ -121,6 +275,8 @@ namespace DataAccessLayer
         {
             public static string MaSP_Menu { get; set; }
             public static string MaSP_Kho { get; set; }
+
+            public static bool isChecked { get; set; }
         }
         public static class ComboData
         {
@@ -134,14 +290,19 @@ namespace DataAccessLayer
         }
         public class FontStandard
         {
+            //times new
             public Font timeNew10_Regular = new Font("Times New Roman", 10F, FontStyle.Regular);
             public Font timeNew10_Bold = new Font("Times New Roman", 10F, FontStyle.Bold);
 
             public Font timeNew12_Regular = new Font("Times New Roman", 12F, FontStyle.Regular);
             public Font timeNew12_Bold = new Font("Times New Roman", 12F, FontStyle.Bold);
 
+            //tahoma
+            public Font tahoma9_Regular = new Font("Tahoma", 9, FontStyle.Regular);
+
             public Font tahoma9_Bold = new Font("Tahoma", 9, FontStyle.Bold);
             public Font tahoma12_Bold = new Font("Tahoma", 12, FontStyle.Bold);
+            public Font tahoma16_Bold = new Font("Tahoma", 16, FontStyle.Bold);
 
             public Font timeNew14_Bold = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point);
 
@@ -173,7 +334,7 @@ namespace DataAccessLayer
             {
                 ConnectOpen();
 
-                string sqlUpdate = "UPDATE Phong SET SDT_KhachHang = @SDTKH WHERE MaPhong = @MP";
+                string sqlUpdate = "UPDATE Booking SET SDT_KhachHang = @SDTKH WHERE MaPhong = @MP AND TrangThai = 0";
                 using (cmd = new SqlCommand(sqlUpdate, kn.conn))
                 {
                     cmd.Parameters.Clear();
@@ -200,19 +361,36 @@ namespace DataAccessLayer
                 GC.WaitForPendingFinalizers();
             }
         }
+        public static void FreeUpMemoryFlowPanel(FlowLayoutPanel pl)
+        {
+            while (pl.Controls.Count > 0)
+            {
+                Control ctrl = pl.Controls[0];
+                pl.Controls.RemoveAt(0);
+                ctrl.Dispose();
+
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+            }
+        }
         public static decimal TinhTienPhongSau_22h(DateTime timeIn, decimal PricePerHour)
         {
             //Console.WriteLine(PricePerHour.ToString());
             TimeSpan gioVao = timeIn.TimeOfDay;
             if (gioVao >= new TimeSpan(22, 0, 0) || gioVao <= new TimeSpan(6, 0, 0))
             {
-                PricePerHour = PricePerHour + (PricePerHour * (Session.PriceAfter_22H / 100));
+                PricePerHour = PricePerHour + (PricePerHour * (Convert.ToDecimal(dictThongSo[3]) / 100));
                 //Console.WriteLine(PricePerHour.ToString());
             }
             return PricePerHour;
         }
+        
         public static void Datalog(string fileTxtName, string content)
         {
+            if(!System.IO.File.Exists($"D:\\Học_Tập\\Programing_language\\ADO-NET\\DataLog\\{fileTxtName}"))
+            {
+                System.IO.File.Create($"D:\\Học_Tập\\Programing_language\\ADO-NET\\DataLog\\{fileTxtName}").Dispose(); //tạo mới
+            }//Nếu chưa có file
             System.IO.File.AppendAllText($"D:\\Học_Tập\\Programing_language\\ADO-NET\\DataLog\\{fileTxtName}", $"\n{DateTime.Now.ToString()}: {content}");
         } //Lưu log 
         public static void KiemTraGhiNo()
@@ -223,7 +401,7 @@ namespace DataAccessLayer
             DateTime homNay = Convert.ToDateTime(DateTime.Now.ToString("dd/MM/yyyy"));
             int maHD = 0;
             TimeSpan soNgayQuaHan = TimeSpan.Zero;
-            double laiSuat = (Session.laiSuat / 100); //Lãi suất 2%/ngày
+            double laiSuat = (Convert.ToDouble(dictThongSo[2]) / 100); //Lãi suất 2%/ngày
 
             string sqlGhiNo = "SELECT * FROM GhiNo";
             dt = kn.CreateTable(sqlGhiNo);
@@ -246,36 +424,7 @@ namespace DataAccessLayer
 
 
         }//Hàm kiểm tra ghi nợ quá hạn trả
-        public static void KiemTraVoucher()
-        {
-            ConnectOpen();
 
-            DateTime ngayHetHan = Convert.ToDateTime("01/01/2020");
-            DateTime today = DateTime.Today;
-            int trangThai = 2; //Trạng thái hết hạn
-            int STT = 0;
-
-            string sqlVoucherCheck = "SELECT STT, NgayHetHan FROM VoucherKhachHang";
-            dt = new DataTable();
-            dt = kn.CreateTable(sqlVoucherCheck);
-
-            foreach (DataRow row in dt.Rows)
-            {
-                if (row["NgayHetHan"] != null && row["NgayHetHan"] != DBNull.Value)
-                {
-                    ngayHetHan = Convert.ToDateTime(row["NgayHetHan"]);
-                    STT = Convert.ToInt32(row["STT"]);
-                }
-
-                if (DateTime.Now > ngayHetHan)
-
-                {
-                    string updateTrangThai = $"UPDATE VoucherKhachHang SET TrangThai = {trangThai} WHERE STT = {STT}";
-                    cmd = new SqlCommand(updateTrangThai, kn.conn);
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        } // Hàm kiểm tra voucher hết hạn
         public static int AutoCreateID_Interger(string colName, string tableName) //tạo mã số tự động
         {
             ConnectOpen();
@@ -392,22 +541,27 @@ namespace DataAccessLayer
 
                 if (ComboData.isCombo)
                 {
+                    Console.WriteLine($"ma san pham: {maSP_MenuOrMaCombo}");
                     string sqlCTCB = $"SELECT * FROM ChiTietCombo WHERE MaCombo = '{maSP_MenuOrMaCombo}'";
                     using (dt = new DataTable())
                     {
                         dt = kn.CreateTable(sqlCTCB);
 
-                        foreach(DataRow maSP_Menu in dt.Rows)
+                        foreach(DataRow row in dt.Rows)
                         {
                             sqlTonKho = $"SELECT KhoHang.TonKho, SanPham.DinhLuong, KhoHang.DonViTinh FROM Khohang " +
                                 $"INNER JOIN SanPham ON KhoHang.MaSP_Kho = SanPham.MaSP_Kho " +
-                                $"WHERE SanPham.MaSP_Menu = '{maSP_Menu}'";
+                                $"WHERE SanPham.MaSP_Menu = '{row["MaSP"]}'";
 
                             using (cmd = new SqlCommand(sqlTonKho, kn.conn))
                             {
-                                double tonKho = cmd.ExecuteScalar() != DBNull.Value ? Convert.ToDouble(cmd.ExecuteScalar()) : 0;
+                                double tonKho = cmd.ExecuteScalar() != DBNull.Value && cmd.ExecuteScalar() != null ? Convert.ToDouble(cmd.ExecuteScalar().ToString()) : 0;
 
-                                isInStock = soLuong > tonKho ? false : true;
+                                isInStock = Convert.ToDouble(dictThongSo[4]) > tonKho ? false : true;
+                                Console.WriteLine($"ton kho: {tonKho}, so luong: {soLuong}, isInStock: {isInStock}");
+
+                                if (isInStock) continue;
+                                else return isInStock; //Nếu một món không đủ thì return
                             }
                         }
                     }
@@ -422,8 +576,7 @@ namespace DataAccessLayer
                         if (dt.Rows[0]["DonViTinh"].ToString() == "Kg") soLuong = soLuong * Convert.ToDouble(dt.Rows[0]["DinhLuong"]) / 1000;
                         else soLuong = soLuong * Convert.ToDouble(dt.Rows[0]["DinhLuong"]);
 
-                        isInStock =
-                            soLuong > tonKho ? false : true;
+                        isInStock = soLuong > tonKho ? false : true;
                     }
                 }
                 return isInStock;
@@ -504,29 +657,17 @@ namespace DataAccessLayer
         //}//Focus khi thêm hoặc sửa dữ liệu
         #region Giá, VAT, lãi suất hoá đơn, giá sau 22h,... trong frmThanhToan
         //Giá VAT, lãi suất hoá đơn, giá sau 22h
-        #region Các thông số
-        public static double VAT;
-        public static double laiSuat;
-        public static decimal PriceAfter_22H;
-        public static double MinTonKho;
-        public static double amountPerPointVIP; //Số tiền trên mỗi điểm VIP
-        public static string unit; //Số tiền trên mỗi điểm VIP
-        public static string DSLoaiBan; //Số tiền trên mỗi điểm VIP
-        #endregion
         public static void SetParameters_Load()
         {
             ConnectOpen();
-            string sqlThongSo = "SELECT * FROM ThongSo";
+            string sqlThongSo = "SELECT * FROM ThongSo ORDER BY STT ASC";
             dt = new DataTable();
             dt = kn.CreateTable(sqlThongSo);
 
-            VAT = Convert.ToDouble(dt.Rows[0]["GiaTri"]); //Thuế giá trị gia tăng 10%
-            laiSuat = Convert.ToDouble(dt.Rows[1]["GiaTri"]); //Lãi suất hoá đơn 2%/ngày khi quá hạn
-            PriceAfter_22H = Convert.ToDecimal(dt.Rows[2]["GiaTri"]); //Giá sau 22h tăng 20%
-            MinTonKho = Convert.ToDouble(dt.Rows[3]["GiaTri"]); //Số lượng tồn kho tối thiểu
-            amountPerPointVIP = Convert.ToDouble(dt.Rows[4]["GiaTri"]); //Số tiền trên mỗi điểm VIP
-            unit = dt.Rows[5]["GiaTri"].ToString(); //Danh sách đơn vị
-            DSLoaiBan = dt.Rows[6]["GiaTri"].ToString(); //Loại bán
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                dictThongSo[Convert.ToInt16(dt.Rows[i]["STT"])] = dt.Rows[i]["GiaTri"].ToString();
+            }
         }
         #endregion
 
@@ -540,42 +681,40 @@ namespace DataAccessLayer
             dgv.AllowUserToDeleteRows = false;
             dgv.AllowUserToResizeColumns = false;
             dgv.AllowUserToResizeRows = false;
-            dgv.BorderStyle = BorderStyle.None;
+            //dgv.BorderStyle = BorderStyle.None;
             dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgv.RowHeadersVisible = false;
             dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgv.CellBorderStyle = DataGridViewCellBorderStyle.RaisedHorizontal;
+            dgv.GridColor = Color.FromArgb(62, 58, 52);
 
             //header
             dgv.EnableHeadersVisualStyles = false;// 1. Cho phép tùy biến Header
             dgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dgv.ColumnHeadersHeight = 40;
+            dgv.ColumnHeadersHeight = 60;
             //dgv.BackgroundColor = Color.White;
 
             dgv.ColumnHeadersDefaultCellStyle.Font = fontS.tahoma9_Bold;
-            dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(31, 47, 110);
-            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(137, 199, 218);
+            dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(62, 58, 52);
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(222, 208, 182);
             dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgv.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(82, 142, 194);
+            dgv.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(222, 208, 182);
+            //dgv.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
             //cells
-            dgv.DefaultCellStyle.Font = fontS.timeNew10_Regular;
+            dgv.DefaultCellStyle.Font = fontS.tahoma9_Regular;
             dgv.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgv.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            //dgv.CellBorderStyle = DataGridViewCellBorderStyle.None;
             dgv.RowTemplate.Height = 35;
 
-            dgv.DefaultCellStyle.BackColor = Color.FromArgb(200, 255, 212);
-            dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(224, 255, 255);
+            dgv.DefaultCellStyle.BackColor = Color.FromArgb(253, 247, 228);
+            dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(253, 247, 228);
 
-            dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(39, 98, 182);
+            dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(122, 111, 99);
             dgv.DefaultCellStyle.SelectionForeColor = Color.White;
         } //DGV tiêu chuẩn
         public static Nullable<bool> isPlus { get; set; } //Biến tạm để xác định là cộng hay trừ số lượng trong kho, nếu true là cộng, false là trừ, null là chưa xác định
         public static string MaQH { get; set; }
         public static string Passwd { get; } = "admin";
-
-        //Voucher
-        public static int STTVoucher { get; set; } //STT voucher được chọn để áp dụng vào hoá đơn
-        public static string tenVoucher { get; set; }//Tên voucher được chọn
-        public static bool isUsedVoucher { get; set; } //Đã áp dụng voucher vào hoá đơn hay chưa
 
         //Ảnh QR
         public static PictureBox picQRCode { get; set; }

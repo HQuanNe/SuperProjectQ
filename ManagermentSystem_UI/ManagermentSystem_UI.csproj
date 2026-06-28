@@ -203,23 +203,29 @@
     <Compile Include="AllForm\NhapKho\frmPhieuNhap.Designer.cs">
       <DependentUpon>frmPhieuNhap.cs</DependentUpon>
     </Compile>
+    <Compile Include="AllForm\Other\frmHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\Other\frmHistory.Designer.cs">
+      <DependentUpon>frmHistory.cs</DependentUpon>
+    </Compile>
     <Compile Include="AllForm\Productions\frmAddProducts.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AllForm\Productions\frmAddProducts.Designer.cs">
       <DependentUpon>frmAddProducts.cs</DependentUpon>
     </Compile>
-    <Compile Include="AllForm\Productions\frmAddUnitAndLoaiBan.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AllForm\Productions\frmAddUnitAndLoaiBan.Designer.cs">
-      <DependentUpon>frmAddUnitAndLoaiBan.cs</DependentUpon>
-    </Compile>
     <Compile Include="AllForm\Productions\frmAdjustProducts.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AllForm\Productions\frmAdjustProducts.Designer.cs">
       <DependentUpon>frmAdjustProducts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AllForm\Productions\frmOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\Productions\frmOrder.Designer.cs">
+      <DependentUpon>frmOrder.cs</DependentUpon>
     </Compile>
     <Compile Include="AllForm\Productions\frmProducts.cs">
       <SubType>Form</SubType>
@@ -293,11 +299,47 @@
     <Compile Include="AllForm\Users\frmUsers.Designer.cs">
       <DependentUpon>frmUsers.cs</DependentUpon>
     </Compile>
+    <Compile Include="AllForm\Voucher\frmDSVoucherKH.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\Voucher\frmDSVoucherKH.Designer.cs">
+      <DependentUpon>frmDSVoucherKH.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AllForm\Voucher\frmAddVoucher.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\Voucher\frmAddVoucher.Designer.cs">
+      <DependentUpon>frmAddVoucher.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AllForm\Voucher\frmAdjustVoucher.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\Voucher\frmAdjustVoucher.Designer.cs">
+      <DependentUpon>frmAdjustVoucher.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AllForm\Voucher\frmRandomVoucher.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\Voucher\frmRandomVoucher.Designer.cs">
+      <DependentUpon>frmRandomVoucher.cs</DependentUpon>
+    </Compile>
     <Compile Include="AllForm\WareHouse\frmDieuChinhKho.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AllForm\WareHouse\frmDieuChinhKho.Designer.cs">
       <DependentUpon>frmDieuChinhKho.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AllForm\WareHouse\frmDSachPhieuKK.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\WareHouse\frmDSachPhieuKK.Designer.cs">
+      <DependentUpon>frmDSachPhieuKK.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AllForm\WareHouse\frmPhieuKiemKe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllForm\WareHouse\frmPhieuKiemKe.Designer.cs">
+      <DependentUpon>frmPhieuKiemKe.cs</DependentUpon>
     </Compile>
     <Compile Include="AllForm\WareHouse\frmThemKhoHang.cs">
       <SubType>Form</SubType>
@@ -335,16 +377,16 @@
     <Compile Include="AllForm\Other\frmSetting.Designer.cs">
       <DependentUpon>frmSetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="AllForm\Other\frmVoucher.cs">
+    <Compile Include="AllForm\Voucher\frmVoucher.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AllForm\Other\frmVoucher.Designer.cs">
+    <Compile Include="AllForm\Voucher\frmVoucher.Designer.cs">
       <DependentUpon>frmVoucher.cs</DependentUpon>
     </Compile>
-    <Compile Include="AllForm\Other\frmVoucherKhachHang.cs">
+    <Compile Include="AllForm\Voucher\frmVoucherKhachHang.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AllForm\Other\frmVoucherKhachHang.Designer.cs">
+    <Compile Include="AllForm\Voucher\frmVoucherKhachHang.Designer.cs">
       <DependentUpon>frmVoucherKhachHang.cs</DependentUpon>
     </Compile>
     <Compile Include="AllForm\Productions\frmMenu.cs">
@@ -453,14 +495,17 @@
     <EmbeddedResource Include="AllForm\NhapKho\frmPhieuNhap.resx">
       <DependentUpon>frmPhieuNhap.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\Other\frmHistory.resx">
+      <DependentUpon>frmHistory.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AllForm\Productions\frmAddProducts.resx">
       <DependentUpon>frmAddProducts.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AllForm\Productions\frmAddUnitAndLoaiBan.resx">
-      <DependentUpon>frmAddUnitAndLoaiBan.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="AllForm\Productions\frmAdjustProducts.resx">
       <DependentUpon>frmAdjustProducts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\Productions\frmOrder.resx">
+      <DependentUpon>frmOrder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AllForm\Productions\frmProducts.resx">
       <DependentUpon>frmProducts.cs</DependentUpon>
@@ -499,8 +544,26 @@
     <EmbeddedResource Include="AllForm\Users\frmUsers.resx">
       <DependentUpon>frmUsers.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\Voucher\frmDSVoucherKH.resx">
+      <DependentUpon>frmDSVoucherKH.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\Voucher\frmAddVoucher.resx">
+      <DependentUpon>frmAddVoucher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\Voucher\frmAdjustVoucher.resx">
+      <DependentUpon>frmAdjustVoucher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\Voucher\frmRandomVoucher.resx">
+      <DependentUpon>frmRandomVoucher.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AllForm\WareHouse\frmDieuChinhKho.resx">
       <DependentUpon>frmDieuChinhKho.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\WareHouse\frmDSachPhieuKK.resx">
+      <DependentUpon>frmDSachPhieuKK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllForm\WareHouse\frmPhieuKiemKe.resx">
+      <DependentUpon>frmPhieuKiemKe.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AllForm\WareHouse\frmThemKhoHang.resx">
       <DependentUpon>frmThemKhoHang.cs</DependentUpon>
@@ -535,10 +598,10 @@
     <EmbeddedResource Include="AllForm\Other\frmSetting.resx">
       <DependentUpon>frmSetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AllForm\Other\frmVoucher.resx">
+    <EmbeddedResource Include="AllForm\Voucher\frmVoucher.resx">
       <DependentUpon>frmVoucher.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AllForm\Other\frmVoucherKhachHang.resx">
+    <EmbeddedResource Include="AllForm\Voucher\frmVoucherKhachHang.resx">
       <DependentUpon>frmVoucherKhachHang.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AllForm\Room\frmPhong.resx">

@@ -137,8 +137,8 @@ namespace SuperProjectQ.AllForm.Other
             }
 
             series.IsValueShownAsLabel = true;
-            series.Font = fontS.tahoma12_Bold;
-            series.LabelForeColor = Color.FromArgb(255, 178, 205);
+            series.Font = fontS.tahoma16_Bold;
+            series.LabelForeColor = Color.White;
             series.LabelFormat = "N0"; // Dùng định dạng kiểu 1,000
 
             //Đổ DataTable vào datasource Chart

@@ -169,7 +169,7 @@
             this.btnAddImage.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
             this.btnAddImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddImage.Image = ((System.Drawing.Image)(resources.GetObject("btnAddImage.Image")));
-            this.btnAddImage.Location = new System.Drawing.Point(737, 37);
+            this.btnAddImage.Location = new System.Drawing.Point(736, 38);
             this.btnAddImage.Name = "btnAddImage";
             this.btnAddImage.Size = new System.Drawing.Size(35, 35);
             this.btnAddImage.TabIndex = 1;
@@ -198,6 +198,7 @@
             // 
             // cmbDanhMuc
             // 
+            this.cmbDanhMuc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDanhMuc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbDanhMuc.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbDanhMuc.FormattingEnabled = true;
@@ -252,7 +253,7 @@
             this.btnThem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(220)))), ((int)(((byte)(0)))));
             this.btnThem.FlatAppearance.BorderSize = 0;
             this.btnThem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnThem.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThem.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThem.ForeColor = System.Drawing.Color.White;
             this.btnThem.Location = new System.Drawing.Point(201, 3);
             this.btnThem.Name = "btnThem";
@@ -269,7 +270,7 @@
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold);
             this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(762, 0);
+            this.btnClose.Location = new System.Drawing.Point(758, 0);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(40, 40);
             this.btnClose.TabIndex = 3;

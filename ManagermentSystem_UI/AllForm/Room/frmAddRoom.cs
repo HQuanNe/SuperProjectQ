@@ -21,7 +21,6 @@ namespace SuperProjectQ.AllForm.Room
 
         ConnectData kn = new ConnectData();
         SqlCommand cmd;
-        DataTable dt;
 
         decimal pricePerHour = 0;
 
@@ -102,6 +101,15 @@ namespace SuperProjectQ.AllForm.Room
         private void cmbLoaiPhong_SelectedIndexChanged(object sender, EventArgs e)
         {
             Price_Load();
+        }
+
+        private void txtFloor_TextChanged(object sender, EventArgs e)
+        {
+            if(!(int.TryParse(txtFloor.Text.Trim(), out int value) && value > 0))
+            {
+                txtFloor.Text = "1";
+                txtFloor.SelectionStart = txtFloor.Text.Length;
+            }
         }
     }
 }

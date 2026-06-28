@@ -36,6 +36,7 @@
             this.TongThanhToan = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TrangThai = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GhiChu = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Confirm = new System.Windows.Forms.DataGridViewImageColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnThemCombo = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
@@ -54,7 +55,8 @@
             this.NgayNhap,
             this.TongThanhToan,
             this.TrangThai,
-            this.GhiChu});
+            this.GhiChu,
+            this.Confirm});
             this.dgvPhieuNhap.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvPhieuNhap.Location = new System.Drawing.Point(2, 82);
             this.dgvPhieuNhap.Name = "dgvPhieuNhap";
@@ -62,12 +64,14 @@
             this.dgvPhieuNhap.RowTemplate.Height = 24;
             this.dgvPhieuNhap.Size = new System.Drawing.Size(1178, 569);
             this.dgvPhieuNhap.TabIndex = 15;
+            this.dgvPhieuNhap.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPhieuNhap_CellClick);
             this.dgvPhieuNhap.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPhieuNhap_CellDoubleClick);
+            this.dgvPhieuNhap.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvPhieuNhap_CellFormatting);
             // 
             // MaPN
             // 
             this.MaPN.DataPropertyName = "MaPN";
-            this.MaPN.FillWeight = 85.47237F;
+            this.MaPN.FillWeight = 91.40926F;
             this.MaPN.HeaderText = "Mã phiếu nhập";
             this.MaPN.MinimumWidth = 6;
             this.MaPN.Name = "MaPN";
@@ -75,7 +79,7 @@
             // TenNV
             // 
             this.TenNV.DataPropertyName = "TenNV";
-            this.TenNV.FillWeight = 187.1658F;
+            this.TenNV.FillWeight = 200.1663F;
             this.TenNV.HeaderText = "Tên nhân viên";
             this.TenNV.MinimumWidth = 6;
             this.TenNV.Name = "TenNV";
@@ -83,7 +87,7 @@
             // NgayNhap
             // 
             this.NgayNhap.DataPropertyName = "NgayNhap";
-            this.NgayNhap.FillWeight = 85.47237F;
+            this.NgayNhap.FillWeight = 91.40926F;
             this.NgayNhap.HeaderText = "Ngày nhập";
             this.NgayNhap.MinimumWidth = 6;
             this.NgayNhap.Name = "NgayNhap";
@@ -91,7 +95,7 @@
             // TongThanhToan
             // 
             this.TongThanhToan.DataPropertyName = "TongThanhToan";
-            this.TongThanhToan.FillWeight = 85.47237F;
+            this.TongThanhToan.FillWeight = 91.40926F;
             this.TongThanhToan.HeaderText = "Tổng thanh toán";
             this.TongThanhToan.MinimumWidth = 6;
             this.TongThanhToan.Name = "TongThanhToan";
@@ -99,7 +103,7 @@
             // TrangThai
             // 
             this.TrangThai.DataPropertyName = "TrangThai";
-            this.TrangThai.FillWeight = 85.47237F;
+            this.TrangThai.FillWeight = 91.40926F;
             this.TrangThai.HeaderText = "Trạng thái";
             this.TrangThai.MinimumWidth = 6;
             this.TrangThai.Name = "TrangThai";
@@ -107,10 +111,20 @@
             // GhiChu
             // 
             this.GhiChu.DataPropertyName = "GhiChu";
-            this.GhiChu.FillWeight = 85.47237F;
+            this.GhiChu.FillWeight = 91.40926F;
             this.GhiChu.HeaderText = "Ghi chú";
             this.GhiChu.MinimumWidth = 6;
             this.GhiChu.Name = "GhiChu";
+            // 
+            // Confirm
+            // 
+            this.Confirm.FillWeight = 57.31505F;
+            this.Confirm.HeaderText = "Xác nhận";
+            this.Confirm.Image = ((System.Drawing.Image)(resources.GetObject("Confirm.Image")));
+            this.Confirm.MinimumWidth = 6;
+            this.Confirm.Name = "Confirm";
+            this.Confirm.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Confirm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // panel1
             // 
@@ -130,7 +144,7 @@
             this.btnThemCombo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(220)))), ((int)(((byte)(0)))));
             this.btnThemCombo.FlatAppearance.BorderSize = 0;
             this.btnThemCombo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnThemCombo.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThemCombo.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThemCombo.ForeColor = System.Drawing.Color.White;
             this.btnThemCombo.Image = ((System.Drawing.Image)(resources.GetObject("btnThemCombo.Image")));
             this.btnThemCombo.Location = new System.Drawing.Point(851, 18);
@@ -145,10 +159,10 @@
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Times New Roman", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(355, 14);
+            this.lblTitle.Font = new System.Drawing.Font("Tahoma", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.Location = new System.Drawing.Point(336, 14);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(472, 53);
+            this.lblTitle.Size = new System.Drawing.Size(510, 53);
             this.lblTitle.TabIndex = 12;
             this.lblTitle.Text = "Danh sách phiếu nhập";
             // 
@@ -184,5 +198,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TongThanhToan;
         private System.Windows.Forms.DataGridViewTextBoxColumn TrangThai;
         private System.Windows.Forms.DataGridViewTextBoxColumn GhiChu;
+        private System.Windows.Forms.DataGridViewImageColumn Confirm;
     }
 }

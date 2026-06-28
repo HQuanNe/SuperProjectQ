@@ -25,13 +25,14 @@ namespace SuperProjectQ.AllForm.KhachHang
 
         private void AddVoucher(string MaKH)
         {
+            int stt = Session.AutoCreateID_Interger("STT", "VoucherKhachHang");
             string sqlAddVoucher = "INSERT INTO VoucherKhachHang(STT, MaKH, MaVoucher, NgayNhan, NgayHetHan, TrangThai) " +
                 "VALUES (@STT, @MKH, 'VCH01', GETDATE(), @NHH, 0)";
             cmd = new SqlCommand(sqlAddVoucher, kn.conn);
             cmd.Parameters.Clear();
-            cmd.Parameters.AddWithValue("@STT", Session.AutoCreateID_Interger("STT", "VoucherKhachHang"));
+            cmd.Parameters.AddWithValue("@STT", stt);
             cmd.Parameters.AddWithValue("@MKH", MaKH);
-            cmd.Parameters.AddWithValue("@NHH", DateTime.Now.Date.AddDays(30));
+            cmd.Parameters.AddWithValue("@NHH", DateTime.Now.AddDays(30));
             cmd.ExecuteNonQuery();
 
         }
@@ -91,6 +92,7 @@ namespace SuperProjectQ.AllForm.KhachHang
                             MessageBox.Show("SĐT phải đủ 10 chữ số");
                             return;
                         }
+                        if (!Session.XuLySDT(txtSDT.Text)) return;
                         string sqlAdd = "INSERT INTO KhachHang(MaKH, TenKH, DiaChi, SoDienThoai, VIP, DiemTichLuy) values (@MaKH, @TenKH, @DiaChi, @SoDienThoai, @VIP, @DiemTichLuy)";
                         cmd = new SqlCommand(sqlAdd, kn.conn);
                         cmd.Parameters.Clear();
@@ -107,8 +109,8 @@ namespace SuperProjectQ.AllForm.KhachHang
 
                         txtMaKH.Text = Session.AutoCreateID_String("MaKH", "KhachHang", "KH");//Load lại mã mới
 
-                        await Task.Delay(2000);
-                        AddVoucher(txtMaKH.Text.Trim());
+                        //await Task.Delay(5000);
+                        //AddVoucher(txtMaKH.Text.Trim());
 
                     }
                     else return;
@@ -127,7 +129,6 @@ namespace SuperProjectQ.AllForm.KhachHang
 
         private void txtSDT_TextChanged(object sender, EventArgs e)
         {
-            if (!Session.XuLySDT(txtSDT.Text)) return;
 
             Session.CustomerData.SoDienThoai = txtSDT.Text;
             txtSDT.SelectionStart = txtSDT.Text.Length;

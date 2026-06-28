@@ -75,7 +75,7 @@
             // btnPopularProd
             // 
             this.btnPopularProd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPopularProd.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPopularProd.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPopularProd.Location = new System.Drawing.Point(836, 27);
             this.btnPopularProd.Name = "btnPopularProd";
             this.btnPopularProd.Size = new System.Drawing.Size(155, 60);
@@ -93,7 +93,7 @@
             this.groupBox1.Controls.Add(this.radBtnQuy);
             this.groupBox1.Controls.Add(this.radBtnYEAR);
             this.groupBox1.Controls.Add(this.radBtnMONTH);
-            this.groupBox1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(418, 94);
@@ -106,7 +106,7 @@
             this.cmbYear.FormattingEnabled = true;
             this.cmbYear.Location = new System.Drawing.Point(137, 51);
             this.cmbYear.Name = "cmbYear";
-            this.cmbYear.Size = new System.Drawing.Size(121, 30);
+            this.cmbYear.Size = new System.Drawing.Size(121, 31);
             this.cmbYear.TabIndex = 5;
             // 
             // cmbQuy
@@ -114,7 +114,7 @@
             this.cmbQuy.FormattingEnabled = true;
             this.cmbQuy.Location = new System.Drawing.Point(10, 51);
             this.cmbQuy.Name = "cmbQuy";
-            this.cmbQuy.Size = new System.Drawing.Size(121, 30);
+            this.cmbQuy.Size = new System.Drawing.Size(121, 31);
             this.cmbQuy.TabIndex = 4;
             // 
             // dtKhoangThoiGian
@@ -128,6 +128,7 @@
             // 
             // btnLoadBieuDo
             // 
+            this.btnLoadBieuDo.Font = new System.Drawing.Font("Tahoma", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLoadBieuDo.Location = new System.Drawing.Point(278, 24);
             this.btnLoadBieuDo.Name = "btnLoadBieuDo";
             this.btnLoadBieuDo.Size = new System.Drawing.Size(134, 60);
@@ -139,10 +140,10 @@
             // radBtnQuy
             // 
             this.radBtnQuy.AutoSize = true;
-            this.radBtnQuy.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radBtnQuy.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radBtnQuy.Location = new System.Drawing.Point(9, 24);
             this.radBtnQuy.Name = "radBtnQuy";
-            this.radBtnQuy.Size = new System.Drawing.Size(58, 23);
+            this.radBtnQuy.Size = new System.Drawing.Size(60, 23);
             this.radBtnQuy.TabIndex = 0;
             this.radBtnQuy.TabStop = true;
             this.radBtnQuy.Text = "Quý";
@@ -152,10 +153,10 @@
             // radBtnYEAR
             // 
             this.radBtnYEAR.AutoSize = true;
-            this.radBtnYEAR.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radBtnYEAR.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radBtnYEAR.Location = new System.Drawing.Point(156, 24);
             this.radBtnYEAR.Name = "radBtnYEAR";
-            this.radBtnYEAR.Size = new System.Drawing.Size(62, 23);
+            this.radBtnYEAR.Size = new System.Drawing.Size(64, 23);
             this.radBtnYEAR.TabIndex = 2;
             this.radBtnYEAR.TabStop = true;
             this.radBtnYEAR.Text = "Năm";
@@ -165,10 +166,10 @@
             // radBtnMONTH
             // 
             this.radBtnMONTH.AutoSize = true;
-            this.radBtnMONTH.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radBtnMONTH.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radBtnMONTH.Location = new System.Drawing.Point(80, 24);
             this.radBtnMONTH.Name = "radBtnMONTH";
-            this.radBtnMONTH.Size = new System.Drawing.Size(70, 23);
+            this.radBtnMONTH.Size = new System.Drawing.Size(75, 23);
             this.radBtnMONTH.TabIndex = 1;
             this.radBtnMONTH.TabStop = true;
             this.radBtnMONTH.Text = "Tháng";
@@ -186,13 +187,14 @@
             this.chartDoanhThu.Name = "chartDoanhThu";
             this.chartDoanhThu.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
             series1.ChartArea = "ChartArea1";
+            series1.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chartDoanhThu.Series.Add(series1);
             this.chartDoanhThu.Size = new System.Drawing.Size(1003, 618);
             this.chartDoanhThu.TabIndex = 2;
             this.chartDoanhThu.Text = "--";
-            title1.Font = new System.Drawing.Font("Times New Roman", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            title1.Font = new System.Drawing.Font("Tahoma", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             title1.Name = "TitleTenBieuDo";
             title1.Text = "Biểu đồ doanh thu";
             this.chartDoanhThu.Titles.Add(title1);

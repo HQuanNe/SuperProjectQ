@@ -1,4 +1,4 @@
-﻿namespace SuperProjectQ.FrmMixed
+﻿namespace SuperProjectQ.AllForm.HoaDon
 {
     partial class frmHoaDon
     {

@@ -33,12 +33,13 @@ namespace SuperProjectQ.AllForm.Room
         ConnectData kn = new ConnectData();
         Session.FontStandard fontS = new Session.FontStandard();
 
-        Form frmDetailTemporary, frmOptionsTemporary;
+        Form frmDetailTemporary = null, frmOptionsTemporary = null;
+        FlowLayoutPanel flpFloor; //Flow panel chứa phòng
         string phong_MaNV = "QTV01"; //Session.MaNV;
         Panel selectedPanel = null; // Lưu trữ panel đang được chọn
         string maPhong = ""; //Mã phòng gán vào name của panel phòng
         int maHD = 0; //Mã hoá đơn gán vào tag của panel phòng
-        bool isActive = false;
+        bool isActive = false; //Phong có đang hoạt động không
 
         string strStatusOpen = "Trạng thái: Đang vận hành";
         string strStatusClose = "Trạng thái: Trống";
@@ -72,7 +73,7 @@ namespace SuperProjectQ.AllForm.Room
                         Name = $"{i}",
                         Text = $"Tầng {i}:",
                     };
-                    FlowLayoutPanel flpFloor = new FlowLayoutPanel()
+                    flpFloor = new FlowLayoutPanel()
                     {
                         Dock = DockStyle.Fill,
                         AutoScrollMinSize = new Size(0, 100),
@@ -81,13 +82,15 @@ namespace SuperProjectQ.AllForm.Room
                     flpRoom.Controls.Add(grFloor);
                 }
             }
-            string sqlPhong = "SELECT * FROM Phong";
+            string sqlPhong = "SELECT p.MaPhong, p.TenPhong, p.MaLoaiPhong, p.Tang, p.TrangThai, p.GhiChu, Booking.GioDatTruoc, Booking.SDT_KhachHang " +
+                "FROM Phong AS p " +
+                "LEFT JOIN Booking ON Booking.MaPhong = p.MaPhong AND Booking.TrangThai = 0";
             dt = new DataTable();
             dt = kn.CreateTable(sqlPhong);
             //duyệt tất cả các phòng
             foreach (DataRow row in dt.Rows)
             {
-                Panel plPhongTam = new Panel() { Width = 0, Height = 0 }; //Panel tạm để lấy vị trí
+                //Panel plPhongTam = new Panel() { Width = 0, Height = 0 }; //Panel tạm để lấy vị trí
                 Panel plPhong = new Panel()
                 {
                     Padding = new Padding(0),
@@ -98,7 +101,7 @@ namespace SuperProjectQ.AllForm.Room
                     Height = SetParameters.plPhong_HEIGHT,
                     Cursor = Cursors.Hand,
                     //Lấy vị trí X phòng tạm cộng với chiều rộng phòng tạm để làm vị trí cho phòng tiếp theo
-                    Location = new Point(plPhongTam.Location.X + plPhongTam.Width, plPhongTam.Location.Y),
+                    //Location = new Point(plPhongTam.Location.X + plPhongTam.Width, plPhongTam.Location.Y),
                     AutoSize = false,
                     AutoSizeMode = AutoSizeMode.GrowOnly,
 
@@ -166,7 +169,7 @@ namespace SuperProjectQ.AllForm.Room
                 plPhong.Click += AllPanels_Click; //Gán sự kiện click cho panel
                 plPhong.DoubleClick += AllPanelPhong_DoubleClick;
 
-                plPhongTam = plPhong;//Cập nhật panel tạm bằng panel vừa tạo xong
+                //plPhongTam = plPhong;//Cập nhật panel tạm bằng panel vừa tạo xong
 
                 //Gán hoá dơn cho phòng tương ứng
                 string sqlCTHD = "SELECT HoaDon.MaPhong, HoaDon.MaHD " +
@@ -210,47 +213,54 @@ namespace SuperProjectQ.AllForm.Room
         } //Thêm đồ đã setup khi mở phòng
         private void Update_Status_Room(int statusInt, string RoomID)
         {
-            string sqlUpdateStatus = null, timeIn = null, timeBooking = null, cusPhoneNumber = Session.CustomerData.SoDienThoai;
-            switch (statusInt)
+            string sqlUpdateStatus = $"UPDATE Phong SET TrangThai = {statusInt} WHERE MaPhong = '{RoomID}'";
+            using (cmd = new SqlCommand(sqlUpdateStatus, kn.conn)) 
             {
-                case 0:
-                    timeIn = "NULL";
-                    timeBooking = "NULL";
-                    cusPhoneNumber = "";
-                    break;
-                case 1:
-                    timeIn = "GETDATE()";
-                    break;
-                case 2:
-                    timeIn = "NULL";
-                    timeBooking = "GETDATE()";
-                    break;
-                default:
-                    break;
+                cmd.ExecuteNonQuery();
             }
-            if (statusInt == 1) sqlUpdateStatus = $"UPDATE Phong SET TrangThai = {statusInt}, GioVao = {timeIn} WHERE MaPhong = '{RoomID}'";
-            else if (statusInt == 2 || statusInt == 0) sqlUpdateStatus = $"UPDATE Phong SET TrangThai = {statusInt}, " +
-                    $"GioVao = {timeIn}, GioDatTruoc = {timeBooking}, SDT_KhachHang = '{cusPhoneNumber}' WHERE MaPhong = '{RoomID}'";
-            cmd = new SqlCommand(sqlUpdateStatus, kn.conn);
-            cmd.ExecuteNonQuery();
         } //Cập nhật trạng thái phòng
-        
+        private void CreateOrUpdate_Booking(bool isBooking, int statusInt, string RoomID)
+        {
+            if (isBooking)
+            {
+                string sqlInsertBooking = $"INSERT INTO Booking (MaPhong, GioDatTruoc, TrangThai, SDT_KhachHang) VALUES ('{RoomID}', GETDATE(), {statusInt}, '{Session.CustomerData.SoDienThoai}')";
+                using (cmd = new SqlCommand(sqlInsertBooking, kn.conn))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            else
+            {
+                string sqlInsertBooking = $"UPDATE Booking SET TrangThai = {statusInt} WHERE MaPhong = '{RoomID}' AND TrangThai = 0";
+                using (cmd = new SqlCommand(sqlInsertBooking, kn.conn))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        } //Cập nhật đặt trước 0: chưa đến, 1: đã đến và dùng, 2: huỷ
+        private bool InspectBooking(string RoomID)
+        {
+            dt = new DataTable();
+            dt = kn.CreateTable($"SELECT TrangThai FROM Booking WHERE MaPhong = '{RoomID}' AND TrangThai = 0");
+            if (dt.Rows.Count > 0)
+            {
+                return true;
+            }
+            return false;
+        }//Kiểm tra phòng chuẩn bị mở có đặt trước không
         private void UpdatePrice(bool OnBooking, string RoomID) // Cập nhật giá theo ngày đặc biệt
         {
             string phongThuong = null, phongVIP = null, sqlUpdatePrice = null;
-            string ngayLe = DateTime.Now.ToString("dd/MM");
-            Dictionary<string, string> danhSachNgayLe = new Dictionary<string, string>()
+            string today = DateTime.Now.ToString("dd/MM");
+
+            Dictionary<string, string> danhSachNgayLe = new Dictionary<string, string>();
+            dt = new DataTable();
+            dt = kn.CreateTable("SELECT * FROM Holiday");
+            foreach(DataRow r in dt.Rows)
             {
-                { "01/01", "Tết Dương Lịch" },
-                { "8/03", "Quốc tế phụ nữ" },
-                { "30/04", "Giải phóng miền Nam" },
-                { "01/05", "Quốc tế Lao động" },
-                { "02/09", "Quốc khánh" },
-                { "20/10", "Phụ nữ VN" },
-                { "20/11", "Nhà Giáo VN" },
-                { "25/12", "Giáng sinh" },
-                {"21/01", "Ngày thử nghiệm" }
-            };
+                danhSachNgayLe.Add(r["Ngay"].ToString(), r["MoTa"].ToString());
+            }
+
             List<string> arrRegular = new List<string>();
             List<string> arrVIP = new List<string>();
 
@@ -259,23 +269,20 @@ namespace SuperProjectQ.AllForm.Room
             dt = kn.CreateTable(sqlMaPhong);
 
             //Phân phòng vào mảng theo loại Regular và VIP
-            foreach (DataRow dr in dt.Rows )
+            string maLoaiPhong = dt.Rows[0]["MaLoaiPhong"].ToString();
+            string maPhong = dt.Rows[0]["MaPhong"].ToString();
+            if (maLoaiPhong.Contains("LPR"))
             {
-                string maLoaiPhong = dr["MaLoaiPhong"].ToString();
-                string maPhong = dr["MaPhong"].ToString();
-                if (maLoaiPhong.Contains("LPR"))
-                {
-                    arrRegular.Add(maPhong);
-                }
-                else if (maLoaiPhong.Contains("LPV"))
-                {
-                    arrVIP.Add(maPhong);
-                }
+                arrRegular.Add(maPhong);
+            }
+            else if (maLoaiPhong.Contains("LPV"))
+            {
+                arrVIP.Add(maPhong);
             }
             //Điều kiện khi đặt trước
             if (OnBooking)
             {
-                if (danhSachNgayLe.ContainsKey(ngayLe))
+                if (danhSachNgayLe.ContainsKey(today))
                 {
                     phongThuong = "LPR05";
                     phongVIP = "LPV05";
@@ -297,7 +304,7 @@ namespace SuperProjectQ.AllForm.Room
             //Điều kiện giá không đặt trước
             else
             {
-                if (danhSachNgayLe.ContainsKey(ngayLe))
+                if (danhSachNgayLe.ContainsKey(today))
                 {
                     phongThuong = "LPR02";
                     phongVIP = "LPV02";
@@ -335,25 +342,16 @@ namespace SuperProjectQ.AllForm.Room
         {
             try
             {
-                string sqlPhong = $"SELECT GioVao FROM Phong WHERE MaPhong = '{RoomID}'";
-                dt = new DataTable();
-                dt = kn.CreateTable(sqlPhong);
-                foreach (DataRow dr in dt.Rows)
-                {
-                    DateTime DateTimIn = Convert.ToDateTime(dr["GioVao"].ToString());
-
-                    //Thêm hoá đơn
-                    string sqlHD = $"INSERT INTO HoaDon(MaHD, MaPhong, MaNV, GioVao, TrangThai) " +
-                                    $"VALUES (@MHD, @MP, @MNV, @GV, @TT)";
-                    cmd = new SqlCommand(sqlHD, kn.conn);
-                    cmd.Parameters.Clear();
-                    cmd.Parameters.AddWithValue("@MHD", billID);
-                    cmd.Parameters.AddWithValue("@MP", RoomID);
-                    cmd.Parameters.AddWithValue("@MNV", phong_MaNV);
-                    cmd.Parameters.AddWithValue("@GV", DateTimIn);
-                    cmd.Parameters.AddWithValue("@TT", 0);
-                    cmd.ExecuteNonQuery();
-                }
+                //Thêm hoá đơn
+                string sqlHD = $"INSERT INTO HoaDon(MaHD, MaPhong, MaNV, GioVao, TrangThai) " +
+                                $"VALUES (@MHD, @MP, @MNV, GETDATE(), @TT)";
+                cmd = new SqlCommand(sqlHD, kn.conn);
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@MHD", billID);
+                cmd.Parameters.AddWithValue("@MP", RoomID);
+                cmd.Parameters.AddWithValue("@MNV", phong_MaNV);
+                cmd.Parameters.AddWithValue("@TT", 0);
+                cmd.ExecuteNonQuery();
             }
             catch (SqlException ex)
             {
@@ -377,7 +375,7 @@ namespace SuperProjectQ.AllForm.Room
                     cmd.Parameters.AddWithValue("@TDV", Session.BillData.TongTienDV);
                     cmd.Parameters.AddWithValue("@TT", Session.BillData.TongTien);
                     cmd.Parameters.AddWithValue("@TKVIP", Session.BillData.DiscountVIP);
-                    cmd.Parameters.AddWithValue("@TKV", Session.BillData.DiscountVoucher);
+                    cmd.Parameters.AddWithValue("@TKV", Session.VoucherData.giamVoucher);
                     cmd.Parameters.AddWithValue("@VAT", Session.BillData.TienVAT);
                     cmd.Parameters.AddWithValue("@TTT", Session.BillData.TongThanhToan);
                     cmd.Parameters.AddWithValue("@PTTT", Session.BillData.PTTT);
@@ -459,7 +457,7 @@ namespace SuperProjectQ.AllForm.Room
             Session.CustomerData.SoDienThoai = data.phoneNumber;
             maPhong = selectedPanel.Name;
             Session.RoomData.maPhong = maPhong;
-            Console.WriteLine($"frmPhong - MaPhong: \n{maPhong} MaHD Phong: {maHD}");
+            Console.WriteLine($"frmPhong - MaPhong: \n{Session.RoomData.maPhong} MaHD Phong: {maHD}");
             Session.RoomData.tenPhong = clickedPanel.Controls[0].Text.ToString();
 
             if (isActive)
@@ -479,7 +477,6 @@ namespace SuperProjectQ.AllForm.Room
                 if (frmDetailTemporary != null) Session.FreeUpMemoryForm(frmDetailTemporary);
                 frmRoomDetails details = new frmRoomDetails();
                 details.FormBorderStyle = FormBorderStyle.None;
-
                 details.FormClosed += (s, e) =>
                 {
                     if (Session.BillData.isPay)
@@ -492,6 +489,8 @@ namespace SuperProjectQ.AllForm.Room
                         //Cập nhật hoá đơn bill
                         Update_Bill(maHD, maPhong);
                         Update_Status_Room(0, maPhong);
+                        Session.RoomData.UpdateBookingStatus(maPhong);
+                        Session.BillData.isPay = false;
                     }
                 };
                 details.ShowDialog();
@@ -511,7 +510,7 @@ namespace SuperProjectQ.AllForm.Room
 
                     switch (Session.RoomData.status)
                     {
-                        case 1:
+                        case 1: //Mở
                             //Đổi màu, thời gian, chữ
                             selectedPanel.BackColor = clrStatusOpen;
                             selectedPanel.Controls[1].Text = strStatusOpen;
@@ -526,25 +525,31 @@ namespace SuperProjectQ.AllForm.Room
                             StatusCheck(maPhong);
                             Update_Status_Room(1, maPhong);
                             Add_Bill(initMaHD, maPhong);
+
+                            if (InspectBooking(maPhong))
+                            {
+                                CreateOrUpdate_Booking(false, 1, maPhong);
+                            }
                             //DoCoSan(billID);
 
                             isActive = true;
                             break;
-                        case 2:
-                            //Đổi màu, thời gian,
+                        case 2: //đăt truóc
+                            if (InspectBooking(maPhong)) break;
                             selectedPanel.BackColor = clrStatusBooking;
                             selectedPanel.Controls[1].Text = strStatusBooking;
 
                             Update_Status_Room(2, maPhong);
                             UpdatePrice(true, maPhong);
+                            CreateOrUpdate_Booking(true, 0, maPhong);
                             break;
-                        case 3:
-                            //Đổi màu, thời gian,
+                        case 3: //huỷ booking
                             selectedPanel.BackColor = clrStatusClose;
                             selectedPanel.Controls[1].Text = strStatusClose;
 
                             Update_Status_Room(0, maPhong);
                             UpdatePrice(false, maPhong);
+                            CreateOrUpdate_Booking(false, 2, maPhong);
                             break;
                         default:
                             break;
@@ -552,7 +557,7 @@ namespace SuperProjectQ.AllForm.Room
                 }
                 catch (SqlException ex)
                 {
-                    MessageBox.Show("frmPhong - Lỗi: \n" + ex.Message);
+                    MessageBox.Show("frmPhong - AllPanelPhong_DoubleClick \nLỗi: \n" + ex.Message);
                     return;
                 }
             }
@@ -608,12 +613,25 @@ namespace SuperProjectQ.AllForm.Room
 
                 LoadPhong();
                 Info_Load();
+                switch (Session.StaffData.QuyenHan)
+                {
+                    case "QH001":
+                        break;
+                    case "QH002":
+                        break;
+                    case "QH005":
+                        btnListRoom.Visible = false;
+                        break;
+                    default:
+                        break;
+                }
 
                 maPhong = null; //null để khi chưa chọn phòng nào sẽ không thao tác được
             }
             catch (SqlException ex)
             {
                 MessageBox.Show("Lỗi CSDL \nLỗi: " + ex.Message);
+                return;
             }
         } //Load dữ liệu 
         private void tabCtrlRoom_SelectedIndexChanged(object sender, EventArgs e)
@@ -644,6 +662,43 @@ namespace SuperProjectQ.AllForm.Room
             using (frmMenu order = new frmMenu())
             {
                 order.ShowDialog();
+            }
+        }
+        private void lblStatus_Click(object sender, EventArgs e)
+        {
+            Label lblclick = sender as Label;
+            foreach (Control floor in flpRoom.Controls)
+            {
+                foreach (Control room in floor.Controls[0].Controls)
+                {
+                    using (cmd = new SqlCommand())
+                    {
+                        cmd.Connection = kn.conn;
+                        cmd.CommandText = $"SELECT TrangThai FROM Phong WHERE MaPhong = '{room.Name}'";
+
+                        var trangThai = cmd.ExecuteScalar();
+                        if (trangThai == null || trangThai == DBNull.Value) return;
+
+                        switch (lblclick.Name)
+                        {
+                            case "lblEmptyRoom":
+                                if (Convert.ToInt16(trangThai) == 0) room.Visible = true;
+                                else room.Visible = false;
+                                break;
+                            case "lblActiveRoom":
+                                if (Convert.ToInt16(trangThai) == 1) room.Visible = true;
+                                else room.Visible = false;
+                                break;
+                            case "lblBookingRoom":
+                                if (Convert.ToInt16(trangThai) == 2) room.Visible = true;
+                                else room.Visible = false;
+                                break;
+                            default:
+                                break;
+                        }
+
+                    }
+                }
             }
         }
     }

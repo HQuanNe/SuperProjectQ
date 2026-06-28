@@ -27,6 +27,18 @@ namespace SuperProjectQ.AllForm.Productions
             cmbProdInStorage.DisplayMember = "TenSP";
             cmbProdInStorage.ValueMember = "MaSP_Kho";
         }//Load sản phẩm đang ở trong kho
+        private void CmbLoaiBan_Load()
+        {
+            cmbLoaiBan.DataSource = kn.CreateTable("SELECT MaLoaiBan, TenLoai FROM LoaiBan");
+            cmbLoaiBan.DisplayMember = "TenLoai";
+            cmbLoaiBan.ValueMember = "MaLoaiBan";
+        }
+        private void CmbUnit_Load()
+        {
+            cmbUnit.DataSource = kn.CreateTable("SELECT MaDVT, TenDVT FROM DVTSanPham");
+            cmbUnit.DisplayMember = "TenDVT";
+            cmbUnit.ValueMember = "MaDVT";
+        }
         private void Products_Load()
         {
             try
@@ -38,9 +50,9 @@ namespace SuperProjectQ.AllForm.Productions
 
                     cmbProdInStorage.SelectedValue = dt.Rows[0]["MaSP_Kho"].ToString();
                     txtTenMatHang.Text = dt.Rows[0]["TenMatHang"].ToString();
-                    cmbLoaiBan.SelectedIndex = Convert.ToInt32(dt.Rows[0]["LoaiBan"]);
+                    cmbLoaiBan.SelectedValue = Convert.ToInt32(dt.Rows[0]["LoaiBan"]);
                     txtDinhLuongOrSoLuong.Text = dt.Rows[0]["DinhLuong"].ToString();
-                    cmbUnit.SelectedItem = dt.Rows[0]["DonViTinh"].ToString();
+                    cmbUnit.SelectedValue = dt.Rows[0]["DonViTinh"].ToString();
                     txtGiaBan.Text = dt.Rows[0]["GiaBan"].ToString();
                     txtGhiChu.Text = dt.Rows[0]["GhiChu"].ToString();
                 }
@@ -50,24 +62,6 @@ namespace SuperProjectQ.AllForm.Productions
                 MessageBox.Show("frmAdjustproducts - Products_Load() Lỗi: \n" + ex.Message);
                 return;
             }
-        }
-        private void CmbLoaiBan_Load()
-        {
-            string[] arrLoaiBan = Session.DSLoaiBan.Split(',');
-            foreach(string loaiBan in arrLoaiBan)
-            {
-                cmbLoaiBan.Items.Add(loaiBan);
-            }
-            cmbLoaiBan.SelectedIndex = 0;
-        }
-        private void CmbUnit_Load()
-        {
-            string[] arrUnit = Session.unit.Split(',');
-            foreach (string unit in arrUnit)
-            {
-                cmbUnit.Items.Add(unit);
-            }
-            cmbUnit.SelectedIndex = 0;
         }
         private void frmAdjustProducts_Load(object sender, EventArgs e)
         {
@@ -143,8 +137,8 @@ namespace SuperProjectQ.AllForm.Productions
                         cmd.ExecuteNonQuery();
 
                         MessageBox.Show($"Đã xoá");
+                        this.Close();
                     }
-                    ;
                 }
             }
             catch (Exception ex)

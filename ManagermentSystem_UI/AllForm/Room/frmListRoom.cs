@@ -26,7 +26,7 @@ namespace SuperProjectQ.AllForm.Room
         private void ListRoom_Load()
         {
             string sqlRoom = "SELECT p.MaPhong, p.TenPhong, LoaiPhong.TenLoaiPhong, p.Tang, p.TrangThai, " +
-                "p.GioVao, p.GioDatTruoc, p.SDT_KhachHang, p.GhiChu FROM Phong as p " +
+                " p.GhiChu FROM Phong as p " +
                 "INNER JOIN LoaiPhong ON LoaiPhong.MaLoaiPhong = p.MaLoaiPhong " +
                 "WHERE p.TrangThai = 0 ORDER BY p.TenPhong ASC";
 
